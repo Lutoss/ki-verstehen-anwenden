@@ -9,7 +9,7 @@ eigenen kleinen KI-Projekt: verständlich, werkzeugorientiert und ohne
 Fachjargon. Als Haupttool dient ChatGPT, stellvertretend für vergleichbare
 KI-Assistenten.
 
-**➡️ Live-Website:** https://lutoss.github.io/vhs-ki-kurs/
+**➡️ Live-Website:** https://lutoss.github.io/ki-verstehen-anwenden/
 
 ---
 
@@ -40,21 +40,21 @@ Vergleich verschiedener Layoutrichtungen. Details in
 
 ## Nutzung
 
-**Online:** Über die [Live-Website](https://lutoss.github.io/vhs-ki-kurs/) direkt im Browser öffnen.
+**Online:** Über die [Live-Website](https://lutoss.github.io/ki-verstehen-anwenden/) direkt im Browser öffnen.
 
 **Lokal:** Repository herunterladen und die gewünschte `.html`-Datei per
 Doppelklick im Browser öffnen — keine Installation, kein Server nötig.
 
 ```bash
-git clone https://github.com/Lutoss/vhs-ki-kurs.git
-cd vhs-ki-kurs
+git clone https://github.com/Lutoss/ki-verstehen-anwenden.git
+cd ki-verstehen-anwenden
 # index.html oder kurs/teil-1-orientierung.html im Browser öffnen
 ```
 
 ## Aufbau des Repos
 
 ```
-vhs-ki-kurs/
+ki-verstehen-anwenden/
 ├── index.html                       Startseite (verlinkt alles)
 ├── kurs/
 │   ├── teil-1-orientierung.html     Teil 1 — Orientierung
