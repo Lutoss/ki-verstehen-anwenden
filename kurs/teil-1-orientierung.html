@@ -1,0 +1,2625 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KI verstehen und anwenden — Teil 1 (V31)</title>
+  <link rel="icon" href="data:,">
+  <style>
+    /* V31 "Abendwerkstatt": Hauptfassung. Basis V30, Review-Runde 3 vom 05.07.2026 (Fokus Live-Tauglichkeit + Aktualität).
+       Neu in V31: Cross-Links auf Teil 2 V15 und Zusatzlinks V28, Versionslabels konsistent V31, beforeprint-Handler für
+       eingeklappte Nachschlage-Blöcke (details.fold), Faktenkorrekturen Stand Juli 2026 (Claude-Effort vier Stufen,
+       ChatGPT Plus-Instant 32K, Gemini 3 Flash, Preis-Spanne 20-23 EUR, Free-Fenster-Disclaimer geschärft).
+       Aus Review-Runde 2 (frühere V29):
+       Neu in V29: einheitliche Dumb-Zone-Faustregel (~40 % / ~100.000 Token), Context-Rot-Begründung über
+       Aufmerksamkeit statt Rechenlast, Produkt-Gedächtnis- und Systemprompt-Kästen in M3, Sortier-Übung in 01.02,
+       Vorher/Nachher vor dem Baukasten (04.02/04.03 getauscht), Selbst-Check vor der Pause, Cutoff-Zeitleiste,
+       eingeklappte Nachschlage-Tabellen (details.fold), Skill-Anatomie in drei Teilen (deckungsgleich mit Teil 2).
+       Dunkler Keynote-Look als Standard, helles Theme per Umschalter oben
+       (Wahl wird lokal gespeichert, Druck ist immer hell). Farben tragen Bedeutung:
+       Petrol = verstehen/positiv · Blau = arbeiten/Aktion · Amber = prüfen/Vorsicht
+       Rose = Grenze/Dumb Zone · Violett = Skills/Ausblick.
+       Modulgruppen: #m1-#m3 Verstehen (petrol) · #m4-#m8 Werkzeuge (blau) · #m9 Ausblick (violett). */
+    :root {
+      color-scheme: dark;
+      --paper: #10151d;
+      --surface: #171e29;
+      --surface-soft: #1d2735;
+      --deep: #0b0f15;
+      --ink: #eef3f8;
+      --muted: #a3b2c5;
+      --line: #2c3850;
+      --teal: #2dd4bf;
+      --teal-soft: #123a38;
+      --blue: #6aa9ff;
+      --blue-soft: #16283f;
+      --amber: #fbbf24;
+      --amber-soft: #3a2f10;
+      --rose: #fb7185;
+      --rose-soft: #3d1a22;
+      --violet: #b39dfa;
+      --violet-soft: #2a2344;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+      --radius: 10px;
+      --teal-contrast: #06211f;
+      --blue-contrast: #071c33;
+      --amber-contrast: #2b1f03;
+      --violet-contrast: #1d1438;
+      --code-ink: #d9e6f2;
+      --topbar-bg: rgba(11, 15, 21, 0.92);
+      --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    /* Helles Theme ("Tageswerkstatt"): gleiche Bedeutungsfarben, helle Flächen. */
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --paper: #eef1f6;
+      --surface: #ffffff;
+      --surface-soft: #f5f7fa;
+      --deep: #e7ebf1;
+      --ink: #14181c;
+      --muted: #4a555e;
+      --line: #c8d0d8;
+      --teal: #0f766e;
+      --teal-soft: #ddf0ec;
+      --blue: #1d4ed8;
+      --blue-soft: #e6eeff;
+      --amber: #b45309;
+      --amber-soft: #fdf0d5;
+      --rose: #be3455;
+      --rose-soft: #fce4ea;
+      --violet: #6d4fc9;
+      --violet-soft: #ece7fb;
+      --shadow: 0 12px 32px rgba(20, 30, 45, 0.1);
+      --teal-contrast: #ffffff;
+      --blue-contrast: #ffffff;
+      --amber-contrast: #ffffff;
+      --violet-contrast: #ffffff;
+      --code-ink: #1d2733;
+      --topbar-bg: rgba(255, 255, 255, 0.92);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 1.06rem;
+      line-height: 1.6;
+      letter-spacing: 0;
+    }
+
+    a { color: var(--teal); }
+    img { max-width: 100%; display: block; }
+    button, input, textarea { font: inherit; }
+    :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 3vw, 2rem);
+      background: var(--topbar-bg);
+      border-bottom: 2px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      min-width: 0;
+    }
+
+    .brand strong { font-size: 1rem; letter-spacing: 0.01em; }
+    .brand span { color: var(--muted); font-size: 0.82rem; }
+
+    .top-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .button {
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      color: var(--ink);
+      padding: 0.55rem 0.8rem;
+      min-height: 2.4rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .button.primary {
+      background: var(--teal);
+      color: var(--teal-contrast);
+      border-color: var(--teal);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+      gap: clamp(1rem, 2vw, 2rem);
+      width: min(1520px, 100%);
+      margin: 0 auto;
+      padding: clamp(1rem, 2vw, 2rem);
+    }
+
+    .rail {
+      position: sticky;
+      top: 5rem;
+      align-self: start;
+      display: grid;
+      gap: 0.8rem;
+      max-height: calc(100vh - 6rem);
+      overflow: auto;
+    }
+
+    .panel, .toc, .progress-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .progress-panel { padding: 1rem; display: grid; gap: 0.8rem; }
+    .progress-number { font-size: 2.2rem; font-weight: 850; line-height: 1; color: var(--teal); }
+    .progress-panel p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+    .bar {
+      height: 0.65rem;
+      background: var(--deep);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .bar i {
+      display: block;
+      height: 100%;
+      width: var(--pct, 0%);
+      background: var(--teal);
+    }
+
+    .toc { padding: 0.8rem; }
+    .toc strong { display: block; margin: 0 0 0.5rem; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.09em; color: var(--muted); }
+    .toc a {
+      display: block;
+      padding: 0.5rem 0.6rem;
+      border-radius: 7px;
+      border-left: 3px solid transparent;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+    .toc a:hover { background: var(--surface-soft); color: var(--ink); border-left-color: var(--teal); }
+
+    .content { display: grid; gap: clamp(1.1rem, 2vw, 1.6rem); min-width: 0; }
+    .hero {
+      padding: clamp(1.6rem, 3.4vw, 3rem);
+      display: grid;
+      gap: 1.2rem;
+      overflow: hidden;
+      background: var(--deep);
+      border-color: var(--line);
+    }
+
+    .eyebrow, .kicker, .meta-label {
+      margin: 0;
+      color: var(--teal);
+      font-size: 0.8rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    h1, h2, h3, h4 { letter-spacing: -0.01em; line-height: 1.1; margin: 0; }
+    h1 { max-width: 980px; font-size: clamp(2.2rem, 5vw, 4.8rem); font-weight: 850; }
+    h2 { font-size: clamp(1.7rem, 2.8vw, 2.9rem); font-weight: 800; }
+    h3 { font-size: clamp(1.25rem, 1.9vw, 1.7rem); font-weight: 750; }
+    h4 { font-size: 1.05rem; }
+    p { margin: 0; }
+    ul, ol { margin: 0; padding-left: 1.2rem; }
+
+    .hero-lede {
+      max-width: 920px;
+      font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+      color: var(--muted);
+    }
+
+    .hero-grid, .plan-grid, .card-grid, .source-grid, .skill-grid, .worksheet-grid, .quiz-grid {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .hero-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .plan-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .source-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .card-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .skill-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .worksheet-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .quiz-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .quiz-card { padding: 0.9rem; display: grid; gap: 0.5rem; justify-items: start; align-content: start; }
+
+    .prompt-box, .activity, .note, .check-card, .quiz-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
+    }
+
+    .metric {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      display: grid;
+      gap: 0.2rem;
+    }
+    .metric b { font-size: 2rem; line-height: 1; color: var(--teal); }
+    .metric span { color: var(--muted); font-size: 0.9rem; }
+
+    .plan-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+    .plan-card b, .block b, .skill-card b, .worksheet-field b, .check-card b, .quiz-card b { font-size: 1.02rem; }
+    .prompt-box small, .activity small, .note small { color: var(--muted); }
+    .source-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--teal);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: grid;
+      gap: 0.4rem;
+      align-content: start;
+      text-decoration: none;
+      color: inherit;
+    }
+    .source-card span { color: var(--muted); font-size: 0.95rem; }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--violet);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: grid;
+      gap: 0.35rem;
+      align-content: start;
+    }
+    .skill-card small {
+      color: var(--muted);
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+    }
+    .source-card small {
+      color: var(--muted);
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .badge.shown { background: var(--teal); border-color: var(--teal); color: var(--teal-contrast); }
+    .badge.mention { background: var(--violet-soft); border-color: var(--violet); color: var(--violet); }
+
+    .section {
+      padding: clamp(1.3rem, 2.6vw, 2.2rem);
+      display: grid;
+      gap: 1.1rem;
+      border-top: 4px solid var(--blue);
+    }
+    #m1, #m2, #m3 { border-top-color: var(--teal); }
+    #m1 .kicker, #m2 .kicker, #m3 .kicker { color: var(--teal); }
+    #m4 .kicker, #m5 .kicker, #m6 .kicker, #m7 .kicker, #m8 .kicker { color: var(--blue); }
+    #m9 { border-top-color: var(--violet); }
+    #m9 .kicker { color: var(--violet); }
+    #refs { border-top-color: var(--line); }
+    .section-head { display: grid; gap: 0.5rem; max-width: 980px; }
+    .section-head p { color: var(--muted); font-size: 1.05rem; }
+
+    .lesson {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.1rem;
+      background: var(--surface-soft);
+    }
+    .lesson-side { display: grid; gap: 0.45rem; align-content: start; }
+    .lesson-number { font-family: var(--font-mono); font-weight: 700; color: var(--muted); font-size: 0.95rem; }
+    .track {
+      display: inline-block;
+      justify-self: start;
+      padding: 0.18rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--teal);
+      color: var(--teal-contrast);
+    }
+    .track.demo { background: var(--amber); color: var(--amber-contrast); }
+    .track.uebung { background: var(--blue); color: var(--blue-contrast); }
+    .track.deep { background: var(--violet); color: var(--violet-contrast); }
+    .done-button {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 0.35rem 0.5rem;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .done-button[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: var(--teal-contrast); }
+    .lesson-body { display: grid; gap: 0.9rem; min-width: 0; }
+    .lesson-body > p { color: var(--ink); max-width: 940px; }
+
+    .blocks { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.9rem; }
+    .block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      display: grid;
+      gap: 0.35rem;
+      align-content: start;
+    }
+    .block.accent-teal { border-left-color: var(--teal); background: var(--teal-soft); }
+    .block.accent-blue { border-left-color: var(--blue); background: var(--blue-soft); }
+    .block.accent-amber { border-left-color: var(--amber); background: var(--amber-soft); }
+    .block.accent-rose { border-left-color: var(--rose); background: var(--rose-soft); }
+    .block.accent-violet { border-left-color: var(--violet); background: var(--violet-soft); }
+    .block p, .skill-card p, .check-card p, .quiz-card p { color: var(--muted); font-size: 0.98rem; }
+
+    .workflow { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.7rem; }
+    .workflow div {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 0.8rem;
+      display: grid;
+      gap: 0.3rem;
+      align-content: start;
+    }
+    .workflow b { font-size: 0.98rem; }
+    .workflow span { color: var(--muted); font-size: 0.9rem; }
+
+    .zone-meter { display: grid; gap: 0.7rem; }
+    .zone-track {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .zone-segment { padding: 1rem; display: grid; gap: 0.3rem; align-content: start; }
+    .zone-segment.smart { background: var(--teal-soft); border-right: 3px dashed var(--rose); }
+    .zone-segment.dumb { background: var(--rose-soft); }
+    .zone-segment b { font-size: 1.1rem; }
+    .zone-segment.smart b { color: var(--teal); }
+    .zone-segment.dumb b { color: var(--rose); }
+    .zone-segment span { color: var(--muted); font-size: 0.95rem; }
+    .zone-rule { color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--rose); border-radius: var(--radius); padding: 0.8rem; }
+
+    .summary-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.7rem; }
+    .summary-strip div {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 0.8rem;
+      display: grid;
+      gap: 0.25rem;
+      align-content: start;
+    }
+    .summary-strip b { font-size: 0.98rem; }
+    .summary-strip span { color: var(--muted); font-size: 0.9rem; }
+
+    .source-ladder {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+    .source-ladder ol { display: grid; gap: 0.4rem; }
+    .source-ladder li { color: var(--muted); }
+
+    .activity { padding: 0.9rem; display: grid; gap: 0.4rem; border-left: 4px solid var(--amber); }
+    .activity strong { color: var(--amber); }
+
+    .prompt-box { overflow: hidden; }
+    .prompt-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 0.55rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .prompt-box small { font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; font-size: 0.72rem; }
+    .prompt-box pre {
+      margin: 0;
+      padding: 1rem;
+      background: var(--deep);
+      color: var(--code-ink);
+      font-family: var(--font-mono);
+      font-size: 0.98rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .copy-button {
+      border: 1px solid var(--teal);
+      background: transparent;
+      color: var(--teal);
+      border-radius: 8px;
+      padding: 0.3rem 0.6rem;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .note { padding: 0.9rem; display: grid; gap: 0.3rem; border-left: 4px solid var(--blue); }
+
+    .worksheet-field {
+      background: var(--surface);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      display: grid;
+      gap: 0.45rem;
+      align-content: start;
+    }
+    .worksheet-field span { color: var(--muted); font-size: 0.9rem; }
+    .lines { display: grid; gap: 0.75rem; margin-top: 0.35rem; }
+    .lines i { display: block; border-bottom: 1px solid var(--line); height: 0.9rem; }
+
+    .pause-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 1.1rem 1.4rem;
+      border: 1px solid var(--amber);
+      border-radius: var(--radius);
+      background: var(--amber-soft);
+    }
+    .pause-banner b { font-size: 1.3rem; color: var(--amber); }
+    .pause-banner span { color: var(--muted); }
+
+    .fact-table { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+    .fact-table th, .fact-table td { text-align: left; padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .fact-table th { color: var(--muted); text-transform: uppercase; font-size: 0.74rem; letter-spacing: 0.08em; }
+    .fact-table small { color: var(--muted); }
+    .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+
+    .viz {
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--deep);
+      padding: 1rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+    .viz-head { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; }
+    .viz-head strong { font-size: 1.12rem; }
+    .viz-tag {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: var(--violet-soft);
+      color: var(--violet);
+      border: 1px solid var(--violet);
+      font-size: 0.72rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .viz-note { color: var(--muted); font-size: 0.88rem; }
+    .viz-note a { color: var(--teal); }
+
+    .token-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      padding: 0.7rem 0.8rem;
+      font-size: 1.05rem;
+    }
+    .token-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; min-height: 2.4rem; }
+    .token-chip {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      padding: 0.28rem 0.5rem;
+      border-radius: 7px;
+      border: 1px solid transparent;
+      color: #0b0f15;
+      font-weight: 700;
+      white-space: pre;
+    }
+    .token-chip.t0 { background: #7fd8cd; }
+    .token-chip.t1 { background: #a5c4ff; }
+    .token-chip.t2 { background: #ffd97a; }
+    .token-chip.t3 { background: #ffa3b5; }
+    .token-chip.t4 { background: #cdbcff; }
+    .token-stats { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+    .token-stats b { font-size: 1.5rem; color: var(--teal); }
+    .token-stats span { color: var(--muted); font-size: 0.9rem; display: block; }
+
+    .ctx-group { display: grid; gap: 0.45rem; }
+    .ctx-group > small { color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800; font-size: 0.72rem; }
+    .ctx-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .ctx-chip {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+    .ctx-chip[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: var(--blue-contrast); }
+    .ctx-chip.win[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: var(--teal-contrast); }
+    .ctx-meter {
+      position: relative;
+      height: 2.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: linear-gradient(90deg, var(--teal-soft) 0%, var(--teal-soft) var(--dumb-pct, 40%), var(--rose-soft) var(--dumb-pct, 40%), var(--rose-soft) 100%);
+      overflow: hidden;
+    }
+    .ctx-fill { position: absolute; inset: 0 auto 0 0; width: 0%; background: var(--teal); opacity: 0.85; transition: width 0.25s ease; }
+    .ctx-meter.dumb .ctx-fill { background: var(--rose); }
+    .ctx-marker { position: absolute; top: 0; bottom: 0; left: var(--dumb-pct, 40%); border-left: 3px dashed var(--rose); }
+    .ctx-marker span {
+      position: absolute;
+      top: 0.2rem;
+      left: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--rose);
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .ctx-scale { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.82rem; }
+    .ctx-status { font-size: 1.05rem; font-weight: 750; }
+    .ctx-status.smart { color: var(--teal); }
+    .ctx-status.dumb { color: var(--rose); }
+
+    .conn-viz { display: grid; gap: 0.7rem; }
+    .conn-viz svg { width: 100%; height: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+    .conn-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .conn-controls label { color: var(--muted); font-size: 0.92rem; font-weight: 700; }
+    .conn-controls input[type="range"] { flex: 1 1 220px; accent-color: var(--teal); }
+    .conn-count b { font-size: 1.5rem; color: var(--rose); }
+    .conn-count span { color: var(--muted); font-size: 0.9rem; display: block; }
+    .conn-formula { font-family: var(--font-mono); color: var(--muted); font-size: 0.92rem; }
+
+    .think-steps { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+    .think-step {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 0.5rem 0.85rem;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .think-step[aria-pressed="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-contrast); }
+    .think-panel { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
+    .think-panel .block b { font-size: 0.95rem; }
+    .think-panel .block p { font-size: 0.95rem; }
+    .think-map { color: var(--muted); font-size: 0.95rem; border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+
+    .lb-switch { display: grid; gap: 0.8rem; }
+    .lb-tabs { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+    .lb-tab {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 0.45rem 0.95rem;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .lb-tab[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: var(--blue-contrast); }
+    .lb-panel { display: grid; gap: 0.9rem; }
+    .lb-panel[hidden] { display: none; }
+
+    .ntk-sentence { font-size: 1.15rem; font-weight: 750; margin: 0; }
+    .ntk-bars { display: grid; gap: 0.45rem; max-width: 620px; }
+    .ntk-bar { display: grid; grid-template-columns: minmax(110px, 150px) 1fr 3.6rem; align-items: center; gap: 0.6rem; }
+    .ntk-bar .ntk-tok { font-family: var(--font-mono); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 0.15rem 0.4rem; font-size: 0.92rem; text-align: right; }
+    .ntk-bar i { display: block; height: 0.9rem; border-radius: 999px; background: var(--teal); width: var(--w, 2%); min-width: 3px; }
+    .ntk-bar b { font-size: 0.9rem; color: var(--muted); font-weight: 800; }
+
+    .flip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.9rem; }
+    .flip-card {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--rose);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 1rem;
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+    .flip-state { font-weight: 850; text-transform: uppercase; letter-spacing: 0.07em; font-size: 0.74rem; color: var(--rose); }
+    .flip-card.flipped { border-left-color: var(--teal); }
+    .flip-card.flipped .flip-state { color: var(--teal); }
+    .flip-text { font-family: var(--font-mono); font-size: 0.95rem; line-height: 1.55; color: var(--code-ink); background: var(--deep); border-radius: 8px; padding: 0.8rem; white-space: pre-wrap; }
+    .flip-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .flip-button {
+      border: 1px solid var(--blue);
+      background: transparent;
+      color: var(--blue);
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+    .flip-card.flipped .flip-button { border-color: var(--teal); color: var(--teal); }
+    .flip-copy {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .homework {
+      border: 2px solid var(--violet);
+      border-radius: var(--radius);
+      background: var(--violet-soft);
+      padding: 1.2rem;
+      display: grid;
+      gap: 0.8rem;
+    }
+    .homework h4 { color: var(--violet); font-size: 1.2rem; }
+    .homework p { color: var(--ink); }
+    .homework .worksheet-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .homework .worksheet-field { background: var(--surface); }
+
+    .footer { color: var(--muted); font-size: 0.85rem; padding: 0 0.4rem 2rem; }
+
+    /* Einklappbare Nachschlage-Blöcke (V31) */
+    .fold {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .fold > summary {
+      cursor: pointer;
+      padding: 0.75rem 0.9rem;
+      font-weight: 800;
+      color: var(--teal);
+      font-size: 0.98rem;
+    }
+    .fold > summary:hover { color: var(--ink); }
+    .fold-body { padding: 0 0.9rem 0.9rem; display: grid; gap: 0.8rem; }
+
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .rail { position: static; max-height: none; grid-template-columns: 1fr 1fr; }
+      .toc { overflow: auto; }
+      .toc strong, .toc a { font-size: 0.86rem; }
+      .toc strong { margin-bottom: 0.3rem; }
+      .toc a { padding: 0.35rem 0.45rem; }
+      .section { padding: 1.1rem; }
+      .hero-grid, .plan-grid, .source-grid, .skill-grid, .summary-strip { grid-template-columns: 1fr 1fr; }
+      .workflow { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .top-actions { justify-content: flex-start; }
+      .layout { padding: 0.8rem; }
+      .section { padding: 1rem; }
+      .homework .worksheet-grid { grid-template-columns: 1fr; }
+      .zone-track { grid-template-columns: 1fr; }
+      .zone-segment.dumb { border-top: 3px dashed var(--rose); }
+      .conn-viz { gap: 0.5rem; }
+      .lesson { grid-template-columns: 1fr; }
+      .lesson-side { grid-auto-flow: column; justify-content: start; align-items: center; }
+      .done-button { justify-self: start; }
+      body { font-size: 1rem; }
+      .hero-grid, .plan-grid, .source-grid, .skill-grid, .summary-strip { grid-template-columns: 1fr; }
+      .workflow { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      :root, :root[data-theme="light"] {
+        color-scheme: light;
+        --paper: #ffffff;
+        --surface: #ffffff;
+        --surface-soft: #f4f6f8;
+        --deep: #f0f2f5;
+        --ink: #14181c;
+        --muted: #4a555e;
+        --line: #c8d0d8;
+        --teal: #0f766e;
+        --teal-soft: #e2f3f0;
+        --blue: #1d4ed8;
+        --blue-soft: #e8efff;
+        --amber: #92620c;
+        --amber-soft: #fdf3d7;
+        --rose: #be3455;
+        --rose-soft: #ffe8ee;
+        --violet: #5b3fb8;
+        --violet-soft: #ece7fb;
+        --shadow: none;
+        --teal-contrast: #ffffff;
+        --blue-contrast: #ffffff;
+        --amber-contrast: #ffffff;
+        --violet-contrast: #ffffff;
+        --code-ink: #14181c;
+        --topbar-bg: #ffffff;
+      }
+      body { background: #fff; color: var(--ink); }
+      .topbar, .rail, .done-button, .copy-button, .flip-copy, .flip-button { display: none !important; }
+      [data-quiz] p[hidden] { display: block !important; }
+      .lb-tabs { display: none !important; }
+      .lb-panel[hidden] { display: grid !important; }
+      .layout { grid-template-columns: 1fr; padding: 0; }
+      .zone-meter, .viz, .summary-strip, .homework { break-inside: avoid; }
+      .prompt-box { break-inside: avoid; }
+      .prompt-box pre { background: #f0f2f5; color: #14181c; }
+      .prompt-box small { color: #4a555e; }
+      .lesson { break-inside: avoid; background: #fff; }
+      a::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #4a555e; }
+    }
+  </style>
+  <script>
+    /* Theme-Bootstrap: vor dem ersten Rendern, damit nichts aufblitzt. */
+    try {
+      if (localStorage.getItem("ki-kurs-teil1-v31-theme") === "light") {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    } catch (e) { /* Ohne localStorage bleibt es beim dunklen Standard. */ }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <strong>KI verstehen und anwenden — Teil 1 (V31)</strong>
+      <span>Hands-on zuerst, Theorie wenn sie trägt. 3 Stunden, drei Leitbeispiele.</span>
+    </div>
+    <div class="top-actions">
+      <a class="button" href="#m1">Loslegen</a>
+      <a class="button" href="#refs">Links</a>
+      <button class="button" type="button" id="themeToggle" aria-pressed="false">Helles Design</button>
+      <button class="button" type="button" id="resetProgress">Fortschritt zurücksetzen</button>
+      <button class="button primary" type="button" onclick="window.print()">Drucken</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="rail" aria-label="Kursnavigation">
+      <section class="progress-panel" aria-live="polite">
+        <div class="progress-number"><span id="progressNumber">0</span>%</div>
+        <div class="bar" aria-hidden="true"><i id="progressBar"></i></div>
+        <p id="progressText">0 Schritte markiert.</p>
+        <p>Wird nur auf diesem Gerät gespeichert.</p>
+      </section>
+      <nav class="toc" aria-label="Abschnitte">
+        <strong>Heute</strong>
+        <a href="#start">Start</a>
+        <a href="#m1">1. Sofort loslegen</a>
+        <a href="#m2">2. Wie KI funktioniert</a>
+        <a href="#m3">3. Kontext &amp; Dumb Zone</a>
+        <a href="#m4">4. Briefen</a>
+        <a href="#m5">5. Prüfen &amp; Reparieren</a>
+        <a href="#m6">6. Denkzeit</a>
+        <a href="#m7">7. Bilder</a>
+        <a href="#m8">8. Artefakte</a>
+        <a href="#m9">9. Skills &amp; Teil 2</a>
+        <a href="#spick">Spickzettel</a>
+        <a href="#refs">Nachschlagen</a>
+      </nav>
+    </aside>
+
+    <main class="content" id="start">
+      <section class="hero panel" id="m0" aria-labelledby="hero-title">
+        <p class="eyebrow">VHS-Kurs · Teil 1 von 2 · Modul 0: Ankommen</p>
+        <h1 id="hero-title">Heute arbeitest du ab Minute fünf selbst mit KI, und verstehst danach, warum sie so antwortet.</h1>
+        <p class="hero-lede">Erst machen, dann verstehen: Du schickst gleich deinen ersten Prompt ab. Danach schauen wir unter die Haube: was die KI sich merken kann, warum lange Chats schlechter werden und wann sie in Ruhe nachdenken soll. Am Ende hast du ein Bild erzeugt, ein kleines Werkzeug gebaut und weißt, wie du KI-Antworten prüfst, statt ihnen zu glauben. Alle Fachwörter erklären wir genau dann, wenn sie dran sind. Denn das ist die Arbeitsteilung des Tages: Die KI übernimmt Arbeit, prüfen und entscheiden bleibt dein Job.</p>
+        <div class="hero-grid" aria-label="Kursversprechen">
+          <div class="metric"><b>9</b><span>Module + Ankommen, in 3 Stunden, Pause nach Modul 4</span></div>
+          <div class="metric"><b>5</b><span>interaktive Visualisierungen zum Selbst-Ausprobieren</span></div>
+          <div class="metric"><b>3</b><span>Leitbeispiele: Wochenendtrip, Konkurrenz-Analyse, digitale Ordnung</span></div>
+          <div class="metric"><b>1</b><span>Hausaufgabe: deine Projektidee für Teil 2</span></div>
+        </div>
+        <div class="source-grid" aria-label="Die drei Leitbeispiele">
+          <article class="source-card">
+            <small>Leitbeispiel privat</small>
+            <b>Der Wochenendtrip</b>
+            <span>Zwei Personen, zwei Nächte, festes Budget: Damit startest du in wenigen Minuten.</span>
+          </article>
+          <article class="source-card">
+            <small>Leitbeispiel Arbeit &amp; Beruf</small>
+            <b>Die Konkurrenz-Analyse</b>
+            <span>Ein fiktiver Online-Shop ("Fahrradkiste") bekommt Konkurrenz. Unser Fall fürs Briefen und Prüfen.</span>
+          </article>
+          <article class="source-card">
+            <small>Leitbeispiel Selbstverbesserung</small>
+            <b>Die digitale Ordnung</b>
+            <span>Voller Download-Ordner, doppelte Fotos, Notizen in drei Apps, daraus wird ein Plan, den du behältst.</span>
+          </article>
+        </div>
+        <div class="plan-grid" aria-label="Zwei-Tage-Landkarte">
+          <article class="plan-card">
+            <small>Teil 1 · heute</small>
+            <b>Verstehen und Werkzeuge</b>
+            <ul>
+              <li>Sofort loslegen: erster eigener Prompt</li>
+              <li>Wie KI tickt: Token, Kontext, Dumb Zone</li>
+              <li>Briefen, Prüfen, Denkzeit, Bilder, Artefakte, Skills</li>
+            </ul>
+          </article>
+          <article class="plan-card">
+            <small>Teil 2 · Projektwerkstatt</small>
+            <b>Dein eigenes Projekt</b>
+            <ul>
+              <li>Du bringst eine Projektidee mit (Hausaufgabe aus Modul 9)</li>
+              <li>In klaren Phasen von der Idee bis zum Abschluss: erst selbst denken, dann grillen lassen, planen, bauen, prüfen</li>
+              <li>Skills installieren und mit nach Hause nehmen</li>
+            </ul>
+          </article>
+          <article class="plan-card">
+            <small>So arbeiten wir</small>
+            <b>Hands-on vor Theorie</b>
+            <ul>
+              <li>Du übst in ChatGPT (Free-Konto reicht)</li>
+              <li>Artefakte und Skills siehst du live in Claude am Beamer</li>
+              <li>Die Konzepte gelten in jedem KI-Tool</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section panel" id="m1" aria-labelledby="m1-title">
+        <div class="section-head">
+          <p class="kicker">Modul 1 · ca. 20 Min.</p>
+          <h2 id="m1-title">Sofort loslegen</h2>
+          <p>Kein Vortrag vorweg. Du öffnest das Tool, schickst einen echten Prompt ab, lernst die Datenregeln für den ganzen Kurs und sammelst eine erste eigene Aufgabe. Alles Weitere bauen wir auf dem auf, was du hier gerade selbst erlebt hast.</p>
+        </div>
+
+        <article class="lesson" id="m1-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">01.01</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Dein erster Prompt: der Wochenendtrip</h3>
+            <p>Falls du ChatGPT noch nie benutzt hast: Es ist eine Website, auf der du mit einer KI schreibst wie in einem Messenger: du beschreibst in normaler Sprache, was du brauchst, und bekommst in Sekunden eine Antwort. Öffne <a href="https://chatgpt.com/" target="_blank" rel="noreferrer">chatgpt.com</a> und melde dich an. Geschrieben wird unten ins Eingabefeld, abgeschickt mit Enter, oder du tippst gar nicht: Das Mikrofon-Symbol nimmt Diktat, oft der schnellste Weg zu einem ausführlichen Prompt.</p>
+            <div class="blocks">
+              <section class="block"><b>Noch kein Konto? Drei Schritte</b><p>1. Auf chatgpt.com "Registrieren" wählen. 2. E-Mail-Adresse eintragen und ein neues Passwort ausdenken (nicht dein E-Mail-Passwort). 3. Den Bestätigungscode aus deinem E-Mail-Postfach eintippen. Fragt die Seite nach deiner Handynummer, ist das normal, Code eintippen, fertig. Klemmt es: Schau heute bei deiner Nachbarin oder deinem Nachbarn mit und leg das Konto in Ruhe zuhause an.</p></section>
+              <section class="block"><b>Kopieren und Einfügen</b><p>Der Knopf "Kopieren" an jedem grauen Kasten merkt sich den Text. Einfügen im Chat: rechte Maustaste → "Einfügen" (oder Strg+V). Alles in [eckigen Klammern] ersetzt du vor dem Abschicken durch deine eigenen Angaben.</p></section>
+            </div>
+            <p>Dann kopierst du diesen Prompt (so heißt eine Nachricht an die KI), ersetzt die Klammern und schickst ihn ab. Drei Leitbeispiele begleiten uns durch den ganzen Kurs: der private Wochenendtrip, die Konkurrenz-Analyse eines kleinen Online-Shops und die digitale Ordnung für dich selbst. Alle starten mit dem Trip-Prompt, deine eigenen Themen kommen in Modul 4 dran. Wer mag, wählt hier trotzdem schon ein anderes Beispiel; die Antwort schauen wir uns live am Beamer an:</p>
+            <div class="lb-switch" data-lbtabs="leitbeispiel">
+              <div class="lb-tabs" role="group" aria-label="Leitbeispiel wählen">
+                <button class="lb-tab" type="button" data-lbtab="trip" aria-pressed="true">Wochenendtrip</button>
+                <button class="lb-tab" type="button" data-lbtab="shop" aria-pressed="false">Konkurrenz-Analyse</button>
+                <button class="lb-tab" type="button" data-lbtab="ordnung" aria-pressed="false">Digitale Ordnung</button>
+              </div>
+              <div class="lb-panel" data-lbpanel="trip">
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Erster Prompt · Wochenendtrip</small><button class="copy-button" type="button" data-copy="#prompt-trip">Kopieren</button></div>
+                  <pre id="prompt-trip">Ich plane einen Wochenendtrip: zwei Personen, zwei Nächte, Ende August. Budget rund 300 Euro pro Person, Anreise mit der Bahn, maximal 3 Stunden ab [dein Startort]. Wir mögen Altstädte, Wasser und gutes Essen.
+Schlag mir drei passende Ziele vor. Zu jedem Ziel: warum es passt, grobe Kosten und ein Highlight, das man leicht verpasst.</pre>
+                </section>
+              </div>
+              <div class="lb-panel" data-lbpanel="shop" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Erster Prompt · Konkurrenz-Analyse</small><button class="copy-button" type="button" data-copy="#prompt-shop-start">Kopieren</button></div>
+                  <pre id="prompt-shop-start">Ich betreibe einen kleinen Online-Shop für Fahrradzubehör. Seit ein paar Wochen wirbt ein neuer Konkurrent stark mit Suchanzeigen, Gratis-Versand und schneller Lieferung.
+Was sollte ich über diesen Konkurrenten herausfinden, bevor ich reagiere? Nenne die acht wichtigsten Punkte als Checkliste, sortiert nach Wichtigkeit, mit je einem Satz Begründung.</pre>
+                </section>
+              </div>
+              <div class="lb-panel" data-lbpanel="ordnung" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Erster Prompt · Digitale Ordnung</small><button class="copy-button" type="button" data-copy="#prompt-ordnung-start">Kopieren</button></div>
+                  <pre id="prompt-ordnung-start">Auf meinen Geräten herrscht Durcheinander: der Download-Ordner quillt über, Fotos liegen doppelt, Notizen stecken in mehreren Apps, wichtige Unterlagen irgendwo in E-Mail-Anhängen.
+Ich will eine einfache Ordnung, die ich neben dem Alltag durchhalte. Am meisten stört mich: [dein größtes Chaos-Gebiet, z. B. Dateien, Fotos oder Notizen].
+Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem Ordner: was hineingehört, ein Beispiel und eine Regel, wann etwas gelöscht werden darf.</pre>
+                </section>
+              </div>
+            </div>
+            <div class="blocks">
+              <section class="block accent-teal"><b>Beobachte zwei Dinge</b><p>Erstens: Die Antwort kommt flüssig und strukturiert. Zweitens: Sie klingt absolut sicher, auch bei Preisen, Zahlen und Details, die die KI gar nicht sicher wissen kann. Merk dir dieses Misstrauen, wir kommen in Modul 5 darauf zurück.</p></section>
+              <section class="block accent-blue"><b>Dreh eine zweite Runde</b><p>Antworte im selben Chat mit einer Nachfrage: "Nimm Ziel 2 und mach einen Tagesplan für Samstag", "Welche drei Punkte der Checkliste kann ich heute Abend erledigen?" oder "Mach aus Ordner 1 eine 20-Minuten-Aufgabe für heute Abend". Die KI erinnert sich an alles von vorhin. Warum, klären wir in Modul 3.</p></section>
+            </div>
+            <p class="viz-note"><b>Schon Profi?</b> Diktier deinen Prompt statt zu tippen. Oder formuliere ihn absichtlich schlecht und beobachte, was die KI daraus macht.</p>
+          </div>
+        </article>
+
+        <article class="lesson" id="m1-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">01.02</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Die Datenregeln: einmal klar, dann Ruhe</h3>
+            <p>Dein erster Prompt lief mit harmlosen Angaben. Bevor gleich deine echten Aufgaben und Unterlagen in Chats wandern, einmal sauber geklärt, was mit deinen Eingaben passiert: Alles, was du eintippst oder hochlädst, verlässt deinen Rechner und wird auf den Servern des Anbieters verarbeitet und gespeichert. Je nach Kontoeinstellung darf der Anbieter damit künftige Modelle trainieren, und zuverlässig zurückholen lässt sich davon nichts. Daraus folgt die Kursregel: Themen sind fast nie das Problem. Konkrete Daten können eines sein.</p>
+            <section class="activity"><strong>3 Min. · Sortier-Übung: rein oder raus?</strong><p>Acht Eingaben, Handzeichen: Darf das in einen KI-Chat? 1) Die IBAN für die Mietüberweisung. 2) "Mieterhöhung um 12 Prozent, Vertrag von 2019 — was kann ich tun?" 3) Ein Foto vom Zeugnis der Tochter. 4) Ein Beschwerde-Entwurf ohne Namen. 5) Das WLAN-Passwort, "nur zum Merken". 6) Die Krankmeldung eines Kollegen zusammenfassen, mit Namen. 7) Ein Foto vom Kühlschrankinhalt für Rezeptideen. 8) Die unveröffentlichten Umsatzzahlen der Firma. Die Auflösung sind die fünf Grenzen direkt hier drunter: Raus bleiben 1, 3, 5, 6 und 8, der Rest darf rein.</p></section>
+            <div class="blocks">
+              <section class="block accent-rose">
+                <b>Fünf rote Grenzen: das bleibt draußen</b>
+                <p><b>1 · Ausweis- und Passdaten.</b> Einmal im Chat, hast du keine Kontrolle mehr darüber.</p>
+                <p><b>2 · Konto-, Karten- und Zahlungsdaten.</b> IBAN und Kartennummer haben in keinem Prompt einen Job.</p>
+                <p><b>3 · Zugangsdaten: Passwörter, PINs, TANs.</b> Auch nicht "nur zum Merken" oder als Screenshot.</p>
+                <p><b>4 · Daten, die andere Menschen erkennbar machen.</b> Kundendaten, Patienten- und Personalunterlagen, Zeugnisse, Fotos mit fremden Gesichtern. Deine eigenen Daten sind deine Entscheidung, die Daten anderer sind es nicht.</p>
+                <p><b>5 · Vertrauliches aus der Firma.</b> Interne Dokumente, Verträge, unveröffentlichte Zahlen, Personalthemen. Ausnahme: Der Arbeitgeber stellt einen Firmen-Zugang und erlaubt es ausdrücklich.</p>
+              </section>
+              <section class="block accent-teal">
+                <b>Alles andere: Thema ja, Details dosieren</b>
+                <p>Gesundheit, Geld, Recht, Konflikte: als Thema völlig in Ordnung. Namen, Adressen, Geburtsdaten, Aktenzeichen und Diagnosen echter Personen brauchst du dafür fast nie: weglassen oder durch Platzhalter ersetzen.</p>
+                <p>Die KI braucht das Muster, nicht die Personalien: "Mieterhöhung um 12 Prozent, Vertrag von 2019, was kann ich tun?" funktioniert genauso gut wie der echte Vertrag mit Namen und Anschrift.</p>
+              </section>
+            </div>
+            <div class="blocks">
+              <section class="block accent-blue">
+                <b>Drei Schalter in deinem Konto</b>
+                <p>Jedes große Tool hat in den Einstellungen einen Schalter, ob deine Chats zum Training verwendet werden dürfen (in ChatGPT unter Einstellungen → Datenkontrollen), einen temporären Chat, der nicht im Verlauf landet, und die Memory-Funktion, mit der sich das Produkt Notizen über dich macht (auch abschaltbar; was dahintersteckt, klärt Modul 3). Alles siehst du in der Live-Demo. Die fünf Grenzen gelten trotzdem: Auch mit den besten Einstellungen bleibt draußen, was draußen bleibt.</p>
+              </section>
+              <section class="block accent-amber">
+                <b>Dienstlich? Erst fragen</b>
+                <p>Ein Firmen-Konto (Business/Enterprise) ist eine eigene Vertragsklasse mit eigenen Datenzusagen. Der Trainings-Schalter in deinem Privatkonto ist keine Freigabe für Firmendaten. Bevor du KI dienstlich nutzt: nach der KI-Richtlinie und einem Firmen-Zugang fragen.</p>
+              </section>
+              <section class="block accent-amber">
+                <b>KI ersetzt keine Fachleute</b>
+                <p>Hol dir zu Geld, Gesundheit oder Recht ruhig Erklärungen, Fragenlisten und eine Zweitmeinung: So gehst du vorbereitet ins Gespräch und lernst schneller. Das letzte Wort bei wichtigen Entscheidungen hat aber Fachpersonal: Ärztin, Anwalt, Steuerberaterin. Und auch bei diesen Themen gilt die Regel von oben: Thema ja, Personalien nein.</p>
+              </section>
+            </div>
+            <p>Das war der Sicherheitsteil dieses Kurses. Ab hier taucht er nur noch als kurze Erinnerung auf, wo echtes Material fließt: beim Foto- und Datei-Upload (Modul 2) und beim Briefen mit eigenen Unterlagen (Modul 4). Genau deshalb arbeitet unsere Konkurrenz-Analyse mit einem fiktiven Shop statt mit echten Firmendaten.</p>
+          </div>
+        </article>
+
+        <article class="lesson" id="m1-03">
+          <aside class="lesson-side">
+            <span class="lesson-number">01.03</span>
+            <span class="track uebung">Übung</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Startrunde: Wofür willst du KI benutzen?</h3>
+            <p>Bevor wir in die Technik gehen, sammeln wir echte Aufgaben aus der Runde. Die besten davon nehmen wir im Kurs wieder auf, und in Teil 2 wird eine davon vielleicht dein Projekt.</p>
+            <div class="blocks">
+              <section class="block"><b>Texte</b><p>E-Mails, Einladungen, Bewerbungen, schwierige Nachrichten, Übersetzungen, Zusammenfassungen.</p></section>
+              <section class="block"><b>Recherche &amp; Kauf</b><p>Produkte vergleichen, Angebote einordnen, Reiseziele finden, Fachbegriffe verstehen.</p></section>
+              <section class="block"><b>Amt &amp; Formulare</b><p>Bescheide übersetzen, Antworten entwerfen, Fristen und Unterlagen sortieren.</p></section>
+              <section class="block"><b>Planen &amp; Organisieren</b><p>Wochenpläne, Checklisten, Vereinsarbeit, Lernpläne, Umzüge, Feiern.</p></section>
+              <section class="block"><b>Bilder &amp; Design</b><p>Plakate, Einladungs-Motive, Moodboards, Logo-Ideen, Bilder für Social Media oder den Verein.</p></section>
+              <section class="block"><b>Bauen &amp; kleine Helfer</b><p>Mini-Webseiten, Tabellen, Präsentationen, kleine Tools und Rechner: Die KI kann programmieren, du musst es nicht können. Wie das geht, siehst du in Modul 8.</p></section>
+            </div>
+            <section class="activity"><strong>5 Min. · Deine zwei Kandidaten</strong><p>Notiere zwei Aufgaben, bei denen KI dir helfen könnte. Schreib zu jeder dazu: Woran würdest du merken, dass das Ergebnis gut ist? Diese Frage wird heute noch oft fallen.</p></section>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="m2" aria-labelledby="m2-title">
+        <div class="section-head">
+          <p class="kicker">Modul 2 · ca. 20 Min.</p>
+          <h2 id="m2-title">Wie KI funktioniert</h2>
+          <p>Kein Mathe-Tiefgang, aber das echte Modell im Kopf: Die KI sagt Wort für Wort das wahrscheinlichste nächste Token voraus. Wer das einmal gesehen hat, versteht, warum sie brillant formuliert und trotzdem Dinge erfindet.</p>
+        </div>
+
+        <article class="lesson" id="m2-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">02.01</span>
+            <span class="track demo">Demo</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Die Maschine rät das nächste Token — erstaunlich gut</h3>
+            <p>Ein Sprachmodell hat aus riesigen Textmengen gelernt, welche Fortsetzung auf einen Text wahrscheinlich folgt. Es schlägt nichts in einer Datenbank nach, sondern berechnet für jede Stelle eine Rangliste möglicher Fortsetzungen und wählt daraus. Ungefähr so:</p>
+            <div class="viz" data-viz="nexttoken">
+              <div class="viz-head">
+                <strong>Das nächste Token: eine Rangliste, kein Wissen</strong>
+                <span class="viz-tag">Anschauen</span>
+              </div>
+              <p class="ntk-sentence">"Der Ausflug fällt wegen des schlechten &hellip;"</p>
+              <div class="ntk-bars" aria-label="Wahrscheinlichkeiten für die Fortsetzung">
+                <div class="ntk-bar"><span class="ntk-tok">Wetters</span><i style="--w:62%"></i><b>62 %</b></div>
+                <div class="ntk-bar"><span class="ntk-tok">Regens</span><i style="--w:21%"></i><b>21 %</b></div>
+                <div class="ntk-bar"><span class="ntk-tok">Verkehrs</span><i style="--w:9%"></i><b>9 %</b></div>
+                <div class="ntk-bar"><span class="ntk-tok">Zeitplans</span><i style="--w:5%"></i><b>5 %</b></div>
+                <div class="ntk-bar"><span class="ntk-tok">Kaffees</span><i style="--w:2%"></i><b>2 %</b></div>
+              </div>
+              <p class="viz-note">Die Zahlen sind illustrativ. Live und in echt siehst du das gleich im englischsprachigen <a href="https://poloclub.github.io/transformer-explainer/" target="_blank" rel="noreferrer">Transformer Explainer</a>: Dort siehst du für jeden Schritt genau diese Rangliste, berechnet von einem echten Modell (GPT-2), direkt im Browser.</p>
+            </div>
+            <div class="blocks">
+              <section class="block accent-teal"><b>Warum sie so gut formuliert</b><p>Wer Milliarden Sätze gesehen hat, kennt jeden Ton, jedes Format, jede Sprache. Umformulieren, zusammenfassen, strukturieren: Dafür ist "wahrscheinlichste Fortsetzung" genau das richtige Werkzeug.</p></section>
+              <section class="block accent-rose"><b>Warum sie trotzdem erfindet</b><p>Dieselbe Maschine wählt die plausibelste Fortsetzung, nicht die geprüfte Wahrheit. Eine erfundene Bewertungszahl oder Frist klingt genauso rund wie eine echte, weil beide nur wahrscheinliche Wortfolgen sind. Das Fachwort: Halluzination. Fangen üben wir in Modul 5.</p></section>
+            </div>
+            <p>Und warum sind zwei Antworten auf dieselbe Frage fast nie identisch? Eingebauter Zufall bei der Auswahl aus der Rangliste. Den Regler dafür bedienen nur Entwickler, im Chat ist er fest eingestellt. (Spielzeug dazu: der Temperature-Visualizer in der Linksammlung.)</p>
+            <p><b>Merk dir vor allem das:</b> Dieselbe Maschine, die brillant formuliert, erfindet, weil beides nur wahrscheinliche Fortsetzungen sind.</p>
+          </div>
+        </article>
+
+        <article class="lesson" id="m2-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">02.02</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Token: Die KI liest keine Wörter</h3>
+            <p>Die Maschine zerlegt Text in Token: Bruchstücke, die mal ein Wort, mal eine Silbe, mal ein einzelnes Zeichen sind. Deutsche Wörter zerfallen oft in mehrere Teile, weil die Modelle vor allem an Englisch trainiert wurden. Token sind die Währung von allem, was heute noch kommt: Fensterplatz, Kosten, Tempo.</p>
+            <div class="viz" data-viz="token">
+              <div class="viz-head">
+                <strong>Token-Zerleger</strong>
+                <span class="viz-tag">Zum Ausprobieren</span>
+              </div>
+              <label for="tokenInput"><b>Tipp einen Satz, zum Beispiel deinen Trip-Prompt aus Modul 1:</b></label>
+              <input class="token-input" id="tokenInput" type="text" autocomplete="off" spellcheck="false"
+                     value="Wochenendtrip nach Passau: Altstadt, Donau und gutes Essen für zwei Personen.">
+              <div class="token-chips" id="tokenChips" aria-live="polite"></div>
+              <div class="token-stats">
+                <div><b id="tokenCount">0</b> <span>Token (geschätzt)</span></div>
+                <div><b id="charCount">0</b> <span>Zeichen</span></div>
+              </div>
+              <p class="viz-note">Vereinfachte Schätzung. Die echte Zerlegung zeigt der <a href="https://platform.openai.com/tokenizer" target="_blank" rel="noreferrer">OpenAI Tokenizer</a>, den wir gleich live ansehen.</p>
+            </div>
+            <section class="note"><b>Wichtig: Jedes Modell zerlegt anders</b><p>Es gibt nicht die eine Token-Zerlegung. OpenAI, Claude und Gemini nutzen unterschiedliche Tokenizer, und mit jeder Modellgeneration ändern sie sich weiter. Die genaue Zahl ist also toolabhängig (der Tiktokenizer in den Nachschlage-Links zeigt den Vergleich).</p></section>
+            <section class="activity"><strong>5 Min. · Token-Gefühl entwickeln</strong><p>Probiere im Zerleger: dein längstes deutsches Lieblingswort, denselben Satz auf Englisch, eine Telefonnummer. Danach kommt derselbe Text live in den echten OpenAI Tokenizer. Vergleiche die Zahlen.</p></section>
+            <p class="viz-note"><b>Schon Profi?</b> Jag einen eigenen langen Text durch den echten Tokenizer — und schätz die Token-Zahl vorher. Landest du innerhalb von 20 Prozent?</p>
+          </div>
+        </article>
+
+        <article class="lesson" id="m2-03">
+          <aside class="lesson-side">
+            <span class="lesson-number">02.03</span>
+            <span class="track demo">Demo</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Wissensgrenze: Das Modell hat ein Gedächtnis mit Redaktionsschluss</h3>
+            <p>Ein Modell kennt die Welt nur bis zum Ende seines Trainings, dem sogenannten Cutoff. Alles danach ist für das reine Modell unsichtbar. Dafür gibt es die Websuche: Das Produkt holt aktuelle Informationen aus dem Netz und reicht sie dem Modell als Kontext.</p>
+            <div class="viz" data-viz="cutoff">
+              <div class="viz-head">
+                <strong>Zeitleiste: was das Modell kennt</strong>
+                <span class="viz-tag">Anschauen</span>
+              </div>
+              <svg viewBox="0 0 720 160" role="img" aria-label="Zeitleiste vom Training über den Redaktionsschluss bis heute; die Websuche überbrückt die Lücke" style="width:100%;height:auto;">
+                <line x1="40" y1="110" x2="672" y2="110" stroke="var(--line)" stroke-width="2"></line>
+                <line x1="40" y1="110" x2="360" y2="110" stroke="var(--teal)" stroke-width="8" stroke-linecap="round"></line>
+                <line x1="360" y1="64" x2="360" y2="128" stroke="var(--rose)" stroke-width="3" stroke-dasharray="6 5"></line>
+                <circle cx="660" cy="110" r="7" fill="var(--blue)"></circle>
+                <path d="M 660 96 Q 515 18 376 60" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-dasharray="7 6"></path>
+                <polygon points="366,66 382,56 380,72" fill="var(--blue)"></polygon>
+                <text x="40" y="142" fill="var(--muted)" font-size="15">Training: Milliarden Texte</text>
+                <text x="360" y="52" text-anchor="middle" fill="var(--rose)" font-size="15" font-weight="700">Redaktionsschluss (Cutoff)</text>
+                <text x="505" y="142" text-anchor="middle" fill="var(--muted)" font-size="15">für das Modell unsichtbar</text>
+                <text x="672" y="142" text-anchor="end" fill="var(--ink)" font-size="15" font-weight="700">heute</text>
+                <text x="520" y="30" text-anchor="middle" fill="var(--blue)" font-size="15" font-weight="700">Websuche holt Aktuelles ins Fenster</text>
+              </svg>
+              <p class="viz-note">Alles links vom Redaktionsschluss steckt im Modell. Alles rechts davon erreicht es nur, wenn das Produkt es ins Fenster legt: zum Beispiel per Websuche.</p>
+            </div>
+            <div class="blocks">
+              <section class="block accent-amber"><b>Ohne Websuche</b><p>Fragen zu aktuellen Preisen, Terminen, Nachrichten oder Öffnungszeiten beantwortet das Modell aus altem Trainingswissen, oder es erfindet etwas Plausibles.</p></section>
+              <section class="block accent-teal"><b>Mit Websuche</b><p>Die KI sucht live, zitiert Quellen und du kannst die Links prüfen. Live-Demo: "Was kostet aktuell ein Bahn-Ticket von München nach Passau am Samstag?" — einmal ohne, einmal mit Suche.</p></section>
+            </div>
+            <section class="note"><b>Merksatz</b><p>Wenn die Antwort von heute, von Preisen oder von deiner Region abhängt: Websuche einschalten und Quellen zeigen lassen. Sonst bekommst du bestenfalls den Stand von gestern.</p></section>
+            <section class="note"><b>Die große Schwester: Deep Research</b><p>Für richtige Recherchen haben die Tools einen eigenen Modus: Die KI sucht mehrere Minuten selbstständig, liest Dutzende Quellen und liefert einen Bericht mit Links. In ChatGPT Free stark limitiert. Im Kurs reicht die normale Websuche, aber du sollst wissen, dass es den Modus gibt. In Teil 2 nutzt ihn, wer größere Faktenfragen im Projekt hat.</p></section>
+          </div>
+        </article>
+
+        <article class="lesson" id="m2-04">
+          <aside class="lesson-side">
+            <span class="lesson-number">02.04</span>
+            <span class="track demo">Demo</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Die KI kann sehen: Fotos und Dateien als Eingabe</h3>
+            <p>Text ist nur ein Eingang. Über die Büroklammer (oder per Hineinziehen) nimmt die KI Fotos, PDFs und Dokumente entgegen, und die landen als Token im selben Kontextfenster wie dein Text. Zwei Handgriffe bringen im Alltag am meisten:</p>
+            <div class="blocks">
+              <section class="block accent-blue"><b>Demo 1 · Foto statt Abtippen</b><p>Ein Foto von einem Brief oder Bescheid hochladen und fragen: "Was will dieses Schreiben von mir, in drei Sätzen?" Die KI liest das Bild. Abtippen war gestern. Zuhause geht das mit jedem Schreiben, das dir auf den Tisch flattert.</p></section>
+              <section class="block accent-teal"><b>Demo 2 · Foto als Frage</b><p>Ein Foto von einem Gerät, einer Fehlermeldung oder dem Kühlschrankinhalt: "Was ist das und was mache ich jetzt?" Funktioniert erstaunlich gut: von der Waschmaschinen-Anzeige bis zum Rezept aus Restbeständen.</p></section>
+            </div>
+            <section class="note"><b>Datenregeln fürs Bild</b><p>Ein Foto ist eine Datei wie jede andere: Namen, Adressen, Aktenzeichen und fremde Gesichter vorher abdecken oder wegschneiden, dann gilt alles aus den Datenregeln (Modul 1) auch hier.</p></section>
+            <section class="note"><b>Bei großen Dateien: nachhelfen</b><p>Große Dateien liest das Tool oft nur auszugsweise, wichtige Passagen kopierst du zur Sicherheit direkt in den Chat.</p></section>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="m3" aria-labelledby="m3-title">
+        <div class="section-head">
+          <p class="kicker">Modul 3 · ca. 20 Min.</p>
+          <h2 id="m3-title">Kontextfenster &amp; Dumb Zone</h2>
+          <p>Warum wusste die KI in Modul 1 noch dein Budget? Weil das Tool ihr bei jeder Nachricht den ganzen bisherigen Chat noch einmal mitschickt. Dieser Kontext hat eine harte Grenze, und lange vor der Grenze eine weiche: die Dumb Zone.</p>
+        </div>
+
+        <article class="lesson" id="m3-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">03.01</span>
+            <span class="track demo">Demo</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Das Kontextfenster: was die KI gerade sehen kann</h3>
+            <p>Zuerst der wichtigste Satz des Moduls: Das Modell hat zwischen zwei Nachrichten kein Gedächtnis. Wenn du auf "Senden" drückst, geht nicht nur deine neue Nachricht ans Modell, sondern der komplette bisherige Chat noch einmal mit: alle Fragen, alle Antworten, alle Dateien. Dass sich die KI in Modul 1 an dein Budget "erinnert" hat, heißt nur: Es stand in dem Paket, das mitgeschickt wurde. Deshalb lohnt es sich, diesen Kontext bewusst zu pflegen, dazu gleich mehr.</p>
+            <p>Alles im Chat, deine Fragen, ihre Antworten, hochgeladene Dateien, zählt in Token und muss in ein begrenztes Fenster passen. Was nicht hineinpasst, existiert für das Modell nicht. Drei Merkzeilen reichen fürs Gefühl:</p>
+            <div class="blocks">
+              <section class="block accent-teal"><b>ChatGPT Free = klein</b><p>Rund 27.000 Token. Ein einziges langes Transkript füllt das fast allein.</p></section>
+              <section class="block accent-blue"><b>Bezahlpläne = mittel</b><p>Grob 200.000 bis 400.000 Token. Luft für richtige Projekte.</p></section>
+              <section class="block accent-violet"><b>Spitzenmodelle = riesig</b><p>Bis 1 Million Token. Und trotzdem gilt gleich dieselbe Dumb-Zone-Regel.</p></section>
+            </div>
+            <details class="fold">
+              <summary>Alle Zahlen zum Nachschlagen</summary>
+              <div class="fold-body">
+                <div class="table-scroll">
+                  <table class="fact-table">
+                    <thead><tr><th>Produkt</th><th>Modus</th><th>Kontextfenster</th></tr></thead>
+                    <tbody>
+                      <tr><td rowspan="2"><b>ChatGPT</b> (GPT-5.5)</td><td>Instant</td><td>Free 27K · Plus 32K · Pro 128K</td></tr>
+                      <tr><td>Thinking</td><td>Plus 256K · Pro 400K</td></tr>
+                      <tr><td rowspan="2"><b>Claude</b></td><td>Free</td><td>200K</td></tr>
+                      <tr><td>Bezahlpläne</td><td>Sonnet 5 &amp; Fable 5 bis 1M · Opus 4.8 500K</td></tr>
+                      <tr><td><b>Gemini</b></td><td>3.1 Pro / 3 Flash</td><td>1M</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p><small>K = 1.000 Token, M = 1 Million. Stand 05.07.2026, laut Preis- und Hilfeseiten der Anbieter. OpenAI nennt je nach Hilfeseite leicht andere Werte, und das Free-Fenster kann je nach Modell auch kleiner ausfallen; auf die Größenordnung kommt es an.</small></p>
+              </div>
+            </details>
+            <section class="activity"><strong>Live-Demo · das YouTube-Transkript</strong><p>Live-Demo: Das Transkript eines langen YouTube-Videos (~25K Token) landet in ChatGPT Free (27K-Fenster), mit der Bitte um eine Zusammenfassung. Das eine Transkript füllt das Fenster fast komplett. Für Rückfragen, Anweisungen und Antworten bleibt kaum Platz, und genau das merkt man der Qualität an.</p></section>
+            <section class="note"><b>Wenn das Fenster überläuft</b><p>Läuft ein Chat über die Grenze, schneidet das Tool stillschweigend die ältesten Teile ab. Einen Füllstands-Anzeiger gibt es im Produkt nicht. Woran du es trotzdem merkst: an den Dumb-Zone-Anzeichen aus 03.04.</p></section>
+            <div class="blocks">
+              <section class="block accent-blue"><b>"Und warum erinnert sich ChatGPT dann an meinen Hund?"</b><p>Weil das Produkt nachhilft: Memory, Verweise auf alte Chats, Projekte und Custom Instructions sind Notizen, die das Tool automatisch mit ins Kontextfenster legt. Gleiche Mechanik, gleiches Token-Budget, in den Einstellungen abschaltbar (Modul 1). Merksatz: Das Modell vergisst alles — das Produkt kann sich Notizen machen.</p></section>
+              <section class="block accent-violet"><b>Was noch im Fenster liegt, ohne dass du es siehst</b><p>Der Systemprompt des Anbieters (Grundregeln und Ton), Anweisungen für Werkzeuge wie die Websuche und die Memory-Notizen von eben. Merk dir das für Modul 9: Ein Skill ist im Kern ein Stück Anleitung, das du selbst ins Fenster legst.</p></section>
+            </div>
+            <section class="note"><b>Merksatz</b><p>Das Token-Budget ist wie Sichtweite, und lange bevor es voll ist, wird es neblig. Warum, zeigt der nächste Schritt.</p></section>
+          </div>
+        </article>
+
+        <article class="lesson" id="m3-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">03.02</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Smart Zone, Dumb Zone — warum lange Chats dumm werden</h3>
+            <p>Ein Modell setzt jedes Token mit jedem anderen in Beziehung. Diese Beziehungen wachsen quadratisch, wie in einer Fußballliga: Jedes neue Team bedeutet nicht ein neues Spiel, sondern Spiele gegen alle, die schon da sind. Je voller das Fenster, desto mehr konkurriert also um die Aufmerksamkeit des Modells — und messbar werden Antworten in sehr vollen Fenstern unzuverlässiger. Das Fachwort dafür: Context Rot.</p>
+            <div class="viz" data-viz="conn">
+              <div class="viz-head">
+                <strong>Quadratische Verbindungen</strong>
+                <span class="viz-tag">Zum Ausprobieren</span>
+              </div>
+              <div class="conn-viz">
+                <svg id="connSvg" viewBox="0 0 420 320" role="img" aria-label="Punkte auf einem Kreis, jeder mit jedem verbunden"></svg>
+                <div class="conn-controls">
+                  <label for="connRange">Teams / Punkte: <span id="connN">8</span></label>
+                  <input type="range" id="connRange" min="2" max="30" step="1" value="8">
+                  <div class="conn-count"><b id="connCount">28</b><span id="connLabel">Verbindungen bei 8 Punkten</span></div>
+                </div>
+              </div>
+              <p class="viz-note">Zieh den Regler (auch per Pfeiltasten): Doppelt so viele Punkte heißt fast viermal so viele Verbindungen. Genau so wächst insgesamt, was im Fenster um Aufmerksamkeit konkurriert.</p>
+            </div>
+            <div class="zone-meter" aria-label="Smart Zone und Dumb Zone">
+              <div class="zone-track">
+                <div class="zone-segment smart"><b>Smart Zone</b><span>Frischer Chat, fokussierter Kontext: Das Modell hält alle Fäden. Hier entstehen die guten Antworten.</span></div>
+                <div class="zone-segment dumb"><b>Dumb Zone</b><span>Volles Fenster: Regeln werden vergessen, Details verwechselt, Antworten weicher.</span></div>
+              </div>
+              <p class="zone-rule"><strong>Faustregel: ab ~40 % des Fensters wird die Qualität wackelig: bei großen Fenstern spätestens ab ~100.000 Token.</strong> Ein größeres Fenster löst das Problem nicht. Bei kleinen Fenstern ist meist die harte Grenze selbst das Problem. Nicht die Dumb Zone.</p>
+              <p class="viz-note">Messungen zeigen, dass Modelle Inhalte in der Mitte sehr langer Fenster schlechter nutzen. Das Phänomen ist gut dokumentiert. Die Faustregel stammt aus der Praxis von Dex Horthy (Human Layer) und Matt Pocock, einem bekannten Software-Lehrer, dessen KI-Arbeitsweise wir in diesem Kurs übernehmen; was für Software gilt, gilt genauso für Alltagsprojekte. Für Neugierige: Die Formel hinter der Grafik ist n · (n − 1) / 2, und Matt spürt es bei großen Fenstern ab ~120k.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="lesson" id="m3-03">
+          <aside class="lesson-side">
+            <span class="lesson-number">03.03</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Spiel es durch: Was passt in welches Fenster?</h3>
+            <p>Klick Inhalte in den Chat und schalte zwischen den Fenstern um. Die Werte der Inhalte sind grobe Richtwerte. Auf die Größenordnung kommt es an.</p>
+            <div class="viz" data-viz="ctx">
+              <div class="viz-head">
+                <strong>Kontextfenster-Meter</strong>
+                <span class="viz-tag">Zum Ausprobieren</span>
+              </div>
+              <div class="ctx-group">
+                <small>1 · Was liegt im Chat? (mehrfach anklickbar)</small>
+                <div class="ctx-chips" id="ctxItems">
+                  <button class="ctx-chip" type="button" data-tokens="1000" aria-pressed="false">Brief, 2 Seiten · ~1K</button>
+                  <button class="ctx-chip" type="button" data-tokens="2000" aria-pressed="false">Kurzer Chat · ~2K</button>
+                  <button class="ctx-chip" type="button" data-tokens="10000" aria-pressed="false">Projekt-Notizen · ~10K</button>
+                  <button class="ctx-chip" type="button" data-tokens="12000" aria-pressed="false">Langer Chatverlauf, wächst mit jeder Antwort · ~12K</button>
+                  <button class="ctx-chip" type="button" data-tokens="25000" aria-pressed="false">YouTube-Transkript · ~25K</button>
+                  <button class="ctx-chip" type="button" data-tokens="30000" aria-pressed="false">Langer Arbeitstag-Chat · ~30K</button>
+                  <button class="ctx-chip" type="button" data-tokens="150000" aria-pressed="false">Ganzes Buch · ~150K</button>
+                </div>
+              </div>
+              <div class="ctx-group">
+                <small>2 · In welchem Fenster arbeitest du?</small>
+                <div class="ctx-chips" id="ctxWindows">
+                  <button class="ctx-chip win" type="button" data-window="27000" aria-pressed="true">Klein: ChatGPT Free · 27K</button>
+                  <button class="ctx-chip win" type="button" data-window="200000" aria-pressed="false">Mittel: Claude (Free) · 200K</button>
+                  <button class="ctx-chip win" type="button" data-window="256000" aria-pressed="false">Mittel: ChatGPT Thinking (Plus) · 256K</button>
+                  <button class="ctx-chip win" type="button" data-window="1000000" aria-pressed="false">Riesig: Gemini / Claude-Bezahlpläne · 1M</button>
+                </div>
+                <p class="viz-note">Die drei Größenklassen aus 03.01. Feinere Werte (54K, 400K, 500K …) stehen dort in der Nachschlage-Tabelle.</p>
+              </div>
+              <div class="ctx-meter" id="ctxMeter">
+                <div class="ctx-fill" id="ctxFill"></div>
+                <div class="ctx-marker" aria-hidden="true"><span id="ctxMarkerLabel">Dumb Zone ab 40 %</span></div>
+              </div>
+              <div class="ctx-scale"><span>0</span><span id="ctxWindowLabel">27.000 Token</span></div>
+              <p class="ctx-status" id="ctxStatus" aria-live="polite">Klick oben Inhalte an. Das Fenster ist noch leer.</p>
+              <p class="viz-note">Der rote Bereich ist die Kurs-Faustregel aus 03.02.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="lesson" id="m3-04">
+          <aside class="lesson-side">
+            <span class="lesson-number">03.04</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Die Gegenmittel</h3>
+            <p>Gegen die Dumb Zone hilft kein Schimpfen und kein größeres Abo, sondern Arbeitstechnik:</p>
+            <div class="blocks">
+              <section class="block accent-teal"><b>1 · Aufgaben klein schneiden</b><p>Jede Aufgabe so zuschneiden, dass sie samt Material bequem in die Smart Zone passt. Lieber drei fokussierte Chats als ein Mammut-Chat.</p></section>
+              <section class="block accent-blue"><b>2 · Neuer Chat statt Weiterwursteln</b><p>Neues Thema, neuer Chat. Der alte Kontext hilft nicht: er stört, kostet Fensterplatz und schleppt alte Irrtümer mit.</p></section>
+              <section class="block accent-violet"><b>3 · Handoff: Umzug mit Gepäck</b><p>Wenn der Arbeitsstand wertvoll ist: Die KI fasst ihn kompakt zusammen, du nimmst die Zusammenfassung in einen frischen Chat mit. Den fertigen Handoff-Prompt bekommst du in Modul 5.</p></section>
+              <section class="block accent-violet"><b>4 · Fleißarbeit an Sub-Agenten abgeben</b><p>In Agenten-Tools erlaubst du der KI, Teilaufgaben an Helfer mit eigenem, leerem Kontextfenster abzugeben. Die wühlen sich durchs Material, in deinem Chat landet nur das Ergebnis. Wie das funktioniert: direkt in der nächsten Lektion.</p></section>
+              <section class="block accent-amber"><b>Woran du die Dumb Zone erkennst</b><p>Die KI vergisst Regeln von vorhin, wiederholt sich, verwechselt Details oder wird merkwürdig zäh. Das ist kein schlechter Tag, sondern die Physik des Fensters.</p></section>
+            </div>
+          </div>
+        </article>
+
+        <article class="lesson" id="m3-05">
+          <aside class="lesson-side">
+            <span class="lesson-number">03.05</span>
+            <span class="track deep">Vertiefung</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Agenten &amp; Sub-Agenten: Arbeit verteilen statt Chat vollstopfen</h3>
+            <p>Der Kurz-Ausblick, der direkt aus der Dumb Zone folgt: Ein <b>Agent</b> ist eine KI, die einen ganzen Auftrag selbstständig abarbeitet (Material lesen, recherchieren, entwerfen, prüfen) und sich erst mit dem Ergebnis oder einer Rückfrage meldet. Unterwegs darf er <b>Sub-Agenten</b> losschicken: Helfer-KIs, die je einen Teilauftrag übernehmen und dafür ihr eigenes, leeres Kontextfenster mitbringen. Der Recherche-Wust bleibt in deren Fenstern, in deinem Chat landet nur das Ergebnis, dein Fenster bleibt in der Smart Zone. In Agenten-Tools wie Claude oder Codex reicht dafür oft ein Satz wie "Nutze für die Recherche Sub-Agenten".</p>
+            <section class="note"><b>Wo du das live siehst</b><p>In Teil 2 bei /project-review: Dort prüft ein Sub-Agent mit frischem Fenster die Arbeit des ersten.</p></section>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="m4" aria-labelledby="m4-title">
+        <div class="section-head">
+          <p class="kicker">Modul 4 · ca. 20 Min.</p>
+          <h2 id="m4-title">Briefen: aus Wunsch wird Auftrag</h2>
+          <p>Die Qualität der Antwort entscheidet sich vor dem Absenden. Hier baust du Prompts, die Ziel, Kontext, Auftrag und Prüfung mitliefern, und lässt die KI nachfragen, statt Lücken zu erfinden.</p>
+        </div>
+
+        <article class="lesson" id="m4-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">04.01</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Datencheck-Erinnerung: ab jetzt fließt echtes Material</h3>
+            <p>Beim Briefen wandern zum ersten Mal eigene Unterlagen und Fakten in den Chat. Es gilt, was wir in Modul 1 vereinbart haben: Die fünf roten Grenzen bleiben draußen (Ausweis, Zahlung, Zugänge, Daten anderer, Firmeninternes), Namen und Aktenzeichen ersetzt du durch Platzhalter. Deshalb briefst du die Konkurrenz-Analyse gleich mit einem fiktiven Faktenblatt statt mit echten Firmendaten.</p>
+          </div>
+        </article>
+
+        <article class="lesson" id="m4-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">04.02</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Vorher / Nachher: derselbe Wunsch, zwei Welten</h3>
+            <p>Alle drei Karten starten mit einem typischen ersten Versuch. Dein Auftrag: Notiere zuerst, was der Vorher-Version fehlt, und klick erst dann auf "Gebriefte Version zeigen" zum Vergleich.</p>
+            <div class="viz" data-viz="flip">
+              <div class="viz-head">
+                <strong>Vorher/Nachher-Prompt-Flip</strong>
+                <span class="viz-tag">Zum Ausprobieren</span>
+              </div>
+              <div class="flip-grid">
+                <div class="flip-card" data-flip>
+                  <span class="flip-state" data-flip-state>Vorher · Wunsch</span>
+                  <h4>Wochenendtrip</h4>
+                  <p class="flip-text" data-flip-before>Wohin könnten wir am Wochenende mal fahren?</p>
+                  <p class="flip-text" data-flip-after id="flip-trip-nach" hidden>Ziel: 3 Vorschläge für einen Wochenendtrip, aus denen wir heute Abend einen auswählen.
+Kontext: 2 Personen, 2 Nächte, Ende August, ca. 300 Euro p. P., Bahn, max. 3 Stunden ab [Startort]. Wir mögen Altstädte, Wasser, gutes Essen.
+Auftrag: Pro Ziel: warum es passt, grobe Kosten, ein unterschätztes Highlight. Fehlt dir etwas Wichtiges, frag nach.
+Prüfung: Markiere alle Preise als Schätzung, die prüfe ich selbst.</p>
+                  <div class="flip-actions">
+                    <button class="flip-button" type="button" data-flip-toggle aria-pressed="false">Gebriefte Version zeigen</button>
+                    <button class="flip-copy" type="button" data-copy="#flip-trip-nach">Nachher kopieren</button>
+                  </div>
+                </div>
+                <div class="flip-card" data-flip>
+                  <span class="flip-state" data-flip-state>Vorher · Wunsch</span>
+                  <h4>Konkurrenz-Analyse</h4>
+                  <p class="flip-text" data-flip-before>Was macht die Konkurrenz besser als wir?</p>
+                  <p class="flip-text" data-flip-after id="flip-shop-nach" hidden>Ziel: Eine Konkurrenz-Übersicht, die ich morgen im Team zeigen kann.
+Kontext: Kleiner Online-Shop für Fahrradzubehör; ein neuer Wettbewerber wirbt mit Gratis-Versand und schneller Lieferung (Faktenblatt unten, alles fiktiv).
+Auftrag: 1) Vergleiche uns in einer Tabelle: Versand, Lieferzeit, Rückgabe, Beratung, Sortiment. 2) Nenne drei Punkte, die wir zuerst prüfen sollten. Fehlt dir eine Angabe, frag nach.
+Prüfung: Markiere jede Zahl und Behauptung, die nicht aus meinem Faktenblatt stammt.</p>
+                  <div class="flip-actions">
+                    <button class="flip-button" type="button" data-flip-toggle aria-pressed="false">Gebriefte Version zeigen</button>
+                    <button class="flip-copy" type="button" data-copy="#flip-shop-nach">Nachher kopieren</button>
+                  </div>
+                </div>
+                <div class="flip-card" data-flip>
+                  <span class="flip-state" data-flip-state>Vorher · Wunsch</span>
+                  <h4>Digitale Ordnung</h4>
+                  <p class="flip-text" data-flip-before>Hilf mir mal, meine Dateien aufzuräumen.</p>
+                  <p class="flip-text" data-flip-after id="flip-ordnung-nach" hidden>Ziel: Ein Ordnungssystem, das ich ab sofort benutze, plus ein Aufräumplan für den Altbestand.
+Kontext: Ein Laptop, ein Handy, Jahre gewachsenes Durcheinander: Downloads, Fotos, Scans, Notizen in [deine Apps]. Realistisch sind 30 Minuten pro Woche.
+Auftrag: 1) Schlag höchstens sieben Hauptordner vor, mit je einer Ein-Satz-Regel. 2) Mach daraus einen Wochenplan: pro Woche ein 30-Minuten-Paket für den Altbestand. Fehlt dir etwas Wichtiges, frag nach.
+Prüfung: Markiere jeden Schritt, der ein zusätzliches Programm bräuchte, das prüfe ich selbst.</p>
+                  <div class="flip-actions">
+                    <button class="flip-button" type="button" data-flip-toggle aria-pressed="false">Gebriefte Version zeigen</button>
+                    <button class="flip-copy" type="button" data-copy="#flip-ordnung-nach">Nachher kopieren</button>
+                  </div>
+                </div>
+              </div>
+              <p class="viz-note">Der Unterschied ist kein Stil, sondern Substanz. Wie die Teile heißen, die dazugekommen sind, klärt die nächste Lektion.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="lesson" id="m4-03">
+          <aside class="lesson-side">
+            <span class="lesson-number">04.03</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Der Prompt-Baukasten</h3>
+            <p>Was den Nachher-Versionen eben ihre Kraft gegeben hat, hat System — und Namen. Ein guter Prompt ist kein Trick und keine Geheimformel: Er beantwortet die Fragen, die du sonst nur im Kopf hast, denn die KI kann nicht hineinsehen:</p>
+            <div class="blocks">
+              <section class="block"><b>1 · Ziel</b><p>Statt "Hilf mir mit der Konkurrenz": "Ich brauche einen Vergleich, den ich morgen im Team zeigen kann."</p></section>
+              <section class="block"><b>2 · Kontext</b><p>Nur die nötigen Fakten: Was bietet ihr an, was macht der Wettbewerber, was ist noch unklar? Ohne echte Kundendaten und Interna.</p></section>
+              <section class="block"><b>3 · Auftrag</b><p>"Erstelle den Vergleich. Wenn dir Angaben fehlen, stelle erst Rückfragen, statt etwas anzunehmen."</p></section>
+              <section class="block"><b>4 · Format &amp; Prüfung</b><p>"Eine Seite: Tabelle plus drei Empfehlungen. Markiere am Ende jede Zahl, die ich selbst prüfen muss."</p></section>
+            </div>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Baukasten-Vorlage zum Kopieren</small><button class="copy-button" type="button" data-copy="#prompt-baukasten">Kopieren</button></div>
+              <pre id="prompt-baukasten">Ziel: Ich brauche [konkretes Ergebnis], damit ich [wobei es helfen soll].
+Kontext: Diese Fakten gelten: [Thema, Zielgruppe, Ton, bekannte Daten, ohne Namen und Nummern].
+Material: Verwende nur [Text/Link/Datei] und erfinde keine weiteren Fakten.
+Auftrag: Erstelle [Entwurf/Liste/Plan]. Wenn wichtige Angaben fehlen, stelle erst Rückfragen.
+Format: [z. B. maximal 150 Wörter / Tabelle mit 3 Spalten / nummerierte Checkliste].
+Prüfung: Nenne am Ende deine Annahmen und alles, was ich vor der Nutzung selbst prüfen muss.</pre>
+            </section>
+            <p class="viz-note"><b>Schon Profi?</b> Bau deinen häufigsten Alltags-Prompt nach dem Baukasten um und vergleiche die Antworten.</p>
+          </div>
+        </article>
+
+        <article class="lesson" id="m4-04">
+          <aside class="lesson-side">
+            <span class="lesson-number">04.04</span>
+            <span class="track demo">Demo</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Rückfragen erzwingen: deine eigene Kaufberatung</h3>
+            <p>Die stärkste Zeile in jedem Briefing: "Stelle erst Rückfragen." Sie verhindert, dass die KI Lücken mit Erfindungen füllt. Der Fragenbohrer macht daraus einen wiederverwendbaren Baustein, den du an jeden Prompt hängen kannst:</p>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Fragenbohrer · unser Kurs-Prompt</small><button class="copy-button" type="button" data-copy="#prompt-fragenbohrer">Kopieren</button></div>
+              <pre id="prompt-fragenbohrer">Bevor du meine Aufgabe bearbeitest, stelle mir bis zu 5 kurze Rückfragen, nur zu Informationen, die du wirklich brauchst. Gib erst nach meinen Antworten einen Entwurf. Sage außerdem, welche meiner Angaben du für die Aufgabe gar nicht benötigst.</pre>
+            </section>
+            <p>Dieselbe Idee gibt es in Matt Pococks Skill-Sammlung als fertigen Skill: grill-me, ein gnadenloses Frage-Interview. Du kannst den Originaltext einfach als Prompt benutzen; in Modul 9 siehst du, wie daraus ein installierbarer Skill wird:</p>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Original-Skilltext · grill-me / grilling (Matt Pocock, englisch, Auszug)</small><button class="copy-button" type="button" data-copy="#prompt-grillme">Kopieren</button></div>
+              <pre id="prompt-grillme">Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
+
+Ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.</pre>
+            </section>
+            <section class="note"><b>Auf Deutsch, kurz</b><p>"Interviewe mich gnadenlos zu jedem Aspekt dieses Plans, bis wir ein gemeinsames Verständnis haben. Geh die Entscheidungen einzeln durch und schlag mir zu jeder Frage deine empfohlene Antwort vor. Stell die Fragen eine nach der anderen — mehrere auf einmal verwirren nur."</p></section>
+            <section class="activity"><strong>Mitmach-Demo · deine Kaufberatung</strong><p>Du willst ein Produkt kaufen oder vergleichen? Genau das nimmst du jetzt: Staubsauger, E-Bike, Matratze, Waschmaschine, egal. Schick den Prompt unten mit deinem Produkt ab und schau zu, wie die KI erst nachfragt (Budget? Wofür? Was ist dir wichtig?), dann mit Websuche aktuelle Angebote vergleicht und Quellen-Links liefert, die wir stichprobenartig öffnen.</p></section>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Kaufberatung mit Rückfragen und Websuche</small><button class="copy-button" type="button" data-copy="#prompt-kauf">Kopieren</button></div>
+              <pre id="prompt-kauf">Ich möchte [Produkt] kaufen, kenne mich aber nicht gut aus.
+Stelle mir zuerst bis zu 5 Rückfragen zu allem, was du für eine gute Empfehlung brauchst.
+Suche danach im Netz nach aktuellen Angeboten, vergleiche 3 passende Optionen in einer Tabelle (Preis, Stärken, Schwächen) und verlinke deine Quellen. Markiere, welche Angaben du nicht belegen kannst.</pre>
+            </section>
+            <section class="note"><b>Fallback ohne eigene Kaufidee</b><p>Nimm den Fernseher: Das WM-Finale am 19.07.2026 ist ein guter Anlass. Setze oben einfach "einen Fernseher fürs WM-Finale" ein. Wichtig ist die Reihenfolge, nicht das Produkt: erst Rückfragen, dann Websuche, dann Vergleich mit Quellen.</p></section>
+            <section class="note"><b>Websuche oder Deep Research?</b><p>Bahnpreis für morgen = Websuche. "Welche Anbieter für [dein Thema] gibt es in Bayern, mit Preisen und Bewertungen?" = Deep Research, der Ausdauer-Modus aus Modul 2.</p></section>
+          </div>
+        </article>
+
+        <article class="lesson" id="m4-05">
+          <aside class="lesson-side">
+            <span class="lesson-number">04.05</span>
+            <span class="track uebung">Übung</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Übung: dein Leitbeispiel briefen</h3>
+            <p>Jetzt du: Wähle dein Leitbeispiel und baue mit dem Baukasten ein richtiges Briefing. Alle drei Wege üben dasselbe Handwerk; die Konkurrenz-Analyse ist der Fall, mit dem wir in Modul 5 weiterarbeiten.</p>
+            <div class="lb-switch" data-lbtabs="leitbeispiel">
+              <div class="lb-tabs" role="group" aria-label="Leitbeispiel wählen">
+                <button class="lb-tab" type="button" data-lbtab="trip" aria-pressed="true">Wochenendtrip</button>
+                <button class="lb-tab" type="button" data-lbtab="shop" aria-pressed="false">Konkurrenz-Analyse</button>
+                <button class="lb-tab" type="button" data-lbtab="ordnung" aria-pressed="false">Digitale Ordnung</button>
+              </div>
+              <div class="lb-panel" data-lbpanel="trip">
+                <section class="activity"><strong>10 Min. · dein Trip-Briefing</strong><ol><li>Nimm deinen Trip aus Modul 1 (oder einen echten, den du planst) und brief die KI mit dem Baukasten: Ziel (drei Vorschläge zum Auswählen), Kontext (Personen, Termin, Budget, Vorlieben), Auftrag (erst Rückfragen, dann Vorschläge mit Kosten), Prüfung (alle Preise als Schätzung markieren).</li><li>Häng den Fragenbohrer aus 04.04 an und schick alles ab.</li><li>Vergleiche mit deiner Nachbarin oder deinem Nachbarn: Welche Rückfragen hat die KI gestellt?</li></ol></section>
+              </div>
+              <div class="lb-panel" data-lbpanel="shop" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Das Übungsmaterial · fiktives Faktenblatt</small><button class="copy-button" type="button" data-copy="#material-shop">Kopieren</button></div>
+                  <pre id="material-shop">Interne Notizen (fiktiv) · Online-Shop "Fahrradkiste"
+
+Unser Shop: Fahrradzubehör (Taschen, Licht, Werkzeug, Kindersitze). Kunden: Alltagsradler und Familien.
+Versand: 4,95 Euro, gratis ab 80 Euro. Lieferzeit: 2 bis 4 Werktage. Rückgabe: 30 Tage.
+Bewertungen: 4,6 Sterne bei 860 Bewertungen.
+Stärke: telefonische Beratung. Schwäche: kleine Auswahl bei E-Bike-Zubehör.
+
+Der Neue: "Velodrom24", seit März online, wirbt stark mit Suchanzeigen.
+Beobachtet: Versand "ab 0 Euro" beworben, sehr große Auswahl, Lieferzeit laut Startseite 1 bis 2 Werktage.
+Unklar: Rückgaberegeln, Beratung, Qualität der Eigenmarken, echte Bewertungszahlen.</pre>
+                </section>
+                <section class="activity"><strong>10 Min. · dein Analyse-Briefing</strong><ol><li>Faktenblatt kopieren und in den Chat geben. (Alles fiktiv. Im echten Leben gelten die Datenregeln aus Modul 1: keine echten Kundendaten oder Interna, Beobachtungen über Wettbewerber sind unkritisch.)</li><li>Mit dem Baukasten briefen: Ziel (Vergleich fürs Team), Auftrag (erst Rückfragen, dann Vergleichstabelle, dann drei Empfehlungen), Prüfung (jede Zahl markieren lassen, die nicht aus dem Faktenblatt stammt).</li><li>Vergleiche mit deiner Nachbarin oder deinem Nachbarn: Welche Rückfragen hat die KI gestellt?</li></ol></section>
+              </div>
+              <div class="lb-panel" data-lbpanel="ordnung" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Das Übungsmaterial · Beispiel-Bestandsaufnahme</small><button class="copy-button" type="button" data-copy="#material-ordnung">Kopieren</button></div>
+                  <pre id="material-ordnung">Meine Bestandsaufnahme (Beispiel, ersetze die Angaben durch deine)
+
+Geräte: 1 Laptop, 1 Handy, 1 alte externe Festplatte.
+Dateien: Download-Ordner ca. 2.400 Dateien, Desktop voll, Ordnerstruktur zuletzt 2019 gepflegt.
+Fotos: ca. 18.000 auf dem Handy, viele Screenshots und Duplikate.
+Notizen: drei Orte (Handy-Notizen, Zettel-App, E-Mails an mich selbst).
+Unterlagen: Verträge und Bescheide teils als Papier, teils als Scan, teils in E-Mail-Anhängen.
+Zeit: realistisch 30 Minuten pro Woche.</pre>
+                </section>
+                <section class="activity"><strong>10 Min. · dein Ordnungs-Briefing</strong><ol><li>Bestandsaufnahme anpassen (grobe Mengen reichen, es geht um dein echtes Chaos) und in den Chat geben. Die Datenregeln gelten: Beschreibe nur, wo was liegt, lade keine Vertragsinhalte oder sensiblen Dokumente hoch.</li><li>Mit dem Baukasten briefen: Ziel (Ordnungssystem plus Wochenplan), Auftrag (erst Rückfragen, dann höchstens sieben Hauptordner mit Regeln, dann Wochenplan in 30-Minuten-Paketen), Prüfung (markieren lassen, was ein zusätzliches Programm bräuchte).</li><li>Vergleiche mit deiner Nachbarin oder deinem Nachbarn: Welche Rückfragen hat die KI gestellt?</li></ol></section>
+              </div>
+            </div>
+            <section class="note"><b>Notfall-Zeile</b><p>Antwortet die KI sofort statt zu fragen? Schick nach: "Stopp — stell mir erst deine Rückfragen."</p></section>
+            <p><b>Heb dir die Antwort auf:</b> Nach der Pause zerlegen wir genau solche Entwürfe mit der Prüflinse.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="check1" aria-labelledby="check1-title">
+        <div class="section-head">
+          <p class="kicker">Selbst-Check · 5 Min.</p>
+          <h2 id="check1-title">Kurz-Check vor der Pause</h2>
+          <p>Drei Fragen zur ersten Hälfte. Erst selbst beantworten, dann aufdecken.</p>
+        </div>
+        <div class="quiz-grid">
+          <article class="quiz-card" data-quiz><b>Die KI "erinnert sich" an dein Budget aus Nachricht 3 — warum wirklich?</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Kein Gedächtnis: Der komplette Chat wird bei jeder Nachricht neu mitgeschickt, das Budget stand im Paket. (Modul 3)</p></article>
+          <article class="quiz-card" data-quiz><b>Dein Chat ist bei 60 % des Fensters, was tust du?</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Faustregel überschritten: Arbeitsstand zusammenfassen lassen und in einem frischen Chat weitermachen. Den fertigen Handoff-Prompt bekommst du gleich in Modul 5. (Modul 3)</p></article>
+          <article class="quiz-card" data-quiz><b>Aus "Hilf mir mal mit dem Vereinsfest" soll ein richtiges Briefing werden. Welche vier Teile?</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Ziel, Kontext, Auftrag (mit "erst Rückfragen"), Format &amp; Prüfung — der Baukasten. (Modul 4)</p></article>
+        </div>
+      </section>
+
+      <div class="pause-banner" role="note">
+        <b>Pause · 15 Minuten</b>
+        <span>Danach: Antworten prüfen und reparieren, Denkzeit, Bilder, Artefakte, Skills.</span>
+      </div>
+
+      <section class="section panel" id="m5" aria-labelledby="m5-title">
+        <div class="section-head">
+          <p class="kicker">Modul 5 · ca. 20 Min.</p>
+          <h2 id="m5-title">Prüfen &amp; Reparieren</h2>
+          <p>Du weißt seit Modul 2: Die Maschine optimiert auf plausibel, nicht auf wahr. Deshalb ist das hier deine eigentliche Rolle in jeder KI-Zusammenarbeit (draußen heißt sie Human in the Loop): Die KI darf liefern, Qualitätskontrolle und Entscheidung gibst du nie ab. Hier kommt das Handwerk dazu: eine Antwort in Sekunden zerlegen, gezielt reparieren und bei Bedarf sauber in einen neuen Chat umziehen.</p>
+        </div>
+
+        <article class="lesson" id="m5-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">05.01</span>
+            <span class="track uebung">Übung</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Die Prüflinse: gut, erfunden, prüfpflichtig</h3>
+            <p>Hier ist ein KI-Analyseentwurf zu unserem Shop-Fall. Er klingt tadellos, und enthält trotzdem Dinge, die nicht im Faktenblatt stehen. Genau die suchen wir. (Das Faktenblatt steht in Übung 04.05 im Tab "Konkurrenz-Analyse".)</p>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>KI-Entwurf zur Konkurrenz-Analyse · finde die Probleme</small><button class="copy-button" type="button" data-copy="#antwort-shop">Kopieren</button></div>
+              <pre id="antwort-shop">Kurz-Analyse: Fahrradkiste vs. Velodrom24 (Entwurf)
+
+Wo Velodrom24 vorn liegt: Gratis-Versand auf alles und Lieferung in 1 bis 2 Werktagen. Auf Trustpilot hält Velodrom24 4,9 Sterne bei über 12.000 Bewertungen und ist mit rund 30 Prozent Marktanteil Marktführer im deutschen Zubehör-Segment.
+
+Wo wir vorn liegen: persönliche Beratung am Telefon und 30 Tage Rückgaberecht, während Velodrom24 nur 14 Tage gewährt.
+
+Empfehlung: Wir sollten unseren Versand ebenfalls auf 0 Euro senken. Bei unseren 860 Bestellungen pro Monat kostet uns das rund 4.300 Euro monatlich.</pre>
+            </section>
+            <section class="activity"><strong>8 Min. · Prüflinse anlegen</strong><p>Markiere im Entwurf vier Stellen: eine brauchbare Aussage, eine Behauptung zum Nachprüfen, eine erfundene Zahl und eine Stelle, die nur du entscheiden kannst. Vergleiche mit dem Faktenblatt aus Modul 4.</p></section>
+            <details class="fold">
+              <summary>Auflösung zeigen (erst nach der Übung)</summary>
+              <div class="fold-body">
+                <div class="summary-strip">
+                  <div><b>Brauchbar</b><span>Struktur (sie vorn / wir vorn / Empfehlung) und die belegten Punkte aus dem Faktenblatt: Telefonberatung, 30 Tage Rückgabe.</span></div>
+                  <div><b>Prüfpflichtig</b><span>"Gratis-Versand auf alles": Das Faktenblatt sagt nur "ab 0 Euro beworben". Bedingungen unklar, erst auf der Website nachsehen.</span></div>
+                  <div><b>Erfunden</b><span>Trustpilot 4,9 Sterne, 12.000 Bewertungen, 30 % Marktanteil, "nur 14 Tage Rückgabe": Nichts davon steht im Material. Und die 860 sind unsere Bewertungen, nicht "Bestellungen pro Monat": echte Zahl, falscher Zusammenhang.</span></div>
+                  <div><b>Deine Entscheidung</b><span>Ob ihr am Versandpreis dreht, entscheidet kein Modell. Gezeigt wird die Analyse erst nach dem Abgleich mit dem Material.</span></div>
+                </div>
+                <p class="viz-note">Wie lange hast du gebraucht, die verdrehte 860 zu finden?</p>
+              </div>
+            </details>
+            <section class="note"><b>Sie stimmt dir gern zu</b><p>KI-Modelle neigen dazu, dir zuzustimmen (Fachwort: Gefälligkeit). Auch deshalb ist ihre Empfehlung kein neutrales Urteil. Bitte sie aktiv, dir zu widersprechen.</p></section>
+            <section class="note"><b>Wie viel Prüfen ist normal?</b><p>Am Anfang prüfst du mehr. Bei einem neuen Modell, einem neuen Tool oder einer neuen Aufgabenart kennst du die typischen Fehler noch nicht. Mit der Zeit merkst du: Hier ist es zuverlässig, hier erfindet es gern Details, hier will ich Quellen sehen. Dann wird Prüfen nicht weniger wichtig, sondern gezielter. Ausnahme ohne Rabatt: Alles mit Folgen (Geld, Recht, Gesundheit, Kunden, Öffentlichkeit) prüfst du immer gründlich, und bei den wirklich großen Entscheidungen holst du das letzte Wort von Fachleuten, nicht vom Modell (Modul 1).</p></section>
+          </div>
+        </article>
+
+        <article class="lesson" id="m5-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">05.02</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Fakten von Annahmen trennen, und Quellen erzwingen</h3>
+            <p>Jede konkrete Angabe in einer KI-Antwort gehört in eine von drei Schubladen: steht im Material, ist eine Annahme des Modells, oder braucht eine externe Quelle. Diese Sortierung kannst du die KI selbst machen lassen:</p>
+            <div class="blocks">
+              <section class="block accent-teal"><b>Kann meist bleiben</b><p>Ton, Struktur, Formulierungen. Hier liest du auf Verständlichkeit und Wirkung. Fakten stecken da selten drin.</p></section>
+              <section class="block accent-amber"><b>Musst du nachsehen</b><p>Preise, Lieferzeiten, Bewertungszahlen, Marktanteile, Fristen, Beträge, Namen, Paragrafen. Abgleich immer mit dem Original: Faktenblatt, Website, Vertrag, Bescheid, nicht mit der Erinnerung der KI.</p></section>
+            </div>
+            <div class="source-ladder">
+              <strong>So prüfst du einen Entwurf zur Konkurrenz-Analyse</strong>
+              <ol>
+                <li>Jede konkrete Angabe markieren: Preise, Lieferzeiten, Bewertungen, Marktanteile, alles mit Zahlen.</li>
+                <li>Material daneben legen: das Faktenblatt und die echte Website, nicht die Zusammenfassung der KI.</li>
+                <li>Einzeln vergleichen. Stimmt eine Angabe nicht: raus oder korrigieren.</li>
+                <li>Alles ohne Beleg durch Platzhalter oder "zu prüfen" ersetzen.</li>
+                <li>Erst dann im Team zeigen, absenden oder weitergeben.</li>
+              </ol>
+            </div>
+            <section class="note"><b>Training zuerst, dann gezielt</b><p>Für den Anfang machst du diese Sortierung bewusst gründlich: So lernst du, wo dein Modell sauber arbeitet und wo es gern Details erfindet. Später prüfst du nicht mehr automatisch alles gleich stark, sondern gezielt: Zahlen, Fristen, Namen, Quellen und alles mit Folgen zuerst. Weniger Verantwortung wird es nie, nur besseres Augenmaß. Die komplette Liste der zwölf Warnzeichen, mit denen Profis Entwürfe prüfen, siehst du in Teil 2 als Checkliste.</p></section>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Quellen-Reparatur</small><button class="copy-button" type="button" data-copy="#prompt-quellen">Kopieren</button></div>
+              <pre id="prompt-quellen">Prüfe deine letzte Antwort kritisch. Liste jede konkrete Behauptung einzeln auf und ordne sie in drei Spalten:
+1. steht so in meinem Material oder Auftrag
+2. ist eine Annahme von dir
+3. braucht eine externe Quelle
+Schreibe danach eine korrigierte Version, in der alles aus Spalte 2 und 3 durch Platzhalter oder belegte Angaben ersetzt ist.</pre>
+            </section>
+          </div>
+        </article>
+
+        <article class="lesson" id="m5-03">
+          <aside class="lesson-side">
+            <span class="lesson-number">05.03</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Reparieren statt meckern</h3>
+            <p>"Das ist schlecht" bringt der KI nichts: sie weiß dann nur, dass du unzufrieden bist, nicht womit. Der Reparatur-Loop macht aus Frust einen präzisen Auftrag:</p>
+            <div class="workflow">
+              <div><b>Signal</b><span>Was stimmt nicht? Falsche Zahl, falscher Ton, zu lang, Wichtiges fehlt.</span></div>
+              <div><b>Beispiel</b><span>Welche Stelle zeigt es? Ein Satz oder Absatz reicht.</span></div>
+              <div><b>Änderung</b><span>Was soll konkret anders werden?</span></div>
+              <div><b>Behalten</b><span>Was war gut und soll nicht mit rausfliegen?</span></div>
+              <div><b>Neu prüfen</b><span>Nach der Reparatur: Fakten und Annahmen wieder auflisten lassen.</span></div>
+            </div>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Reparatur-Prompt</small><button class="copy-button" type="button" data-copy="#prompt-reparatur">Kopieren</button></div>
+              <pre id="prompt-reparatur">Überarbeite deinen Entwurf gezielt:
+Problem: [z. B. die Bewertungszahl stammt nicht aus meinem Material].
+Beispielstelle: [Satz oder Absatz einfügen].
+Änderung: [z. B. nur Zahlen aus dem Faktenblatt verwenden, Rest als "zu prüfen" markieren, Absatz kürzen].
+Behalten: [z. B. Aufbau und erster Absatz].
+Grenze: Erfinde keine neuen Fakten. Fehlt eine Angabe, nutze einen Platzhalter.
+Prüfung: Liste danach erneut alle Zahlen, Fristen und Annahmen auf.</pre>
+            </section>
+            <section class="activity"><strong>5 Min. · eine Reparatur</strong><p>Nimm deinen Entwurf aus der Briefing-Übung (Modul 4) und repariere genau eine Sache daran mit dem Loop. Nicht neu würfeln, sondern gezielt nachbessern.</p></section>
+          </div>
+        </article>
+
+        <article class="lesson" id="m5-04">
+          <aside class="lesson-side">
+            <span class="lesson-number">05.04</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>HANDOFF: der saubere Umzug aus der Dumb Zone</h3>
+            <p>Das versprochene Gegenmittel aus Modul 3. Wenn ein Chat lang, zäh oder vergesslich geworden ist, lässt du ihn seinen eigenen Nachlass schreiben, und startest frisch, ohne den Arbeitsstand zu verlieren. In Matt Pococks Skill-Sammlung heißt dieser Ablauf handoff. So sieht der echte Skill von innen aus: normale Sprache, keine Programmierung.</p>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Original-Skilltext · handoff (Matt Pocock, englisch)</small><button class="copy-button" type="button" data-copy="#skilltext-handoff">Kopieren</button></div>
+              <pre id="skilltext-handoff">Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS - not the current workspace.
+
+Include a "suggested skills" section in the document, which suggests skills that the agent should invoke.
+
+Do not duplicate content already captured in other artifacts (PRDs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
+
+Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
+
+If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.</pre>
+            </section>
+            <section class="note"><b>Auf Deutsch, kurz</b><p>"Schreib ein Übergabe-Dokument, mit dem ein frischer Chat die Arbeit fortsetzen kann. Wiederhole nichts, was schon woanders festgehalten ist — verweise darauf. Entferne sensible Daten. Sage ich dir, worum es als Nächstes geht, richte das Dokument danach aus."</p></section>
+            <p>Merk dir diesen Text: Heute benutzt du ihn als simplen Prompt, in Modul 9 installierst du ihn als wiederverwendbaren Skill. Das Original spricht einen Agenten an (Übergabe als Datei, Fachwörter wie "PRDs" darfst du ignorieren). Für den normalen Chat reicht unsere deutsche Prompt-Fassung:</p>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>HANDOFF als Chat-Prompt · Übergabe in einen neuen Chat</small><button class="copy-button" type="button" data-copy="#prompt-handoff">Kopieren</button></div>
+              <pre id="prompt-handoff">Fasse den Arbeitsstand dieses Chats für einen neuen Chat zusammen:
+1. Ziel der Aufgabe
+2. Wichtige Fakten und Materialien
+3. Getroffene Entscheidungen
+4. Offene Fragen
+5. Regeln, die weiterhin gelten
+6. Nächster sinnvoller Schritt
+Kompakt und ohne Wiederholungen. Die Zusammenfassung ist der einzige Kontext, den der neue Chat bekommt.</pre>
+            </section>
+            <div class="blocks">
+              <section class="block accent-teal"><b>Wann du ihn ziehst</b><p>Der Chat wiederholt sich, vergisst Regeln, verwechselt Details, oder das Kontextfenster-Meter in deinem Kopf zeigt Richtung 40 %.</p></section>
+              <section class="block accent-blue"><b>Warum das wirkt</b><p>Der neue Chat startet in der Smart Zone: wenig Kontext, aber der richtige. Alte Irrwege und totes Material bleiben zurück.</p></section>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="m6" aria-labelledby="m6-title">
+        <div class="section-head">
+          <p class="kicker">Modul 6 · ca. 12 Min.</p>
+          <h2 id="m6-title">Denkzeit &amp; Modellwahl</h2>
+          <p>Moderne KI-Tools haben einen Regler, den viele nie anfassen: Wie lange darf das Modell nachdenken, bevor es antwortet? Mehr Denkzeit heißt bessere Ergebnisse bei kniffligen Aufgaben, und Verschwendung bei einfachen.</p>
+        </div>
+
+        <article class="lesson" id="m6-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">06.01</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Der Denkzeit-Regler</h3>
+            <p>Mit eingeschaltetem Thinking arbeitet das Modell erst einen internen Denkprozess ab, es plant, rechnet nach, verwirft Zwischenschritte, und antwortet dann. Im Kopf reichen drei Stufen:</p>
+            <div class="blocks">
+              <section class="block accent-teal"><b>Schnell antworten</b><p>Der Normalfall: eine E-Mail umformulieren, zusammenfassen, Ideen sammeln. Antwort in Sekunden.</p></section>
+              <section class="block accent-blue"><b>Nachdenken lassen</b><p>Mehrere Bedingungen auf einmal, Logik, Planung: etwa eine Vertragsklausel Schritt für Schritt prüfen. Kostet Wartezeit, bringt Verlässlichkeit.</p></section>
+              <section class="block accent-violet"><b>Maximum bei hohem Einsatz</b><p>Wenn Fehler teuer wären: höchste Stufe, Minuten Wartezeit — und deine eigene Prüfung am Ende trotzdem.</p></section>
+            </div>
+            <p>Die sechs Rasten unten sind die Feinstufen dazu, unsere Kurs-Skala über alle Tools hinweg (wie sie in den einzelnen Produkten heißen, zeigt 06.03). Klick dich durch:</p>
+            <div class="viz" data-viz="think">
+              <div class="viz-head">
+                <strong>Denkzeit-Regler</strong>
+                <span class="viz-tag">Zum Ausprobieren</span>
+              </div>
+              <div class="think-steps" role="group" aria-label="Denkzeit-Stufen">
+                <button class="think-step" type="button" data-think="0" aria-pressed="true">ohne</button>
+                <button class="think-step" type="button" data-think="1" aria-pressed="false">Low</button>
+                <button class="think-step" type="button" data-think="2" aria-pressed="false">Medium</button>
+                <button class="think-step" type="button" data-think="3" aria-pressed="false">High</button>
+                <button class="think-step" type="button" data-think="4" aria-pressed="false">x High</button>
+                <button class="think-step" type="button" data-think="5" aria-pressed="false">Max</button>
+              </div>
+              <div class="think-panel">
+                <section class="block"><b>Tempo</b><p id="thinkTempo">—</p></section>
+                <section class="block"><b>Kosten &amp; Kontingent</b><p id="thinkKosten">—</p></section>
+                <section class="block think-fit"><b>Geeignet für</b><p id="thinkEignung">—</p></section>
+              </div>
+              <p class="think-map" id="thinkMap">—</p>
+              <p class="viz-note">Auch per Tastatur: mit Tab zur Stufe, mit Enter oder Leertaste auswählen, mit den Pfeiltasten links/rechts durch die Stufen.</p>
+            </div>
+            <section class="note"><b>Kosten &amp; Kontingent</b><p>Thinking-Nachrichten sind in den Abos kontingentiert und dauern länger. Wer alles auf Maximum stellt, wartet öfter und stößt früher ans Limit.</p></section>
+          </div>
+        </article>
+
+        <article class="lesson" id="m6-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">06.02</span>
+            <span class="track demo">Demo</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>A/B-Demo: dieselbe Aufgabe, einmal ohne, einmal mit Thinking</h3>
+            <p>Live-Demo: zweimal dieselbe knifflige Aufgabe, einmal im schnellen Modus, einmal mit Thinking. Achte auf drei Dinge: Wie lange dauert es? Legt das Modell seinen Denkweg offen? Und welche Antwort übersteht den Faktencheck? Jedes Leitbeispiel hat eine A/B-Aufgabe, in der genau eine Option alle Bedingungen erfüllt:</p>
+            <div class="lb-switch" data-lbtabs="leitbeispiel">
+              <div class="lb-tabs" role="group" aria-label="Leitbeispiel wählen">
+                <button class="lb-tab" type="button" data-lbtab="trip" aria-pressed="true">Wochenendtrip</button>
+                <button class="lb-tab" type="button" data-lbtab="shop" aria-pressed="false">Konkurrenz-Analyse</button>
+                <button class="lb-tab" type="button" data-lbtab="ordnung" aria-pressed="false">Digitale Ordnung</button>
+              </div>
+              <div class="lb-panel" data-lbpanel="trip">
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>A/B-Aufgabe · Bahn-Anreise mit Nebenbedingungen</small><button class="copy-button" type="button" data-copy="#prompt-ab">Kopieren</button></div>
+                  <pre id="prompt-ab">Plane die Bahn-Anreise für unseren Wochenendtrip: Abfahrt Freitag nach 16:30 Uhr, Ankunft vor 20:30 Uhr, maximal 1 Umstieg, Umstiegszeit mindestens 10 Minuten.
+Es gelten ausschließlich diese Verbindungen:
+A) ab 16:05, an 19:10, direkt
+B) ab 16:41, an 20:12, 1 Umstieg (12 Min.)
+C) ab 16:50, an 20:05, 2 Umstiege (15 und 11 Min.)
+D) ab 17:02, an 20:55, direkt
+E) ab 17:15, an 20:20, 1 Umstieg (8 Min.)
+F) ab 18:01, an 21:40, direkt
+Welche Verbindungen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verworfene Verbindung.</pre>
+                </section>
+                <article class="quiz-card" data-quiz><b>Auflösung (erst selbst prüfen)</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Nur B erfüllt alles: A fährt zu früh ab, C hat zwei Umstiege, D und F kommen zu spät an, E hat nur 8 Minuten Umstiegszeit.</p></article>
+              </div>
+              <div class="lb-panel" data-lbpanel="shop" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>A/B-Aufgabe · Werbeaktion mit Nebenbedingungen</small><button class="copy-button" type="button" data-copy="#prompt-ab-shop">Kopieren</button></div>
+                  <pre id="prompt-ab-shop">Unser Online-Shop "Fahrradkiste" will auf den neuen Konkurrenten reagieren. Wähle die passende Werbeaktion: Kosten maximal 300 Euro, Laufzeit maximal 14 Tage, mindestens 50 erwartete Neukunden, Marge bleibt bei mindestens 20 Prozent.
+Es stehen ausschließlich diese Aktionen zur Wahl:
+A) Kosten 250 Euro, 10 Tage, 40 Neukunden, Marge 25 %
+B) Kosten 280 Euro, 16 Tage, 60 Neukunden, Marge 22 %
+C) Kosten 260 Euro, 14 Tage, 65 Neukunden, Marge 21 %
+D) Kosten 300 Euro, 21 Tage, 90 Neukunden, Marge 26 %
+E) Kosten 290 Euro, 12 Tage, 55 Neukunden, Marge 18 %
+F) Kosten 320 Euro, 9 Tage, 75 Neukunden, Marge 28 %
+Welche Aktionen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verworfene Aktion.</pre>
+                </section>
+                <article class="quiz-card" data-quiz><b>Auflösung (erst selbst prüfen)</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Nur C erfüllt alles: A bringt zu wenige Neukunden, B und D laufen zu lange, E drückt die Marge unter 20 %, F sprengt das Budget.</p></article>
+              </div>
+              <div class="lb-panel" data-lbpanel="ordnung" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>A/B-Aufgabe · Aufräum-Routine mit Nebenbedingungen</small><button class="copy-button" type="button" data-copy="#prompt-ab-ordnung">Kopieren</button></div>
+                  <pre id="prompt-ab-ordnung">Ich will meine digitale Ablage in Ordnung bringen. Wähle die passende Aufräum-Routine: höchstens 30 Minuten pro Woche, nur mit Bordmitteln (keine zusätzlichen Programme oder Abos), der Altbestand ist in höchstens 12 Wochen abgearbeitet, und die Routine enthält eine feste Regel, wie Neues ab sofort einsortiert wird.
+Es stehen ausschließlich diese Routinen zur Wahl:
+A) 45 Min. pro Woche, Bordmittel, Altbestand in 8 Wochen, mit Einsortier-Regel
+B) 30 Min. pro Woche, Sortier-App für 4 Euro im Monat, Altbestand in 9 Wochen, mit Einsortier-Regel
+C) 30 Min. pro Woche, Bordmittel, Altbestand in 10 Wochen, mit Einsortier-Regel
+D) 20 Min. pro Woche, Bordmittel, Altbestand in 16 Wochen, mit Einsortier-Regel
+E) 30 Min. pro Woche, Bordmittel, Altbestand in 8 Wochen, ohne Regel für Neues
+F) 25 Min. pro Woche, kostenlose Zusatz-App nötig, Altbestand in 12 Wochen, mit Einsortier-Regel
+Welche Routinen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verworfene Routine.</pre>
+                </section>
+                <article class="quiz-card" data-quiz><b>Auflösung (erst selbst prüfen)</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Nur C erfüllt alles: A kostet zu viel Zeit pro Woche, B kostet Geld, D braucht 16 Wochen, E hat keine Regel für Neues, F braucht eine Zusatz-App.</p></article>
+              </div>
+            </div>
+            <div class="blocks">
+              <section class="block accent-amber"><b>Typisch ohne Thinking</b><p>Sofort eine flüssige Antwort, aber bei mehreren gleichzeitigen Bedingungen rutscht gern eine durch. Plausibel formuliert, im Detail falsch.</p></section>
+              <section class="block accent-teal"><b>Typisch mit Thinking</b><p>Spürbare Wartezeit, dann eine Antwort, die Bedingungen einzeln abarbeitet und Widersprüche selbst anmerkt. Nicht unfehlbar, aber messbar verlässlicher.</p></section>
+            </div>
+          </div>
+        </article>
+
+        <article class="lesson" id="m6-03">
+          <aside class="lesson-side">
+            <span class="lesson-number">06.03</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>So heißt der Regler in den Tools</h3>
+            <p>Zwei Fragen nicht verwechseln: Die Modellwahl beantwortet "welcher Motor?", die Denkzeit-Stufe "wie viel Aufwand vor der Antwort?".</p>
+            <section class="block accent-blue"><b>Modell vs. Produkt</b><p>ChatGPT ist das Produkt (Chat, Websuche, Bilder, Dateien). GPT-5.5 ist das Modell darin. Wie Auto und Motor. Claude und Gemini sind andere Autos mit anderen Motoren — und die Modellwahl im Menü tauscht den Motor.</p></section>
+            <details class="fold">
+              <summary>Nachschlagen: so heißt der Schalter in deinem Tool</summary>
+              <div class="fold-body">
+            <div class="table-scroll">
+              <table class="fact-table">
+                <thead><tr><th>Tool</th><th>Modellwahl</th><th>Denkzeit-Stufen</th><th>Im Kurs</th></tr></thead>
+                <tbody>
+                  <tr><td><b>ChatGPT</b></td><td>Instant · Thinking · Pro (alle GPT-5.5; Instant eskaliert bei Bedarf automatisch zu Thinking)</td><td>Thinking-Zeit: Standard · Erweitert (ab Plus); Pro zusätzlich Light · Heavy</td><td>Unser Übungstool. Free: Instant plus automatische Eskalation, kein Stufen-Menü.</td></tr>
+                  <tr><td><b>Claude</b></td><td>Modellfamilie: Fable 5 · Opus 4.8 · Sonnet 5 · Haiku 4.5</td><td>Effort: Niedrig · Mittel · Hoch · Max, plus "Denken"-Schalter. Fable 5 regelt seine Denkzeit adaptiv selbst.</td><td>Das Demo-Tool des Kurses für Artefakte und Skills. Von hier stammt unsere Kurs-Skala.</td></tr>
+                  <tr><td><b>Gemini</b></td><td>Fast (3 Flash) · Thinking · Pro (3.1 Pro)</td><td>Thinking-Level Standard · Extended (laut Berichten); Deep Think nur im Ultra-Abo</td><td>Erwähnung: Googles Gegenstück, ändert sich gerade häufig.</td></tr>
+                  <tr><td><b>Codex</b></td><td>Agenten-Tool von OpenAI, Modell GPT-5.5</td><td>Reasoning: none · low · medium · high · xhigh</td><td>Nur Ausblick: So sieht der Regler bei Agenten-Tools aus.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p><small>Stand 03.07.2026, laut Hilfeseiten der Anbieter. Die Namen ändern sich schnell; das Prinzip (mehr Denkzeit = besser bei knifflig, verschwendet bei einfach) bleibt.</small></p>
+              </div>
+            </details>
+            <section class="note"><b>Faustregel</b><p>Einfache Aufgabe: schnelles Modell ohne Stufe. Knifflig oder mehrschrittig: Thinking einschalten, Medium/High. Richtig wichtig: höchste Stufe, und trotzdem selbst prüfen, denn Denkzeit ersetzt die Prüflinse nicht.</p></section>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="m7" aria-labelledby="m7-title">
+        <div class="section-head">
+          <p class="kicker">Modul 7 · ca. 12 Min.</p>
+          <h2 id="m7-title">Bilder erzeugen</h2>
+          <p>Jetzt wird es sichtbar: Alle erzeugen ein Bild zum Wochenendtrip. Gute Bild-Prompts folgen denselben Regeln wie gute Text-Prompts: beschreiben statt raten lassen.</p>
+        </div>
+
+        <article class="lesson" id="m7-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">07.01</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Live-Block: dein Trip-Plakat</h3>
+            <p>Schick einen der Prompts unten in ChatGPT ab (Free kann Bilder, aber limitiert und langsamer. Rechne mit 1 bis 2 Bildern, danach heißt es warten). Such dir einen Stil aus, der dich reizt: Alle vier folgen demselben Muster aus Motiv, Stil, Stimmung und Format. Limit erreicht oder kein Konto: Schau bei deiner Nachbarin mit, die vier Regeln sind der eigentliche Lernstoff.</p>
+            <div class="lb-switch" data-lbtabs="bildstil">
+              <div class="lb-tabs" role="group" aria-label="Bildstil wählen">
+                <button class="lb-tab" type="button" data-lbtab="plakat" aria-pressed="true">1920er-Plakat</button>
+                <button class="lb-tab" type="button" data-lbtab="kunst" aria-pressed="false">Moderne Kunst</button>
+                <button class="lb-tab" type="button" data-lbtab="mittelalter" aria-pressed="false">Mittelalter</button>
+                <button class="lb-tab" type="button" data-lbtab="zukunft" aria-pressed="false">Zukunft</button>
+              </div>
+              <div class="lb-panel" data-lbpanel="plakat">
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Bild-Prompt · 1920er-Reiseplakat</small><button class="copy-button" type="button" data-copy="#prompt-bild">Kopieren</button></div>
+                  <pre id="prompt-bild">Erstelle ein Bild: ein Reiseplakat im Stil der 1920er-Jahre für einen Wochenendtrip nach [dein Ziel aus Modul 1].
+Motiv: Altstadt-Silhouette am Wasser in der Abendsonne, im Vordergrund zwei Fahrräder.
+Stimmung: warm, einladend, leicht nostalgisch. Format: Hochformat.
+Ohne Text im Bild, die Überschrift setze ich später selbst.</pre>
+                </section>
+              </div>
+              <div class="lb-panel" data-lbpanel="kunst" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Bild-Prompt · modernes Kunstplakat</small><button class="copy-button" type="button" data-copy="#prompt-bild-kunst">Kopieren</button></div>
+                  <pre id="prompt-bild-kunst">Erstelle ein Bild: ein modernes Kunstplakat für einen Wochenendtrip nach [dein Ziel aus Modul 1].
+Motiv: die Altstadt am Wasser, reduziert auf einfache geometrische Formen im Bauhaus-Stil.
+Stil: kräftige Farbflächen, klare Linien, viel Weißraum. Stimmung: mutig, frisch, aufgeräumt.
+Format: Hochformat. Ohne Text im Bild, die Überschrift setze ich später selbst.</pre>
+                </section>
+              </div>
+              <div class="lb-panel" data-lbpanel="mittelalter" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Bild-Prompt · mittelalterliche Buchmalerei</small><button class="copy-button" type="button" data-copy="#prompt-bild-mittelalter">Kopieren</button></div>
+                  <pre id="prompt-bild-mittelalter">Erstelle ein Bild: [dein Ziel aus Modul 1] als Szene aus einer mittelalterlichen Buchmalerei.
+Motiv: Stadtmauer und Fluss mit Booten, davor eine kleine Marktszene, goldene Verzierungen am Bildrand.
+Stil: illuminierte Handschrift, kräftige Farben, flache Perspektive. Stimmung: feierlich, ein bisschen verspielt.
+Format: Hochformat. Ohne Text im Bild.</pre>
+                </section>
+              </div>
+              <div class="lb-panel" data-lbpanel="zukunft" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Bild-Prompt · Filmplakat aus der Zukunft</small><button class="copy-button" type="button" data-copy="#prompt-bild-zukunft">Kopieren</button></div>
+                  <pre id="prompt-bild-zukunft">Erstelle ein Bild: [dein Ziel aus Modul 1] im Jahr 2126, als Filmplakat.
+Motiv: die bekannte Altstadt-Silhouette, ergänzt um schwebende Bahnen und Lichtspuren am Abendhimmel.
+Stil: fotorealistisches Science-Fiction-Plakat. Stimmung: staunend und optimistisch, nicht düster.
+Format: Hochformat. Ohne Text im Bild.</pre>
+                </section>
+              </div>
+            </div>
+            <div class="blocks">
+              <section class="block"><b>1 · Beschreiben statt Stichworte</b><p>Motiv, Stil, Stimmung, Format: vier Angaben statt drei Schlagwörtern. "Schönes Reisebild" ist ein Wunsch, kein Auftrag.</p></section>
+              <section class="block"><b>2 · Am selben Bild iterieren</b><p>Nicht neu würfeln: "Gleiche Szene, aber Morgenlicht statt Abendsonne." Das Tool behält, was schon stimmt.</p></section>
+              <section class="block"><b>3 · Referenzfotos hochladen</b><p>Ein eigenes Foto als Vorlage ("in diesem Stil", "diesen Platz als Motiv") steuert das Ergebnis stärker als jede Beschreibung.</p></section>
+              <section class="block"><b>4 · Schwächen kennen</b><p>Kurze Titel klappen inzwischen oft; lange Texte, kleine Schrift, exakte Logos und feine Details bleiben fehleranfällig. Der Praxis-Tipp bleibt: Text weglassen und später selbst setzen.</p></section>
+            </div>
+          </div>
+        </article>
+
+        <article class="lesson" id="m7-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">07.02</span>
+            <span class="track deep">Vertiefung</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Die Tool-Landschaft in vier Zeilen</h3>
+            <div class="blocks">
+              <section class="block"><b>ChatGPT · GPT Image 2</b><p>"ChatGPT Images 2.0", direkt im Chat, für heute unser Werkzeug. Free limitiert.</p></section>
+              <section class="block"><b>Google · Nano Banana 2</b><p>Googles Bildmodell (plus Pro- und Lite-Varianten), in Gemini integriert.</p></section>
+              <section class="block"><b>Midjourney V8.1</b><p>Der Klassiker für künstlerische Bildwelten, eigenes Abo und eigene Plattform.</p></section>
+              <section class="block"><b>Ideogram 4.0</b><p>Spezialität: Text im Bild. Für textlastige Plakate mit viel Schrift die erste Adresse.</p></section>
+            </div>
+            <p>Wenn du KI-Bilder veröffentlichst, kennzeichne sie als KI-generiert. Wie die Bilder mathematisch entstehen, zeigt der <a href="https://poloclub.github.io/diffusion-explainer/" target="_blank" rel="noreferrer">Diffusion Explainer</a> in den Nachschlage-Links. Und welches Bildmodell gerade vorn liegt, siehst du im <a href="https://artificialanalysis.ai/image/leaderboard/text-to-image" target="_blank" rel="noreferrer">Text-to-Image-Leaderboard von Artificial Analysis</a> (englisch): eine laufend aktualisierte Rangliste, gut zur Orientierung, keine ewige Wahrheit.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="m8" aria-labelledby="m8-title">
+        <div class="section-head">
+          <p class="kicker">Modul 8 · ca. 12 Min.</p>
+          <h2 id="m8-title">Artefakte bauen</h2>
+          <p>Bisher hat die KI geantwortet. Jetzt lässt du sie etwas herstellen: Ein Artefakt ist ein fertiges, nutzbares Ding, eine Checkliste zum Abhaken, ein Dokument, eine kleine Web-Seite, statt einer Chat-Antwort zum Herauskopieren.</p>
+        </div>
+
+        <article class="lesson" id="m8-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">08.01</span>
+            <span class="track demo">Demo</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Live-Demo: die interaktive Packliste</h3>
+            <p>In der Live-Demo entsteht in Claude ein Artefakt: je nach Zeit die interaktive Packliste zum Wochenendtrip (Kategorien und Häkchen), den Konkurrenz-Bericht zum Shop-Fall (Vergleichstabelle plus nächste Schritte) oder den Aufräumplan zur digitalen Ordnung (Wochenpakete zum Abhaken). Alles davon entsteht als eigenständige Mini-Seite neben dem Chat. In Claude heißt das Artifacts, das ChatGPT-Pendant heißt Canvas.</p>
+            <div class="blocks">
+              <section class="block"><b>1 · Erst Inhalt, dann bauen</b><p>Erst im Chat klären, was auf die Liste gehört. Dann bauen lassen. Wer beides mischt, iteriert doppelt.</p></section>
+              <section class="block"><b>2 · Ein Artefakt pro Auftrag</b><p>"Packliste UND Reiseplan UND Budgetrechner" wird Murks. Drei Aufträge, drei Artefakte.</p></section>
+              <section class="block"><b>3 · Am Artefakt iterieren</b><p>Änderungen direkt anweisen: "Füge eine Kategorie Apotheke hinzu." Nicht neu bauen lassen.</p></section>
+              <section class="block"><b>4 · Exportieren und sichern</b><p>Artefakte leben im Chat. Was du behalten willst: herunterladen, kopieren oder als Datei sichern.</p></section>
+            </div>
+          </div>
+        </article>
+
+        <article class="lesson" id="m8-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">08.02</span>
+            <span class="track uebung">Übung</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Mini-Übung: dein erstes Artefakt</h3>
+            <p>Du baust das ChatGPT-Gegenstück als Canvas-Dokument. Eine Erwartung vorweg: Im ChatGPT-Canvas werden aus den abhakbaren Punkten Checkbox-Zeilen im Text — die klickbaren Häkchen aus der Beamer-Demo sind ein Claude-Artefakt-Feature. Wähl dein Leitbeispiel:</p>
+            <div class="lb-switch" data-lbtabs="leitbeispiel">
+              <div class="lb-tabs" role="group" aria-label="Leitbeispiel wählen">
+                <button class="lb-tab" type="button" data-lbtab="trip" aria-pressed="true">Wochenendtrip</button>
+                <button class="lb-tab" type="button" data-lbtab="shop" aria-pressed="false">Konkurrenz-Analyse</button>
+                <button class="lb-tab" type="button" data-lbtab="ordnung" aria-pressed="false">Digitale Ordnung</button>
+              </div>
+              <div class="lb-panel" data-lbpanel="trip">
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Artefakt-Auftrag · interaktive Packliste</small><button class="copy-button" type="button" data-copy="#prompt-artefakt">Kopieren</button></div>
+                  <pre id="prompt-artefakt">Erstelle aus unserem Trip-Chat eine Packliste als eigenständiges Dokument (Canvas):
+- Kategorien: Kleidung, Technik, Papiere, Apotheke
+- jeder Eintrag als abhakbarer Punkt
+- eine Spalte "wer denkt daran"
+Nimm nur, was zu unserem Trip passt (zwei Personen, zwei Nächte, Bahn). Danach ändere auf mein Kommando einzelne Punkte, statt das Dokument neu zu schreiben.</pre>
+                </section>
+                <section class="activity"><strong>8 Min. · bauen und eine Änderung anweisen</strong><p>Erzeuge das Artefakt und iteriere genau einmal daran ("Ergänze eine Kategorie: Regenwetter"). Dann exportieren oder kopieren (Regel 4).</p></section>
+              </div>
+              <div class="lb-panel" data-lbpanel="shop" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Artefakt-Auftrag · Konkurrenz-Bericht</small><button class="copy-button" type="button" data-copy="#prompt-artefakt-shop">Kopieren</button></div>
+                  <pre id="prompt-artefakt-shop">Erstelle aus unserer Konkurrenz-Analyse einen kompakten Bericht als eigenständiges Dokument (Canvas):
+- Vergleichstabelle Fahrradkiste vs. Velodrom24 (Versand, Lieferzeit, Rückgabe, Beratung, Sortiment)
+- nur belegte Angaben aus dem Faktenblatt; alles Unbelegte als "zu prüfen" markieren
+- darunter: drei nächste Schritte als abhakbare Punkte
+Danach ändere auf mein Kommando einzelne Punkte, statt das Dokument neu zu schreiben.</pre>
+                </section>
+                <section class="activity"><strong>8 Min. · bauen und eine Änderung anweisen</strong><p>Erzeuge das Artefakt und iteriere genau einmal daran ("Ergänze einen Prüfpunkt: Rückgaberegeln von Velodrom24 auf der Website nachsehen"). Dann exportieren oder kopieren (Regel 4).</p></section>
+              </div>
+              <div class="lb-panel" data-lbpanel="ordnung" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Artefakt-Auftrag · Aufräumplan mit Häkchen</small><button class="copy-button" type="button" data-copy="#prompt-artefakt-ordnung">Kopieren</button></div>
+                  <pre id="prompt-artefakt-ordnung">Erstelle aus unserem Ordnungs-Chat einen Aufräumplan als eigenständiges Dokument (Canvas):
+- oben: meine Hauptordner mit ihrer Ein-Satz-Regel
+- darunter: der Wochenplan als abhakbare Punkte (pro Woche ein 30-Minuten-Paket)
+- eine Spalte "erledigt am"
+Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando einzelne Punkte, statt das Dokument neu zu schreiben.</pre>
+                </section>
+                <section class="activity"><strong>8 Min. · bauen und eine Änderung anweisen</strong><p>Erzeuge das Artefakt und iteriere genau einmal daran ("Ergänze ein Wochenpaket: Screenshots auf dem Handy löschen"). Dann exportieren oder kopieren (Regel 4).</p></section>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="m9" aria-labelledby="m9-title">
+        <div class="section-head">
+          <p class="kicker">Modul 9 · ca. 10 Min.</p>
+          <h2 id="m9-title">Skills &amp; Ausblick auf Teil 2</h2>
+          <p>Heute hast du mehrfach denselben Griff wiederholt: Fragenbohrer, Prüflinse, Reparatur, Handoff. Solche wiederholbaren Abläufe kann man als Skills speichern, dann muss man sie nicht mehr tippen, sondern nur noch aufrufen.</p>
+        </div>
+
+        <article class="lesson" id="m9-01">
+          <aside class="lesson-side">
+            <span class="lesson-number">09.01</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Anatomie eines Skills</h3>
+            <p>Ein Skill ist ein gespeicherter Ablauf, den du nicht mehr tippen, sondern nur noch aufrufen musst. Drei Teile genügen: Genau diese Anatomie siehst du in Teil 2 in jeder Skill-Datei wieder:</p>
+            <div class="skill-grid">
+              <article class="skill-card"><small>1 · Name</small><b>Wie rufe ich ihn auf?</b><p>Kurz und sprechend: handoff, grill-me, teach. Der Name ist das Kommando.</p></article>
+              <article class="skill-card"><small>2 · Auslöser</small><b>Wann ist er dran?</b><p>Beispiel: Der Chat wird zäh und vergesslich — Zeit für handoff.</p></article>
+              <article class="skill-card"><small>3 · Anleitung</small><b>Was soll die KI tun?</b><p>Der eigentliche Text: Schritte, Regeln, Format. Normale Sprache, keine Programmierung — in Modul 5 hast du einen echten gelesen.</p></article>
+            </div>
+            <section class="block accent-violet"><b>Woran du einen guten Skill erkennst</b><p>Er sagt, welches Material hinein darf (und was nach den Datenregeln draußen bleibt). Er baut eine Prüfung ein: Fakten, Annahmen, Quellen. Er hat eine Stop-Regel: wann der Skill endet und ein Mensch übernimmt. Und er enthält ein Beispiel, das du direkt anpassen kannst.</p></section>
+            <p>Zwei dieser Abläufe hast du heute schon als simple Prompts benutzt: den Fragenbohrer (Modul 4; als installierbarer Skill heißt die Idee bei Matt Pocock grill-me) und handoff (Modul 5, dort stand der Original-Skilltext). Ein Skill ist nichts anderes als die gespeicherte, wiederverwendbare Form genau solcher Prompts.</p>
+          </div>
+        </article>
+
+        <article class="lesson" id="m9-02">
+          <aside class="lesson-side">
+            <span class="lesson-number">09.02</span>
+            <span class="track">Mitmachen</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Zwei Repos zum Mitnehmen</h3>
+            <p>Ein Repo ist ein öffentlicher Online-Ordner mit Dateien, hier liegen fertige Skills zum Mitnehmen drin.</p>
+            <div class="blocks">
+              <section class="block accent-teal"><b>Das Kurs-Skills-Repo (Lutoss/skills)</b><p>Kuratiert und deutsch dokumentiert: zwei fertige Skill-Pakete für Claude und Codex mit Agenten-Skills wie handoff, teach, research und verify-before-done. Link: github.com/Lutoss/skills, auch im Kursmaterial.</p></section>
+              <section class="block accent-blue"><b>mattpocock/skills</b><p>Das englische Original-Vorbild, eines der beliebtesten Skill-Repos auf GitHub: Daher stammen handoff und grill-me, dazu u. a. teach und research.</p></section>
+            </div>
+            <p>Ehrlich unterschieden: In Agenten-Tools (Claude mit Ordnerzugriff, Codex) reicht der Repo-Link — posten, bitten, fertig. Im ChatGPT-Webchat installiert ein Link nichts; dort nutzt du den Skilltext als Copy-Paste-Prompt, so wie heute im Kurs.</p>
+            <div class="workflow">
+              <div><b>1 · Agent öffnen</b><span>Dein Agenten-Tool, z. B. Claude oder Codex.</span></div>
+              <div><b>2 · Link posten</b><span>Den GitHub-Link des Repos in die Nachricht einfügen.</span></div>
+              <div><b>3 · Bitten</b><span>"Installiere die Skills aus diesem Repo."</span></div>
+              <div><b>4 · Aufzählen lassen</b><span>"Welche Skills sind jetzt verfügbar?" Fertig.</span></div>
+            </div>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Installations-Prompt zum Kopieren</small><button class="copy-button" type="button" data-copy="#skill-install">Kopieren</button></div>
+              <pre id="skill-install">Installiere bitte die Skills aus diesem Repo und sag mir danach, welche du eingerichtet hast: https://github.com/Lutoss/skills</pre>
+            </section>
+            <p class="viz-note">Die ausführliche Installations-Vorlage mit allen Handgriffen steht in Teil 2.</p>
+            <div class="blocks">
+              <section class="block accent-violet"><b>Eigene Skills bauen: der Skill-Creator</b><p>Fast jedes KI-System hat inzwischen einen Skill, der dir beim Skill-Bauen hilft (bei Claude heißt er skill-creator). Du beschreibst deinen wiederholten Ablauf, er macht daraus die Skill-Datei. Dein erster Kandidat: dein bester Prompt von heute.</p></section>
+              <section class="block accent-amber"><b>Wenn es ohne Agent sein muss</b><p>ChatGPT nimmt unter "Skills (beta)" auch einen Ordner oder eine ZIP mit der SKILL.md. Und zur Not funktioniert jeder Kurs-Skill einfach als Copy-Paste-Prompt, so wie heute im Kurs.</p></section>
+            </div>
+            <section class="note"><b>Deine KI-Mappe (ein Satz dazu)</b><p>Leg dir einen Ort an, an dem gute Prompts, Skills, Handoffs und fertige Artefakte landen. Ein Ordner reicht. Der Kurs-Skill "Meine KI-Mappe" baut dir die Struktur; mehr dazu in Teil 2.</p></section>
+          </div>
+        </article>
+
+        <article class="lesson" id="m9-03">
+          <aside class="lesson-side">
+            <span class="lesson-number">09.03</span>
+            <span class="track uebung">Übung</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Hausaufgabe: deine Projektidee für Teil 2</h3>
+            <p>Teil 2 ist eine Projektwerkstatt: Du baust ein eigenes Vorhaben mit KI durch, in klaren Phasen von der Idee bis zum bewussten Abschluss — erst selbst denken, dann grillen lassen, planen, bauen, prüfen, und sauber abschließen. Dafür brauchst du genau eine Sache von heute:</p>
+            <div class="homework">
+              <h4>Bring zu Teil 2 eine Projektidee mit</h4>
+              <p>Klein genug für einen Nachmittag, konkret genug zum Anfassen. Gute Kandidaten: etwas organisieren, einen Papierkram-Marathon bändigen, einen Verkauf oder Umzug vorbereiten, ein Lernthema strukturieren, deine digitale Ordnung aus Modul 8 zu Ende bauen.</p>
+              <div class="worksheet-grid">
+                <div class="worksheet-field"><b>Was?</b><span>Das Vorhaben in einem Satz.</span><div class="lines"><i></i><i></i><i></i></div></div>
+                <div class="worksheet-field"><b>Für wen?</b><span>Wer nutzt das Ergebnis: du, Familie, Verein, Kollegen?</span><div class="lines"><i></i><i></i><i></i></div></div>
+                <div class="worksheet-field"><b>Gutes Ergebnis?</b><span>Woran merkst du am Ende, dass es sich gelohnt hat?</span><div class="lines"><i></i><i></i><i></i></div></div>
+              </div>
+              <p>Zweite Vorbereitung: Für Teil 2 lohnt ein eigenes Claude-Konto, leg es vorab an; die Desktop-App kann Ordner verbinden. Free reicht zum Lernen und für Teil 1. Teil 2 in voller Form (Grill-Runde, mehrere Issue-Chats, Reviews) stößt auf Free-Plänen oft ans Limit. Bezahlpläne liegen in der Größenordnung 20–23 €/Monat (Stand Juli 2026, vor dem Kurs aktuell prüfen). Limit erreicht = kein Fehler: Handoff schreiben, Pause, später weiter.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="lesson" id="m9-04">
+          <aside class="lesson-side">
+            <span class="lesson-number">09.04</span>
+            <span class="track uebung">Übung</span>
+            <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
+          </aside>
+          <div class="lesson-body">
+            <h3>Tagescheck: Was würdest du tun?</h3>
+            <div class="quiz-grid">
+              <article class="quiz-card" data-quiz><b>Die KI-Antwort nennt eine Bewertungszahl, die du im Faktenblatt nicht findest.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Behauptung, keine Tatsache: mit dem Original abgleichen, Quellen-Reparatur laufen lassen, ohne Beleg raus damit. (Modul 5)</p></article>
+              <article class="quiz-card" data-quiz><b>Nach zwei Stunden im selben Chat wird die KI zäh und vergisst Regeln.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Dumb Zone erreicht: HANDOFF ziehen, frischen Chat starten, Aufgabe kleiner schneiden. (Module 3 und 5)</p></article>
+              <article class="quiz-card" data-quiz><b>Eine knifflige Aufgabe mit fünf Bedingungen gleichzeitig.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Thinking einschalten, Prüfweg zeigen lassen, und die entscheidenden Angaben trotzdem selbst prüfen. (Modul 6)</p></article>
+              <article class="quiz-card" data-quiz><b>Du willst eine Checkliste, die du nächste Woche wirklich benutzt.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Kein Chat-Text: ein Artefakt bauen lassen, einmal gezielt iterieren, exportieren und sichern. (Modul 8)</p></article>
+              <article class="quiz-card" data-quiz><b>Zu einer Geldanlage (oder einem Blutwert) liefert die KI eine überzeugende Empfehlung.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Als Vorbereitung nutzen: Begriffe klären, Fragen für den Termin sammeln. Entscheiden mit Steuerberaterin oder Arzt, und Personalien bleiben draußen. (Module 1 und 5)</p></article>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section panel" id="spick" aria-labelledby="spick-title">
+        <div class="section-head">
+          <p class="kicker">Spickzettel</p>
+          <h2 id="spick-title">Die zwölf Begriffe des Tages</h2>
+          <p>Jeder Begriff in einem Satz, zum Wiederfinden, wenn du zuhause weiterarbeitest. Alles Weitere steht in den Modulen oben.</p>
+        </div>
+        <div class="source-grid">
+          <article class="source-card"><small>Begriff 1</small><b>Prompt</b><span>Deine Nachricht an die KI: gut, wenn sie Ziel, Fakten, Auftrag und Format enthält (Modul 4).</span></article>
+          <article class="source-card"><small>Begriff 2</small><b>Token</b><span>Die Wortstücke, in denen die KI liest und schreibt: ihre Währung für Platz, Tempo und Kosten (Modul 2).</span></article>
+          <article class="source-card"><small>Begriff 3</small><b>Kontextfenster</b><span>Was die KI gerade sehen kann: der ganze Chat samt Dateien, bei jeder Nachricht komplett neu mitgeschickt, gemessen in Token und hart begrenzt. Das Modell selbst vergisst alles — das Produkt kann sich Notizen machen (Modul 3).</span></article>
+          <article class="source-card"><small>Begriff 4</small><b>Smart Zone / Dumb Zone</b><span>Frischer Chat = klug. Faustregel: ab ~40 % des Fensters wird die Qualität wackelig — bei großen Fenstern spätestens ab ~100.000 Token (Modul 3).</span></article>
+          <article class="source-card"><small>Begriff 5</small><b>Halluzination</b><span>Erfundenes, das überzeugend klingt. Gegenmittel: Prüflinse und Originalquellen (Module 2 und 5).</span></article>
+          <article class="source-card"><small>Begriff 6</small><b>Websuche &amp; Deep Research</b><span>Aktuelles holt die KI live aus dem Netz, mit Quellen-Links, die du selbst prüfen kannst. Deep Research ist der Ausdauer-Modus: Minuten statt Sekunden, Bericht mit Quellen (Modul 2).</span></article>
+          <article class="source-card"><small>Begriff 7</small><b>Thinking / Denkzeit</b><span>Der Regler fürs interne Nachdenken: macht knifflige Aufgaben besser und einfache nur langsamer (Modul 6).</span></article>
+          <article class="source-card"><small>Begriff 8</small><b>Artefakt</b><span>Ein fertiges, nutzbares Ding, Checkliste, Dokument, Mini-Seite, statt einer Chat-Antwort (Modul 8).</span></article>
+          <article class="source-card"><small>Begriff 9</small><b>Skill</b><span>Ein gespeicherter Ablauf mit Auslöser, Schritten, Prüfung und Stop-Regel (Modul 9).</span></article>
+          <article class="source-card"><small>Begriff 10</small><b>Handoff</b><span>Die Übergabe-Zusammenfassung, mit der du aus einem zähen Chat sauber in einen frischen umziehst (Modul 5).</span></article>
+          <article class="source-card"><small>Begriff 11</small><b>Agent &amp; Sub-Agent</b><span>Ein Agent erledigt einen ganzen Arbeitsauftrag selbstständig. Sub-Agenten sind seine Helfer: eigenes frisches Fenster pro Teilauftrag, nur das Ergebnis kommt zurück (Modul 3).</span></article>
+          <article class="source-card"><small>Begriff 12</small><b>Human in the Loop</b><span>Die Arbeitsteilung hinter allem: Die KI übernimmt Arbeit und ergänzt dein Wissen, aber Prüfung, Entscheidung und Verantwortung bleiben bei dir (Module 1 und 5).</span></article>
+        </div>
+      </section>
+
+      <section class="section panel" id="refs" aria-labelledby="refs-title">
+        <div class="section-head">
+          <p class="kicker">Nachschlage-Links</p>
+          <h2 id="refs-title">Zum Nachschauen, Spielen und Installieren</h2>
+          <p>Alle Demos funktionieren im Browser ohne Konto. Fast alle sind auf Englisch. Die Bedienung ist trotzdem selbsterklärend, und die wichtigsten hast du heute schon am Beamer gesehen.</p>
+        </div>
+        <div class="card-grid">
+          <a class="source-card" href="https://platform.openai.com/tokenizer" target="_blank" rel="noreferrer">
+            <span class="badge shown">Im Kurs gezeigt</span>
+            <b>OpenAI Tokenizer</b>
+            <span>Die echte Token-Zerlegung: Text einfügen und sehen, wie das Modell ihn zerschneidet: der große Bruder unseres Token-Zerlegers aus Modul 2.</span>
+          </a>
+          <a class="source-card" href="https://poloclub.github.io/transformer-explainer/" target="_blank" rel="noreferrer">
+            <span class="badge shown">Im Kurs gezeigt</span>
+            <b>Transformer Explainer</b>
+            <span>Einem Sprachmodell live beim Vorhersagen des nächsten Tokens zusehen: die Demo aus Modul 2.</span>
+          </a>
+          <a class="source-card" href="https://andreban.github.io/temperature-topk-visualizer/" target="_blank" rel="noreferrer">
+            <span class="badge mention">Kurz erwähnt</span>
+            <b>Temperature-Visualizer</b>
+            <span>Der Temperatur-Regler aus Modul 2 zum Selberschieben: Wahrscheinlichkeiten und Zufall bei der Wortwahl.</span>
+          </a>
+          <a class="source-card" href="https://bbycroft.net/llm" target="_blank" rel="noreferrer">
+            <span class="badge mention">Kurz erwähnt</span>
+            <b>LLM Visualization (bbycroft)</b>
+            <span>Ein begehbares 3D-Modell eines Sprachmodells: beeindruckend, auch ohne jede Formel zu verstehen.</span>
+          </a>
+          <a class="source-card" href="https://tiktokenizer.vercel.app/" target="_blank" rel="noreferrer">
+            <span class="badge">Zum Ausprobieren</span>
+            <b>Tiktokenizer</b>
+            <span>Tokenizer-Vergleich über verschiedene Modelle hinweg: zeigt, dass jedes Modell anders zerlegt.</span>
+          </a>
+          <a class="source-card" href="https://poloclub.github.io/diffusion-explainer/" target="_blank" rel="noreferrer">
+            <span class="badge">Zum Ausprobieren</span>
+            <b>Diffusion Explainer</b>
+            <span>Wie aus Rauschen ein Bild wird: die Technik hinter den Bildgeneratoren aus Modul 7, Schritt für Schritt.</span>
+          </a>
+          <a class="source-card" href="https://gandalf.lakera.ai/" target="_blank" rel="noreferrer">
+            <span class="badge">Zum Ausprobieren</span>
+            <b>Gandalf</b>
+            <span>Ein Spiel: Entlocke der KI ein Passwort, das sie nicht verraten darf. Lehrreichste Art, Prompt-Tricks und ihre Grenzen zu verstehen.</span>
+          </a>
+          <a class="source-card" href="https://pair.withgoogle.com/explorables/" target="_blank" rel="noreferrer">
+            <span class="badge">Zum Ausprobieren</span>
+            <b>PAIR Explorables (Google)</b>
+            <span>Interaktive Mini-Essays zu KI-Themen: von Trainingsdaten bis Fairness, alles zum Anklicken.</span>
+          </a>
+          <a class="source-card" href="https://artificialanalysis.ai/image/leaderboard/text-to-image" target="_blank" rel="noreferrer">
+            <span class="badge">Referenz</span>
+            <b>Bildmodell-Leaderboard</b>
+            <span>Artificial Analysis: welcher Bildgenerator liegt gerade vorn? Laufend aktualisierte Rangliste aus Modul 7, zur Orientierung, nicht als ewige Wahrheit.</span>
+          </a>
+          <a class="source-card" href="teil-2-projektwerkstatt.html" target="_blank" rel="noreferrer">
+            <span class="badge">Teil 2</span>
+            <b>KI-Projektwerkstatt — Teil 2</b>
+            <span>Die Fortsetzung: ein echtes Projekt mit echten Skills, von der Idee über Zieldokument und Issues bis zum geprüften Ergebnis. Alle Grundlagen von heute im Einsatz.</span>
+          </a>
+          <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
+            <span class="badge">Nach dem Kurs</span>
+            <b>Lutoss/skills — das Kurs-Skills-Repo</b>
+            <span>Kuratierte Skill-Pakete für Claude und Codex, deutsch dokumentiert: handoff, teach, research, code-review, verify-before-done und mehr. Installation: Link in den KI-Chat posten (Modul 9).</span>
+          </a>
+          <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer">
+            <span class="badge">Nach dem Kurs</span>
+            <b>mattpocock/skills</b>
+            <span>Matt Pococks Skill-Sammlung (englisch): das Original von handoff und grill-me, dazu teach, research und mehr. Installation wie in Modul 9: Link in den KI-Chat posten.</span>
+          </a>
+          <a class="source-card" href="zusatzlinks.html" target="_blank" rel="noreferrer">
+            <span class="badge">Nach dem Kurs</span>
+            <b>Die große Linksammlung</b>
+            <span>Alle Kurs-Ressourcen nach Modulen sortiert: Live-Demos, Ausprobieren, Vertiefung, Tools und Skills, im selben Design wie diese Seite.</span>
+          </a>
+        </div>
+      </section>
+
+      <p class="footer">Stand: 05.07.2026. Teil 1, V31 — Hauptfassung (dunkles Standard-Design, helles Design zuschaltbar; drei Leitbeispiele). Konzepte nach Matt Pocock; Smart/Dumb Zone nach Dex Horthy (Human Layer). Kontextgrößen und Stufen laut Anbieter-Hilfeseiten, Stand 05.07.2026.</p>
+    </main>
+  </div>
+  <script>
+    /* ---------- Fortschritt ---------- */
+    const storageKey = "ki-kurs-teil1-v31";
+    const liveButtons = Array.from(document.querySelectorAll("[data-live-step]"));
+    const completed = new Set(loadProgress());
+    const progressNumber = document.getElementById("progressNumber");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+
+    function loadProgress() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(storageKey) || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(Array.from(completed)));
+      } catch {
+        /* Ohne localStorage funktioniert die Seite trotzdem. */
+      }
+    }
+
+    function updateProgress() {
+      liveButtons.forEach((button, index) => {
+        const id = button.closest(".lesson").id || String(index);
+        const isDone = completed.has(id);
+        button.setAttribute("aria-pressed", isDone ? "true" : "false");
+        button.textContent = isDone ? "Erledigt" : "Markieren";
+      });
+      const pct = liveButtons.length ? Math.round((completed.size / liveButtons.length) * 100) : 0;
+      progressNumber.textContent = String(pct);
+      progressBar.style.setProperty("--pct", pct + "%");
+      progressText.textContent = completed.size + " von " + liveButtons.length + " Schritten markiert.";
+    }
+
+    liveButtons.forEach((button, index) => {
+      const id = button.closest(".lesson").id || String(index);
+      button.addEventListener("click", () => {
+        if (completed.has(id)) completed.delete(id);
+        else completed.add(id);
+        saveProgress();
+        updateProgress();
+      });
+    });
+
+    document.getElementById("resetProgress").addEventListener("click", () => {
+      completed.clear();
+      saveProgress();
+      updateProgress();
+    });
+
+    /* ---------- Theme-Umschalter (dunkel = Standard) ---------- */
+    const themeToggle = document.getElementById("themeToggle");
+
+    function applyTheme(light, persist) {
+      if (light) document.documentElement.setAttribute("data-theme", "light");
+      else document.documentElement.removeAttribute("data-theme");
+      themeToggle.textContent = light ? "Dunkles Design" : "Helles Design";
+      themeToggle.setAttribute("aria-pressed", light ? "true" : "false");
+      if (persist) {
+        try { localStorage.setItem(storageKey + "-theme", light ? "light" : "dark"); } catch { /* egal */ }
+      }
+    }
+
+    themeToggle.addEventListener("click", () => {
+      applyTheme(!document.documentElement.hasAttribute("data-theme"), true);
+    });
+    applyTheme(document.documentElement.getAttribute("data-theme") === "light", false);
+
+    /* ---------- Leitbeispiel- und Stil-Tabs (gruppenweit synchron) ---------- */
+    const tabStoreKey = storageKey + "-tabs";
+    let tabChoices = {};
+    try { tabChoices = JSON.parse(localStorage.getItem(tabStoreKey) || "{}") || {}; } catch { tabChoices = {}; }
+
+    function setTabGroup(group, value, persist) {
+      document.querySelectorAll('[data-lbtabs="' + group + '"]').forEach((container) => {
+        container.querySelectorAll(".lb-tab").forEach((btn) => {
+          btn.setAttribute("aria-pressed", btn.dataset.lbtab === value ? "true" : "false");
+        });
+        container.querySelectorAll("[data-lbpanel]").forEach((panel) => {
+          panel.hidden = panel.dataset.lbpanel !== value;
+        });
+      });
+      if (persist) {
+        tabChoices[group] = value;
+        try { localStorage.setItem(tabStoreKey, JSON.stringify(tabChoices)); } catch { /* egal */ }
+      }
+    }
+
+    document.querySelectorAll("[data-lbtabs]").forEach((container) => {
+      container.querySelectorAll(".lb-tab").forEach((btn) => {
+        btn.addEventListener("click", () => setTabGroup(container.dataset.lbtabs, btn.dataset.lbtab, true));
+      });
+    });
+
+    Array.from(new Set(Array.from(document.querySelectorAll("[data-lbtabs]")).map((c) => c.dataset.lbtabs))).forEach((group) => {
+      const first = document.querySelector('[data-lbtabs="' + group + '"] .lb-tab');
+      const saved = tabChoices[group];
+      const savedValid = saved && document.querySelector('[data-lbtabs="' + group + '"] .lb-tab[data-lbtab="' + saved + '"]');
+      setTabGroup(group, savedValid ? saved : first.dataset.lbtab, false);
+    });
+
+    /* ---------- Copy-Buttons ---------- */
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const target = document.querySelector(button.dataset.copy);
+        if (!target) return;
+        const text = target.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          const old = button.textContent;
+          button.textContent = "Kopiert";
+          setTimeout(() => { button.textContent = old; }, 1200);
+        } catch {
+          window.prompt("Prompt kopieren:", text);
+        }
+      });
+    });
+
+    /* ---------- Viz 1: Token-Zerleger ---------- */
+    const tokenInput = document.getElementById("tokenInput");
+    const tokenChips = document.getElementById("tokenChips");
+    const tokenCount = document.getElementById("tokenCount");
+    const charCount = document.getElementById("charCount");
+    const VOWELS = "aeiouäöüyAEIOUÄÖÜY";
+
+    function splitWord(word) {
+      if (word.length <= 5) return [word];
+      const out = [];
+      let rest = word;
+      while (rest.length > 6) {
+        let cut = -1;
+        for (let i = 3; i <= Math.min(6, rest.length - 3); i++) {
+          if (VOWELS.includes(rest[i - 1]) && !VOWELS.includes(rest[i])) cut = i;
+        }
+        if (cut === -1) cut = 4;
+        out.push(rest.slice(0, cut));
+        rest = rest.slice(cut);
+      }
+      out.push(rest);
+      return out;
+    }
+
+    function tokenizeApprox(text) {
+      const tokens = [];
+      const segs = text.match(/[A-Za-zÄÖÜäöüß]+|\d+|\s+|[^\sA-Za-zÄÖÜäöüß\d]/g) || [];
+      for (const seg of segs) {
+        if (/^\s+$/.test(seg)) continue;
+        if (/^\d+$/.test(seg)) {
+          for (let i = 0; i < seg.length; i += 3) tokens.push(seg.slice(i, i + 3));
+        } else if (/^[A-Za-zÄÖÜäöüß]+$/.test(seg)) {
+          tokens.push(...splitWord(seg));
+        } else {
+          tokens.push(seg);
+        }
+      }
+      return tokens;
+    }
+
+    function renderTokens() {
+      const text = tokenInput.value;
+      const tokens = tokenizeApprox(text);
+      tokenChips.textContent = "";
+      tokens.forEach((tok, i) => {
+        const chip = document.createElement("span");
+        chip.className = "token-chip t" + (i % 5);
+        chip.textContent = tok;
+        tokenChips.appendChild(chip);
+      });
+      tokenCount.textContent = String(tokens.length);
+      charCount.textContent = String(text.length);
+    }
+
+    if (tokenInput) {
+      tokenInput.addEventListener("input", renderTokens);
+      renderTokens();
+    }
+
+    /* ---------- Viz 2: Kontextfenster-Meter ---------- */
+    const ctxItems = Array.from(document.querySelectorAll("#ctxItems .ctx-chip"));
+    const ctxWindows = Array.from(document.querySelectorAll("#ctxWindows .ctx-chip"));
+    const ctxMeter = document.getElementById("ctxMeter");
+    const ctxFill = document.getElementById("ctxFill");
+    const ctxStatus = document.getElementById("ctxStatus");
+    const ctxWindowLabel = document.getElementById("ctxWindowLabel");
+    const ctxMarkerLabel = document.getElementById("ctxMarkerLabel");
+    const DUMB_CAP = 100000; /* Kurs-Faustregel: bei großen Fenstern wird es spätestens ab ~100.000 Token wackelig. */
+    let ctxWindow = 27000;
+
+    const fmt = (n) => n.toLocaleString("de-DE");
+    const fmtK = (n) => {
+      const k = n / 1000;
+      return (Number.isInteger(k) ? k.toLocaleString("de-DE") : k.toLocaleString("de-DE", { maximumFractionDigits: 1 })) + "k";
+    };
+
+    function updateCtx() {
+      const used = ctxItems
+        .filter((chip) => chip.getAttribute("aria-pressed") === "true")
+        .reduce((sum, chip) => sum + Number(chip.dataset.tokens), 0);
+      const dumbStart = Math.min(ctxWindow * 0.4, DUMB_CAP);
+      const dumbPct = (dumbStart / ctxWindow) * 100;
+      const pct = (used / ctxWindow) * 100;
+      ctxMeter.style.setProperty("--dumb-pct", dumbPct.toFixed(2) + "%");
+      ctxMarkerLabel.textContent = dumbStart < ctxWindow * 0.4
+        ? "Dumb Zone ab " + fmtK(dumbStart) + " (Deckel)"
+        : "Dumb Zone ab " + fmtK(dumbStart) + " (40 %)";
+      ctxFill.style.width = Math.min(pct, 100) + "%";
+      ctxMeter.classList.toggle("dumb", used >= dumbStart);
+      ctxWindowLabel.textContent = fmt(ctxWindow) + " Token";
+      ctxStatus.classList.remove("smart", "dumb");
+      if (used === 0) {
+        ctxStatus.textContent = "Klick oben Inhalte an. Das Fenster ist noch leer.";
+      } else if (pct > 100) {
+        ctxStatus.classList.add("dumb");
+        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token: passt nicht ins Fenster. Die KI sieht nur noch einen Ausschnitt.";
+      } else if (used >= dumbStart) {
+        ctxStatus.classList.add("dumb");
+        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token (" + Math.round(pct) + " %): Dumb Zone, ab " + fmtK(dumbStart) + " wird es unzuverlässig.";
+      } else {
+        ctxStatus.classList.add("smart");
+        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token (" + Math.round(pct) + " %): Smart Zone.";
+      }
+    }
+
+    ctxItems.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const pressed = chip.getAttribute("aria-pressed") === "true";
+        chip.setAttribute("aria-pressed", pressed ? "false" : "true");
+        updateCtx();
+      });
+    });
+
+    ctxWindows.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        ctxWindows.forEach((other) => other.setAttribute("aria-pressed", "false"));
+        chip.setAttribute("aria-pressed", "true");
+        ctxWindow = Number(chip.dataset.window);
+        updateCtx();
+      });
+    });
+
+    if (ctxMeter) updateCtx();
+
+    /* ---------- Viz 3: Quadratische Verbindungen ---------- */
+    const connSvg = document.getElementById("connSvg");
+    const connRange = document.getElementById("connRange");
+    const connN = document.getElementById("connN");
+    const connCount = document.getElementById("connCount");
+    const connLabel = document.getElementById("connLabel");
+    const SVG_NS = "http://www.w3.org/2000/svg";
+
+    function renderConn() {
+      const n = Number(connRange.value);
+      const cx = 210, cy = 160, r = 130;
+      connSvg.textContent = "";
+      const points = [];
+      for (let i = 0; i < n; i++) {
+        const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+        points.push([cx + r * Math.cos(angle), cy + r * Math.sin(angle)]);
+      }
+      for (let i = 0; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+          const line = document.createElementNS(SVG_NS, "line");
+          line.setAttribute("x1", points[i][0].toFixed(1));
+          line.setAttribute("y1", points[i][1].toFixed(1));
+          line.setAttribute("x2", points[j][0].toFixed(1));
+          line.setAttribute("y2", points[j][1].toFixed(1));
+          line.style.stroke = "var(--teal)";
+          line.setAttribute("stroke-opacity", n > 16 ? "0.25" : "0.4");
+          line.setAttribute("stroke-width", "1.2");
+          connSvg.appendChild(line);
+        }
+      }
+      points.forEach(([x, y]) => {
+        const dot = document.createElementNS(SVG_NS, "circle");
+        dot.setAttribute("cx", x.toFixed(1));
+        dot.setAttribute("cy", y.toFixed(1));
+        dot.setAttribute("r", "7");
+        dot.style.fill = "var(--ink)";
+        connSvg.appendChild(dot);
+      });
+      const count = (n * (n - 1)) / 2;
+      connN.textContent = String(n);
+      connCount.textContent = fmt(count);
+      connLabel.textContent = "Verbindungen bei " + n + " Punkten";
+    }
+
+    if (connSvg) {
+      connRange.addEventListener("input", renderConn);
+      renderConn();
+    }
+
+    /* ---------- Viz 4: Denkzeit-Regler ---------- */
+    const thinkSteps = Array.from(document.querySelectorAll(".think-step"));
+    const thinkData = [
+      {
+        tempo: "Antwort sofort, in Sekunden.",
+        kosten: "Minimal: schont jedes Kontingent.",
+        eignung: "Alltag: umformulieren, zusammenfassen, Ideen sammeln, einfache Fragen.",
+        map: "So heißt das draußen: ChatGPT Instant · Claude ohne Denken-Schalter · Gemini Fast · Codex none."
+      },
+      {
+        tempo: "Kurze Denkpause, dann die Antwort.",
+        kosten: "Gering.",
+        eignung: "Einfache Aufgaben mit einem Haken: etwas vergleichen, kurz begründen.",
+        map: "So heißt das draußen: Claude Niedrig (Low) · Codex low. ChatGPT hat keine eigene Low-Stufe: Instant eskaliert bei Bedarf selbst."
+      },
+      {
+        tempo: "Deutlich spürbare Denkpause.",
+        kosten: "Mittel: zieht am Kontingent.",
+        eignung: "Planen mit mehreren Bedingungen, Texte mit Struktur und Logik.",
+        map: "So heißt das draußen: ChatGPT Thinking (Standard) · Claude Mittel (Medium) · Codex medium · Gemini Thinking."
+      },
+      {
+        tempo: "Mehrere Minuten sind normal.",
+        kosten: "Hoch: bewusst einsetzen.",
+        eignung: "Knifflige, mehrschrittige Probleme, bei denen Fehler teuer sind.",
+        map: "So heißt das draußen: ChatGPT Thinking (Erweitert, ab Plus) · Claude Hoch (High) · Codex high."
+      },
+      {
+        tempo: "Lange Denkphase, gern zweistellige Minuten.",
+        kosten: "Sehr hoch: nur wenn es zählt.",
+        eignung: "Sehr knifflige Analysen und Pläne, bevor du zur höchsten Stufe greifst.",
+        map: "So heißt das draußen: Claude Sehr hoch (Extra high) · Codex xhigh · ChatGPT Pro (Light/Heavy) spielt in dieser Liga."
+      },
+      {
+        tempo: "Am langsamsten: die KI arbeitet, du machst etwas anderes.",
+        kosten: "Am höchsten, meist nur in Bezahlplänen.",
+        eignung: "Die wirklich wichtigen Aufgaben, plus deine eigene Prüfung am Ende.",
+        map: "So heißt das draußen: Claude Max · ChatGPT Pro (Heavy) · Gemini Deep Think (Ultra-Abo)."
+      }
+    ];
+    const thinkTempo = document.getElementById("thinkTempo");
+    const thinkKosten = document.getElementById("thinkKosten");
+    const thinkEignung = document.getElementById("thinkEignung");
+    const thinkMap = document.getElementById("thinkMap");
+
+    function setThink(index) {
+      thinkSteps.forEach((step) => {
+        step.setAttribute("aria-pressed", Number(step.dataset.think) === index ? "true" : "false");
+      });
+      const d = thinkData[index];
+      thinkTempo.textContent = d.tempo;
+      thinkKosten.textContent = d.kosten;
+      thinkEignung.textContent = d.eignung;
+      thinkMap.textContent = d.map;
+    }
+
+    thinkSteps.forEach((step) => {
+      step.addEventListener("click", () => setThink(Number(step.dataset.think)));
+      step.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+          event.preventDefault();
+          const current = Number(step.dataset.think);
+          const next = event.key === "ArrowRight" ? Math.min(current + 1, thinkSteps.length - 1) : Math.max(current - 1, 0);
+          setThink(next);
+          thinkSteps[next].focus();
+        }
+      });
+    });
+
+    if (thinkSteps.length) setThink(0);
+
+    /* ---------- Viz 5: Vorher/Nachher-Prompt-Flip ---------- */
+    document.querySelectorAll("[data-flip]").forEach((card) => {
+      const toggle = card.querySelector("[data-flip-toggle]");
+      const before = card.querySelector("[data-flip-before]");
+      const after = card.querySelector("[data-flip-after]");
+      const state = card.querySelector("[data-flip-state]");
+      toggle.addEventListener("click", () => {
+        const flipped = card.classList.toggle("flipped");
+        toggle.setAttribute("aria-pressed", flipped ? "true" : "false");
+        before.hidden = flipped;
+        after.hidden = !flipped;
+        state.textContent = flipped ? "Nachher · gebriefter Auftrag" : "Vorher · Wunsch";
+        toggle.textContent = flipped ? "Zurück zum ersten Versuch" : "Gebriefte Version zeigen";
+      });
+    });
+
+    /* ---------- Tagescheck: Antworten aufdecken ---------- */
+    document.querySelectorAll("[data-quiz]").forEach((card) => {
+      const button = card.querySelector("button");
+      const answer = card.querySelector("p[hidden], p");
+      button.addEventListener("click", () => {
+        const show = answer.hasAttribute("hidden");
+        if (show) answer.removeAttribute("hidden");
+        else answer.setAttribute("hidden", "");
+        button.textContent = show ? "Antwort verbergen" : "Antwort zeigen";
+        button.setAttribute("aria-expanded", show ? "true" : "false");
+      });
+    });
+
+    updateProgress();
+
+    /* Eingeklappte Nachschlage-Blöcke vor dem Drucken öffnen (sonst fehlen sie im Ausdruck). */
+    window.addEventListener("beforeprint", () => {
+      document.querySelectorAll("details.fold").forEach((d) => { d.open = true; });
+    });
+    /* Ende V31. */
+  </script>
+</body>
+</html>

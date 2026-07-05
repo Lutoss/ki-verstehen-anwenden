@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Die große Linksammlung · Zusatzlinks zum KI-Kurs (V28)</title>
+  <link rel="icon" href="data:,">
+  <style>
+    /* Zusatzlinks-Sammlung V28 ("Abendwerkstatt"-Design): Geschwisterseite zu
+       teil-1-orientierung.html. Dunkler Keynote-Look als Standard, helles
+       Theme per Umschalter oben (Wahl wird lokal gespeichert, Druck ist immer hell).
+       Farben tragen Bedeutung wie im Kurs: Petrol = verstehen · Blau = arbeiten
+       Amber = prüfen/Vorsicht · Violett = Skills/Ausblick. */
+    :root {
+      color-scheme: dark;
+      --paper: #10151d;
+      --surface: #171e29;
+      --surface-soft: #1d2735;
+      --deep: #0b0f15;
+      --ink: #eef3f8;
+      --muted: #a3b2c5;
+      --line: #2c3850;
+      --teal: #2dd4bf;
+      --teal-soft: #123a38;
+      --blue: #6aa9ff;
+      --blue-soft: #16283f;
+      --amber: #fbbf24;
+      --amber-soft: #3a2f10;
+      --rose: #fb7185;
+      --rose-soft: #3d1a22;
+      --violet: #b39dfa;
+      --violet-soft: #2a2344;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+      --radius: 10px;
+      --teal-contrast: #06211f;
+      --blue-contrast: #071c33;
+      --amber-contrast: #2b1f03;
+      --violet-contrast: #1d1438;
+      --code-ink: #d9e6f2;
+      --topbar-bg: rgba(11, 15, 21, 0.92);
+      --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    /* Helles Theme ("Tageswerkstatt"): gleiche Bedeutungsfarben, helle Flächen. */
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --paper: #eef1f6;
+      --surface: #ffffff;
+      --surface-soft: #f5f7fa;
+      --deep: #e7ebf1;
+      --ink: #14181c;
+      --muted: #4a555e;
+      --line: #c8d0d8;
+      --teal: #0f766e;
+      --teal-soft: #ddf0ec;
+      --blue: #1d4ed8;
+      --blue-soft: #e6eeff;
+      --amber: #b45309;
+      --amber-soft: #fdf0d5;
+      --rose: #be3455;
+      --rose-soft: #fce4ea;
+      --violet: #6d4fc9;
+      --violet-soft: #ece7fb;
+      --shadow: 0 12px 32px rgba(20, 30, 45, 0.1);
+      --teal-contrast: #ffffff;
+      --blue-contrast: #ffffff;
+      --amber-contrast: #ffffff;
+      --violet-contrast: #ffffff;
+      --code-ink: #1d2733;
+      --topbar-bg: rgba(255, 255, 255, 0.92);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 1.06rem;
+      line-height: 1.6;
+      letter-spacing: 0;
+    }
+
+    a { color: var(--teal); }
+    img { max-width: 100%; display: block; }
+    button, input, textarea { font: inherit; }
+    :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 3vw, 2rem);
+      background: var(--topbar-bg);
+      border-bottom: 2px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      min-width: 0;
+    }
+    .brand strong { font-size: 1rem; letter-spacing: 0.01em; }
+    .brand span { color: var(--muted); font-size: 0.82rem; }
+
+    .top-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .button {
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      color: var(--ink);
+      padding: 0.55rem 0.8rem;
+      min-height: 2.4rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .button.primary {
+      background: var(--teal);
+      color: var(--teal-contrast);
+      border-color: var(--teal);
+    }
+
+    .layout {
+      display: grid;
+      gap: clamp(1.1rem, 2vw, 1.6rem);
+      width: min(1240px, 100%);
+      margin: 0 auto;
+      padding: clamp(1rem, 2vw, 2rem);
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: clamp(1.6rem, 3.4vw, 3rem);
+      display: grid;
+      gap: 1.2rem;
+      overflow: hidden;
+      background: var(--deep);
+      border-color: var(--line);
+    }
+
+    .eyebrow, .kicker {
+      margin: 0;
+      color: var(--teal);
+      font-size: 0.8rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    h1, h2, h3 { letter-spacing: -0.01em; line-height: 1.1; margin: 0; }
+    h1 { max-width: 980px; font-size: clamp(2.2rem, 5vw, 4.2rem); font-weight: 850; }
+    h2 { font-size: clamp(1.7rem, 2.8vw, 2.7rem); font-weight: 800; }
+    h3 { font-size: clamp(1.25rem, 1.9vw, 1.7rem); font-weight: 750; }
+    p { margin: 0; }
+    ul, ol { margin: 0; padding-left: 1.2rem; }
+
+    .hero-lede {
+      max-width: 920px;
+      font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+      color: var(--muted);
+    }
+
+    .note {
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
+      padding: 0.9rem;
+      display: grid;
+      gap: 0.3rem;
+    }
+    .note.warn { border-left-color: var(--amber); }
+    .note.warn strong { color: var(--amber); }
+    .note p { color: var(--muted); font-size: 0.98rem; }
+
+    .badge-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 0.9rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .source-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--teal);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: grid;
+      gap: 0.4rem;
+      align-content: start;
+      text-decoration: none;
+      color: inherit;
+    }
+    a.source-card:hover { border-color: var(--teal); }
+    .source-card b { font-size: 1.02rem; }
+    .source-card span { color: var(--muted); font-size: 0.95rem; }
+    .source-card small {
+      color: var(--muted);
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+    }
+    .source-card .url {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    /* Kleine Link-Vorschaubilder (lokale Screenshots, wie in der V14-Sammlung) */
+    .card-preview {
+      display: block;
+      width: 148px;
+      height: 84px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--deep);
+      overflow: hidden;
+    }
+    .card-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .card-preview img.icon-fallback {
+      object-fit: contain;
+      padding: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      justify-self: start;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .badge.shown { background: var(--teal); border-color: var(--teal); color: var(--teal-contrast); }
+    .badge.deep { background: var(--violet-soft); border-color: var(--violet); color: var(--violet); }
+    .badge.ref { background: var(--blue-soft); border-color: var(--blue); color: var(--blue); }
+
+    .section {
+      padding: clamp(1.3rem, 2.6vw, 2.2rem);
+      display: grid;
+      gap: 1.1rem;
+      border-top: 4px solid var(--blue);
+    }
+    .section-head { display: grid; gap: 0.5rem; max-width: 980px; }
+    .section-head p { color: var(--muted); font-size: 1.05rem; }
+
+    #g-m2 { border-top-color: var(--teal); }
+    #g-m2 .kicker { color: var(--teal); }
+    #g-m3 .kicker, #g-m4 .kicker, #g-m5 .kicker, #g-m6 .kicker, #g-m7 .kicker, #g-ueben .kicker, #g-tools .kicker { color: var(--blue); }
+    #g-m9, #g-teil2 { border-top-color: var(--violet); }
+    #g-m9 .kicker, #g-teil2 .kicker { color: var(--violet); }
+    #g-sicher { border-top-color: var(--amber); }
+    #g-sicher .kicker { color: var(--amber); }
+
+    .footer { color: var(--muted); font-size: 0.85rem; padding: 0 0.4rem 2rem; }
+
+    @media (max-width: 1080px) {
+      .section { padding: 1.1rem; }
+      .card-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .top-actions { justify-content: flex-start; }
+      .layout { padding: 0.8rem; }
+      .section { padding: 1rem; }
+      body { font-size: 1rem; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      :root, :root[data-theme="light"] {
+        color-scheme: light;
+        --paper: #ffffff;
+        --surface: #ffffff;
+        --surface-soft: #f4f6f8;
+        --deep: #f0f2f5;
+        --ink: #14181c;
+        --muted: #4a555e;
+        --line: #c8d0d8;
+        --teal: #0f766e;
+        --teal-soft: #e2f3f0;
+        --blue: #1d4ed8;
+        --blue-soft: #e8efff;
+        --amber: #92620c;
+        --amber-soft: #fdf3d7;
+        --rose: #be3455;
+        --rose-soft: #ffe8ee;
+        --violet: #5b3fb8;
+        --violet-soft: #ece7fb;
+        --shadow: none;
+        --teal-contrast: #ffffff;
+        --blue-contrast: #ffffff;
+        --amber-contrast: #ffffff;
+        --violet-contrast: #ffffff;
+        --code-ink: #14181c;
+        --topbar-bg: #ffffff;
+      }
+      body { background: #fff; color: var(--ink); }
+      .topbar { display: none !important; }
+      .layout { padding: 0; }
+      .card-grid { display: block; }
+      .source-card { break-inside: avoid; margin-bottom: 4mm; }
+      .card-preview { width: 39mm; height: 22mm; }
+      .section, .hero { break-inside: auto; }
+      a::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #4a555e; }
+      a[href^="#"]::after { content: ""; }
+    }
+  </style>
+  <script>
+    /* Theme-Bootstrap: vor dem ersten Rendern, damit nichts aufblitzt. */
+    try {
+      if (localStorage.getItem("ki-kurs-zusatzlinks-v28-theme") === "light") {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    } catch (e) { /* Ohne localStorage bleibt es beim dunklen Standard. */ }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <strong>Die große Linksammlung</strong>
+      <span>Zusatzlinks zum KI-Kurs · Sammlung V28</span>
+    </div>
+    <div class="top-actions">
+      <a class="button" href="teil-1-orientierung.html">Zu Teil 1</a>
+      <a class="button" href="teil-2-projektwerkstatt.html">Zu Teil 2</a>
+      <button class="button" type="button" id="themeToggle" aria-pressed="false">Helles Design</button>
+      <button class="button primary" type="button" onclick="window.print()">Drucken</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <section class="hero panel" aria-labelledby="hero-title">
+      <p class="eyebrow">VHS-Kurs · Zusatzmaterial zu Teil 1 und Teil 2</p>
+      <h1 id="hero-title">Die große Linksammlung</h1>
+      <p class="hero-lede">Alle Links aus dem Kurs plus die besten Fundstücke drumherum, sortiert nach den Kursmodulen von Teil 1 und einer eigenen Gruppe zur Projektwerkstatt (Teil 2): zum Nachschlagen, Ausprobieren und Vertiefen, ganz ohne Pflichtprogramm.</p>
+      <div class="note warn">
+        <strong>Kleiner Vorbehalt</strong>
+        <p>Tool-Namen und Ranglisten ändern sich schnell, Stand 04.07.2026. Wenn ein Link nicht mehr passt: Titel in eine Suchmaschine tippen, die Angebote sind meist nur umgezogen.</p>
+      </div>
+      <p class="badge-legend" aria-label="Bedeutung der Markierungen">
+        <span class="badge shown">Im Kurs gezeigt</span>
+        <span class="badge">Zum Ausprobieren</span>
+        <span class="badge deep">Vertiefung</span>
+        <span class="badge ref">Referenz</span>
+        <span>· Englischsprachige Angebote sind im Text als (englisch) markiert.</span>
+      </p>
+      <div class="card-grid">
+        <a class="source-card" href="teil-1-orientierung.html">
+          <small>Kursseite</small>
+          <b>Teil 1: KI verstehen und anwenden</b>
+          <span>Zurück zur Hauptseite mit allen neun Modulen, den Live-Demos und dem Spickzettel.</span>
+        </a>
+        <a class="source-card" href="teil-2-projektwerkstatt.html">
+          <small>Kursseite</small>
+          <b>Teil 2: Projektwerkstatt</b>
+          <span>Eigenes Projekt in Phasen: erst denken, dann grillen, planen, bauen, prüfen — mit echten Skills und Fahrplan für zuhause.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-m2" aria-labelledby="g-m2-title">
+      <div class="section-head">
+        <p class="kicker">Modul 2 · Wie KI funktioniert</p>
+        <h2 id="g-m2-title">Token, Temperatur und der Blick ins Modell</h2>
+        <p>Die Demos vom Beamer und ein paar Vertiefungen dazu: alle laufen im Browser ohne Konto.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://platform.openai.com/tokenizer" target="_blank" rel="noreferrer">
+          <span class="badge shown">Im Kurs gezeigt</span>
+          <b>OpenAI Tokenizer</b>
+          <span>Die echte Token-Zerlegung: Text einfügen und zusehen, wie das Modell ihn zerschneidet. Der große Bruder unseres Token-Zerlegers aus Modul 2. Seite auf Englisch, Eingaben gehen auch auf Deutsch.</span>
+        </a>
+        <a class="source-card" href="https://poloclub.github.io/transformer-explainer/" target="_blank" rel="noreferrer">
+          <span class="badge shown">Im Kurs gezeigt</span>
+          <b>Transformer Explainer</b>
+          <span>Einem Sprachmodell live beim Vorhersagen des nächsten Tokens zusehen: die Demo aus Modul 2 (englisch).</span>
+        </a>
+        <a class="source-card" href="https://andreban.github.io/temperature-topk-visualizer/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Temperature-Visualizer</b>
+          <span>Der Temperatur-Regler zum Selberschieben: mehr Zufall macht die Wortwahl kreativer, weniger macht sie verlässlicher (englisch). Im Kurs nur kurz erwähnt. Hier kannst du den Regler wirklich schieben.</span>
+        </a>
+        <a class="source-card" href="https://bbycroft.net/llm" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>LLM Visualization (bbycroft)</b>
+          <span>Ein begehbares 3D-Modell eines Sprachmodells: beeindruckend, auch ohne eine einzige Formel zu verstehen (englisch).</span>
+        </a>
+        <a class="source-card" href="https://www.3blue1brown.com/lessons/mini-llm/" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>3Blue1Brown: Mini-LLM</b>
+          <span>Visuell erzähltes Video zur Grundidee hinter Sprachmodellen: ruhig erklärt und sehenswert animiert (englisch).</span>
+        </a>
+        <a class="source-card" href="https://llm-timeline.com/" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>LLM Timeline</b>
+          <span>Zeitstrahl der großen Sprachmodelle: gut gegen Produkt-Hype, weil sichtbar wird, wie schnell Namen kommen und gehen (englisch).</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-m3" aria-labelledby="g-m3-title">
+      <div class="section-head">
+        <p class="kicker">Modul 3 · Kontextfenster</p>
+        <h2 id="g-m3-title">Warum lange Chats schlechter werden</h2>
+        <p>Das Kontextfenster zum Anfassen: einmal zusehen, wie ein ganzer Chat als Token-Strom aussieht und nachlesen, warum sehr volle Fenster unzuverlässiger werden.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://tiktokenizer.vercel.app/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Tiktokenizer</b>
+          <span>Tokenizer-Vergleich über mehrere Modelle hinweg: zeigt, dass jedes Modell Text anders zerlegt, und wie ein ganzer Chat als Token-Strom aussieht — genau das, was im Kontextfenster liegt (englisch).</span>
+        </a>
+        <a class="source-card" href="https://www.trychroma.com/research/context-rot" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>Context Rot (Chroma Research)</b>
+          <span>Die Messungen hinter der Dumb Zone aus Modul 3: Antworten werden unzuverlässiger, je voller das Kontextfenster ist, mit Daten statt Bauchgefühl (englisch).</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-m4" aria-labelledby="g-m4-title">
+      <div class="section-head">
+        <p class="kicker">Modul 4 · Briefen</p>
+        <h2 id="g-m4-title">Prompting-Leitfäden und Cookbooks</h2>
+        <p>Was die Hersteller selbst übers Briefen sagen: erstaunlich nah an unserem Baukasten. Die Cookbooks sind der Blick in die Werkstatt für Neugierige.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://workspace.google.com/intl/de/resources/ai/writing-effective-prompts/" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>Google: Prompting-Leitfaden</b>
+          <span>Googles Gemini-Leitfaden auf Deutsch: die Vier-Bausteine-Formel (Persona, Aufgabe, Kontext, Format) ähnelt unserem Baukasten aus Modul 4 verblüffend.</span>
+        </a>
+        <a class="source-card" href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>OpenAI Prompting Guide</b>
+          <span>Offizieller Leitfaden für bessere Prompts: Aufgabe, Kontext und gewünschtes Ergebnis klar machen. Gute Ergänzung zum Briefen aus Modul 4 (englisch).</span>
+        </a>
+        <a class="source-card" href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>Claude: Prompting Best Practices</b>
+          <span>Anthropics offizielle Prompt-Empfehlungen für Claude: klar formulieren, Beispiele geben, Rollen nutzen. Das Gegenstück zum OpenAI-Leitfaden (englisch).</span>
+        </a>
+        <a class="source-card" href="https://ki-campus.org/lernangebote/kurse/erstellen-von-texten-mit-einer-text-ki-durch-zielfuehrendes-prompt-writing" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>KI-Campus: Prompt Writing</b>
+          <span>Kostenloses deutschsprachiges Lernangebot zum Schreiben mit Text-KI: gut für alle, die nach dem Kurs strukturiert weiterüben wollen.</span>
+        </a>
+        <a class="source-card" href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>Anthropic Prompt Engineering Tutorial</b>
+          <span>Interaktives Prompt-Training direkt vom Claude-Hersteller: gründlich, aber englisch und eher für Fortgeschrittene.</span>
+        </a>
+        <a class="source-card" href="https://developers.openai.com/cookbook" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>OpenAI Cookbook</b>
+          <span>Blick in die Werkstatt: offizielle Rezepte und Code-Beispiele für alles, was man mit OpenAI-Modellen bauen kann. Für Fortgeschrittene mit Programmier-Neugier (englisch).</span>
+        </a>
+        <a class="source-card" href="https://platform.claude.com/cookbook" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>Claude Cookbook</b>
+          <span>Das Gegenstück von Anthropic: Anleitungen und Beispiele für Claude, vom Prompt bis zum Agenten. Ebenfalls Entwickler-Niveau (englisch).</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-m5" aria-labelledby="g-m5-title">
+      <div class="section-head">
+        <p class="kicker">Modul 5 · Prüfen &amp; Reparieren</p>
+        <h2 id="g-m5-title">Faktencheck und Quellenkritik</h2>
+        <p>Kompakte Gruppe, großer Hebel: Material für die Prüflinse, wenn eine KI-Antwort zu glatt klingt.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://www.bpb.de/system/files/dokument_pdf/bpb_TB_138_Quelle_KI_BF.pdf" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>bpb: Quelle KI?</b>
+          <span>Material der Bundeszentrale für politische Bildung zu Quellenkritik und Halluzinationen: passt direkt zur Prüflinse aus Modul 5. Auf Deutsch, als PDF.</span>
+        </a>
+        <a class="source-card" href="https://correctiv.org/faktencheck/" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>CORRECTIV Faktencheck</b>
+          <span>Redaktionelle Faktenchecks zu Behauptungen, die gerade im Netz kursieren: gute Anlaufstelle, wenn die Prüflinse externe Belege braucht. Auf Deutsch.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-m6" aria-labelledby="g-m6-title">
+      <div class="section-head">
+        <p class="kicker">Modul 6 · Denkzeit &amp; Modellwahl</p>
+        <h2 id="g-m6-title">Modelle vergleichen statt glauben</h2>
+        <p>Welches Modell passt zu welcher Aufgabe? Einmal selbst blind vergleichen, einmal in die Messwerte schauen.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://lmarena.ai/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>LMArena</b>
+          <span>Blindvergleich: Zwei anonyme Modelle beantworten dieselbe Frage, du stimmst ab, welches besser war. So merkt man schnell, wie nah die Spitze beieinander liegt (englisch).</span>
+        </a>
+        <a class="source-card" href="https://artificialanalysis.ai/leaderboards/models" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>Artificial Analysis: LLM Leaderboard</b>
+          <span>Sprachmodell-Vergleich nach Qualität, Tempo und Preis: nur zur Orientierung, die Spitze wechselt ständig (englisch).</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-m7" aria-labelledby="g-m7-title">
+      <div class="section-head">
+        <p class="kicker">Modul 7 · Bilder</p>
+        <h2 id="g-m7-title">Bildgeneratoren verstehen und vergleichen</h2>
+        <p>Einmal hinter die Kulissen der Bild-KI schauen, und wissen, wo man nachsieht, welches Modell gerade vorn liegt.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://poloclub.github.io/diffusion-explainer/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Diffusion Explainer</b>
+          <span>Wie aus Rauschen ein Bild wird: die Technik hinter den Bildgeneratoren aus Modul 7, Schritt für Schritt erklärt (englisch).</span>
+        </a>
+        <a class="source-card" href="https://artificialanalysis.ai/image/leaderboard/text-to-image" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>Bildmodell-Leaderboard</b>
+          <span>Artificial Analysis: welcher Bildgenerator liegt gerade vorn? Die Rangliste ändert sich laufend, deshalb lieber nachschauen als auswendig lernen (englisch).</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-m9" aria-labelledby="g-m9-title">
+      <div class="section-head">
+        <p class="kicker">Modul 9 · Skills &amp; Ausblick</p>
+        <h2 id="g-m9-title">Skills installieren und weiterbauen</h2>
+        <p>Gespeicherte Abläufe statt Copy-Paste-Prompts: hier findest du die Sammlungen aus dem Kursfinale.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
+          <span class="badge shown">Im Kurs gezeigt</span>
+          <b>Lutoss/skills — das Kurs-Skills-Repo</b>
+          <span>Aus Modul 9: kuratierte Skill-Pakete für Claude und Codex, deutsch dokumentiert: handoff, teach, research, verify-before-done und mehr. Installation: Link in den KI-Chat posten.</span>
+        </a>
+        <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>mattpocock/skills</b>
+          <span>Matt Pococks Skill-Sammlung, das Original von handoff und grill-me, dazu teach, research und mehr (englisch). Installation: Link in den KI-Chat posten, wie beim Kurs-Repo.</span>
+        </a>
+        <a class="source-card" href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>Anthropic: AI Fluency</b>
+          <span>Kostenloser Anthropic-Kurs zu den vier Grundfertigkeiten im KI-Umgang (Delegation, Description, Discernment, Diligence) — gute Fortsetzung nach Teil 2. Mit Abschluss-Zertifikat, kostenloses Konto nötig (englisch).</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-teil2" aria-labelledby="g-teil2-title">
+      <div class="section-head">
+        <p class="kicker">Teil 2 · Projektwerkstatt</p>
+        <h2 id="g-teil2-title">Der Werkzeugkasten des zweiten Abends</h2>
+        <p>Das Video, die Skill-Bibliotheken und der Standard dahinter: alles, was in der Projektwerkstatt im Einsatz war, zum Nachschauen und Installieren.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://www.youtube.com/watch?v=-QFHIoCo-Ko" target="_blank" rel="noreferrer">
+          <span class="badge shown">Im Kurs gezeigt</span>
+          <b>Matt Pocock: Full Walkthrough — Workflow for AI Coding</b>
+          <span>Das Video, das Teil 2 spiegelt: Smart Zone, Grill-Runden, Zieldokument, Karten, Nachtschicht und Prüfen im frischen Kontext. Rund 96 Minuten (englisch).</span>
+        </a>
+        <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
+          <span class="badge shown">Im Kurs gezeigt</span>
+          <b>Lutoss/skills: das Kurs-Skill-Repo</b>
+          <span>Das in Teil 2 installierte Paket: alle Matt-Pocock-Skills plus die eigenen (verify-before-done, project-review, improve-project-structure, Loop-Familie), deutsch dokumentiert. Link in den KI-Chat posten, den Rest macht die KI.</span>
+        </a>
+        <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>mattpocock/skills</b>
+          <span>Matts Original-Bibliothek: grilling, to-prd, to-issues, implement, handoff, research, teach und mehr (englisch). Installation wie beim Kurs-Repo.</span>
+        </a>
+        <a class="source-card" href="https://agentskills.io" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>agentskills.io: der SKILL.md-Standard</b>
+          <span>Das offene Format hinter allen Skills aus Teil 2: kurz und lesbar, falls du wissen willst, was deine KI da eigentlich lädt (englisch).</span>
+        </a>
+        <a class="source-card" href="https://www.aihero.dev/" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>AI Hero</b>
+          <span>Matt Pococks Lernplattform rund um KI-Arbeit und Agenten: für alle, die nach der Projektwerkstatt tiefer einsteigen wollen (englisch).</span>
+        </a>
+        <a class="source-card" href="https://www.youtube.com/@mattpocockuk/videos" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>Matt Pocock auf YouTube</b>
+          <span>Matt Pococks YouTube-Kanal mit vielen kurzen Videos zu KI-Workflows, Skills und Agenten — hier stammt auch das Walkthrough-Video aus Teil 2 (englisch).</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-ueben" aria-labelledby="g-ueben-title">
+      <div class="section-head">
+        <p class="kicker">Nach dem Kurs · Üben &amp; Spielen</p>
+        <h2 id="g-ueben-title">Spielerisch dranbleiben</h2>
+        <p>Kein Lehrbuch, sondern Spielwiesen: hier lernst du beim Klicken, nicht beim Lesen.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://gandalf.lakera.ai/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Gandalf</b>
+          <span>Ein Spiel: Entlocke der KI ein Passwort, das sie nicht verraten darf. Die lehrreichste Art, Prompt-Tricks und ihre Grenzen zu verstehen (englisch).</span>
+        </a>
+        <a class="source-card" href="https://pair.withgoogle.com/explorables/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>PAIR Explorables (Google)</b>
+          <span>Interaktive Mini-Essays zu KI-Themen: von Trainingsdaten bis Fairness, alles zum Anklicken (englisch).</span>
+        </a>
+        <a class="source-card" href="https://quickdraw.withgoogle.com/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Quick, Draw! (Google)</b>
+          <span>Du kritzelst, ein neuronales Netz rät in 20 Sekunden. Ganz nebenbei versteht man, wie Mustererkennung lernt. Auf Deutsch spielbar.</span>
+        </a>
+        <a class="source-card" href="https://teachablemachine.withgoogle.com/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Teachable Machine (Google)</b>
+          <span>Trainiere im Browser dein eigenes Mini-Modell mit Webcam oder Mikrofon, ganz ohne Code: KI-Training zum Anfassen. Seite auf Englisch, aber selbsterklärend.</span>
+        </a>
+        <a class="source-card" href="https://www.getbadnews.com/de" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Bad News</b>
+          <span>Rollentausch: Du wirst selbst zur Fake-News-Schleuder und lernst dabei sechs Manipulationstechniken von innen kennen. Komplett auf Deutsch, etwa 15 Minuten.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-tools" aria-labelledby="g-tools-title">
+      <div class="section-head">
+        <p class="kicker">Nach dem Kurs · Alltags-Tools</p>
+        <h2 id="g-tools-title">Werkzeuge für den Alltag</h2>
+        <p>Diktieren, Dokumente befragen, Prompt-Ideen klauen: und vor jedem Upload an die fünf roten Grenzen aus Teil 1 (Modul 1) denken.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://wisprflow.ai/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <small>Diktieren &amp; Eingabe</small>
+          <b>Wispr Flow</b>
+          <span>Diktier-Tool für lange Prompts, Texte und Notizen: sprechen statt tippen, klappt auch auf Deutsch. Website auf Englisch.</span>
+        </a>
+        <a class="source-card" href="https://notebooklm.google/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <small>Dokumente &amp; Wissen</small>
+          <b>NotebookLM</b>
+          <span>Googles Werkzeug für quellengestützte Dokumentarbeit: antwortet nur aus deinen hochgeladenen Unterlagen. Vor dem Upload an die fünf roten Grenzen aus Teil 1 (Modul 1) denken.</span>
+        </a>
+        <a class="source-card" href="https://adoption.microsoft.com/en-us/copilot/prompt-gallery/" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <small>Office &amp; Alltag</small>
+          <b>Microsoft 365 Copilot Prompt Gallery</b>
+          <span>Prompt-Bibliothek mit Praxisbeispielen für Word, Excel, PowerPoint und Teams (englisch).</span>
+        </a>
+        <a class="source-card" href="https://claude.com/resources/use-cases/" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <small>Ideen &amp; Anwendungsfälle</small>
+          <b>Claude Use Cases</b>
+          <span>Rollen- und Aufgabenbeispiele vom Claude-Hersteller: was andere Berufe schon mit KI erledigen (englisch).</span>
+        </a>
+        <a class="source-card" href="https://the-decoder.de/" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <small>Nachrichten &amp; Dranbleiben</small>
+          <b>THE DECODER</b>
+          <span>Deutschsprachige KI-Nachrichten aus der heise-Gruppe: gut zum Dranbleiben nach dem Kurs, ohne jeden Tag den Hype mitkaufen zu müssen. Basis-Artikel frei.</span>
+        </a>
+        <a class="source-card" href="https://kiupdate.podigee.io/" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <small>Nachrichten &amp; Dranbleiben</small>
+          <b>KI-Update (heise-Podcast)</b>
+          <span>Dreimal pro Woche die wichtigsten KI-Nachrichten in rund 20 Minuten, auf Deutsch und gemeinsam mit THE DECODER produziert: Dranbleiben zum Hören.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section panel" id="g-sicher" aria-labelledby="g-sicher-title">
+      <div class="section-head">
+        <p class="kicker">Nach dem Kurs · Sicherheit &amp; Medienkompetenz</p>
+        <h2 id="g-sicher-title">Kritisch bleiben</h2>
+        <p>Datenschutz im Alltag, echte KI-Vorfälle und der Blick, der Deepfakes wenigstens misstrauisch macht.</p>
+      </div>
+      <div class="card-grid">
+        <a class="source-card" href="https://www.verbraucherzentrale.de/wissen/digitale-welt/apps-und-software/kichatbots-im-ueberblick-was-sie-ueber-chatgpt-gemini-copilot-wissen-sollten-89125" target="_blank" rel="noreferrer">
+          <span class="badge ref">Referenz</span>
+          <b>Verbraucherzentrale: KI-Chatbots</b>
+          <span>Alltagsnaher Überblick zu Datenschutz, Grenzen und Urheberrecht bei ChatGPT, Gemini und Copilot. Auf Deutsch.</span>
+        </a>
+        <a class="source-card" href="https://www.klicksafe.de/quiz" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>klicksafe: Quiz-Sammlung</b>
+          <span>Deutschsprachige Quiz-Übersicht zu Deepfakes, Fake News und mehr. Das Quiz "Deepfake Detectives" trainiert den Blick dafür, welche Medien echt sind.</span>
+        </a>
+        <a class="source-card" href="https://www.whichfaceisreal.com/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Which Face Is Real?</b>
+          <span>Echtes Foto oder KI-Gesicht? Ein Aha-Moment pro Klick, als Erkennungstraining aber nicht überbewerten (englisch).</span>
+        </a>
+        <a class="source-card" href="https://spotthetroll.org/" target="_blank" rel="noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <b>Spot the Troll</b>
+          <span>Acht echte Social-Media-Profile: echt oder gesteuerter Troll? Quiz der Clemson University, das den Blick für Manipulation schärft (englisch).</span>
+        </a>
+        <a class="source-card" href="https://incidentdatabase.ai/" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>AI Incident Database</b>
+          <span>Sammlung realer KI-Vorfälle weltweit: gut, um Risiken an konkreten Fällen statt an Schlagzeilen zu diskutieren (englisch).</span>
+        </a>
+        <a class="source-card" href="https://airisk.mit.edu/" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>MIT AI Risk Repository</b>
+          <span>Strukturierte Risikoübersicht des MIT: eher für alle, die es systematisch mögen (englisch).</span>
+        </a>
+      </div>
+    </section>
+
+    <p class="footer">Stand: 05.07.2026 · Linksammlung V28 zu Teil 1 (V31) und Teil 2 (V15). Externe Seiten können sich ändern, ein Login verlangen oder regional anders aussehen. Die Auswahl ist freiwilliges Material und kein Pflichtprogramm.</p>
+  </div>
+
+  <script>
+    /* ---------- Theme-Umschalter (dunkel = Standard) ---------- */
+    const themeKey = "ki-kurs-zusatzlinks-v28-theme";
+    const themeToggle = document.getElementById("themeToggle");
+
+    function applyTheme(light, persist) {
+      if (light) document.documentElement.setAttribute("data-theme", "light");
+      else document.documentElement.removeAttribute("data-theme");
+      themeToggle.textContent = light ? "Dunkles Design" : "Helles Design";
+      themeToggle.setAttribute("aria-pressed", light ? "true" : "false");
+      if (persist) {
+        try { localStorage.setItem(themeKey, light ? "light" : "dark"); } catch { /* egal */ }
+      }
+    }
+
+    themeToggle.addEventListener("click", () => {
+      applyTheme(!document.documentElement.hasAttribute("data-theme"), true);
+    });
+    applyTheme(document.documentElement.getAttribute("data-theme") === "light", false);
+
+    /* ---------- Kleine Link-Vorschaubilder ----------
+       Lokale Screenshots liegen in assets/link-previews/v14/.
+       Ohne lokales Bild: Favicon der Seite, notfalls Platzhalter. */
+    const previewMap = {
+      "https://platform.openai.com/tokenizer": "openai-tokenizer",
+      "https://poloclub.github.io/transformer-explainer/": "transformer-explainer",
+      "https://andreban.github.io/temperature-topk-visualizer/": "temperature-topk-topp",
+      "https://bbycroft.net/llm": "llm-visualization",
+      "https://www.3blue1brown.com/lessons/mini-llm/": "mini-llm",
+      "https://llm-timeline.com/": "llm-timeline",
+      "https://platform.openai.com/docs/guides/prompt-engineering": "openai-prompting-guide",
+      "https://ki-campus.org/lernangebote/kurse/erstellen-von-texten-mit-einer-text-ki-durch-zielfuehrendes-prompt-writing": "ki-campus-prompt-writing",
+      "https://github.com/anthropics/prompt-eng-interactive-tutorial": "anthropic-prompt-tutorial",
+      "https://developers.openai.com/cookbook": "openai-cookbook",
+      "https://platform.claude.com/cookbook": "claude-cookbook",
+      "https://www.bpb.de/system/files/dokument_pdf/bpb_TB_138_Quelle_KI_BF.pdf": "bpb-quelle-ki",
+      "https://artificialanalysis.ai/image/leaderboard/text-to-image": "artificial-analysis",
+      "https://artificialanalysis.ai/leaderboards/models": "artificial-analysis",
+      "https://gandalf.lakera.ai/": "gandalf-lakera",
+      "https://wisprflow.ai/": "wispr-flow",
+      "https://notebooklm.google/": "notebooklm",
+      "https://adoption.microsoft.com/en-us/copilot/prompt-gallery/": "copilot-prompt-gallery",
+      "https://claude.com/resources/use-cases/": "claude-use-cases",
+      "https://www.verbraucherzentrale.de/wissen/digitale-welt/apps-und-software/kichatbots-im-ueberblick-was-sie-ueber-chatgpt-gemini-copilot-wissen-sollten-89125": "verbraucherzentrale-chatbots",
+      "https://www.klicksafe.de/quiz": "klicksafe-deepfake-detectives",
+      "https://www.whichfaceisreal.com/": "which-face-is-real",
+      "https://incidentdatabase.ai/": "ai-incident-database",
+      "https://airisk.mit.edu/": "mit-risk-repository"
+    };
+
+    function previewIcon(label) {
+      const safe = String(label || "Link").replace(/[&<>"']/g, "");
+      const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="148" height="84" viewBox="0 0 148 84">'
+        + '<rect width="148" height="84" rx="8" fill="#10151d"/>'
+        + '<rect x="10" y="10" width="128" height="64" rx="6" fill="#1d2735" stroke="#2c3850"/>'
+        + '<text x="74" y="47" text-anchor="middle" font-family="Consolas,monospace" font-size="10" font-weight="700" fill="#2dd4bf">' + safe + '</text>'
+        + '</svg>';
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    document.querySelectorAll('a.source-card[href^="http"]').forEach((card) => {
+      if (card.querySelector(".card-preview")) return;
+      const href = card.getAttribute("href");
+      let hostname = "Link";
+      try { hostname = new URL(href).hostname.replace(/^www\./, "") || "Link"; } catch { /* Platzhalter reicht */ }
+      const label = href.toLowerCase().split("?")[0].endsWith(".pdf") ? "PDF" : hostname;
+
+      const wrap = document.createElement("span");
+      wrap.className = "card-preview";
+      wrap.setAttribute("aria-hidden", "true");
+
+      const img = document.createElement("img");
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      const asset = previewMap[href];
+      if (asset) {
+        img.src = "assets/link-previews/v14/" + asset + ".jpg";
+      } else {
+        img.className = "icon-fallback";
+        img.src = "https://www.google.com/s2/favicons?domain_url=" + encodeURIComponent(href) + "&sz=64";
+      }
+      img.addEventListener("error", () => {
+        img.classList.remove("icon-fallback");
+        img.src = previewIcon(label);
+      }, { once: true });
+
+      wrap.appendChild(img);
+      card.prepend(wrap);
+    });
+  </script>
+</body>
+</html>
