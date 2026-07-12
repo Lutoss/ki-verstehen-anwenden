@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KI verstehen und anwenden — Einsteigerkurs</title>
-<meta name="description" content="Praxisnaher Einsteigerkurs zu Künstlicher Intelligenz: Orientierung, Projektwerkstatt und eine große Linksammlung.">
+<title>Per Anhalter durch die KI — Selbstlernkurs</title>
+<meta name="description" content="Praxisnaher Selbstlernkurs zu Künstlicher Intelligenz: KI verstehen und anwenden, Projektwerkstatt und große Linksammlung.">
 <style>
   :root{
     --paper:#10151d; --surface:#171e29; --surface-soft:#1d2735; --deep:#0b0f15;
@@ -25,6 +25,7 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card,.chip{transition:none}}
   body{
     margin:0; background:var(--paper); color:var(--ink);
     font-family:var(--font-sans); line-height:1.6;
@@ -42,7 +43,8 @@
     display:inline-block; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
     color:var(--teal); font-weight:700; margin-bottom:16px;
     border:1px solid color-mix(in srgb, var(--teal) 40%, var(--line)); border-radius:999px;
-    padding:5px 14px; background:color-mix(in srgb, var(--teal) 10%, transparent);
+    max-width:100%; overflow-wrap:anywhere; padding:5px 14px;
+    background:color-mix(in srgb, var(--teal) 10%, transparent);
   }
   h1{font-size:clamp(2rem,5vw,3.1rem); line-height:1.12; margin:.1em 0 .35em; letter-spacing:-.02em}
   .lede{max-width:620px; margin:0 auto; color:var(--muted); font-size:1.12rem}
@@ -64,7 +66,7 @@
     font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
     color:var(--teal); margin-bottom:10px;
   }
-  .card h3{margin:0 0 8px; font-size:1.28rem}
+  .card h3{margin:0 0 8px; font-size:1.28rem; overflow-wrap:anywhere}
   .card p{margin:0; color:var(--muted); font-size:.98rem; flex:1}
   .go{margin-top:18px; font-weight:600; color:var(--teal); font-size:.95rem}
   .go::after{content:" →"}
@@ -89,11 +91,11 @@
 <body>
   <header class="hero">
     <div class="wrap">
-      <span class="eyebrow">KI-Einsteigerkurs · Künstliche Intelligenz</span>
-      <h1>KI verstehen und anwenden</h1>
-      <p class="lede">Ein praxisnaher Einsteigerkurs — von „Was ist das eigentlich?"
-      bis zum ersten eigenen kleinen KI-Projekt. Verständlich, werkzeugorientiert, ohne Fachjargon.</p>
-      <p class="meta">Für neugierige Einsteiger · Haupttool <strong>ChatGPT</strong> · beamertauglich &amp; offline nutzbar</p>
+      <span class="eyebrow">Selbstlernkurs · Künstliche Intelligenz</span>
+      <h1>Per Anhalter durch die KI</h1>
+      <p class="lede">KI verstehen und anwenden — von „Was ist das eigentlich?"
+      bis zum ersten eigenen kleinen KI-Projekt. Verständlich, praktisch und ohne vorausgesetzte Fachkenntnisse.</p>
+      <p class="meta">Für neugierige Einsteiger · <strong>selbstlerntauglich</strong> · offline nutzbar</p>
     </div>
   </header>
 
@@ -103,29 +105,29 @@
       <div class="cards">
         <a class="card" href="kurs/teil-1-orientierung.html">
           <div class="num">Teil 1</div>
-          <h3>Orientierung</h3>
-          <p>Überblick über KI, die aktuelle Tool-Landschaft, sichere Nutzung und erste Grundlagen guter Prompts.</p>
+          <h3>KI verstehen und anwenden</h3>
+          <p>KI ausprobieren, ihre Funktionsweise verstehen, gute Aufträge schreiben und Ergebnisse kritisch prüfen.</p>
           <div class="go">Kursteil öffnen</div>
         </a>
         <a class="card" href="kurs/teil-2-projektwerkstatt.html">
           <div class="num">Teil 2</div>
           <h3>Projektwerkstatt</h3>
-          <p>Ein eigenes KI-Projekt auswählen, mit KI bearbeiten, Ergebnisse prüfen und den nächsten Schritt festlegen.</p>
+          <p>Ein eigenes Projekt lokal und in klaren Phasen planen, bearbeiten, prüfen und bewusst abschließen.</p>
           <div class="go">Kursteil öffnen</div>
         </a>
         <a class="card" href="kurs/zusatzlinks.html">
           <div class="num">Nachschlagen</div>
-          <h3>Zusatzlinks</h3>
-          <p>Die große Linksammlung: kuratierte Tools, Webseiten und Ressourcen zum Weiterstöbern.</p>
+          <h3>Die große Linksammlung</h3>
+          <p>Kuratierte Tools, Spiele, Webseiten und Lernquellen zum Nachschlagen und Weiterstöbern.</p>
           <div class="go">Linksammlung öffnen</div>
         </a>
       </div>
     </section>
 
     <section>
-      <h2>Design-Varianten von Teil 1</h2>
+      <h2>Archiv: Design-Experimente</h2>
       <p style="color:var(--muted); margin:-6px 0 16px; max-width:640px">
-        Fünf gestalterische Experimente derselben Inhalte — als Vergleich verschiedener Layoutrichtungen.</p>
+        Fünf frühere Layoutstudien von Teil 1. Sie zeigen ältere Inhaltsstände und dienen nur noch als Designvergleich.</p>
       <div class="designs">
         <a class="chip" href="designs/lehrbuch.html">Lehrbuch<span>ruhig, textorientiert</span></a>
         <a class="chip" href="designs/raster.html">Raster<span>kartenbasiertes Grid</span></a>
@@ -139,7 +141,7 @@
   <footer>
     <div class="wrap">
       <p>Kursmaterial unter <a href="LICENSE">CC BY-SA 4.0</a> — frei nutzbar bei Namensnennung.<br>
-      Entwickelt für einen Live-Kurs an der VHS.</p>
+      Entwickelt für die VHS und zugleich als eigenständiger Selbstlernkurs nutzbar.</p>
     </div>
   </footer>
 </body>

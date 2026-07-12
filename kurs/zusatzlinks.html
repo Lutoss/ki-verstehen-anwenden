@@ -3,11 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Die große Linksammlung · Zusatzlinks zum KI-Kurs (V28)</title>
+  <title>Per Anhalter durch die KI · Die große Linksammlung (V34)</title>
   <link rel="icon" href="data:,">
   <style>
-    /* Zusatzlinks-Sammlung V28 ("Abendwerkstatt"-Design): Geschwisterseite zu
-       teil-1-orientierung.html. Dunkler Keynote-Look als Standard, helles
+    /* Zusatzlinks-Sammlung V34 „Per Anhalter durch die KI“, Inhalts- und Faktenreview vom 11.07.2026.
+       Basis V33. Neu: präzisere Karten zu Temperatur, Kontext, Skills und Lernformaten;
+       Artefakt-Primärquellen ergänzt; Teil-2-Rollen und Cross-Links auf V37/V22 aktualisiert.
+       Lokale Icons und Speicher-Schlüssel konsistent V34.
+       Aus V33 übernommen: Ticket-Runde vom 11.07.2026.
+       Basis V32. Neu: zwei geprüfte Lernspiele, toolneutraler Teil-2-Hauptweg und lokale,
+       offline-stabile Icons für jede Linkkarte. Cross-Links und Speicher-Schlüssel V36/V21/V33.
+       Aus V32 übernommen: Selbstlern-Umbau Runde 5 vom 10.07.2026, Basis V31.
+       Geschwisterseite zu kurs-teil1-v35-anwender.html und kurs-teil2-projektwerkstatt-v20.html.
+       V32-Changelog: Präsenz-Bezüge neutralisiert — Beamer-/Live-Demo-Formulierungen,
+       „zweiter Abend“, „Fahrplan für zuhause“ und „vor dem Kurs prüfen“ neutral umformuliert;
+       „Im Kurs gezeigt“-Badges und Modul-Referenzen bleiben (Spec Punkt 7).
+       Labels, Cross-Links und localStorage-Key auf V35/V20/V32.
+       Aus V31 übernommen: Claude-Desktop/Cowork-Karte in der Teil-2-Gruppe, grill-me/grilling-
+       Klarstellung (beide Skills existieren in v1.1), angeglichene Skill-Listen der Doppelkarten,
+       präzisiertes Hero-Sortier-Versprechen, vervollständigte v1.1-Video-Karte,
+       AI-Hero-Kursankündigung als unbestätigt gekennzeichnet, previewMap-Eintrag für AI Fluency.
+       Dunkler Keynote-Look als Standard, helles
        Theme per Umschalter oben (Wahl wird lokal gespeichert, Druck ist immer hell).
        Farben tragen Bedeutung wie im Kurs: Petrol = verstehen · Blau = arbeiten
        Amber = prüfen/Vorsicht · Violett = Skills/Ausblick. */
@@ -239,25 +255,22 @@
       overflow-wrap: anywhere;
     }
 
-    /* Kleine Link-Vorschaubilder (lokale Screenshots, wie in der V14-Sammlung) */
+    /* Lokale Link-Icons: kein Laufzeit-Hotlink und keine leeren Vorschaukarten. */
     .card-preview {
-      display: block;
-      width: 148px;
-      height: 84px;
+      display: grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
       border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--deep);
+      border-radius: 14px;
+      background: var(--surface-soft);
       overflow: hidden;
     }
     .card-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .card-preview img.icon-fallback {
+      width: 40px;
+      height: 40px;
       object-fit: contain;
-      padding: 16px;
+      display: block;
     }
 
     .badge {
@@ -310,6 +323,11 @@
       .card-grid { grid-template-columns: 1fr; }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    }
+
     @media print {
       :root, :root[data-theme="light"] {
         color-scheme: light;
@@ -343,7 +361,8 @@
       .layout { padding: 0; }
       .card-grid { display: block; }
       .source-card { break-inside: avoid; margin-bottom: 4mm; }
-      .card-preview { width: 39mm; height: 22mm; }
+      .card-preview { width: 12mm; height: 12mm; border-radius: 3mm; }
+      .card-preview img { width: 8mm; height: 8mm; }
       .section, .hero { break-inside: auto; }
       a::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #4a555e; }
       a[href^="#"]::after { content: ""; }
@@ -352,7 +371,7 @@
   <script>
     /* Theme-Bootstrap: vor dem ersten Rendern, damit nichts aufblitzt. */
     try {
-      if (localStorage.getItem("ki-kurs-zusatzlinks-v28-theme") === "light") {
+      if (localStorage.getItem("ki-kurs-zusatzlinks-v34-theme") === "light") {
         document.documentElement.setAttribute("data-theme", "light");
       }
     } catch (e) { /* Ohne localStorage bleibt es beim dunklen Standard. */ }
@@ -361,8 +380,8 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <strong>Die große Linksammlung</strong>
-      <span>Zusatzlinks zum KI-Kurs · Sammlung V28</span>
+      <strong>Per Anhalter durch die KI</strong>
+      <span>Die große Linksammlung · V34</span>
     </div>
     <div class="top-actions">
       <a class="button" href="teil-1-orientierung.html">Zu Teil 1</a>
@@ -372,32 +391,33 @@
     </div>
   </header>
 
-  <div class="layout">
+  <main class="layout" id="main-content">
     <section class="hero panel" aria-labelledby="hero-title">
-      <p class="eyebrow">KI-Einsteigerkurs · Zusatzmaterial zu Teil 1 und Teil 2</p>
+      <p class="eyebrow">Per Anhalter durch die KI · Zusatzmaterial zu Teil 1 und Teil 2</p>
       <h1 id="hero-title">Die große Linksammlung</h1>
-      <p class="hero-lede">Alle Links aus dem Kurs plus die besten Fundstücke drumherum, sortiert nach den Kursmodulen von Teil 1 und einer eigenen Gruppe zur Projektwerkstatt (Teil 2): zum Nachschlagen, Ausprobieren und Vertiefen, ganz ohne Pflichtprogramm.</p>
+      <p class="hero-lede">Die wichtigsten ergänzenden Links aus dem Kurs plus ausgewählte Fundstücke drumherum, sortiert nach Kursmodulen von Teil 1 und einer eigenen Gruppe zur Projektwerkstatt: zum Nachschlagen, Ausprobieren und Vertiefen, ganz ohne Pflichtprogramm. Herstellerquellen zu schnell veränderlichen Produktdetails stehen zusätzlich direkt an den passenden Stellen in Teil 1.</p>
       <div class="note warn">
         <strong>Kleiner Vorbehalt</strong>
-        <p>Tool-Namen und Ranglisten ändern sich schnell, Stand 04.07.2026. Wenn ein Link nicht mehr passt: Titel in eine Suchmaschine tippen, die Angebote sind meist nur umgezogen.</p>
+        <p>Tool-Namen und Ranglisten ändern sich schnell, Stand 11.07.2026. Alle 53 Karten wurden in dieser Runde geprüft; der OpenAI Tokenizer blockierte nur den automatisierten Abruf und sollte einmal im normalen Browser geöffnet werden. Wenn ein Link später nicht mehr passt: zuerst Titel und Herausgeber suchen.</p>
       </div>
       <p class="badge-legend" aria-label="Bedeutung der Markierungen">
         <span class="badge shown">Im Kurs gezeigt</span>
         <span class="badge">Zum Ausprobieren</span>
         <span class="badge deep">Vertiefung</span>
         <span class="badge ref">Referenz</span>
+        <span class="badge deep">Produktbeispiel</span>
         <span>· Englischsprachige Angebote sind im Text als (englisch) markiert.</span>
       </p>
       <div class="card-grid">
         <a class="source-card" href="teil-1-orientierung.html">
           <small>Kursseite</small>
           <b>Teil 1: KI verstehen und anwenden</b>
-          <span>Zurück zur Hauptseite mit allen neun Modulen, den Live-Demos und dem Spickzettel.</span>
+          <span>Zurück zur Hauptseite mit allen neun Modulen, den Übungen und dem Spickzettel.</span>
         </a>
         <a class="source-card" href="teil-2-projektwerkstatt.html">
           <small>Kursseite</small>
           <b>Teil 2: Projektwerkstatt</b>
-          <span>Eigenes Projekt in Phasen: erst denken, dann grillen, planen, bauen, prüfen — mit echten Skills und Fahrplan für zuhause.</span>
+          <span>Eigenes Projekt in Phasen: erst denken, dann Route klären, planen, lokal Ticket für Ticket umsetzen und frisch prüfen — mit sechs Kern-Skills und kopierbaren Arbeitsaufträgen, ohne Git-Zwang.</span>
         </a>
       </div>
     </section>
@@ -406,7 +426,7 @@
       <div class="section-head">
         <p class="kicker">Modul 2 · Wie KI funktioniert</p>
         <h2 id="g-m2-title">Token, Temperatur und der Blick ins Modell</h2>
-        <p>Die Demos vom Beamer und ein paar Vertiefungen dazu: alle laufen im Browser ohne Konto.</p>
+        <p>Die interaktiven Demos aus dem Kurs und ein paar Vertiefungen dazu: Die meisten laufen direkt im Browser; einzelne Angebote können ihre Zugangsregeln ändern.</p>
       </div>
       <div class="card-grid">
         <a class="source-card" href="https://platform.openai.com/tokenizer" target="_blank" rel="noreferrer">
@@ -422,7 +442,7 @@
         <a class="source-card" href="https://andreban.github.io/temperature-topk-visualizer/" target="_blank" rel="noreferrer">
           <span class="badge">Zum Ausprobieren</span>
           <b>Temperature-Visualizer</b>
-          <span>Der Temperatur-Regler zum Selberschieben: mehr Zufall macht die Wortwahl kreativer, weniger macht sie verlässlicher (englisch). Im Kurs nur kurz erwähnt. Hier kannst du den Regler wirklich schieben.</span>
+          <span>Der Temperatur-Regler zum Selberschieben: mehr Temperatur macht die Wortwahl variabler, weniger macht sie deterministischer und fokussierter — nicht automatisch faktisch richtiger (englisch).</span>
         </a>
         <a class="source-card" href="https://bbycroft.net/llm" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
@@ -432,7 +452,7 @@
         <a class="source-card" href="https://www.3blue1brown.com/lessons/mini-llm/" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
           <b>3Blue1Brown: Mini-LLM</b>
-          <span>Visuell erzähltes Video zur Grundidee hinter Sprachmodellen: ruhig erklärt und sehenswert animiert (englisch).</span>
+          <span>Visuell erzählte Lektion zur Grundidee hinter Sprachmodellen, mit ruhigen Erklärungen und Animationen (englisch).</span>
         </a>
         <a class="source-card" href="https://llm-timeline.com/" target="_blank" rel="noreferrer">
           <span class="badge ref">Referenz</span>
@@ -452,12 +472,12 @@
         <a class="source-card" href="https://tiktokenizer.vercel.app/" target="_blank" rel="noreferrer">
           <span class="badge">Zum Ausprobieren</span>
           <b>Tiktokenizer</b>
-          <span>Tokenizer-Vergleich über mehrere Modelle hinweg: zeigt, dass jedes Modell Text anders zerlegt, und wie ein ganzer Chat als Token-Strom aussieht — genau das, was im Kontextfenster liegt (englisch).</span>
+          <span>Tokenizer-Vergleich über mehrere Modelle hinweg: zeigt, wie sich Zerlegungen je nach Tokenizer unterscheiden oder gleichen. Ein gespeicherter Chat ist dabei nicht zwingend genau der vollständige Modellinput jeder Antwort (englisch).</span>
         </a>
         <a class="source-card" href="https://www.trychroma.com/research/context-rot" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
           <b>Context Rot (Chroma Research)</b>
-          <span>Die Messungen hinter der Dumb Zone aus Modul 3: Antworten werden unzuverlässiger, je voller das Kontextfenster ist, mit Daten statt Bauchgefühl (englisch).</span>
+          <span>Messungen dazu, wie Long-Context-Leistung je nach Modell, Aufgabe, Länge und Position der Information nachlassen kann. Die Studie belegt keine universelle 40-%- oder 100K-Grenze (englisch).</span>
         </a>
       </div>
     </section>
@@ -474,7 +494,7 @@
           <b>Google: Prompting-Leitfaden</b>
           <span>Googles Gemini-Leitfaden auf Deutsch: die Vier-Bausteine-Formel (Persona, Aufgabe, Kontext, Format) ähnelt unserem Baukasten aus Modul 4 verblüffend.</span>
         </a>
-        <a class="source-card" href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank" rel="noreferrer">
+        <a class="source-card" href="https://developers.openai.com/api/docs/guides/prompt-engineering" target="_blank" rel="noopener noreferrer">
           <span class="badge ref">Referenz</span>
           <b>OpenAI Prompting Guide</b>
           <span>Offizieller Leitfaden für bessere Prompts: Aufgabe, Kontext und gewünschtes Ergebnis klar machen. Gute Ergänzung zum Briefen aus Modul 4 (englisch).</span>
@@ -534,9 +554,9 @@
         <p>Welches Modell passt zu welcher Aufgabe? Einmal selbst blind vergleichen, einmal in die Messwerte schauen.</p>
       </div>
       <div class="card-grid">
-        <a class="source-card" href="https://lmarena.ai/" target="_blank" rel="noreferrer">
+        <a class="source-card" href="https://arena.ai/" target="_blank" rel="noopener noreferrer">
           <span class="badge">Zum Ausprobieren</span>
-          <b>LMArena</b>
+          <b>Arena (früher LMArena)</b>
           <span>Blindvergleich: Zwei anonyme Modelle beantworten dieselbe Frage, du stimmst ab, welches besser war. So merkt man schnell, wie nah die Spitze beieinander liegt (englisch).</span>
         </a>
         <a class="source-card" href="https://artificialanalysis.ai/leaderboards/models" target="_blank" rel="noreferrer">
@@ -574,15 +594,15 @@
         <p>Gespeicherte Abläufe statt Copy-Paste-Prompts: hier findest du die Sammlungen aus dem Kursfinale.</p>
       </div>
       <div class="card-grid">
-        <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
-          <span class="badge shown">Im Kurs gezeigt</span>
-          <b>Lutoss/skills — das Kurs-Skills-Repo</b>
-          <span>Aus Modul 9: kuratierte Skill-Pakete für Claude und Codex, deutsch dokumentiert: handoff, teach, research, verify-before-done und mehr. Installation: Link in den KI-Chat posten.</span>
-        </a>
         <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer">
-          <span class="badge deep">Vertiefung</span>
+          <span class="badge shown">Im Kurs gezeigt</span>
           <b>mattpocock/skills</b>
-          <span>Matt Pococks Skill-Sammlung, das Original von handoff und grill-me, dazu teach, research und mehr (englisch). Installation: Link in den KI-Chat posten, wie beim Kurs-Repo.</span>
+          <span>Aus Modul 9, unser Hauptweg: Matt Pococks Original-Sammlung mit handoff, grill-me, teach, research, wayfinder und mehr (englisch). grill-me ist keine Kurzversion, sondern ein winziger Starter für dieselbe vollständige grilling-Runde. Installation: in einem kompatiblen Agenten mit Netzwerk-, Terminal- und Dateizugriff npx skills@latest add mattpocock/skills ausführen und nötige Freigaben bestätigen; sonst ZIP oder Copy-Paste nutzen.</span>
+        </a>
+        <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>Lutoss/skills — unser Zusatzpaket</b>
+          <span>Die eigenen Kurs-Skills (verify-before-done, project-review, improve-project-structure, Loop-Familie) plus Codex-Fassungen, deutsch dokumentiert. Der zusätzlich eingebettete Matt-Bestand ist ein älterer Snapshot vom 02.07.2026; für v1.1 und spätere Updates das Original-Repo nutzen. Installation braucht dieselben Rechte wie oben.</span>
         </a>
         <a class="source-card" href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
@@ -595,24 +615,34 @@
     <section class="section panel" id="g-teil2" aria-labelledby="g-teil2-title">
       <div class="section-head">
         <p class="kicker">Teil 2 · Projektwerkstatt</p>
-        <h2 id="g-teil2-title">Der Werkzeugkasten des zweiten Abends</h2>
-        <p>Das Video, die Skill-Bibliotheken und der Standard dahinter: alles, was in der Projektwerkstatt im Einsatz war, zum Nachschauen und Installieren.</p>
+        <h2 id="g-teil2-title">Der Werkzeugkasten von Teil 2</h2>
+        <p>Die Videos, Skill-Bibliotheken und der Standard dahinter: alles zum Nachschauen und Installieren. Der Teil-2-Hauptweg funktioniert mit einem kompatiblen Agenten, lokalem Projektordner, sechs Kern-Skills und Normalsprach-Aufträgen. <code>implement</code> und <code>code-review</code> sind freiwillige Software-Werkzeuge mit Git-Voraussetzung.</p>
       </div>
       <div class="card-grid">
+        <a class="source-card" href="https://claude.com/download" target="_blank" rel="noreferrer">
+          <span class="badge deep">Produktbeispiel</span>
+          <b>Claude Desktop (mit Cowork)</b>
+          <span>Eine mögliche Oberfläche für Teil 2: Cowork kann der Claude-Desktop-App Zugriff auf einen ausgewählten Projektordner geben. Es ist weder der einzige Weg noch Voraussetzung; Verfügbarkeit und Tarif vor dem Buchen aktuell prüfen.</span>
+        </a>
         <a class="source-card" href="https://www.youtube.com/watch?v=-QFHIoCo-Ko" target="_blank" rel="noreferrer">
           <span class="badge shown">Im Kurs gezeigt</span>
           <b>Matt Pocock: Full Walkthrough — Workflow for AI Coding</b>
-          <span>Das Video, das Teil 2 spiegelt: Smart Zone, Grill-Runden, Zieldokument, Karten, Nachtschicht und Prüfen im frischen Kontext. Rund 96 Minuten (englisch).</span>
+          <span>Das Video, das Teil 2 spiegelt: Smart Zone, Grill-Runden, Zieldokument, Karten, Nachtschicht und Prüfen im frischen Kontext. Rund 96 Minuten (englisch). Entstand vor dem v1.1-Update — einzelne Skills heißen inzwischen anders, das Update erklärt das nächste Video.</span>
         </a>
-        <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
-          <span class="badge shown">Im Kurs gezeigt</span>
-          <b>Lutoss/skills: das Kurs-Skill-Repo</b>
-          <span>Das in Teil 2 installierte Paket: alle Matt-Pocock-Skills plus die eigenen (verify-before-done, project-review, improve-project-structure, Loop-Familie), deutsch dokumentiert. Link in den KI-Chat posten, den Rest macht die KI.</span>
+        <a class="source-card" href="https://www.youtube.com/watch?v=A8mokin_YOs" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>Matt Pocock: New Skills! v1.1</b>
+          <span>Das Update, auf dem Teil 2 aufsetzt: die neuen Skills wayfinder, research und implement, die Umbenennungen zu to-spec und to-tickets plus Aufräumarbeiten (domain-modeling ersetzt ubiquitous-language, vier Skills aussortiert) — kompakt erklärt (englisch).</span>
         </a>
         <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer">
-          <span class="badge deep">Vertiefung</span>
+          <span class="badge shown">Im Kurs gezeigt</span>
           <b>mattpocock/skills</b>
-          <span>Matts Original-Bibliothek: grilling, to-prd, to-issues, implement, handoff, research, teach und mehr (englisch). Installation wie beim Kurs-Repo.</span>
+          <span>Das in Teil 2 installierte Paket, Stand v1.1. Der Hauptweg nutzt setup, wayfinder, grilling, to-spec, to-tickets und handoff; research und weitere Skills bleiben im Werkzeugkoffer. <code>implement</code> und <code>code-review</code> sind nur der freiwillige Software-Ausblick mit Tests beziehungsweise Git-Diff. Installation: npx skills@latest add mattpocock/skills.</span>
+        </a>
+        <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
+          <span class="badge deep">Vertiefung</span>
+          <b>Lutoss/skills: unser Zusatzpaket</b>
+          <span>Optionale Vertiefung aus Teil 2: die eigenen Skills (verify-before-done, project-review, improve-project-structure, Loop-Familie) plus Codex-Fassungen, deutsch dokumentiert. Der eingebettete Matt-Bestand ist ein älterer Snapshot vom 02.07.2026; für v1.1 und spätere Updates das Original nutzen. Automatische Installation nur mit passenden Rechten und deiner Freigabe.</span>
         </a>
         <a class="source-card" href="https://agentskills.io" target="_blank" rel="noreferrer">
           <span class="badge ref">Referenz</span>
@@ -621,8 +651,8 @@
         </a>
         <a class="source-card" href="https://www.aihero.dev/" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
-          <b>AI Hero</b>
-          <span>Matt Pococks Lernplattform rund um KI-Arbeit und Agenten: für alle, die nach der Projektwerkstatt tiefer einsteigen wollen (englisch).</span>
+          <b>AI Hero — und Matts neuer Kurs</b>
+          <span>Matt Pococks Lernplattform rund um KI-Arbeit und Agenten (englisch). Ein "AI coding crash course" zum Selbstlernen im eigenen Tempo, ausdrücklich auch für Nicht-Entwickler, ist im Gespräch — Termin (kolportiert: August 2026) und Preis sind aber unbestätigt, Stand 11.07.2026. Reinschauen lohnt sich: Matt kündigt dort laufend neue Kurse an.</span>
         </a>
         <a class="source-card" href="https://www.youtube.com/@mattpocockuk/videos" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
@@ -649,7 +679,7 @@
           <b>PAIR Explorables (Google)</b>
           <span>Interaktive Mini-Essays zu KI-Themen: von Trainingsdaten bis Fairness, alles zum Anklicken (englisch).</span>
         </a>
-        <a class="source-card" href="https://quickdraw.withgoogle.com/" target="_blank" rel="noreferrer">
+        <a class="source-card" href="https://quickdraw.withgoogle.com/?locale=de" target="_blank" rel="noopener noreferrer">
           <span class="badge">Zum Ausprobieren</span>
           <b>Quick, Draw! (Google)</b>
           <span>Du kritzelst, ein neuronales Netz rät in 20 Sekunden. Ganz nebenbei versteht man, wie Mustererkennung lernt. Auf Deutsch spielbar.</span>
@@ -663,6 +693,18 @@
           <span class="badge">Zum Ausprobieren</span>
           <b>Bad News</b>
           <span>Rollentausch: Du wirst selbst zur Fake-News-Schleuder und lernst dabei sechs Manipulationstechniken von innen kennen. Komplett auf Deutsch, etwa 15 Minuten.</span>
+        </a>
+        <a class="source-card" href="https://artsandculture.google.com/experiment/say-what-you-see/jwG3m7wQShZngw" target="_blank" rel="noopener noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <small>Englisch · etwa 10 Min. · Maus &amp; Tastatur</small>
+          <b>Say What You See (Google Arts &amp; Culture)</b>
+          <span>Du beschreibst ein Bild so genau, dass ein Bildmodell deinen Prompt wiedererkennt. Drei Versuche und Hinweise pro Runde machen sichtbar, wie Motiv, Stil, Stimmung und Bildaufbau in einem guten Bild-Prompt zusammenspielen. Beim Abruf am 11.07.2026 ohne sichtbare Anmeldepflicht startbar.</span>
+        </a>
+        <a class="source-card" href="https://research.google.com/semantris/" target="_blank" rel="noopener noreferrer">
+          <span class="badge">Zum Ausprobieren</span>
+          <small>Englisch · 5–10 Min. · Tastatur</small>
+          <b>Semantris (Google)</b>
+          <span>Ein schnelles Wort-Assoziationsspiel: Du tippst einen passenden Begriff, das Modell sortiert semantisch verwandte Wörter. Wichtig zur Einordnung: ein Google-Experiment von 2018 über Sprachähnlichkeit, kein moderner Chatbot.</span>
         </a>
       </div>
     </section>
@@ -678,13 +720,13 @@
           <span class="badge">Zum Ausprobieren</span>
           <small>Diktieren &amp; Eingabe</small>
           <b>Wispr Flow</b>
-          <span>Diktier-Tool für lange Prompts, Texte und Notizen: sprechen statt tippen, klappt auch auf Deutsch. Website auf Englisch.</span>
+          <span>Diktier-Tool für lange Prompts, Texte und Notizen: sprechen statt tippen. Laut Hersteller werden über 100 Sprachen unterstützt; Deutsch vor dem Einsatz am eigenen Gerät kurz prüfen. Website auf Englisch.</span>
         </a>
         <a class="source-card" href="https://notebooklm.google/" target="_blank" rel="noreferrer">
           <span class="badge">Zum Ausprobieren</span>
           <small>Dokumente &amp; Wissen</small>
           <b>NotebookLM</b>
-          <span>Googles Werkzeug für quellengestützte Dokumentarbeit: antwortet nur aus deinen hochgeladenen Unterlagen. Vor dem Upload an die fünf roten Grenzen aus Teil 1 (Modul 1) denken.</span>
+          <span>Googles Werkzeug für quellengestützte Dokumentarbeit: Antworten im Notebook-Chat stützen sich auf die von dir ausgewählten Quellen, die du hochladen, aus Drive übernehmen oder im Web suchen kannst. Vor dem Import an die fünf roten Grenzen aus Teil 1 (Modul 1) denken.</span>
         </a>
         <a class="source-card" href="https://adoption.microsoft.com/en-us/copilot/prompt-gallery/" target="_blank" rel="noreferrer">
           <span class="badge ref">Referenz</span>
@@ -702,7 +744,7 @@
           <span class="badge ref">Referenz</span>
           <small>Nachrichten &amp; Dranbleiben</small>
           <b>THE DECODER</b>
-          <span>Deutschsprachige KI-Nachrichten aus der heise-Gruppe: gut zum Dranbleiben nach dem Kurs, ohne jeden Tag den Hype mitkaufen zu müssen. Basis-Artikel frei.</span>
+          <span>Deutschsprachige KI-Nachrichten aus der heise-Gruppe: gut zum Dranbleiben nach dem Kurs, ohne jeden Tag den Hype mitkaufen zu müssen. Es gibt frei zugängliche und kostenpflichtige Inhalte.</span>
         </a>
         <a class="source-card" href="https://kiupdate.podigee.io/" target="_blank" rel="noreferrer">
           <span class="badge ref">Referenz</span>
@@ -753,18 +795,19 @@
       </div>
     </section>
 
-    <p class="footer">Stand: 05.07.2026 · Linksammlung V28 zu Teil 1 (V31) und Teil 2 (V15). Externe Seiten können sich ändern, ein Login verlangen oder regional anders aussehen. Die Auswahl ist freiwilliges Material und kein Pflichtprogramm.</p>
-  </div>
+    <p class="footer">Stand: 11.07.2026 · Per Anhalter durch die KI · Linksammlung V34 zu Teil 1 (V37) und Teil 2 (V22). Alle Karten verwenden lokale Icons; externe Seiten selbst können sich ändern, einen Login verlangen oder regional anders aussehen. Die Auswahl ist freiwilliges Material und kein Pflichtprogramm.</p>
+  </main>
 
   <script>
     /* ---------- Theme-Umschalter (dunkel = Standard) ---------- */
-    const themeKey = "ki-kurs-zusatzlinks-v28-theme";
+    const themeKey = "ki-kurs-zusatzlinks-v34-theme";
     const themeToggle = document.getElementById("themeToggle");
 
     function applyTheme(light, persist) {
       if (light) document.documentElement.setAttribute("data-theme", "light");
       else document.documentElement.removeAttribute("data-theme");
-      themeToggle.textContent = light ? "Dunkles Design" : "Helles Design";
+      themeToggle.textContent = "Helles Design";
+      themeToggle.setAttribute("aria-label", "Helles Design verwenden");
       themeToggle.setAttribute("aria-pressed", light ? "true" : "false");
       if (persist) {
         try { localStorage.setItem(themeKey, light ? "light" : "dark"); } catch { /* egal */ }
@@ -776,52 +819,16 @@
     });
     applyTheme(document.documentElement.getAttribute("data-theme") === "light", false);
 
-    /* ---------- Kleine Link-Vorschaubilder ----------
-       Lokale Screenshots liegen in assets/link-previews/v14/.
-       Ohne lokales Bild: Favicon der Seite, notfalls Platzhalter. */
-    const previewMap = {
-      "https://platform.openai.com/tokenizer": "openai-tokenizer",
-      "https://poloclub.github.io/transformer-explainer/": "transformer-explainer",
-      "https://andreban.github.io/temperature-topk-visualizer/": "temperature-topk-topp",
-      "https://bbycroft.net/llm": "llm-visualization",
-      "https://www.3blue1brown.com/lessons/mini-llm/": "mini-llm",
-      "https://llm-timeline.com/": "llm-timeline",
-      "https://platform.openai.com/docs/guides/prompt-engineering": "openai-prompting-guide",
-      "https://ki-campus.org/lernangebote/kurse/erstellen-von-texten-mit-einer-text-ki-durch-zielfuehrendes-prompt-writing": "ki-campus-prompt-writing",
-      "https://github.com/anthropics/prompt-eng-interactive-tutorial": "anthropic-prompt-tutorial",
-      "https://developers.openai.com/cookbook": "openai-cookbook",
-      "https://platform.claude.com/cookbook": "claude-cookbook",
-      "https://www.bpb.de/system/files/dokument_pdf/bpb_TB_138_Quelle_KI_BF.pdf": "bpb-quelle-ki",
-      "https://artificialanalysis.ai/image/leaderboard/text-to-image": "artificial-analysis",
-      "https://artificialanalysis.ai/leaderboards/models": "artificial-analysis",
-      "https://gandalf.lakera.ai/": "gandalf-lakera",
-      "https://wisprflow.ai/": "wispr-flow",
-      "https://notebooklm.google/": "notebooklm",
-      "https://adoption.microsoft.com/en-us/copilot/prompt-gallery/": "copilot-prompt-gallery",
-      "https://claude.com/resources/use-cases/": "claude-use-cases",
-      "https://www.verbraucherzentrale.de/wissen/digitale-welt/apps-und-software/kichatbots-im-ueberblick-was-sie-ueber-chatgpt-gemini-copilot-wissen-sollten-89125": "verbraucherzentrale-chatbots",
-      "https://www.klicksafe.de/quiz": "klicksafe-deepfake-detectives",
-      "https://www.whichfaceisreal.com/": "which-face-is-real",
-      "https://incidentdatabase.ai/": "ai-incident-database",
-      "https://airisk.mit.edu/": "mit-risk-repository"
-    };
-
-    function previewIcon(label) {
-      const safe = String(label || "Link").replace(/[&<>"']/g, "");
-      const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="148" height="84" viewBox="0 0 148 84">'
-        + '<rect width="148" height="84" rx="8" fill="#10151d"/>'
-        + '<rect x="10" y="10" width="128" height="64" rx="6" fill="#1d2735" stroke="#2c3850"/>'
-        + '<text x="74" y="47" text-anchor="middle" font-family="Consolas,monospace" font-size="10" font-weight="700" fill="#2dd4bf">' + safe + '</text>'
-        + '</svg>';
-      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
-    }
-
-    document.querySelectorAll('a.source-card[href^="http"]').forEach((card) => {
+    /* ---------- Lokale Icons für jede Linkkarte ----------
+       Dateinamen werden aus dem Host gebildet; interne Kursseiten teilen course.svg. */
+    document.querySelectorAll("a.source-card").forEach((card) => {
       if (card.querySelector(".card-preview")) return;
       const href = card.getAttribute("href");
-      let hostname = "Link";
-      try { hostname = new URL(href).hostname.replace(/^www\./, "") || "Link"; } catch { /* Platzhalter reicht */ }
-      const label = href.toLowerCase().split("?")[0].endsWith(".pdf") ? "PDF" : hostname;
+      let icon = "assets/link-icons/course.svg";
+      try {
+        const hostname = new URL(href, window.location.href).hostname;
+        if (hostname) icon = "assets/link-icons/" + hostname.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".svg";
+      } catch { /* Interner Link nutzt das Kurs-Icon. */ }
 
       const wrap = document.createElement("span");
       wrap.className = "card-preview";
@@ -829,19 +836,9 @@
 
       const img = document.createElement("img");
       img.alt = "";
-      img.loading = "lazy";
+      img.loading = "eager";
       img.decoding = "async";
-      const asset = previewMap[href];
-      if (asset) {
-        img.src = "assets/link-previews/v14/" + asset + ".jpg";
-      } else {
-        img.className = "icon-fallback";
-        img.src = "https://www.google.com/s2/favicons?domain_url=" + encodeURIComponent(href) + "&sz=64";
-      }
-      img.addEventListener("error", () => {
-        img.classList.remove("icon-fallback");
-        img.src = previewIcon(label);
-      }, { once: true });
+      img.src = icon;
 
       wrap.appendChild(img);
       card.prepend(wrap);

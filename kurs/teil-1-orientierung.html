@@ -3,18 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KI verstehen und anwenden — Teil 1 (V31)</title>
+  <title>Per Anhalter durch die KI · Teil 1: Verstehen und Anwenden (V37)</title>
   <link rel="icon" href="data:,">
   <style>
-    /* V31 "Abendwerkstatt": Hauptfassung. Basis V30, Review-Runde 3 vom 05.07.2026 (Fokus Live-Tauglichkeit + Aktualität).
-       Neu in V31: Cross-Links auf Teil 2 V15 und Zusatzlinks V28, Versionslabels konsistent V31, beforeprint-Handler für
-       eingeklappte Nachschlage-Blöcke (details.fold), Faktenkorrekturen Stand Juli 2026 (Claude-Effort vier Stufen,
-       ChatGPT Plus-Instant 32K, Gemini 3 Flash, Preis-Spanne 20-23 EUR, Free-Fenster-Disclaimer geschärft).
-       Aus Review-Runde 2 (frühere V29):
-       Neu in V29: einheitliche Dumb-Zone-Faustregel (~40 % / ~100.000 Token), Context-Rot-Begründung über
-       Aufmerksamkeit statt Rechenlast, Produkt-Gedächtnis- und Systemprompt-Kästen in M3, Sortier-Übung in 01.02,
-       Vorher/Nachher vor dem Baukasten (04.02/04.03 getauscht), Selbst-Check vor der Pause, Cutoff-Zeitleiste,
-       eingeklappte Nachschlage-Tabellen (details.fold), Skill-Anatomie in drei Teilen (deckungsgleich mit Teil 2).
+    /* V37 "Per Anhalter durch die KI": Basis V36, Inhalts- und Faktenreview vom 11.07.2026.
+       Neu in V37: Übergang zu Teil 2 toolneutralisiert; Kontextpaket und Dumb-Zone-Heuristik
+       fachlich nuanciert; Quellenprüfung, Denkzeitvergleich, Bildedit- und Handoff-Kontrolle
+       geschlossen; GPT-5.6-/Gemini-Produktstände aktualisiert; Skill-Aufrufe toolneutral erklärt.
+       Cross-Links auf Teil 2 V22 und Zusatzlinks V34; Speicher-Schlüssel konsistent V37.
+       Aus V36 übernommen: Basis V35, Ticket-Runde vom 11.07.2026.
+       Neu in V36: 13 offene Teil-1-/kursweite Tickets umgesetzt. Prüflinse als Eigendemo mit
+       allen drei Leitbeispielen, Trip-Beispielmaterial, konkrete Feedback-Loops, zehn diverse
+       Bildaufgaben, fachlich neu gefasstes Artefakt-Modul, Ultra klar von Denkzeit getrennt,
+       Sub-Agenten-Eigendemo sowie präzisere Skill-Anatomie und Qualitätsmerkmale. Vier kleine
+       Textkorrekturen, neuer Kursname und Cross-Links auf Teil 2 V21/Zusatzlinks V33.
+       Aus V35 übernommen: Selbstlern-Fassung. Basis V34 (Hauptfassung), Selbstlern-Umbau Runde 5 vom 10.07.2026.
+       Neu in V35: Der Kurs funktioniert komplett ohne Präsenzveranstaltung. Vorführ-Boxen ersatzlos
+       gestrichen (04.04 Kaufberatung, 03.01 YouTube-Transkript); übrige Vorführ-Passagen als
+       Selbst-Anleitungen umformuliert (02.03 Websuche, 02.04 Foto-Upload, 06.02 A/B-Test,
+       07.01 Trip-Plakat, 08.01 Artefakte). Rahmung neutralisiert: Kursraum-Bezüge (Vorführungen,
+       Sitznachbarn, Handzeichen, Kursgerät, "heute Abend", Pausen-Organisation) raus oder neutral
+       ("in diesem Kurs"); Selbst-Check heißt "Kurz-Check nach Modul 4", Pausen-Banner ist ein
+       Halbzeit-Marker; Pacing-Hinweis in 07.02 entfernt; Kicker-Zeitangaben bleiben als Orientierung;
+       sichtbare Track-Labels "Demo" zu "Anschauen"/"Mitmachen". Technik unverändert: data-live-step,
+       CSS-Klassen, IDs und Fortschritts-JS behalten ihre Namen. Cross-Links auf Teil 2 V21 und
+       Zusatzlinks V33; Labels und Speicher-Schlüssel konsistent V36.
+       Aus V34 übernommen: Kontextfenster-Meter startet bei 16K; damalige GPT-5.6-Rollout-Notiz
+       (Produktzuordnung in V37 gegen die aktuelle Anbieterhilfe korrigiert);
+       ChatGPT-Fensterzahlen 16K/32K als "Stand GPT-5.5, für 5.6 unbestätigt" gekennzeichnet;
+       Gemini 3.5 Flash, 1M-Kontext als AI-Pro-Feature markiert; Merkzeile "Große Chat-Fenster =
+       mittel"; Sortier-Übung 01.02 mit aufklappbarer Auflösung; Token- und Transformer-Ersterklärung;
+       KI-Mappe-Versprechen entschärft; Klarstellung grill-me/grilling (beide in v1.1, grilling folgt
+       in Teil 2); afterprint stellt den Zustand der details.fold nach dem Druck wieder her;
+       Install-Hauptweg npx skills@latest add mattpocock/skills. Ältere Historie (V29-V33): siehe
+       V34-Datei.
        Dunkler Keynote-Look als Standard, helles Theme per Umschalter oben
        (Wahl wird lokal gespeichert, Druck ist immer hell). Farben tragen Bedeutung:
        Petrol = verstehen/positiv · Blau = arbeiten/Aktion · Amber = prüfen/Vorsicht
@@ -530,7 +552,7 @@
     .fact-table th, .fact-table td { text-align: left; padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--line); vertical-align: top; }
     .fact-table th { color: var(--muted); text-transform: uppercase; font-size: 0.74rem; letter-spacing: 0.08em; }
     .fact-table small { color: var(--muted); }
-    .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .table-scroll { min-width: 0; max-width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 
     .viz {
       border: 2px solid var(--line);
@@ -669,6 +691,10 @@
     .lb-tab[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: var(--blue-contrast); }
     .lb-panel { display: grid; gap: 0.9rem; }
     .lb-panel[hidden] { display: none; }
+    .image-task-group { display: grid; gap: 0.75rem; }
+    .image-task-group > h4 { color: var(--blue); font-size: 1.08rem; }
+    .image-task-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 0.9rem; }
+    .image-task-grid .prompt-box { min-width: 0; }
 
     .ntk-sentence { font-size: 1.15rem; font-weight: 750; margin: 0; }
     .ntk-bars { display: grid; gap: 0.45rem; max-width: 620px; }
@@ -730,7 +756,7 @@
 
     .footer { color: var(--muted); font-size: 0.85rem; padding: 0 0.4rem 2rem; }
 
-    /* Einklappbare Nachschlage-Blöcke (V31) */
+    /* Einklappbare Nachschlage-Blöcke (seit Review-Runde 3) */
     .fold {
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -763,6 +789,8 @@
       .top-actions { justify-content: flex-start; }
       .layout { padding: 0.8rem; }
       .section { padding: 1rem; }
+      /* Grid-Kinder dürfen unter ihre intrinsische Text-/Tabellenbreite schrumpfen. */
+      .content > *, .lesson-body > * { min-width: 0; max-width: 100%; }
       .homework .worksheet-grid { grid-template-columns: 1fr; }
       .zone-track { grid-template-columns: 1fr; }
       .zone-segment.dumb { border-top: 3px dashed var(--rose); }
@@ -771,8 +799,16 @@
       .lesson-side { grid-auto-flow: column; justify-content: start; align-items: center; }
       .done-button { justify-self: start; }
       body { font-size: 1rem; }
-      .hero-grid, .plan-grid, .source-grid, .skill-grid, .summary-strip { grid-template-columns: 1fr; }
+      .hero-grid, .plan-grid, .source-grid, .skill-grid, .summary-strip,
+      .blocks, .card-grid, .worksheet-grid, .quiz-grid, .think-panel,
+      .image-task-grid, .flip-grid { grid-template-columns: minmax(0, 1fr); }
+      .viz-head { min-width: 0; max-width: 100%; }
       .workflow { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     }
 
     @media print {
@@ -806,6 +842,11 @@
       body { background: #fff; color: var(--ink); }
       .topbar, .rail, .done-button, .copy-button, .flip-copy, .flip-button { display: none !important; }
       [data-quiz] p[hidden] { display: block !important; }
+      .flip-state { display: none !important; }
+      [data-flip-before], [data-flip-after] { display: block !important; }
+      [data-flip-before]::before, [data-flip-after]::before { display: block; margin-bottom: 0.35rem; font-family: var(--font-sans); font-weight: 850; text-transform: uppercase; letter-spacing: 0.07em; font-size: 0.72rem; }
+      [data-flip-before]::before { content: "Vorher · Wunsch"; color: var(--rose); }
+      [data-flip-after]::before { content: "Nachher · gebriefter Auftrag"; color: var(--teal); }
       .lb-tabs { display: none !important; }
       .lb-panel[hidden] { display: grid !important; }
       .layout { grid-template-columns: 1fr; padding: 0; }
@@ -820,7 +861,7 @@
   <script>
     /* Theme-Bootstrap: vor dem ersten Rendern, damit nichts aufblitzt. */
     try {
-      if (localStorage.getItem("ki-kurs-teil1-v31-theme") === "light") {
+      if (localStorage.getItem("ki-kurs-teil1-v37-theme") === "light") {
         document.documentElement.setAttribute("data-theme", "light");
       }
     } catch (e) { /* Ohne localStorage bleibt es beim dunklen Standard. */ }
@@ -829,8 +870,8 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <strong>KI verstehen und anwenden — Teil 1 (V31)</strong>
-      <span>Hands-on zuerst, Theorie wenn sie trägt. 3 Stunden, drei Leitbeispiele.</span>
+      <strong>Per Anhalter durch die KI · Teil 1 (V37)</strong>
+      <span>KI verstehen und anwenden · Hands-on zuerst, Theorie wenn sie trägt. Rund 3 Stunden, drei Leitbeispiele.</span>
     </div>
     <div class="top-actions">
       <a class="button" href="#m1">Loslegen</a>
@@ -850,7 +891,7 @@
         <p>Wird nur auf diesem Gerät gespeichert.</p>
       </section>
       <nav class="toc" aria-label="Abschnitte">
-        <strong>Heute</strong>
+        <strong>Inhalt</strong>
         <a href="#start">Start</a>
         <a href="#m1">1. Sofort loslegen</a>
         <a href="#m2">2. Wie KI funktioniert</a>
@@ -868,11 +909,11 @@
 
     <main class="content" id="start">
       <section class="hero panel" id="m0" aria-labelledby="hero-title">
-        <p class="eyebrow">KI-Einsteigerkurs · Teil 1 von 2 · Modul 0: Ankommen</p>
-        <h1 id="hero-title">Heute arbeitest du ab Minute fünf selbst mit KI, und verstehst danach, warum sie so antwortet.</h1>
-        <p class="hero-lede">Erst machen, dann verstehen: Du schickst gleich deinen ersten Prompt ab. Danach schauen wir unter die Haube: was die KI sich merken kann, warum lange Chats schlechter werden und wann sie in Ruhe nachdenken soll. Am Ende hast du ein Bild erzeugt, ein kleines Werkzeug gebaut und weißt, wie du KI-Antworten prüfst, statt ihnen zu glauben. Alle Fachwörter erklären wir genau dann, wenn sie dran sind. Denn das ist die Arbeitsteilung des Tages: Die KI übernimmt Arbeit, prüfen und entscheiden bleibt dein Job.</p>
+        <p class="eyebrow">VHS-Selbstlernkurs · Teil 1 von 2 · Modul 0: Ankommen</p>
+        <h1 id="hero-title">Heute arbeitest du ab Minute fünf selbst mit KI und verstehst danach, warum sie so antwortet.</h1>
+        <p class="hero-lede">Erst machen, dann verstehen: Du schickst gleich deinen ersten Prompt ab. Danach schauen wir unter die Haube: was die KI sich merken kann, warum lange Chats schlechter werden und wann sie in Ruhe nachdenken soll. Am Ende hast du ein Bild erzeugt, ein kleines Werkzeug gebaut und weißt, wie du KI-Antworten prüfst, statt ihnen zu glauben. Alle Fachwörter erklären wir genau dann, wenn sie dran sind. Denn das ist die Arbeitsteilung dieses Kurses: Die KI übernimmt Arbeit, prüfen und entscheiden bleibt dein Job.</p>
         <div class="hero-grid" aria-label="Kursversprechen">
-          <div class="metric"><b>9</b><span>Module + Ankommen, in 3 Stunden, Pause nach Modul 4</span></div>
+          <div class="metric"><b>9</b><span>Module + Ankommen, rund 3 Stunden</span></div>
           <div class="metric"><b>5</b><span>interaktive Visualisierungen zum Selbst-Ausprobieren</span></div>
           <div class="metric"><b>3</b><span>Leitbeispiele: Wochenendtrip, Konkurrenz-Analyse, digitale Ordnung</span></div>
           <div class="metric"><b>1</b><span>Hausaufgabe: deine Projektidee für Teil 2</span></div>
@@ -894,9 +935,9 @@
             <span>Voller Download-Ordner, doppelte Fotos, Notizen in drei Apps, daraus wird ein Plan, den du behältst.</span>
           </article>
         </div>
-        <div class="plan-grid" aria-label="Zwei-Tage-Landkarte">
+        <div class="plan-grid" aria-label="Landkarte der beiden Kursteile">
           <article class="plan-card">
-            <small>Teil 1 · heute</small>
+            <small>Teil 1 · diese Seite</small>
             <b>Verstehen und Werkzeuge</b>
             <ul>
               <li>Sofort loslegen: erster eigener Prompt</li>
@@ -909,16 +950,16 @@
             <b>Dein eigenes Projekt</b>
             <ul>
               <li>Du bringst eine Projektidee mit (Hausaufgabe aus Modul 9)</li>
-              <li>In klaren Phasen von der Idee bis zum Abschluss: erst selbst denken, dann grillen lassen, planen, bauen, prüfen</li>
-              <li>Skills installieren und mit nach Hause nehmen</li>
+              <li>In klaren Phasen von der Idee bis zum Abschluss: erst selbst denken, dann mit der KI eine Landkarte bauen, dich grillen lassen, planen, bauen, prüfen</li>
+              <li>Skills installieren und dauerhaft weiterbenutzen</li>
             </ul>
           </article>
           <article class="plan-card">
-            <small>So arbeiten wir</small>
+            <small>So arbeitest du</small>
             <b>Hands-on vor Theorie</b>
             <ul>
               <li>Du übst in ChatGPT (Free-Konto reicht)</li>
-              <li>Artefakte und Skills siehst du live in Claude am Beamer</li>
+              <li>Artefakte und Skills probierst du hier aus; in Teil 2 arbeitest du mit einem kompatiblen KI-Agenten oder mit dem Copy-Paste-Weg weiter</li>
               <li>Die Konzepte gelten in jedem KI-Tool</li>
             </ul>
           </article>
@@ -927,7 +968,7 @@
 
       <section class="section panel" id="m1" aria-labelledby="m1-title">
         <div class="section-head">
-          <p class="kicker">Modul 1 · ca. 20 Min.</p>
+          <p class="kicker">Modul 1 · ca. 25 Min.</p>
           <h2 id="m1-title">Sofort loslegen</h2>
           <p>Kein Vortrag vorweg. Du öffnest das Tool, schickst einen echten Prompt ab, lernst die Datenregeln für den ganzen Kurs und sammelst eine erste eigene Aufgabe. Alles Weitere bauen wir auf dem auf, was du hier gerade selbst erlebt hast.</p>
         </div>
@@ -940,12 +981,12 @@
           </aside>
           <div class="lesson-body">
             <h3>Dein erster Prompt: der Wochenendtrip</h3>
-            <p>Falls du ChatGPT noch nie benutzt hast: Es ist eine Website, auf der du mit einer KI schreibst wie in einem Messenger: du beschreibst in normaler Sprache, was du brauchst, und bekommst in Sekunden eine Antwort. Öffne <a href="https://chatgpt.com/" target="_blank" rel="noreferrer">chatgpt.com</a> und melde dich an. Geschrieben wird unten ins Eingabefeld, abgeschickt mit Enter, oder du tippst gar nicht: Das Mikrofon-Symbol nimmt Diktat, oft der schnellste Weg zu einem ausführlichen Prompt.</p>
+            <p>Falls du ChatGPT noch nie benutzt hast: Es ist eine Website, auf der du mit einer KI schreibst wie in einem Messenger: Du beschreibst in normaler Sprache, was du brauchst, und bekommst in Sekunden eine Antwort. Öffne <a href="https://chatgpt.com/" target="_blank" rel="noreferrer">chatgpt.com</a> und melde dich an. Geschrieben wird unten ins Eingabefeld, abgeschickt mit Enter, oder du tippst gar nicht: Das Mikrofon-Symbol nimmt Diktat (der Knopf mit den Schallwellen daneben startet dagegen ein Sprachgespräch — auch nett, aber etwas anderes), oft der schnellste Weg zu einem ausführlichen Prompt.</p>
             <div class="blocks">
-              <section class="block"><b>Noch kein Konto? Drei Schritte</b><p>1. Auf chatgpt.com "Registrieren" wählen. 2. E-Mail-Adresse eintragen und ein neues Passwort ausdenken (nicht dein E-Mail-Passwort). 3. Den Bestätigungscode aus deinem E-Mail-Postfach eintippen. Fragt die Seite nach deiner Handynummer, ist das normal, Code eintippen, fertig. Klemmt es: Schau heute bei deiner Nachbarin oder deinem Nachbarn mit und leg das Konto in Ruhe zuhause an.</p></section>
+              <section class="block"><b>Noch kein Konto? Drei Schritte</b><p>1. Auf chatgpt.com "Registrieren" wählen. 2. E-Mail-Adresse eintragen und ein neues Passwort ausdenken (nicht dein E-Mail-Passwort) oder einen angebotenen Login-Anbieter wählen. 3. Den Bestätigungsschritt im E-Mail-Postfach beziehungsweise beim Login-Anbieter abschließen. Die normale ChatGPT-Registrierung verlangt derzeit keine Telefonnummer. Oberflächen können sich ändern. Klemmt es: Leg das Konto in Ruhe an, bevor du weitermachst — der ganze Kurs baut auf dem eigenen Ausprobieren auf.</p></section>
               <section class="block"><b>Kopieren und Einfügen</b><p>Der Knopf "Kopieren" an jedem grauen Kasten merkt sich den Text. Einfügen im Chat: rechte Maustaste → "Einfügen" (oder Strg+V). Alles in [eckigen Klammern] ersetzt du vor dem Abschicken durch deine eigenen Angaben.</p></section>
             </div>
-            <p>Dann kopierst du diesen Prompt (so heißt eine Nachricht an die KI), ersetzt die Klammern und schickst ihn ab. Drei Leitbeispiele begleiten uns durch den ganzen Kurs: der private Wochenendtrip, die Konkurrenz-Analyse eines kleinen Online-Shops und die digitale Ordnung für dich selbst. Alle starten mit dem Trip-Prompt, deine eigenen Themen kommen in Modul 4 dran. Wer mag, wählt hier trotzdem schon ein anderes Beispiel; die Antwort schauen wir uns live am Beamer an:</p>
+            <p>Dann kopierst du diesen Prompt (so heißt eine Nachricht an die KI), ersetzt die Klammern und schickst ihn ab. Drei Leitbeispiele begleiten uns durch den ganzen Kurs: der private Wochenendtrip, die Konkurrenz-Analyse eines kleinen Online-Shops und die digitale Ordnung für dich selbst. Alle starten mit dem Trip-Prompt, deine eigenen Themen kommen in Modul 4 dran. Wer mag, wählt hier trotzdem schon ein anderes Beispiel:</p>
             <div class="lb-switch" data-lbtabs="leitbeispiel">
               <div class="lb-tabs" role="group" aria-label="Leitbeispiel wählen">
                 <button class="lb-tab" type="button" data-lbtab="trip" aria-pressed="true">Wochenendtrip</button>
@@ -977,7 +1018,7 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
             </div>
             <div class="blocks">
               <section class="block accent-teal"><b>Beobachte zwei Dinge</b><p>Erstens: Die Antwort kommt flüssig und strukturiert. Zweitens: Sie klingt absolut sicher, auch bei Preisen, Zahlen und Details, die die KI gar nicht sicher wissen kann. Merk dir dieses Misstrauen, wir kommen in Modul 5 darauf zurück.</p></section>
-              <section class="block accent-blue"><b>Dreh eine zweite Runde</b><p>Antworte im selben Chat mit einer Nachfrage: "Nimm Ziel 2 und mach einen Tagesplan für Samstag", "Welche drei Punkte der Checkliste kann ich heute Abend erledigen?" oder "Mach aus Ordner 1 eine 20-Minuten-Aufgabe für heute Abend". Die KI erinnert sich an alles von vorhin. Warum, klären wir in Modul 3.</p></section>
+              <section class="block accent-blue"><b>Dreh eine zweite Runde</b><p>Antworte im selben Chat mit einer Nachfrage: "Nimm Ziel 2 und mach einen Tagesplan für Samstag", "Welche drei Punkte der Checkliste kann ich noch heute erledigen?" oder "Mach aus Ordner 1 eine 20-Minuten-Aufgabe für heute". Das Tool kann dabei auf das zurückgreifen, was ihr in diesem Chat gerade besprochen habt. Wie das genau funktioniert, klären wir in Modul 3.</p></section>
             </div>
             <p class="viz-note"><b>Schon Profi?</b> Diktier deinen Prompt statt zu tippen. Oder formuliere ihn absichtlich schlecht und beobachte, was die KI daraus macht.</p>
           </div>
@@ -990,9 +1031,15 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
-            <h3>Die Datenregeln: einmal klar, dann Ruhe</h3>
-            <p>Dein erster Prompt lief mit harmlosen Angaben. Bevor gleich deine echten Aufgaben und Unterlagen in Chats wandern, einmal sauber geklärt, was mit deinen Eingaben passiert: Alles, was du eintippst oder hochlädst, verlässt deinen Rechner und wird auf den Servern des Anbieters verarbeitet und gespeichert. Je nach Kontoeinstellung darf der Anbieter damit künftige Modelle trainieren, und zuverlässig zurückholen lässt sich davon nichts. Daraus folgt die Kursregel: Themen sind fast nie das Problem. Konkrete Daten können eines sein.</p>
-            <section class="activity"><strong>3 Min. · Sortier-Übung: rein oder raus?</strong><p>Acht Eingaben, Handzeichen: Darf das in einen KI-Chat? 1) Die IBAN für die Mietüberweisung. 2) "Mieterhöhung um 12 Prozent, Vertrag von 2019 — was kann ich tun?" 3) Ein Foto vom Zeugnis der Tochter. 4) Ein Beschwerde-Entwurf ohne Namen. 5) Das WLAN-Passwort, "nur zum Merken". 6) Die Krankmeldung eines Kollegen zusammenfassen, mit Namen. 7) Ein Foto vom Kühlschrankinhalt für Rezeptideen. 8) Die unveröffentlichten Umsatzzahlen der Firma. Die Auflösung sind die fünf Grenzen direkt hier drunter: Raus bleiben 1, 3, 5, 6 und 8, der Rest darf rein.</p></section>
+            <h3>Die Datenregeln: einmal klar.</h3>
+            <p>Dein erster Prompt lief mit harmlosen Angaben. Bevor gleich deine echten Aufgaben und Unterlagen in Chats wandern, einmal sauber geklärt, was mit deinen Eingaben passiert: Alles, was du eintippst oder hochlädst, verlässt deinen Rechner und wird auf den Servern des Anbieters verarbeitet. Ob und wie lange es gespeichert oder fürs Training genutzt wird, hängt vom Produkt, Kontotyp und deinen Einstellungen ab. Daraus folgt die Kursregel: Themen sind fast nie das Problem. Konkrete Daten können eines sein.</p>
+            <section class="activity"><strong>3 Min. · Sortier-Übung: rein oder raus?</strong><p>Acht Eingaben: Darf das in einen KI-Chat? Entscheide bei jeder selbst: rein oder raus? 1) Die IBAN für die Mietüberweisung. 2) "Mieterhöhung um 12 Prozent, Vertrag von 2019 — was kann ich tun?" 3) Ein Foto vom Zeugnis der Tochter. 4) Ein Beschwerde-Entwurf ohne Namen. 5) Das WLAN-Passwort, "nur zum Merken". 6) Die Krankmeldung eines Kollegen zusammenfassen, mit Namen. 7) Ein Foto vom Kühlschrankinhalt für Rezeptideen. 8) Die unveröffentlichten Umsatzzahlen der Firma. Erst selbst entscheiden, dann aufdecken — die Begründung liefern die fünf Grenzen direkt hier drunter.</p></section>
+            <details class="fold">
+              <summary>Auflösung zeigen (erst selbst entscheiden)</summary>
+              <div class="fold-body">
+                <p>Raus bleiben 1 (IBAN), 3 (Zeugnis-Foto), 5 (WLAN-Passwort), 6 (Krankmeldung mit Namen) und 8 (unveröffentlichte Umsatzzahlen) — der Rest darf rein. Warum, sagen die fünf roten Grenzen direkt hier drunter.</p>
+              </div>
+            </details>
             <div class="blocks">
               <section class="block accent-rose">
                 <b>Fünf rote Grenzen: das bleibt draußen</b>
@@ -1010,8 +1057,8 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
             </div>
             <div class="blocks">
               <section class="block accent-blue">
-                <b>Drei Schalter in deinem Konto</b>
-                <p>Jedes große Tool hat in den Einstellungen einen Schalter, ob deine Chats zum Training verwendet werden dürfen (in ChatGPT unter Einstellungen → Datenkontrollen), einen temporären Chat, der nicht im Verlauf landet, und die Memory-Funktion, mit der sich das Produkt Notizen über dich macht (auch abschaltbar; was dahintersteckt, klärt Modul 3). Alles siehst du in der Live-Demo. Die fünf Grenzen gelten trotzdem: Auch mit den besten Einstellungen bleibt draußen, was draußen bleibt.</p>
+                <b>Drei Kontrollen in ChatGPT</b>
+                <p>In ChatGPT findest du unter Einstellungen die Datenkontrollen, den temporären Chat und die Memory-Einstellungen. Damit steuerst du unter anderem Trainingsnutzung, Verlauf und gespeicherte Erinnerungen; die genaue Wirkung und Aufbewahrung erklärt das Produkt an Ort und Stelle. Andere KI-Tools benennen und bündeln diese Kontrollen anders. Wirf deshalb in deinem verwendeten Tool selbst einen Blick in Datenschutz- und Memory-Einstellungen. Die fünf Grenzen gelten trotzdem: Auch mit den besten Einstellungen bleibt draußen, was draußen bleibt.</p>
               </section>
               <section class="block accent-amber">
                 <b>Dienstlich? Erst fragen</b>
@@ -1033,8 +1080,8 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
-            <h3>Startrunde: Wofür willst du KI benutzen?</h3>
-            <p>Bevor wir in die Technik gehen, sammeln wir echte Aufgaben aus der Runde. Die besten davon nehmen wir im Kurs wieder auf, und in Teil 2 wird eine davon vielleicht dein Projekt.</p>
+            <h3>Deine Startliste: Wofür willst du KI benutzen?</h3>
+            <p>Bevor wir in die Technik gehen, sammelst du echte Aufgaben aus deinem Alltag. Solche Aufgaben tauchen im Kurs immer wieder auf, und in Teil 2 wird eine davon vielleicht dein Projekt.</p>
             <div class="blocks">
               <section class="block"><b>Texte</b><p>E-Mails, Einladungen, Bewerbungen, schwierige Nachrichten, Übersetzungen, Zusammenfassungen.</p></section>
               <section class="block"><b>Recherche &amp; Kauf</b><p>Produkte vergleichen, Angebote einordnen, Reiseziele finden, Fachbegriffe verstehen.</p></section>
@@ -1043,7 +1090,7 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
               <section class="block"><b>Bilder &amp; Design</b><p>Plakate, Einladungs-Motive, Moodboards, Logo-Ideen, Bilder für Social Media oder den Verein.</p></section>
               <section class="block"><b>Bauen &amp; kleine Helfer</b><p>Mini-Webseiten, Tabellen, Präsentationen, kleine Tools und Rechner: Die KI kann programmieren, du musst es nicht können. Wie das geht, siehst du in Modul 8.</p></section>
             </div>
-            <section class="activity"><strong>5 Min. · Deine zwei Kandidaten</strong><p>Notiere zwei Aufgaben, bei denen KI dir helfen könnte. Schreib zu jeder dazu: Woran würdest du merken, dass das Ergebnis gut ist? Diese Frage wird heute noch oft fallen.</p></section>
+            <section class="activity"><strong>5 Min. · Deine zwei Kandidaten</strong><p>Notiere zwei Aufgaben, bei denen KI dir helfen könnte. Schreib zu jeder dazu: Woran würdest du merken, dass das Ergebnis gut ist? Diese Frage wird in diesem Kurs noch oft fallen.</p></section>
           </div>
         </article>
       </section>
@@ -1052,18 +1099,18 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
         <div class="section-head">
           <p class="kicker">Modul 2 · ca. 20 Min.</p>
           <h2 id="m2-title">Wie KI funktioniert</h2>
-          <p>Kein Mathe-Tiefgang, aber das echte Modell im Kopf: Die KI sagt Wort für Wort das wahrscheinlichste nächste Token voraus. Wer das einmal gesehen hat, versteht, warum sie brillant formuliert und trotzdem Dinge erfindet.</p>
+          <p>Kein Mathe-Tiefgang, aber das echte Modell im Kopf: Die KI berechnet Token für Token eine Wahrscheinlichkeitsverteilung über mögliche Fortsetzungen; die gewählte Strategie wählt daraus das nächste Wortstück. Wer das einmal gesehen hat, versteht, warum sie brillant formuliert und trotzdem Dinge erfindet.</p>
         </div>
 
         <article class="lesson" id="m2-01">
           <aside class="lesson-side">
             <span class="lesson-number">02.01</span>
-            <span class="track demo">Demo</span>
+            <span class="track demo">Anschauen</span>
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
             <h3>Die Maschine rät das nächste Token — erstaunlich gut</h3>
-            <p>Ein Sprachmodell hat aus riesigen Textmengen gelernt, welche Fortsetzung auf einen Text wahrscheinlich folgt. Es schlägt nichts in einer Datenbank nach, sondern berechnet für jede Stelle eine Rangliste möglicher Fortsetzungen und wählt daraus. Ungefähr so:</p>
+            <p>Ein Sprachmodell hat aus riesigen Textmengen gelernt, welche Fortsetzung auf einen Text wahrscheinlich folgt. Es schlägt nichts in einer Datenbank nach, sondern berechnet für jede Stelle eine Rangliste möglicher Fortsetzungen und wählt daraus. Diese Fortsetzungs-Stückchen heißen Token — meist ein Wort oder ein Wortteil; was genau, klären wir gleich in der nächsten Lektion. Ungefähr so:</p>
             <div class="viz" data-viz="nexttoken">
               <div class="viz-head">
                 <strong>Das nächste Token: eine Rangliste, kein Wissen</strong>
@@ -1077,10 +1124,10 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
                 <div class="ntk-bar"><span class="ntk-tok">Zeitplans</span><i style="--w:5%"></i><b>5 %</b></div>
                 <div class="ntk-bar"><span class="ntk-tok">Kaffees</span><i style="--w:2%"></i><b>2 %</b></div>
               </div>
-              <p class="viz-note">Die Zahlen sind illustrativ. Live und in echt siehst du das gleich im englischsprachigen <a href="https://poloclub.github.io/transformer-explainer/" target="_blank" rel="noreferrer">Transformer Explainer</a>: Dort siehst du für jeden Schritt genau diese Rangliste, berechnet von einem echten Modell (GPT-2), direkt im Browser.</p>
+              <p class="viz-note">Die Zahlen sind illustrativ. In echt siehst du das im englischsprachigen <a href="https://poloclub.github.io/transformer-explainer/" target="_blank" rel="noreferrer">Transformer Explainer</a>: Dort siehst du für jeden Schritt genau diese Rangliste, berechnet von einem echten Modell (GPT-2), direkt im Browser.</p>
             </div>
             <div class="blocks">
-              <section class="block accent-teal"><b>Warum sie so gut formuliert</b><p>Wer Milliarden Sätze gesehen hat, kennt jeden Ton, jedes Format, jede Sprache. Umformulieren, zusammenfassen, strukturieren: Dafür ist "wahrscheinlichste Fortsetzung" genau das richtige Werkzeug.</p></section>
+              <section class="block accent-teal"><b>Warum sie so gut formuliert</b><p>Wer sehr viele Texte verarbeitet hat, erkennt Muster für Ton, Format und Sprache. Umformulieren, zusammenfassen und strukturieren passen gut zu dieser Fortsetzungsaufgabe.</p></section>
               <section class="block accent-rose"><b>Warum sie trotzdem erfindet</b><p>Dieselbe Maschine wählt die plausibelste Fortsetzung, nicht die geprüfte Wahrheit. Eine erfundene Bewertungszahl oder Frist klingt genauso rund wie eine echte, weil beide nur wahrscheinliche Wortfolgen sind. Das Fachwort: Halluzination. Fangen üben wir in Modul 5.</p></section>
             </div>
             <p>Und warum sind zwei Antworten auf dieselbe Frage fast nie identisch? Eingebauter Zufall bei der Auswahl aus der Rangliste. Den Regler dafür bedienen nur Entwickler, im Chat ist er fest eingestellt. (Spielzeug dazu: der Temperature-Visualizer in der Linksammlung.)</p>
@@ -1096,7 +1143,7 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
           </aside>
           <div class="lesson-body">
             <h3>Token: Die KI liest keine Wörter</h3>
-            <p>Die Maschine zerlegt Text in Token: Bruchstücke, die mal ein Wort, mal eine Silbe, mal ein einzelnes Zeichen sind. Deutsche Wörter zerfallen oft in mehrere Teile, weil die Modelle vor allem an Englisch trainiert wurden. Token sind die Währung von allem, was heute noch kommt: Fensterplatz, Kosten, Tempo.</p>
+            <p>Die Maschine zerlegt Text in Token: Bruchstücke, die mal ein Wort, mal eine Silbe, mal ein einzelnes Zeichen sind. Deutsche Zusammensetzungen zerfallen dabei oft in mehrere Teile, weil Tokenizer häufige Textmuster bevorzugen. Token sind die Währung von allem, was in diesem Kurs noch kommt: Fensterplatz, Kosten, Tempo.</p>
             <div class="viz" data-viz="token">
               <div class="viz-head">
                 <strong>Token-Zerleger</strong>
@@ -1110,10 +1157,10 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
                 <div><b id="tokenCount">0</b> <span>Token (geschätzt)</span></div>
                 <div><b id="charCount">0</b> <span>Zeichen</span></div>
               </div>
-              <p class="viz-note">Vereinfachte Schätzung. Die echte Zerlegung zeigt der <a href="https://platform.openai.com/tokenizer" target="_blank" rel="noreferrer">OpenAI Tokenizer</a>, den wir gleich live ansehen.</p>
+              <p class="viz-note">Vereinfachte Schätzung. Die echte Zerlegung zeigt der <a href="https://platform.openai.com/tokenizer" target="_blank" rel="noreferrer">OpenAI Tokenizer</a>, den du dir direkt im Browser ansehen kannst.</p>
             </div>
-            <section class="note"><b>Wichtig: Jedes Modell zerlegt anders</b><p>Es gibt nicht die eine Token-Zerlegung. OpenAI, Claude und Gemini nutzen unterschiedliche Tokenizer, und mit jeder Modellgeneration ändern sie sich weiter. Die genaue Zahl ist also toolabhängig (der Tiktokenizer in den Nachschlage-Links zeigt den Vergleich).</p></section>
-            <section class="activity"><strong>5 Min. · Token-Gefühl entwickeln</strong><p>Probiere im Zerleger: dein längstes deutsches Lieblingswort, denselben Satz auf Englisch, eine Telefonnummer. Danach kommt derselbe Text live in den echten OpenAI Tokenizer. Vergleiche die Zahlen.</p></section>
+            <section class="note"><b>Wichtig: Die Zerlegung hängt vom Tokenizer ab</b><p>Modelle und Modellfamilien können unterschiedliche Tokenizer verwenden; mehrere Modelle können sich aber auch einen teilen. Die genaue Zahl ist deshalb modell- beziehungsweise tokenizerabhängig. Der Tiktokenizer in den Nachschlage-Links zeigt einen Vergleich.</p></section>
+            <section class="activity"><strong>5 Min. · Token-Gefühl entwickeln</strong><p>Probiere im Zerleger: dein längstes deutsches Lieblingswort, denselben Satz auf Englisch, eine Telefonnummer. Danach gib denselben Text in den echten OpenAI Tokenizer ein. Vergleiche die Zahlen.</p></section>
             <p class="viz-note"><b>Schon Profi?</b> Jag einen eigenen langen Text durch den echten Tokenizer — und schätz die Token-Zahl vorher. Landest du innerhalb von 20 Prozent?</p>
           </div>
         </article>
@@ -1121,7 +1168,7 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
         <article class="lesson" id="m2-03">
           <aside class="lesson-side">
             <span class="lesson-number">02.03</span>
-            <span class="track demo">Demo</span>
+            <span class="track">Mitmachen</span>
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
@@ -1149,25 +1196,25 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
             </div>
             <div class="blocks">
               <section class="block accent-amber"><b>Ohne Websuche</b><p>Fragen zu aktuellen Preisen, Terminen, Nachrichten oder Öffnungszeiten beantwortet das Modell aus altem Trainingswissen, oder es erfindet etwas Plausibles.</p></section>
-              <section class="block accent-teal"><b>Mit Websuche</b><p>Die KI sucht live, zitiert Quellen und du kannst die Links prüfen. Live-Demo: "Was kostet aktuell ein Bahn-Ticket von München nach Passau am Samstag?" — einmal ohne, einmal mit Suche.</p></section>
+              <section class="block accent-teal"><b>Mit Websuche</b><p>Die KI sucht live, zitiert Quellen und du kannst die Links prüfen. Probier es aus: "Was kostet aktuell ein Bahn-Ticket von München nach Passau am Samstag?" — einmal ohne, einmal mit Suche.</p></section>
             </div>
             <section class="note"><b>Merksatz</b><p>Wenn die Antwort von heute, von Preisen oder von deiner Region abhängt: Websuche einschalten und Quellen zeigen lassen. Sonst bekommst du bestenfalls den Stand von gestern.</p></section>
-            <section class="note"><b>Die große Schwester: Deep Research</b><p>Für richtige Recherchen haben die Tools einen eigenen Modus: Die KI sucht mehrere Minuten selbstständig, liest Dutzende Quellen und liefert einen Bericht mit Links. In ChatGPT Free stark limitiert. Im Kurs reicht die normale Websuche, aber du sollst wissen, dass es den Modus gibt. In Teil 2 nutzt ihn, wer größere Faktenfragen im Projekt hat.</p></section>
+            <section class="note"><b>Die große Schwester: Deep Research</b><p>Für größere Recherchen bieten einige Tools einen eigenen Modus: Die KI plant mehrere Suchschritte, liest je nach Auftrag mehrere Quellen und liefert nach einigen Minuten einen Bericht mit Quellenangaben. Verfügbarkeit und Kontingent hängen vom Plan ab und werden im Produkt angezeigt. Im Kurs reicht die normale Websuche; in Teil 2 kann der Modus bei größeren Faktenfragen helfen.</p></section>
           </div>
         </article>
 
         <article class="lesson" id="m2-04">
           <aside class="lesson-side">
             <span class="lesson-number">02.04</span>
-            <span class="track demo">Demo</span>
+            <span class="track">Mitmachen</span>
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
             <h3>Die KI kann sehen: Fotos und Dateien als Eingabe</h3>
             <p>Text ist nur ein Eingang. Über die Büroklammer (oder per Hineinziehen) nimmt die KI Fotos, PDFs und Dokumente entgegen, und die landen als Token im selben Kontextfenster wie dein Text. Zwei Handgriffe bringen im Alltag am meisten:</p>
             <div class="blocks">
-              <section class="block accent-blue"><b>Demo 1 · Foto statt Abtippen</b><p>Ein Foto von einem Brief oder Bescheid hochladen und fragen: "Was will dieses Schreiben von mir, in drei Sätzen?" Die KI liest das Bild. Abtippen war gestern. Zuhause geht das mit jedem Schreiben, das dir auf den Tisch flattert.</p></section>
-              <section class="block accent-teal"><b>Demo 2 · Foto als Frage</b><p>Ein Foto von einem Gerät, einer Fehlermeldung oder dem Kühlschrankinhalt: "Was ist das und was mache ich jetzt?" Funktioniert erstaunlich gut: von der Waschmaschinen-Anzeige bis zum Rezept aus Restbeständen.</p></section>
+              <section class="block accent-blue"><b>Handgriff 1 · Foto statt Abtippen</b><p>Ein Foto von einem Brief oder Bescheid hochladen und fragen: "Was will dieses Schreiben von mir, in drei Sätzen?" Die KI liest das Bild. Abtippen war gestern. Das geht mit jedem Schreiben, das dir auf den Tisch flattert.</p></section>
+              <section class="block accent-teal"><b>Handgriff 2 · Foto als Frage</b><p>Ein Foto von einem Gerät, einer Fehlermeldung oder dem Kühlschrankinhalt: "Was ist das und was mache ich jetzt?" Funktioniert erstaunlich gut: von der Waschmaschinen-Anzeige bis zum Rezept aus Restbeständen.</p></section>
             </div>
             <section class="note"><b>Datenregeln fürs Bild</b><p>Ein Foto ist eine Datei wie jede andere: Namen, Adressen, Aktenzeichen und fremde Gesichter vorher abdecken oder wegschneiden, dann gilt alles aus den Datenregeln (Modul 1) auch hier.</p></section>
             <section class="note"><b>Bei großen Dateien: nachhelfen</b><p>Große Dateien liest das Tool oft nur auszugsweise, wichtige Passagen kopierst du zur Sicherheit direkt in den Chat.</p></section>
@@ -1179,47 +1226,46 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
         <div class="section-head">
           <p class="kicker">Modul 3 · ca. 20 Min.</p>
           <h2 id="m3-title">Kontextfenster &amp; Dumb Zone</h2>
-          <p>Warum wusste die KI in Modul 1 noch dein Budget? Weil das Tool ihr bei jeder Nachricht den ganzen bisherigen Chat noch einmal mitschickt. Dieser Kontext hat eine harte Grenze, und lange vor der Grenze eine weiche: die Dumb Zone.</p>
+          <p>Warum wusste die KI in Modul 1 noch dein Budget? Weil das Tool für jede Antwort ein Arbeitspaket aus deiner neuen Nachricht und relevantem bisherigen Kontext zusammenstellt. Dieses Paket hat eine harte Grenze; schon vorher kann zu viel oder schlecht gewählter Kontext die Antwort verwässern.</p>
         </div>
 
         <article class="lesson" id="m3-01">
           <aside class="lesson-side">
             <span class="lesson-number">03.01</span>
-            <span class="track demo">Demo</span>
+            <span class="track demo">Anschauen</span>
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
             <h3>Das Kontextfenster: was die KI gerade sehen kann</h3>
-            <p>Zuerst der wichtigste Satz des Moduls: Das Modell hat zwischen zwei Nachrichten kein Gedächtnis. Wenn du auf "Senden" drückst, geht nicht nur deine neue Nachricht ans Modell, sondern der komplette bisherige Chat noch einmal mit: alle Fragen, alle Antworten, alle Dateien. Dass sich die KI in Modul 1 an dein Budget "erinnert" hat, heißt nur: Es stand in dem Paket, das mitgeschickt wurde. Deshalb lohnt es sich, diesen Kontext bewusst zu pflegen, dazu gleich mehr.</p>
-            <p>Alles im Chat, deine Fragen, ihre Antworten, hochgeladene Dateien, zählt in Token und muss in ein begrenztes Fenster passen. Was nicht hineinpasst, existiert für das Modell nicht. Drei Merkzeilen reichen fürs Gefühl:</p>
+            <p>Zuerst der wichtigste Satz des Moduls: Das Modell selbst hat zwischen zwei Anfragen kein eigenes Gedächtnis. Wenn du auf "Senden" drückst, baut das Produkt ein neues Arbeitspaket: deine Nachricht, Anweisungen und relevante Teile aus Chat, Dateien, Projekt oder Memory. In einem kurzen Chat kann das fast der ganze Verlauf sein. In langen Chats werden Inhalte je nach Produkt gekürzt, zusammengefasst oder bei Bedarf als Auszug geholt. Dass sich die KI in Modul 1 an dein Budget "erinnert" hat, heißt nur: Es stand im aktuellen Arbeitspaket.</p>
+            <p>Dieses Arbeitspaket wird in Token gemessen und muss in ein begrenztes Kontextfenster passen. Was das Produkt diesmal nicht hineinlegt, kann das Modell für diese Antwort nicht nutzen. Drei Größenklassen reichen fürs Gefühl:</p>
             <div class="blocks">
-              <section class="block accent-teal"><b>ChatGPT Free = klein</b><p>Rund 27.000 Token. Ein einziges langes Transkript füllt das fast allein.</p></section>
-              <section class="block accent-blue"><b>Bezahlpläne = mittel</b><p>Grob 200.000 bis 400.000 Token. Luft für richtige Projekte.</p></section>
-              <section class="block accent-violet"><b>Spitzenmodelle = riesig</b><p>Bis 1 Million Token. Und trotzdem gilt gleich dieselbe Dumb-Zone-Regel.</p></section>
+              <section class="block accent-teal"><b>Kleine Fenster</b><p>Grob 16.000 bis 32.000 Token. Ein langes Video-Transkript kann dafür schon zu groß sein.</p></section>
+              <section class="block accent-blue"><b>Große Fenster</b><p>Grob 128.000 bis 500.000 Token, abhängig von Produkt, Modell und Tarif. Luft für richtige Projekte, aber nicht automatisch für bessere Antworten.</p></section>
+              <section class="block accent-violet"><b>Riesige Fenster</b><p>Bis 1 Million Token bei ausgewählten Modellen und Tarifen. Auch dort bleibt fokussierter Kontext leichter nutzbar als ein unsortierter Materialberg.</p></section>
             </div>
             <details class="fold">
               <summary>Alle Zahlen zum Nachschlagen</summary>
               <div class="fold-body">
                 <div class="table-scroll">
                   <table class="fact-table">
-                    <thead><tr><th>Produkt</th><th>Modus</th><th>Kontextfenster</th></tr></thead>
+                    <caption>Kontextfenster nach Produkt, Modus und Tarif</caption>
+                    <thead><tr><th scope="col">Produkt</th><th scope="col">Modus</th><th scope="col">Kontextfenster</th></tr></thead>
                     <tbody>
-                      <tr><td rowspan="2"><b>ChatGPT</b> (GPT-5.5)</td><td>Instant</td><td>Free 27K · Plus 32K · Pro 128K</td></tr>
+                      <tr><th scope="rowgroup" rowspan="2"><b>ChatGPT</b> (zuletzt offiziell beziffert für GPT-5.5)</th><td>Instant</td><td>Free 16K · Plus 32K · Pro 128K</td></tr>
                       <tr><td>Thinking</td><td>Plus 256K · Pro 400K</td></tr>
-                      <tr><td rowspan="2"><b>Claude</b></td><td>Free</td><td>200K</td></tr>
-                      <tr><td>Bezahlpläne</td><td>Sonnet 5 &amp; Fable 5 bis 1M · Opus 4.8 500K</td></tr>
-                      <tr><td><b>Gemini</b></td><td>3.1 Pro / 3 Flash</td><td>1M</td></tr>
+                      <tr><th scope="row"><b>Claude.ai Bezahlpläne</b></th><td>je nach Modell</td><td>200K · Opus 4.8 500K · Sonnet 5 bis 1M; öffentliche Hilfe nennt keine feste Free-Zahl</td></tr>
+                      <tr><th scope="row"><b>Gemini</b></th><td>Gemini 3 Flash-Lite / 3 Flash / 3 Pro</td><td>ohne AI-Tarif 32K · AI Plus 128K · AI Pro/Ultra 1M</td></tr>
                     </tbody>
                   </table>
                 </div>
-                <p><small>K = 1.000 Token, M = 1 Million. Stand 05.07.2026, laut Preis- und Hilfeseiten der Anbieter. OpenAI nennt je nach Hilfeseite leicht andere Werte, und das Free-Fenster kann je nach Modell auch kleiner ausfallen; auf die Größenordnung kommt es an.</small></p>
+                <p><small>K = 1.000 Token, M = 1 Million. Stand 11.07.2026, laut Hilfe- und Modellseiten der Anbieter. Produkt, Plan und gewähltes Modell entscheiden über die echte Größe; auf die Größenordnung kommt es an. OpenAI nennt auf der aktuellen GPT-5.6-Hilfeseite keine eigenen ChatGPT-Fenstergrößen. Die ChatGPT-Zahlen oben sind deshalb ausdrücklich der letzte offiziell bezifferte GPT-5.5-Stand, kein bestätigter GPT-5.6-Wert.</small></p>
               </div>
             </details>
-            <section class="activity"><strong>Live-Demo · das YouTube-Transkript</strong><p>Live-Demo: Das Transkript eines langen YouTube-Videos (~25K Token) landet in ChatGPT Free (27K-Fenster), mit der Bitte um eine Zusammenfassung. Das eine Transkript füllt das Fenster fast komplett. Für Rückfragen, Anweisungen und Antworten bleibt kaum Platz, und genau das merkt man der Qualität an.</p></section>
-            <section class="note"><b>Wenn das Fenster überläuft</b><p>Läuft ein Chat über die Grenze, schneidet das Tool stillschweigend die ältesten Teile ab. Einen Füllstands-Anzeiger gibt es im Produkt nicht. Woran du es trotzdem merkst: an den Dumb-Zone-Anzeichen aus 03.04.</p></section>
+            <section class="note"><b>Wenn das Fenster überläuft</b><p>Je nach Produkt werden ältere Teile gekürzt oder zusammengefasst, oder der Auftrag scheitert sichtbar. Einen verlässlichen Füllstands-Anzeiger gibt es im Chat meist nicht. Woran du knappen Kontext trotzdem merkst: an den Dumb-Zone-Anzeichen aus 03.04.</p></section>
             <div class="blocks">
-              <section class="block accent-blue"><b>"Und warum erinnert sich ChatGPT dann an meinen Hund?"</b><p>Weil das Produkt nachhilft: Memory, Verweise auf alte Chats, Projekte und Custom Instructions sind Notizen, die das Tool automatisch mit ins Kontextfenster legt. Gleiche Mechanik, gleiches Token-Budget, in den Einstellungen abschaltbar (Modul 1). Merksatz: Das Modell vergisst alles — das Produkt kann sich Notizen machen.</p></section>
-              <section class="block accent-violet"><b>Was noch im Fenster liegt, ohne dass du es siehst</b><p>Der Systemprompt des Anbieters (Grundregeln und Ton), Anweisungen für Werkzeuge wie die Websuche und die Memory-Notizen von eben. Merk dir das für Modul 9: Ein Skill ist im Kern ein Stück Anleitung, das du selbst ins Fenster legst.</p></section>
+              <section class="block accent-blue"><b>"Und warum erinnert sich ChatGPT dann an meinen Hund?"</b><p>Weil das Produkt nachhilft: Memory, Verweise auf alte Chats, Projekte und eigene Anweisungen können passende Informationen ins aktuelle Arbeitspaket legen. Was genau verwendet wird, entscheidet das Produkt; die zugehörigen Kontrollen findest du in den Einstellungen (Modul 1). Merksatz: Das Modell hat kein persönliches Langzeitgedächtnis — das Produkt kann Informationen speichern und wieder einblenden.</p></section>
+              <section class="block accent-violet"><b>Was noch im Fenster liegen kann, ohne dass du es siehst</b><p>Grundregeln des Anbieters, Werkzeug-Anweisungen, Memory-Notizen und Auszüge aus bereitgestellten Dateien. Merk dir das für Modul 9: Auch die Anleitung eines Skills kann Teil dieses Arbeitspakets werden.</p></section>
             </div>
             <section class="note"><b>Merksatz</b><p>Das Token-Budget ist wie Sichtweite, und lange bevor es voll ist, wird es neblig. Warum, zeigt der nächste Schritt.</p></section>
           </div>
@@ -1233,7 +1279,7 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
           </aside>
           <div class="lesson-body">
             <h3>Smart Zone, Dumb Zone — warum lange Chats dumm werden</h3>
-            <p>Ein Modell setzt jedes Token mit jedem anderen in Beziehung. Diese Beziehungen wachsen quadratisch, wie in einer Fußballliga: Jedes neue Team bedeutet nicht ein neues Spiel, sondern Spiele gegen alle, die schon da sind. Je voller das Fenster, desto mehr konkurriert also um die Aufmerksamkeit des Modells — und messbar werden Antworten in sehr vollen Fenstern unzuverlässiger. Das Fachwort dafür: Context Rot.</p>
+            <p>Die großen heutigen Chatmodelle beruhen überwiegend auf Transformer-Technik oder verwandten beziehungsweise hybriden Architekturen. Vereinfacht kann dabei jedes Token auf viele andere achten. Die möglichen Beziehungen wachsen wie in einer Fußballliga: Jedes neue Team bedeutet Spiele gegen alle, die schon da sind. Die Grafik zeigt nur diese Größenordnung als Analogie; Qualitätsprobleme langer Kontexte haben mehrere Ursachen und hängen stark von Modell, Aufgabe und Position der Information ab. Das Forschungsstichwort lautet Context Rot.</p>
             <div class="viz" data-viz="conn">
               <div class="viz-head">
                 <strong>Quadratische Verbindungen</strong>
@@ -1242,7 +1288,7 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
               <div class="conn-viz">
                 <svg id="connSvg" viewBox="0 0 420 320" role="img" aria-label="Punkte auf einem Kreis, jeder mit jedem verbunden"></svg>
                 <div class="conn-controls">
-                  <label for="connRange">Teams / Punkte: <span id="connN">8</span></label>
+                  <label for="connRange">Teams / Token: <span id="connN">8</span></label>
                   <input type="range" id="connRange" min="2" max="30" step="1" value="8">
                   <div class="conn-count"><b id="connCount">28</b><span id="connLabel">Verbindungen bei 8 Punkten</span></div>
                 </div>
@@ -1251,11 +1297,11 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
             </div>
             <div class="zone-meter" aria-label="Smart Zone und Dumb Zone">
               <div class="zone-track">
-                <div class="zone-segment smart"><b>Smart Zone</b><span>Frischer Chat, fokussierter Kontext: Das Modell hält alle Fäden. Hier entstehen die guten Antworten.</span></div>
-                <div class="zone-segment dumb"><b>Dumb Zone</b><span>Volles Fenster: Regeln werden vergessen, Details verwechselt, Antworten weicher.</span></div>
+                <div class="zone-segment smart"><b>Smart Zone</b><span>Frischer Chat, fokussierter Kontext: Die relevanten Fäden sind leichter auffindbar.</span></div>
+                <div class="zone-segment dumb"><b>Dumb Zone</b><span>Viel oder widersprüchlicher Kontext: Regeln und Details können leichter untergehen.</span></div>
               </div>
-              <p class="zone-rule"><strong>Faustregel: ab ~40 % des Fensters wird die Qualität wackelig: bei großen Fenstern spätestens ab ~100.000 Token.</strong> Ein größeres Fenster löst das Problem nicht. Bei kleinen Fenstern ist meist die harte Grenze selbst das Problem. Nicht die Dumb Zone.</p>
-              <p class="viz-note">Messungen zeigen, dass Modelle Inhalte in der Mitte sehr langer Fenster schlechter nutzen. Das Phänomen ist gut dokumentiert. Die Faustregel stammt aus der Praxis von Dex Horthy (Human Layer) und Matt Pocock, einem bekannten Software-Lehrer, dessen KI-Arbeitsweise wir in diesem Kurs übernehmen; was für Software gilt, gilt genauso für Alltagsprojekte. Für Neugierige: Die Formel hinter der Grafik ist n · (n − 1) / 2, und Matt spürt es bei großen Fenstern ab ~120k.</p>
+              <p class="zone-rule"><strong>Kurs-Faustregel: Ab etwa 40 % des Fensters, bei sehr großen Fenstern spätestens um 100.000 Token, prüfen wir bewusst, ob ein frischer Chat besser wäre.</strong> Das ist ein vorsichtiger Arbeitsalarm, keine gemessene Naturgrenze. Aufgabe, Modell und Materialqualität machen einen großen Unterschied.</p>
+              <p class="viz-note">Studien zeigen, dass Modelle Informationen in langen Kontexten je nach Position und Aufgabe unterschiedlich gut nutzen. Praktiker wie Dex Horthy und Matt Pocock empfehlen deshalb, nicht jedes verfügbare Token auszureizen. Wir übertragen diese Sicherheitsmarge als Kurs-Heuristik auf Alltagsprojekte. Für Neugierige: Die Formel hinter der Grafik ist n · (n − 1) / 2; sie veranschaulicht die wachsende Zahl möglicher Beziehungen, erklärt aber nicht allein die Antwortqualität.</p>
             </div>
           </div>
         </article>
@@ -1269,6 +1315,7 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
           <div class="lesson-body">
             <h3>Spiel es durch: Was passt in welches Fenster?</h3>
             <p>Klick Inhalte in den Chat und schalte zwischen den Fenstern um. Die Werte der Inhalte sind grobe Richtwerte. Auf die Größenordnung kommt es an.</p>
+            <p class="viz-note"><b>Stand Juli 2026:</b> Modell-, Produkt- und Tarifwerte ändern sich laufend und können inzwischen vom gezeigten Stand abweichen.</p>
             <div class="viz" data-viz="ctx">
               <div class="viz-head">
                 <strong>Kontextfenster-Meter</strong>
@@ -1289,18 +1336,18 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
               <div class="ctx-group">
                 <small>2 · In welchem Fenster arbeitest du?</small>
                 <div class="ctx-chips" id="ctxWindows">
-                  <button class="ctx-chip win" type="button" data-window="27000" aria-pressed="true">Klein: ChatGPT Free · 27K</button>
-                  <button class="ctx-chip win" type="button" data-window="200000" aria-pressed="false">Mittel: Claude (Free) · 200K</button>
-                  <button class="ctx-chip win" type="button" data-window="256000" aria-pressed="false">Mittel: ChatGPT Thinking (Plus) · 256K</button>
-                  <button class="ctx-chip win" type="button" data-window="1000000" aria-pressed="false">Riesig: Gemini / Claude-Bezahlpläne · 1M</button>
+                  <button class="ctx-chip win" type="button" data-window="16000" aria-pressed="true">Klein: ChatGPT Free (GPT-5.5-Stand) · 16K</button>
+                  <button class="ctx-chip win" type="button" data-window="128000" aria-pressed="false">Mittel: Gemini AI Plus · 128K</button>
+                  <button class="ctx-chip win" type="button" data-window="256000" aria-pressed="false">Groß: ChatGPT Thinking Plus (GPT-5.5-Stand) · 256K</button>
+                  <button class="ctx-chip win" type="button" data-window="1000000" aria-pressed="false">Riesig: Gemini AI Pro/Ultra / Claude.ai Sonnet 5 im Bezahlplan · 1M</button>
                 </div>
-                <p class="viz-note">Die drei Größenklassen aus 03.01. Feinere Werte (54K, 400K, 500K …) stehen dort in der Nachschlage-Tabelle.</p>
+                <p class="viz-note">Die drei Größenklassen aus 03.01. Feinere Werte (32K, 400K, 500K …) stehen dort in der Nachschlage-Tabelle.</p>
               </div>
               <div class="ctx-meter" id="ctxMeter">
                 <div class="ctx-fill" id="ctxFill"></div>
-                <div class="ctx-marker" aria-hidden="true"><span id="ctxMarkerLabel">Dumb Zone ab 40 %</span></div>
+                <div class="ctx-marker" aria-hidden="true"><span id="ctxMarkerLabel">Kurs-Alarm ab 40 %</span></div>
               </div>
-              <div class="ctx-scale"><span>0</span><span id="ctxWindowLabel">27.000 Token</span></div>
+              <div class="ctx-scale"><span>0</span><span id="ctxWindowLabel">16.000 Token</span></div>
               <p class="ctx-status" id="ctxStatus" aria-live="polite">Klick oben Inhalte an. Das Fenster ist noch leer.</p>
               <p class="viz-note">Der rote Bereich ist die Kurs-Faustregel aus 03.02.</p>
             </div>
@@ -1318,10 +1365,10 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
             <p>Gegen die Dumb Zone hilft kein Schimpfen und kein größeres Abo, sondern Arbeitstechnik:</p>
             <div class="blocks">
               <section class="block accent-teal"><b>1 · Aufgaben klein schneiden</b><p>Jede Aufgabe so zuschneiden, dass sie samt Material bequem in die Smart Zone passt. Lieber drei fokussierte Chats als ein Mammut-Chat.</p></section>
-              <section class="block accent-blue"><b>2 · Neuer Chat statt Weiterwursteln</b><p>Neues Thema, neuer Chat. Der alte Kontext hilft nicht: er stört, kostet Fensterplatz und schleppt alte Irrtümer mit.</p></section>
+              <section class="block accent-blue"><b>2 · Neuer Chat statt Weiterwursteln</b><p>Neues Thema, neuer Chat. Der alte Kontext hilft nicht: Er stört, kostet Fensterplatz und schleppt alte Irrtümer mit.</p></section>
               <section class="block accent-violet"><b>3 · Handoff: Umzug mit Gepäck</b><p>Wenn der Arbeitsstand wertvoll ist: Die KI fasst ihn kompakt zusammen, du nimmst die Zusammenfassung in einen frischen Chat mit. Den fertigen Handoff-Prompt bekommst du in Modul 5.</p></section>
               <section class="block accent-violet"><b>4 · Fleißarbeit an Sub-Agenten abgeben</b><p>In Agenten-Tools erlaubst du der KI, Teilaufgaben an Helfer mit eigenem, leerem Kontextfenster abzugeben. Die wühlen sich durchs Material, in deinem Chat landet nur das Ergebnis. Wie das funktioniert: direkt in der nächsten Lektion.</p></section>
-              <section class="block accent-amber"><b>Woran du die Dumb Zone erkennst</b><p>Die KI vergisst Regeln von vorhin, wiederholt sich, verwechselt Details oder wird merkwürdig zäh. Das ist kein schlechter Tag, sondern die Physik des Fensters.</p></section>
+              <section class="block accent-amber"><b>Woran du sie vermuten kannst</b><p>Die KI übersieht Regeln von vorhin, wiederholt sich, verwechselt Details oder wird merkwürdig zäh. Das kann an überladenem Kontext liegen, aber auch an einem unklaren Auftrag oder einem Modellfehler. Ein kurzer Gegenversuch im frischen Chat hilft bei der Diagnose.</p></section>
             </div>
           </div>
         </article>
@@ -1334,17 +1381,31 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
           </aside>
           <div class="lesson-body">
             <h3>Agenten &amp; Sub-Agenten: Arbeit verteilen statt Chat vollstopfen</h3>
-            <p>Der Kurz-Ausblick, der direkt aus der Dumb Zone folgt: Ein <b>Agent</b> ist eine KI, die einen ganzen Auftrag selbstständig abarbeitet (Material lesen, recherchieren, entwerfen, prüfen) und sich erst mit dem Ergebnis oder einer Rückfrage meldet. Unterwegs darf er <b>Sub-Agenten</b> losschicken: Helfer-KIs, die je einen Teilauftrag übernehmen und dafür ihr eigenes, leeres Kontextfenster mitbringen. Der Recherche-Wust bleibt in deren Fenstern, in deinem Chat landet nur das Ergebnis, dein Fenster bleibt in der Smart Zone. In Agenten-Tools wie Claude oder Codex reicht dafür oft ein Satz wie "Nutze für die Recherche Sub-Agenten".</p>
-            <section class="note"><b>Wo du das live siehst</b><p>In Teil 2 bei /project-review: Dort prüft ein Sub-Agent mit frischem Fenster die Arbeit des ersten.</p></section>
+            <p>Der Kurz-Ausblick, der direkt aus der Dumb Zone folgt: Ein <b>Agent</b> ist eine KI, die einen ganzen Auftrag selbstständig abarbeitet (Material lesen, recherchieren, entwerfen, prüfen) und sich erst mit dem Ergebnis oder einer Rückfrage meldet. Unterstützt das verwendete Werkzeug Sub-Agenten, kann er begrenzte Teilaufträge an Helfer mit eigenem Arbeitskontext geben. Der Recherche-Wust bleibt dann weitgehend dort, in deinem Hauptchat landet die verdichtete Rückmeldung. In Agenten-Tools wie Codex oder Claude Code reicht für diese Übung oft ein Satz wie "Nutze für die Recherche Sub-Agenten"; nicht jeder Chat oder Tarif bietet diese Funktion.</p>
+            <section class="prompt-box">
+              <div class="prompt-head"><small>Eigendemo · zwei getrennte Prüflinsen</small><button class="copy-button" type="button" data-copy="#prompt-subagent-demo">Kopieren</button></div>
+              <pre id="prompt-subagent-demo">Prüfe die folgende Arbeit mit zwei getrennten Prüflinsen.
+
+Prüflinse 1: Regeln und Qualität. Suche Fehler, Unklarheiten und Stellen, an denen Vorgaben verletzt werden.
+Prüflinse 2: Ziel und Nutzen. Prüfe, ob die Arbeit mein Ziel erreicht und für die genannte Zielgruppe wirklich brauchbar ist.
+
+Wenn dein Werkzeug Sub-Agenten unterstützt, gib jede Prüflinse an einen eigenen Sub-Agenten mit frischem Kontext und lass beide möglichst parallel arbeiten. Führe die Befunde danach zusammen: Gemeinsamkeiten, Widersprüche und die drei wichtigsten nächsten Verbesserungen. Belege jeden Befund mit einer konkreten Stelle.
+
+Unterstützt dein Werkzeug keine Sub-Agenten, führe dieselben zwei Prüfungen nacheinander durch und trenne die Ergebnisse deutlich.
+
+Mein Ziel und meine Zielgruppe: [einfügen]
+Meine Arbeit: [Antwort, Artefakt oder Aufgabe einfügen]</pre>
+            </section>
+            <section class="note"><b>Warum so ausdrücklich?</b><p>Moderne Agenten delegieren geeignete Prüfungen teilweise von selbst. Der Prompt macht die zwei frischen Perspektiven für diese Eigendemo sichtbar, ohne zu behaupten, dass jeder Chatbot Sub-Agenten unterstützt.</p></section>
           </div>
         </article>
       </section>
 
       <section class="section panel" id="m4" aria-labelledby="m4-title">
         <div class="section-head">
-          <p class="kicker">Modul 4 · ca. 20 Min.</p>
+          <p class="kicker">Modul 4 · ca. 25 Min.</p>
           <h2 id="m4-title">Briefen: aus Wunsch wird Auftrag</h2>
-          <p>Die Qualität der Antwort entscheidet sich vor dem Absenden. Hier baust du Prompts, die Ziel, Kontext, Auftrag und Prüfung mitliefern, und lässt die KI nachfragen, statt Lücken zu erfinden.</p>
+          <p>Ein gutes Briefing erhöht die Chance auf eine brauchbare Antwort. Hier baust du Prompts, die Ziel, Kontext, Auftrag und Prüfung mitliefern, und lässt die KI nachfragen, damit wichtige Lücken und stillschweigende Annahmen sichtbar werden.</p>
         </div>
 
         <article class="lesson" id="m4-01">
@@ -1378,7 +1439,7 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
                   <span class="flip-state" data-flip-state>Vorher · Wunsch</span>
                   <h4>Wochenendtrip</h4>
                   <p class="flip-text" data-flip-before>Wohin könnten wir am Wochenende mal fahren?</p>
-                  <p class="flip-text" data-flip-after id="flip-trip-nach" hidden>Ziel: 3 Vorschläge für einen Wochenendtrip, aus denen wir heute Abend einen auswählen.
+                  <p class="flip-text" data-flip-after id="flip-trip-nach" hidden>Ziel: 3 Vorschläge für einen Wochenendtrip, aus denen wir einen auswählen.
 Kontext: 2 Personen, 2 Nächte, Ende August, ca. 300 Euro p. P., Bahn, max. 3 Stunden ab [Startort]. Wir mögen Altstädte, Wasser, gutes Essen.
 Auftrag: Pro Ziel: warum es passt, grobe Kosten, ein unterschätztes Highlight. Fehlt dir etwas Wichtiges, frag nach.
 Prüfung: Markiere alle Preise als Schätzung, die prüfe ich selbst.</p>
@@ -1450,25 +1511,29 @@ Prüfung: Nenne am Ende deine Annahmen und alles, was ich vor der Nutzung selbst
         <article class="lesson" id="m4-04">
           <aside class="lesson-side">
             <span class="lesson-number">04.04</span>
-            <span class="track demo">Demo</span>
+            <span class="track">Mitmachen</span>
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
             <h3>Rückfragen erzwingen: deine eigene Kaufberatung</h3>
-            <p>Die stärkste Zeile in jedem Briefing: "Stelle erst Rückfragen." Sie verhindert, dass die KI Lücken mit Erfindungen füllt. Der Fragenbohrer macht daraus einen wiederverwendbaren Baustein, den du an jeden Prompt hängen kannst:</p>
+            <p>Eine starke Zeile im Briefing lautet: "Stelle erst Rückfragen." Sie kann fehlende Angaben und Annahmen sichtbar machen, verhindert Erfindungen aber nicht zuverlässig. Der Fragenbohrer macht daraus einen wiederverwendbaren Baustein, den du an viele Prompts hängen kannst:</p>
             <section class="prompt-box">
               <div class="prompt-head"><small>Fragenbohrer · unser Kurs-Prompt</small><button class="copy-button" type="button" data-copy="#prompt-fragenbohrer">Kopieren</button></div>
               <pre id="prompt-fragenbohrer">Bevor du meine Aufgabe bearbeitest, stelle mir bis zu 5 kurze Rückfragen, nur zu Informationen, die du wirklich brauchst. Gib erst nach meinen Antworten einen Entwurf. Sage außerdem, welche meiner Angaben du für die Aufgabe gar nicht benötigst.</pre>
             </section>
-            <p>Dieselbe Idee gibt es in Matt Pococks Skill-Sammlung als fertigen Skill: grill-me, ein gnadenloses Frage-Interview. Du kannst den Originaltext einfach als Prompt benutzen; in Modul 9 siehst du, wie daraus ein installierbarer Skill wird:</p>
+            <p>Dieselbe Idee gibt es in Matt Pococks Skill-Sammlung als <code>grilling</code>: ein gründliches Frage-Interview, das in Teil 2 zum Einsatz kommt. <code>grill-me</code> ist keine kürzere Variante, sondern nur ein kleiner Starter, der genau dieselbe Grilling-Runde aufruft. Ohne installierte Skills kannst du den entscheidenden Originaltext direkt als Prompt benutzen; in Modul 9 siehst du den Unterschied zwischen Name, Starter und Anleitung.</p>
             <section class="prompt-box">
-              <div class="prompt-head"><small>Original-Skilltext · grill-me / grilling (Matt Pocock, englisch, Auszug)</small><button class="copy-button" type="button" data-copy="#prompt-grillme">Kopieren</button></div>
-              <pre id="prompt-grillme">Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
+              <div class="prompt-head"><small>Kernanleitung aus grilling · grill-me startet dieselbe Runde (Matt Pocock, englisch, Stand v1.1)</small><button class="copy-button" type="button" data-copy="#prompt-grillme">Kopieren</button></div>
+              <pre id="prompt-grillme" lang="en">Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.
 
-Ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.</pre>
+Ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.
+
+If a *fact* can be found by exploring the codebase, look it up rather than asking me. The *decisions*, though, are mine — put each one to me and wait for my answer.
+
+Do not enact the plan until I confirm we have reached a shared understanding.</pre>
             </section>
-            <section class="note"><b>Auf Deutsch, kurz</b><p>"Interviewe mich gnadenlos zu jedem Aspekt dieses Plans, bis wir ein gemeinsames Verständnis haben. Geh die Entscheidungen einzeln durch und schlag mir zu jeder Frage deine empfohlene Antwort vor. Stell die Fragen eine nach der anderen — mehrere auf einmal verwirren nur."</p></section>
-            <section class="activity"><strong>Mitmach-Demo · deine Kaufberatung</strong><p>Du willst ein Produkt kaufen oder vergleichen? Genau das nimmst du jetzt: Staubsauger, E-Bike, Matratze, Waschmaschine, egal. Schick den Prompt unten mit deinem Produkt ab und schau zu, wie die KI erst nachfragt (Budget? Wofür? Was ist dir wichtig?), dann mit Websuche aktuelle Angebote vergleicht und Quellen-Links liefert, die wir stichprobenartig öffnen.</p></section>
+            <section class="note"><b>Auf Deutsch, kurz</b><p>"Interviewe mich gnadenlos zu jedem Aspekt dieses Plans, bis wir ein gemeinsames Verständnis haben. Stell die Fragen eine nach der anderen und schlag mir zu jeder deine empfohlene Antwort vor — mehrere Fragen auf einmal verwirren nur. Was du in meinem Material selbst nachschlagen kannst, schlag nach, statt mich zu fragen; die Entscheidungen aber treffe ich: Leg mir jede einzeln vor. Und setz den Plan erst um, wenn ich bestätige, dass wir uns wirklich verstanden haben."</p></section>
+            <p>Jetzt du: Wähl ein Produkt, das dich wirklich interessiert (Staubsauger, E-Bike, Matratze, Waschmaschine — egal), und schick den Prompt unten ab. Die KI fragt erst nach, vergleicht dann mit Websuche aktuelle Angebote und liefert Quellen-Links, von denen du ein paar stichprobenartig öffnest.</p>
             <section class="prompt-box">
               <div class="prompt-head"><small>Kaufberatung mit Rückfragen und Websuche</small><button class="copy-button" type="button" data-copy="#prompt-kauf">Kopieren</button></div>
               <pre id="prompt-kauf">Ich möchte [Produkt] kaufen, kenne mich aber nicht gut aus.
@@ -1496,7 +1561,19 @@ Suche danach im Netz nach aktuellen Angeboten, vergleiche 3 passende Optionen in
                 <button class="lb-tab" type="button" data-lbtab="ordnung" aria-pressed="false">Digitale Ordnung</button>
               </div>
               <div class="lb-panel" data-lbpanel="trip">
-                <section class="activity"><strong>10 Min. · dein Trip-Briefing</strong><ol><li>Nimm deinen Trip aus Modul 1 (oder einen echten, den du planst) und brief die KI mit dem Baukasten: Ziel (drei Vorschläge zum Auswählen), Kontext (Personen, Termin, Budget, Vorlieben), Auftrag (erst Rückfragen, dann Vorschläge mit Kosten), Prüfung (alle Preise als Schätzung markieren).</li><li>Häng den Fragenbohrer aus 04.04 an und schick alles ab.</li><li>Vergleiche mit deiner Nachbarin oder deinem Nachbarn: Welche Rückfragen hat die KI gestellt?</li></ol></section>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Das Übungsmaterial · fiktive Reisekarte</small><button class="copy-button" type="button" data-copy="#material-trip">Kopieren</button></div>
+                  <pre id="material-trip">Reisekarte (fiktiv) · Wochenendtrip
+
+Reisende: zwei Erwachsene, zwei Nächte, Freitag bis Sonntag Ende August 2026.
+Start: Landshut Hauptbahnhof. Anreise nur mit der Bahn, höchstens 3 Stunden je Strecke.
+Budget: höchstens 300 Euro pro Person für Anreise und Unterkunft zusammen.
+Interessen: Altstadt, Wasser, regionales Essen, ein ruhiger Abend statt Nachtleben.
+Bewegung: gern zu Fuß, aber höchstens 10 Kilometer an einem Tag.
+
+Noch offen: Reiseziel, Unterkunftsart, Frühstück, genaue Abfahrtszeiten und welche Aktivität unbedingt dabei sein soll.</pre>
+                </section>
+                <section class="activity"><strong>10 Min. · dein Trip-Briefing</strong><ol><li>Kopiere die fiktive Reisekarte oder nimm einen eigenen realen Reiseplan. Eigene Pläne sind gleichwertig; persönliche Buchungsnummern oder Ausweisdaten bleiben draußen.</li><li>Brief die KI mit dem Baukasten: Ziel (drei Vorschläge zum Auswählen), Kontext (Personen, Termin, Budget, Vorlieben), Auftrag (erst Rückfragen, dann Vorschläge mit Kosten), Prüfung (alle Preise als Schätzung markieren).</li><li>Häng den Fragenbohrer aus 04.04 an und schick alles ab.</li><li>Sieh dir die Rückfragen genau an: Welche offene Angabe hättest du selbst nicht bedacht?</li></ol></section>
               </div>
               <div class="lb-panel" data-lbpanel="shop" hidden>
                 <section class="prompt-box">
@@ -1512,7 +1589,7 @@ Der Neue: "Velodrom24", seit März online, wirbt stark mit Suchanzeigen.
 Beobachtet: Versand "ab 0 Euro" beworben, sehr große Auswahl, Lieferzeit laut Startseite 1 bis 2 Werktage.
 Unklar: Rückgaberegeln, Beratung, Qualität der Eigenmarken, echte Bewertungszahlen.</pre>
                 </section>
-                <section class="activity"><strong>10 Min. · dein Analyse-Briefing</strong><ol><li>Faktenblatt kopieren und in den Chat geben. (Alles fiktiv. Im echten Leben gelten die Datenregeln aus Modul 1: keine echten Kundendaten oder Interna, Beobachtungen über Wettbewerber sind unkritisch.)</li><li>Mit dem Baukasten briefen: Ziel (Vergleich fürs Team), Auftrag (erst Rückfragen, dann Vergleichstabelle, dann drei Empfehlungen), Prüfung (jede Zahl markieren lassen, die nicht aus dem Faktenblatt stammt).</li><li>Vergleiche mit deiner Nachbarin oder deinem Nachbarn: Welche Rückfragen hat die KI gestellt?</li></ol></section>
+                <section class="activity"><strong>10 Min. · dein Analyse-Briefing</strong><ol><li>Faktenblatt kopieren und in den Chat geben. (Alles fiktiv. Im echten Leben gelten die Datenregeln aus Modul 1: keine echten Kundendaten oder Interna, Beobachtungen über Wettbewerber sind unkritisch.)</li><li>Mit dem Baukasten briefen: Ziel (Vergleich fürs Team), Auftrag (erst Rückfragen, dann Vergleichstabelle, dann drei Empfehlungen), Prüfung (jede Zahl markieren lassen, die nicht aus dem Faktenblatt stammt).</li><li>Sieh dir die Rückfragen der KI genau an: Welche davon hättest du selbst nicht bedacht?</li></ol></section>
               </div>
               <div class="lb-panel" data-lbpanel="ordnung" hidden>
                 <section class="prompt-box">
@@ -1526,11 +1603,11 @@ Notizen: drei Orte (Handy-Notizen, Zettel-App, E-Mails an mich selbst).
 Unterlagen: Verträge und Bescheide teils als Papier, teils als Scan, teils in E-Mail-Anhängen.
 Zeit: realistisch 30 Minuten pro Woche.</pre>
                 </section>
-                <section class="activity"><strong>10 Min. · dein Ordnungs-Briefing</strong><ol><li>Bestandsaufnahme anpassen (grobe Mengen reichen, es geht um dein echtes Chaos) und in den Chat geben. Die Datenregeln gelten: Beschreibe nur, wo was liegt, lade keine Vertragsinhalte oder sensiblen Dokumente hoch.</li><li>Mit dem Baukasten briefen: Ziel (Ordnungssystem plus Wochenplan), Auftrag (erst Rückfragen, dann höchstens sieben Hauptordner mit Regeln, dann Wochenplan in 30-Minuten-Paketen), Prüfung (markieren lassen, was ein zusätzliches Programm bräuchte).</li><li>Vergleiche mit deiner Nachbarin oder deinem Nachbarn: Welche Rückfragen hat die KI gestellt?</li></ol></section>
+                <section class="activity"><strong>10 Min. · dein Ordnungs-Briefing</strong><ol><li>Bestandsaufnahme anpassen (grobe Mengen reichen, es geht um dein echtes Chaos) und in den Chat geben. Die Datenregeln gelten: Beschreibe nur, wo was liegt, lade keine Vertragsinhalte oder sensiblen Dokumente hoch.</li><li>Mit dem Baukasten briefen: Ziel (Ordnungssystem plus Wochenplan), Auftrag (erst Rückfragen, dann höchstens sieben Hauptordner mit Regeln, dann Wochenplan in 30-Minuten-Paketen), Prüfung (markieren lassen, was ein zusätzliches Programm bräuchte).</li><li>Sieh dir die Rückfragen der KI genau an: Welche davon hättest du selbst nicht bedacht?</li></ol></section>
               </div>
             </div>
             <section class="note"><b>Notfall-Zeile</b><p>Antwortet die KI sofort statt zu fragen? Schick nach: "Stopp — stell mir erst deine Rückfragen."</p></section>
-            <p><b>Heb dir die Antwort auf:</b> Nach der Pause zerlegen wir genau solche Entwürfe mit der Prüflinse.</p>
+            <p><b>Heb dir die Antwort auf:</b> In Modul 5 zerlegst du genau solche Entwürfe mit der Prüflinse.</p>
           </div>
         </article>
       </section>
@@ -1538,19 +1615,19 @@ Zeit: realistisch 30 Minuten pro Woche.</pre>
       <section class="section panel" id="check1" aria-labelledby="check1-title">
         <div class="section-head">
           <p class="kicker">Selbst-Check · 5 Min.</p>
-          <h2 id="check1-title">Kurz-Check vor der Pause</h2>
+          <h2 id="check1-title">Kurz-Check nach Modul 4</h2>
           <p>Drei Fragen zur ersten Hälfte. Erst selbst beantworten, dann aufdecken.</p>
         </div>
         <div class="quiz-grid">
-          <article class="quiz-card" data-quiz><b>Die KI "erinnert sich" an dein Budget aus Nachricht 3 — warum wirklich?</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Kein Gedächtnis: Der komplette Chat wird bei jeder Nachricht neu mitgeschickt, das Budget stand im Paket. (Modul 3)</p></article>
-          <article class="quiz-card" data-quiz><b>Dein Chat ist bei 60 % des Fensters, was tust du?</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Faustregel überschritten: Arbeitsstand zusammenfassen lassen und in einem frischen Chat weitermachen. Den fertigen Handoff-Prompt bekommst du gleich in Modul 5. (Modul 3)</p></article>
+          <article class="quiz-card" data-quiz><b>Die KI "erinnert sich" an dein Budget aus Nachricht 3 — warum wirklich?</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Kein eigenes Modellgedächtnis: Das Produkt hat das Budget aus Verlauf, Zusammenfassung oder gespeicherter Information ins aktuelle Arbeitspaket gelegt. (Modul 3)</p></article>
+          <article class="quiz-card" data-quiz><b>Dein Chat ist lang und die Antworten werden ungenau. Was tust du?</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Die 40-%-Marke ist nur unser Arbeitsalarm: Arbeitsstand prüfen und zusammenfassen, dann die schwierige Aufgabe testweise in einem frischen Chat fortsetzen. Den Handoff-Prompt bekommst du gleich in Modul 5. (Modul 3)</p></article>
           <article class="quiz-card" data-quiz><b>Aus "Hilf mir mal mit dem Vereinsfest" soll ein richtiges Briefing werden. Welche vier Teile?</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Ziel, Kontext, Auftrag (mit "erst Rückfragen"), Format &amp; Prüfung — der Baukasten. (Modul 4)</p></article>
         </div>
       </section>
 
       <div class="pause-banner" role="note">
-        <b>Pause · 15 Minuten</b>
-        <span>Danach: Antworten prüfen und reparieren, Denkzeit, Bilder, Artefakte, Skills.</span>
+        <b>Halbzeit</b>
+        <span>Guter Moment für eine kurze Pause. Danach: Antworten prüfen und reparieren, Denkzeit, Bilder, Artefakte, Skills.</span>
       </div>
 
       <section class="section panel" id="m5" aria-labelledby="m5-title">
@@ -1568,31 +1645,59 @@ Zeit: realistisch 30 Minuten pro Woche.</pre>
           </aside>
           <div class="lesson-body">
             <h3>Die Prüflinse: gut, erfunden, prüfpflichtig</h3>
-            <p>Hier ist ein KI-Analyseentwurf zu unserem Shop-Fall. Er klingt tadellos, und enthält trotzdem Dinge, die nicht im Faktenblatt stehen. Genau die suchen wir. (Das Faktenblatt steht in Übung 04.05 im Tab "Konkurrenz-Analyse".)</p>
-            <section class="prompt-box">
-              <div class="prompt-head"><small>KI-Entwurf zur Konkurrenz-Analyse · finde die Probleme</small><button class="copy-button" type="button" data-copy="#antwort-shop">Kopieren</button></div>
-              <pre id="antwort-shop">Kurz-Analyse: Fahrradkiste vs. Velodrom24 (Entwurf)
-
-Wo Velodrom24 vorn liegt: Gratis-Versand auf alles und Lieferung in 1 bis 2 Werktagen. Auf Trustpilot hält Velodrom24 4,9 Sterne bei über 12.000 Bewertungen und ist mit rund 30 Prozent Marktanteil Marktführer im deutschen Zubehör-Segment.
-
-Wo wir vorn liegen: persönliche Beratung am Telefon und 30 Tage Rückgaberecht, während Velodrom24 nur 14 Tage gewährt.
-
-Empfehlung: Wir sollten unseren Versand ebenfalls auf 0 Euro senken. Bei unseren 860 Bestellungen pro Monat kostet uns das rund 4.300 Euro monatlich.</pre>
-            </section>
-            <section class="activity"><strong>8 Min. · Prüflinse anlegen</strong><p>Markiere im Entwurf vier Stellen: eine brauchbare Aussage, eine Behauptung zum Nachprüfen, eine erfundene Zahl und eine Stelle, die nur du entscheiden kannst. Vergleiche mit dem Faktenblatt aus Modul 4.</p></section>
+            <p>Erzeuge jetzt selbst eine prüfbare Ausgabe in deinem eigenen KI-Tool. Wähle ein Leitbeispiel, kopiere Material und Auftrag in einen frischen Chat und untersuche genau die Antwort, die dein verwendetes Produkt und Modell liefert.</p>
+            <div class="lb-switch" data-lbtabs="leitbeispiel">
+              <div class="lb-tabs" role="group" aria-label="Leitbeispiel für die Prüflinse wählen">
+                <button class="lb-tab" type="button" data-lbtab="trip" aria-pressed="true">Wochenendtrip</button>
+                <button class="lb-tab" type="button" data-lbtab="shop" aria-pressed="false">Konkurrenz-Analyse</button>
+                <button class="lb-tab" type="button" data-lbtab="ordnung" aria-pressed="false">Digitale Ordnung</button>
+              </div>
+              <div class="lb-panel" data-lbpanel="trip">
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Ausgangsmaterial · fiktive Reisekarte</small><button class="copy-button" type="button" data-copy="#pruefmaterial-trip">Kopieren</button></div>
+                  <pre id="pruefmaterial-trip">Zwei Erwachsene, zwei Nächte, Freitag bis Sonntag Ende August 2026. Start Landshut Hbf, nur Bahn, höchstens 3 Stunden je Strecke. Budget höchstens 300 Euro pro Person für Anreise und Unterkunft. Interessen: Altstadt, Wasser, regionales Essen, ruhiger Abend. Höchstens 10 Kilometer Fußweg pro Tag. Reiseziel, Unterkunft, Frühstück und genaue Zeiten sind noch offen.</pre>
+                </section>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Prüfauftrag · Wochenendtrip</small><button class="copy-button" type="button" data-copy="#pruefprompt-trip">Kopieren</button></div>
+                  <pre id="pruefprompt-trip">Erstelle auf Basis des Materials einen kurzen Reisevorschlag mit Ziel, groben Kosten und einem Ablauf für Samstag. Nutze nur belegte Angaben aus dem Material. Kennzeichne jede ergänzte Annahme und jede Angabe, die aktuell geprüft werden muss. Wenn dir eine entscheidende Information fehlt, stelle lieber Rückfragen, statt sie zu erfinden.</pre>
+                </section>
+              </div>
+              <div class="lb-panel" data-lbpanel="shop" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Ausgangsmaterial · fiktives Faktenblatt</small><button class="copy-button" type="button" data-copy="#pruefmaterial-shop">Kopieren</button></div>
+                  <pre id="pruefmaterial-shop">Fahrradkiste: Fahrradzubehör für Alltagsradler und Familien. Versand 4,95 Euro, gratis ab 80 Euro; Lieferzeit 2 bis 4 Werktage; Rückgabe 30 Tage; 4,6 Sterne bei 860 Bewertungen; Stärke Telefonberatung; kleine E-Bike-Auswahl. Velodrom24: seit März online; wirbt mit Versand "ab 0 Euro"; große Auswahl; laut Startseite 1 bis 2 Werktage. Rückgabe, Beratung, Eigenmarken-Qualität und echte Bewertungszahlen sind unklar.</pre>
+                </section>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Prüfauftrag · Konkurrenz-Analyse</small><button class="copy-button" type="button" data-copy="#pruefprompt-shop">Kopieren</button></div>
+                  <pre id="pruefprompt-shop">Erstelle auf Basis des Materials einen kurzen Management-Vergleich mit drei Handlungsempfehlungen. Nutze nur belegte Angaben aus dem Material. Kennzeichne jede ergänzte Annahme und jede Angabe, die aktuell geprüft werden muss. Wenn dir eine entscheidende Information fehlt, stelle lieber Rückfragen, statt sie zu erfinden.</pre>
+                </section>
+              </div>
+              <div class="lb-panel" data-lbpanel="ordnung" hidden>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Ausgangsmaterial · fiktive Bestandsaufnahme</small><button class="copy-button" type="button" data-copy="#pruefmaterial-ordnung">Kopieren</button></div>
+                  <pre id="pruefmaterial-ordnung">Ein Laptop, ein Handy, eine alte externe Festplatte. Download-Ordner ca. 2.400 Dateien; Ordnerstruktur zuletzt 2019 gepflegt. Ca. 18.000 Fotos, viele Screenshots und Duplikate. Notizen an drei Orten. Unterlagen als Papier, Scan und E-Mail-Anhang. Zeitbudget: 30 Minuten pro Woche. Inhalte sensibler Unterlagen werden nicht hochgeladen.</pre>
+                </section>
+                <section class="prompt-box">
+                  <div class="prompt-head"><small>Prüfauftrag · digitale Ordnung</small><button class="copy-button" type="button" data-copy="#pruefprompt-ordnung">Kopieren</button></div>
+                  <pre id="pruefprompt-ordnung">Erstelle auf Basis des Materials einen ersten Ordnungsplan mit höchstens sieben Hauptordnern und drei Wochenpaketen. Nutze nur belegte Angaben aus dem Material. Kennzeichne jede ergänzte Annahme und jede Angabe, die aktuell geprüft werden muss. Wenn dir eine entscheidende Information fehlt, stelle lieber Rückfragen, statt sie zu erfinden.</pre>
+                </section>
+              </div>
+            </div>
+            <section class="activity"><strong>10 Min. · deine eigene KI prüfen</strong><ol><li>Material und Auftrag des gewählten Tabs in einen frischen Chat kopieren.</li><li>Die tatsächlich erhaltene Antwort danebenlegen.</li><li>Markieren: <b>belegt oder brauchbar</b>, <b>prüfpflichtig</b>, <b>nicht belegt oder erfunden</b>, <b>menschliche Entscheidung</b>.</li><li>Zahlen, Quellenbehauptungen und Details kontrollieren, die nicht im Ausgangsmaterial stehen.</li><li>Kurz notieren: Wo arbeitete dieses Modell sauber, wo zeigte es Unsicherheit, wo ergänzte es ungefragt?</li></ol></section>
             <details class="fold">
-              <summary>Auflösung zeigen (erst nach der Übung)</summary>
+              <summary>Prüfbasis zeigen (erst nach deinem Versuch)</summary>
               <div class="fold-body">
                 <div class="summary-strip">
-                  <div><b>Brauchbar</b><span>Struktur (sie vorn / wir vorn / Empfehlung) und die belegten Punkte aus dem Faktenblatt: Telefonberatung, 30 Tage Rückgabe.</span></div>
-                  <div><b>Prüfpflichtig</b><span>"Gratis-Versand auf alles": Das Faktenblatt sagt nur "ab 0 Euro beworben". Bedingungen unklar, erst auf der Website nachsehen.</span></div>
-                  <div><b>Erfunden</b><span>Trustpilot 4,9 Sterne, 12.000 Bewertungen, 30 % Marktanteil, "nur 14 Tage Rückgabe": Nichts davon steht im Material. Und die 860 sind unsere Bewertungen, nicht "Bestellungen pro Monat": echte Zahl, falscher Zusammenhang.</span></div>
-                  <div><b>Deine Entscheidung</b><span>Ob ihr am Versandpreis dreht, entscheidet kein Modell. Gezeigt wird die Analyse erst nach dem Abgleich mit dem Material.</span></div>
+                  <div><b>Belegt oder brauchbar</b><span>Was wörtlich im Material steht, darf als Fakt hinein. Struktur, Formulierungen und nachvollziehbar gekennzeichnete Vorschläge können brauchbar sein, ohne selbst Fakten zu sein.</span></div>
+                  <div><b>Prüfpflichtig</b><span>Trip: Ziel, Preise und Fahrzeiten. Shop: Bedingungen von "ab 0 Euro", Rückgabe und Bewertungszahlen von Velodrom24. Ordnung: Wirkung zusätzlicher Programme oder Zeitprognosen.</span></div>
+                  <div><b>Nicht belegt oder erfunden</b><span>Jede konkrete Zahl, Quelle, Eigenschaft oder Regel, die weder im Material steht noch sichtbar als Annahme markiert ist. Beim Shop sind die 860 Bewertungen, keine Bestellungen.</span></div>
+                  <div><b>Menschliche Entscheidung</b><span>Reiseziel und Buchung, Geschäftsreaktion sowie Lösch- und Prioritätsregeln entscheidest du. Die KI darf Optionen und Folgen sichtbar machen.</span></div>
                 </div>
-                <p class="viz-note">Wie lange hast du gebraucht, die verdrehte 860 zu finden?</p>
+                <p class="viz-note">Auch ein gutes Ergebnis ist ein Ergebnis: Rückfragen, sichtbare Unsicherheit oder gar keine Halluzination zeigen, dass dein Modell in diesem einzelnen Versuch vorsichtig gearbeitet hat.</p>
               </div>
             </details>
-            <section class="note"><b>Sie stimmt dir gern zu</b><p>KI-Modelle neigen dazu, dir zuzustimmen (Fachwort: Gefälligkeit). Auch deshalb ist ihre Empfehlung kein neutrales Urteil. Bitte sie aktiv, dir zu widersprechen.</p></section>
+            <section class="note"><b>Ein Versuch ist keine Zuverlässigkeitsquote</b><p>Modelle antworten unterschiedlich, selbst bei demselben Auftrag. Diese Eigendemo gibt dir ein erstes Gefühl für diese Aufgabenart; sie beweist nicht, dass ein Modell immer zuverlässig oder immer fehlerhaft ist.</p></section>
+            <section class="note"><b>Sie stimmt dir gern zu</b><p>KI-Modelle neigen dazu, dir zuzustimmen (Fachwort: Gefälligkeit, englisch "Sycophancy"). Auch deshalb ist ihre Empfehlung kein neutrales Urteil. Bitte sie aktiv, dir zu widersprechen.</p></section>
             <section class="note"><b>Wie viel Prüfen ist normal?</b><p>Am Anfang prüfst du mehr. Bei einem neuen Modell, einem neuen Tool oder einer neuen Aufgabenart kennst du die typischen Fehler noch nicht. Mit der Zeit merkst du: Hier ist es zuverlässig, hier erfindet es gern Details, hier will ich Quellen sehen. Dann wird Prüfen nicht weniger wichtig, sondern gezielter. Ausnahme ohne Rabatt: Alles mit Folgen (Geld, Recht, Gesundheit, Kunden, Öffentlichkeit) prüfst du immer gründlich, und bei den wirklich großen Entscheidungen holst du das letzte Wort von Fachleuten, nicht vom Modell (Modul 1).</p></section>
           </div>
         </article>
@@ -1620,15 +1725,17 @@ Empfehlung: Wir sollten unseren Versand ebenfalls auf 0 Euro senken. Bei unseren
                 <li>Erst dann im Team zeigen, absenden oder weitergeben.</li>
               </ol>
             </div>
-            <section class="note"><b>Training zuerst, dann gezielt</b><p>Für den Anfang machst du diese Sortierung bewusst gründlich: So lernst du, wo dein Modell sauber arbeitet und wo es gern Details erfindet. Später prüfst du nicht mehr automatisch alles gleich stark, sondern gezielt: Zahlen, Fristen, Namen, Quellen und alles mit Folgen zuerst. Weniger Verantwortung wird es nie, nur besseres Augenmaß. Die komplette Liste der zwölf Warnzeichen, mit denen Profis Entwürfe prüfen, siehst du in Teil 2 als Checkliste.</p></section>
+            <section class="note"><b>Training zuerst, dann gezielt</b><p>Für den Anfang machst du diese Sortierung bewusst gründlich: So lernst du, wo dein Modell sauber arbeitet und wo es gern Details erfindet. Später prüfst du nicht mehr automatisch alles gleich stark, sondern gezielt: Zahlen, Fristen, Namen, Quellen und alles mit Folgen zuerst. Weniger Verantwortung wird es nie, nur besseres Augenmaß. In Teil 2 übernimmt für Alltagsprojekte der Zwei-Achsen-Auftrag diese Rolle; zwölf klassische Code-Warnzeichen stehen dort zusätzlich als eingeklappte Software-Vertiefung.</p></section>
             <section class="prompt-box">
               <div class="prompt-head"><small>Quellen-Reparatur</small><button class="copy-button" type="button" data-copy="#prompt-quellen">Kopieren</button></div>
               <pre id="prompt-quellen">Prüfe deine letzte Antwort kritisch. Liste jede konkrete Behauptung einzeln auf und ordne sie in drei Spalten:
 1. steht so in meinem Material oder Auftrag
 2. ist eine Annahme von dir
 3. braucht eine externe Quelle
-Schreibe danach eine korrigierte Version, in der alles aus Spalte 2 und 3 durch Platzhalter oder belegte Angaben ersetzt ist.</pre>
+Suche für Spalte 3, falls du Webzugriff hast, nach möglichst aktuellen Primärquellen: Hersteller, Behörde, Originaldokument oder wissenschaftliche Originalarbeit. Nenne je Quelle Titel, Herausgeber, Datum, Link und den genauen Punkt, den sie belegt. Ohne Webzugriff markierst du diese Angaben ausdrücklich als ungeprüft.
+Schreibe danach eine korrigierte Version: Annahmen klar kennzeichnen, unbelegte Angaben entfernen oder als "zu prüfen" markieren, belegte Angaben mit Quelle versehen. Erfinde keine Quellen.</pre>
             </section>
+            <p class="viz-note"><b>Dein letzter Schritt:</b> Öffne bei einer wichtigen Antwort mindestens zwei der entscheidenden Quellen selbst. Prüfe, ob Seite, Datum und Aussage wirklich zur Behauptung passen. Die Quellen-Reparatur sortiert vor; sie ersetzt diesen Abgleich nicht.</p>
           </div>
         </article>
 
@@ -1648,17 +1755,29 @@ Schreibe danach eine korrigierte Version, in der alles aus Spalte 2 und 3 durch 
               <div><b>Behalten</b><span>Was war gut und soll nicht mit rausfliegen?</span></div>
               <div><b>Neu prüfen</b><span>Nach der Reparatur: Fakten und Annahmen wieder auflisten lassen.</span></div>
             </div>
-            <section class="prompt-box">
-              <div class="prompt-head"><small>Reparatur-Prompt</small><button class="copy-button" type="button" data-copy="#prompt-reparatur">Kopieren</button></div>
-              <pre id="prompt-reparatur">Überarbeite deinen Entwurf gezielt:
-Problem: [z. B. die Bewertungszahl stammt nicht aus meinem Material].
-Beispielstelle: [Satz oder Absatz einfügen].
-Änderung: [z. B. nur Zahlen aus dem Faktenblatt verwenden, Rest als "zu prüfen" markieren, Absatz kürzen].
-Behalten: [z. B. Aufbau und erster Absatz].
-Grenze: Erfinde keine neuen Fakten. Fehlt eine Angabe, nutze einen Platzhalter.
-Prüfung: Liste danach erneut alle Zahlen, Fristen und Annahmen auf.</pre>
-            </section>
-            <section class="activity"><strong>5 Min. · eine Reparatur</strong><p>Nimm deinen Entwurf aus der Briefing-Übung (Modul 4) und repariere genau eine Sache daran mit dem Loop. Nicht neu würfeln, sondern gezielt nachbessern.</p></section>
+            <div class="blocks">
+              <section class="block accent-rose"><b>Zu ungenau</b><p>"Mach das besser." Die KI kennt weder Problemstelle noch Ziel und würfelt leicht den ganzen Entwurf neu.</p></section>
+              <section class="block accent-teal"><b>Hilfreiches Feedback</b><p>"Im zweiten Absatz steht eine unbelegte Bewertungszahl. Entferne sie, markiere die Lücke als zu prüfen und behalte Aufbau und ersten Absatz unverändert."</p></section>
+            </div>
+            <div class="source-grid">
+              <section class="prompt-box">
+                <div class="prompt-head"><small>Beispiel · unbelegte Fakten</small><button class="copy-button" type="button" data-copy="#feedback-fakten">Kopieren</button></div>
+                <pre id="feedback-fakten">Die Zahl "[Stelle einfügen]" ist in meinem Material nicht belegt. Entferne sie und schreibe dort "zu prüfen". Behalte die Tabellenstruktur und alle belegten Angaben. Liste danach jede verbliebene Zahl mit ihrer Grundlage auf.</pre>
+              </section>
+              <section class="prompt-box">
+                <div class="prompt-head"><small>Beispiel · Ton und Länge</small><button class="copy-button" type="button" data-copy="#feedback-ton">Kopieren</button></div>
+                <pre id="feedback-ton">Der Einstieg klingt werblich und der Text ist zu lang. Formuliere die ersten zwei Absätze sachlich und kürze den gesamten Entwurf auf fünf Stichpunkte. Behalte Termine, Beträge und die klare Schlussfrage unverändert.</pre>
+              </section>
+              <section class="prompt-box">
+                <div class="prompt-head"><small>Beispiel · fehlende Struktur</small><button class="copy-button" type="button" data-copy="#feedback-struktur">Kopieren</button></div>
+                <pre id="feedback-struktur">Im Plan fehlt, wer was bis wann erledigt. Ergänze zu jedem Schritt eine verantwortliche Rolle und einen Termin-Platzhalter. Ändere die Reihenfolge der vorhandenen Schritte nicht und erfinde keine Namen oder Daten.</pre>
+              </section>
+              <section class="prompt-box">
+                <div class="prompt-head"><small>Beispiel · Ziel verfehlt</small><button class="copy-button" type="button" data-copy="#feedback-ziel">Kopieren</button></div>
+                <pre id="feedback-ziel">Ich brauche eine Entscheidungsvorlage, keine Hintergrund-Zusammenfassung. Baue den Mittelteil in drei Optionen mit Vor-, Nachteilen und offenen Prüfpunkten um. Behalte die belegte Ausgangslage und den neutralen Ton.</pre>
+              </section>
+            </div>
+            <section class="activity"><strong>6 Min. · ein vollständiger kleiner Loop</strong><ol><li>Nimm deine eigene Ausgabe aus 05.01 und benenne genau eine Problemstelle.</li><li>Gib präzises Feedback: Ziel, Stelle, gewünschte Änderung und was erhalten bleiben soll.</li><li>Vergleiche alte und neue Fassung nebeneinander. Hat die KI nur die bestellte Stelle verändert?</li><li>Prüfe Zahlen, Annahmen und Ziel erneut. Wenn nötig, folgt eine zweite kleine Rückmeldung, kein kompletter Neustart.</li></ol></section>
           </div>
         </article>
 
@@ -1669,24 +1788,24 @@ Prüfung: Liste danach erneut alle Zahlen, Fristen und Annahmen auf.</pre>
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
-            <h3>HANDOFF: der saubere Umzug aus der Dumb Zone</h3>
+            <h3>Handoff: der saubere Umzug aus der Dumb Zone</h3>
             <p>Das versprochene Gegenmittel aus Modul 3. Wenn ein Chat lang, zäh oder vergesslich geworden ist, lässt du ihn seinen eigenen Nachlass schreiben, und startest frisch, ohne den Arbeitsstand zu verlieren. In Matt Pococks Skill-Sammlung heißt dieser Ablauf handoff. So sieht der echte Skill von innen aus: normale Sprache, keine Programmierung.</p>
             <section class="prompt-box">
               <div class="prompt-head"><small>Original-Skilltext · handoff (Matt Pocock, englisch)</small><button class="copy-button" type="button" data-copy="#skilltext-handoff">Kopieren</button></div>
-              <pre id="skilltext-handoff">Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS - not the current workspace.
+              <pre id="skilltext-handoff" lang="en">Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS - not the current workspace.
 
 Include a "suggested skills" section in the document, which suggests skills that the agent should invoke.
 
-Do not duplicate content already captured in other artifacts (PRDs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
+Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
 
 Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
 
 If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.</pre>
             </section>
             <section class="note"><b>Auf Deutsch, kurz</b><p>"Schreib ein Übergabe-Dokument, mit dem ein frischer Chat die Arbeit fortsetzen kann. Wiederhole nichts, was schon woanders festgehalten ist — verweise darauf. Entferne sensible Daten. Sage ich dir, worum es als Nächstes geht, richte das Dokument danach aus."</p></section>
-            <p>Merk dir diesen Text: Heute benutzt du ihn als simplen Prompt, in Modul 9 installierst du ihn als wiederverwendbaren Skill. Das Original spricht einen Agenten an (Übergabe als Datei, Fachwörter wie "PRDs" darfst du ignorieren). Für den normalen Chat reicht unsere deutsche Prompt-Fassung:</p>
+            <p>Merk dir diesen Text: Heute benutzt du ihn als simplen Prompt, in Modul 9 installierst du ihn als wiederverwendbaren Skill. Das Original spricht einen Agenten an (Übergabe als Datei, Fachwörter wie "specs" oder "ADRs" darfst du ignorieren). Für den normalen Chat reicht unsere deutsche Prompt-Fassung:</p>
             <section class="prompt-box">
-              <div class="prompt-head"><small>HANDOFF als Chat-Prompt · Übergabe in einen neuen Chat</small><button class="copy-button" type="button" data-copy="#prompt-handoff">Kopieren</button></div>
+              <div class="prompt-head"><small>Handoff als Chat-Prompt · Übergabe in einen neuen Chat</small><button class="copy-button" type="button" data-copy="#prompt-handoff">Kopieren</button></div>
               <pre id="prompt-handoff">Fasse den Arbeitsstand dieses Chats für einen neuen Chat zusammen:
 1. Ziel der Aufgabe
 2. Wichtige Fakten und Materialien
@@ -1697,9 +1816,10 @@ If the user passed arguments, treat them as a description of what the next sessi
 Kompakt und ohne Wiederholungen. Die Zusammenfassung ist der einzige Kontext, den der neue Chat bekommt.</pre>
             </section>
             <div class="blocks">
-              <section class="block accent-teal"><b>Wann du ihn ziehst</b><p>Der Chat wiederholt sich, vergisst Regeln, verwechselt Details, oder das Kontextfenster-Meter in deinem Kopf zeigt Richtung 40 %.</p></section>
+              <section class="block accent-teal"><b>Wann du ihn ziehst</b><p>Der Chat wiederholt sich, übersieht Regeln, verwechselt Details, oder dein Arbeitsalarm zeigt: Das Paket ist zu groß und unübersichtlich geworden.</p></section>
               <section class="block accent-blue"><b>Warum das wirkt</b><p>Der neue Chat startet in der Smart Zone: wenig Kontext, aber der richtige. Alte Irrwege und totes Material bleiben zurück.</p></section>
             </div>
+            <section class="activity"><strong>2 Min. · Übergabe prüfen</strong><ol><li>Vergleiche Ziel, Zahlen, Entscheidungen und offene Punkte mit deinen Originalunterlagen.</li><li>Korrigiere Fehler und entferne sensible Daten.</li><li>Starte erst dann den neuen Chat mit der geprüften Übergabe. Eine Zusammenfassung ist ein Entwurf, keine neue Originalquelle.</li></ol></section>
           </div>
         </article>
       </section>
@@ -1708,7 +1828,7 @@ Kompakt und ohne Wiederholungen. Die Zusammenfassung ist der einzige Kontext, de
         <div class="section-head">
           <p class="kicker">Modul 6 · ca. 12 Min.</p>
           <h2 id="m6-title">Denkzeit &amp; Modellwahl</h2>
-          <p>Moderne KI-Tools haben einen Regler, den viele nie anfassen: Wie lange darf das Modell nachdenken, bevor es antwortet? Mehr Denkzeit heißt bessere Ergebnisse bei kniffligen Aufgaben, und Verschwendung bei einfachen.</p>
+          <p>Moderne KI-Tools haben einen Regler, den viele nie anfassen: Wie viel Rechenaufwand darf das Modell vor der Antwort einsetzen? Mehr Aufwand kann bei kniffligen Aufgaben helfen und ist bei einfachen meist Verschwendung.</p>
         </div>
 
         <article class="lesson" id="m6-01">
@@ -1722,8 +1842,8 @@ Kompakt und ohne Wiederholungen. Die Zusammenfassung ist der einzige Kontext, de
             <p>Mit eingeschaltetem Thinking arbeitet das Modell erst einen internen Denkprozess ab, es plant, rechnet nach, verwirft Zwischenschritte, und antwortet dann. Im Kopf reichen drei Stufen:</p>
             <div class="blocks">
               <section class="block accent-teal"><b>Schnell antworten</b><p>Der Normalfall: eine E-Mail umformulieren, zusammenfassen, Ideen sammeln. Antwort in Sekunden.</p></section>
-              <section class="block accent-blue"><b>Nachdenken lassen</b><p>Mehrere Bedingungen auf einmal, Logik, Planung: etwa eine Vertragsklausel Schritt für Schritt prüfen. Kostet Wartezeit, bringt Verlässlichkeit.</p></section>
-              <section class="block accent-violet"><b>Maximum bei hohem Einsatz</b><p>Wenn Fehler teuer wären: höchste Stufe, Minuten Wartezeit — und deine eigene Prüfung am Ende trotzdem.</p></section>
+              <section class="block accent-blue"><b>Nachdenken lassen</b><p>Mehrere Bedingungen auf einmal, Logik, Planung: etwa eine Vertragsklausel Schritt für Schritt untersuchen. Kostet Wartezeit und kann beim systematischen Abarbeiten helfen.</p></section>
+              <section class="block accent-violet"><b>Mehr Aufwand bei schwierigen Aufgaben</b><p>Wenn die Aufgabe wirklich komplex ist: eine hohe passende Stufe wählen. Wenn Fehler teuer wären, zählen zusätzlich Originalquellen und fachliche Prüfung; Denkzeit allein macht keine Antwort sicher.</p></section>
             </div>
             <p>Die sechs Rasten unten sind die Feinstufen dazu, unsere Kurs-Skala über alle Tools hinweg (wie sie in den einzelnen Produkten heißen, zeigt 06.03). Klick dich durch:</p>
             <div class="viz" data-viz="think">
@@ -1732,11 +1852,11 @@ Kompakt und ohne Wiederholungen. Die Zusammenfassung ist der einzige Kontext, de
                 <span class="viz-tag">Zum Ausprobieren</span>
               </div>
               <div class="think-steps" role="group" aria-label="Denkzeit-Stufen">
-                <button class="think-step" type="button" data-think="0" aria-pressed="true">ohne</button>
+                <button class="think-step" type="button" data-think="0" aria-pressed="true">Ohne</button>
                 <button class="think-step" type="button" data-think="1" aria-pressed="false">Low</button>
                 <button class="think-step" type="button" data-think="2" aria-pressed="false">Medium</button>
                 <button class="think-step" type="button" data-think="3" aria-pressed="false">High</button>
-                <button class="think-step" type="button" data-think="4" aria-pressed="false">x High</button>
+                <button class="think-step" type="button" data-think="4" aria-pressed="false">xHigh</button>
                 <button class="think-step" type="button" data-think="5" aria-pressed="false">Max</button>
               </div>
               <div class="think-panel">
@@ -1747,19 +1867,26 @@ Kompakt und ohne Wiederholungen. Die Zusammenfassung ist der einzige Kontext, de
               <p class="think-map" id="thinkMap">—</p>
               <p class="viz-note">Auch per Tastatur: mit Tab zur Stufe, mit Enter oder Leertaste auswählen, mit den Pfeiltasten links/rechts durch die Stufen.</p>
             </div>
-            <section class="note"><b>Kosten &amp; Kontingent</b><p>Thinking-Nachrichten sind in den Abos kontingentiert und dauern länger. Wer alles auf Maximum stellt, wartet öfter und stößt früher ans Limit.</p></section>
+            <section class="note"><b>Kosten &amp; Kontingent</b><p>Mehr Denkaufwand dauert länger und kann stärker auf Nutzungsgrenzen oder Guthaben schlagen. Wer alles auf Maximum stellt, wartet öfter und stößt je nach Produkt früher ans Limit.</p></section>
+            <section class="block accent-violet"><b>Ultra ist keine siebte Denkzeit-Stufe</b><p>Der Regler endet bewusst bei <b>Max</b>. Mehr Denkaufwand eines einzelnen Agenten und die Orchestrierung mehrerer Agenten sind zwei verschiedene Dinge.</p></section>
+            <div class="blocks">
+              <section class="block accent-blue"><b>ChatGPT Work / Codex · GPT-5.6 Ultra</b><p><code>Max</code> gibt einem ausgewählten Modell mehr Arbeitszeit. <code>Ultra</code> ist ein eigener Mehr-Agenten-Modus und koordiniert standardmäßig vier Agenten parallel. Das kostet deutlich mehr Token und lohnt nur für anspruchsvolle Aufgaben, die sich sinnvoll aufteilen lassen; es ist nicht der normale Free-Chat.</p></section>
+              <section class="block accent-teal"><b>Claude · Effort und Thinking</b><p>Effort steuert, wie viel Rechenaufwand Claude einsetzt. Ob und wie adaptives oder erweitertes Denken angeboten wird, hängt von Modell und Oberfläche ab. Die Namen in deinem Menü sind maßgeblich.</p></section>
+              <section class="block accent-amber"><b>Claude Code · Dynamic Workflows</b><p>Das ist ein Enterprise-Workflow für große Engineering-Aufgaben, die stundenlang laufen können. Es ist weder eine normale Claude-Chat-Effort-Stufe noch ein Skill im Sinn von Modul 9.</p></section>
+            </div>
+            <p class="viz-note">Stand 11.07.2026. Pläne, Namen und Verfügbarkeit ändern sich. Quellen: <a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">OpenAI zu GPT-5.6</a>, <a href="https://support.claude.com/en/articles/8664678-change-the-model-effort-and-thinking-settings" target="_blank" rel="noreferrer">Claude Effort &amp; Thinking</a> und <a href="https://support.claude.com/de/articles/12386420-claude-code-faq" target="_blank" rel="noreferrer">Claude Code Dynamic Workflows</a>.</p>
           </div>
         </article>
 
         <article class="lesson" id="m6-02">
           <aside class="lesson-side">
             <span class="lesson-number">06.02</span>
-            <span class="track demo">Demo</span>
+            <span class="track">Mitmachen</span>
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
-            <h3>A/B-Demo: dieselbe Aufgabe, einmal ohne, einmal mit Thinking</h3>
-            <p>Live-Demo: zweimal dieselbe knifflige Aufgabe, einmal im schnellen Modus, einmal mit Thinking. Achte auf drei Dinge: Wie lange dauert es? Legt das Modell seinen Denkweg offen? Und welche Antwort übersteht den Faktencheck? Jedes Leitbeispiel hat eine A/B-Aufgabe, in der genau eine Option alle Bedingungen erfüllt:</p>
+            <h3>A/B-Test: dieselbe Aufgabe, einmal ohne, einmal mit Thinking</h3>
+            <p>Löse die gewählte Aufgabe zuerst selbst. Schick sie danach zweimal ab: einmal im schnellen Modus, einmal mit Thinking. Vergleiche vier Dinge: richtige Auswahl, vollständig erkannte Ausschlussgründe, verständliche Begründung und Dauer. Wenn du Zeit hast, wiederhole beide Läufe einmal; einzelne Antworten schwanken. Jedes Leitbeispiel hat eine A/B-Aufgabe, in der genau eine Option alle Bedingungen erfüllt:</p>
             <div class="lb-switch" data-lbtabs="leitbeispiel">
               <div class="lb-tabs" role="group" aria-label="Leitbeispiel wählen">
                 <button class="lb-tab" type="button" data-lbtab="trip" aria-pressed="true">Wochenendtrip</button>
@@ -1777,7 +1904,7 @@ C) ab 16:50, an 20:05, 2 Umstiege (15 und 11 Min.)
 D) ab 17:02, an 20:55, direkt
 E) ab 17:15, an 20:20, 1 Umstieg (8 Min.)
 F) ab 18:01, an 21:40, direkt
-Welche Verbindungen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verworfene Verbindung.</pre>
+Welche Verbindungen erfüllen alle Bedingungen? Nenne zu jeder verworfenen Verbindung kurz die verletzte Bedingung.</pre>
                 </section>
                 <article class="quiz-card" data-quiz><b>Auflösung (erst selbst prüfen)</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Nur B erfüllt alles: A fährt zu früh ab, C hat zwei Umstiege, D und F kommen zu spät an, E hat nur 8 Minuten Umstiegszeit.</p></article>
               </div>
@@ -1792,7 +1919,7 @@ C) Kosten 260 Euro, 14 Tage, 65 Neukunden, Marge 21 %
 D) Kosten 300 Euro, 21 Tage, 90 Neukunden, Marge 26 %
 E) Kosten 290 Euro, 12 Tage, 55 Neukunden, Marge 18 %
 F) Kosten 320 Euro, 9 Tage, 75 Neukunden, Marge 28 %
-Welche Aktionen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verworfene Aktion.</pre>
+Welche Aktionen erfüllen alle Bedingungen? Nenne zu jeder verworfenen Aktion kurz die verletzte Bedingung.</pre>
                 </section>
                 <article class="quiz-card" data-quiz><b>Auflösung (erst selbst prüfen)</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Nur C erfüllt alles: A bringt zu wenige Neukunden, B und D laufen zu lange, E drückt die Marge unter 20 %, F sprengt das Budget.</p></article>
               </div>
@@ -1807,14 +1934,14 @@ C) 30 Min. pro Woche, Bordmittel, Altbestand in 10 Wochen, mit Einsortier-Regel
 D) 20 Min. pro Woche, Bordmittel, Altbestand in 16 Wochen, mit Einsortier-Regel
 E) 30 Min. pro Woche, Bordmittel, Altbestand in 8 Wochen, ohne Regel für Neues
 F) 25 Min. pro Woche, kostenlose Zusatz-App nötig, Altbestand in 12 Wochen, mit Einsortier-Regel
-Welche Routinen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verworfene Routine.</pre>
+Welche Routinen erfüllen alle Bedingungen? Nenne zu jeder verworfenen Routine kurz die verletzte Bedingung.</pre>
                 </section>
                 <article class="quiz-card" data-quiz><b>Auflösung (erst selbst prüfen)</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Nur C erfüllt alles: A kostet zu viel Zeit pro Woche, B kostet Geld, D braucht 16 Wochen, E hat keine Regel für Neues, F braucht eine Zusatz-App.</p></article>
               </div>
             </div>
             <div class="blocks">
-              <section class="block accent-amber"><b>Typisch ohne Thinking</b><p>Sofort eine flüssige Antwort, aber bei mehreren gleichzeitigen Bedingungen rutscht gern eine durch. Plausibel formuliert, im Detail falsch.</p></section>
-              <section class="block accent-teal"><b>Typisch mit Thinking</b><p>Spürbare Wartezeit, dann eine Antwort, die Bedingungen einzeln abarbeitet und Widersprüche selbst anmerkt. Nicht unfehlbar, aber messbar verlässlicher.</p></section>
+              <section class="block accent-amber"><b>Was du beim schnellen Lauf beobachten kannst</b><p>Er kann die Aufgabe sofort richtig lösen. Er kann aber auch eine Bedingung übersehen. Entscheidend ist dein Abgleich mit der Auflösung, nicht der flüssige Ton.</p></section>
+              <section class="block accent-teal"><b>Was du beim Thinking-Lauf beobachten kannst</b><p>Er braucht meist länger und arbeitet die Bedingungen möglicherweise systematischer ab. Auch dieser Lauf kann falsch sein. Dein kleiner A/B-Test zeigt nur diese Versuche, keine allgemeine Zuverlässigkeitsquote.</p></section>
             </div>
           </div>
         </article>
@@ -1828,22 +1955,23 @@ Welche Routinen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verw
           <div class="lesson-body">
             <h3>So heißt der Regler in den Tools</h3>
             <p>Zwei Fragen nicht verwechseln: Die Modellwahl beantwortet "welcher Motor?", die Denkzeit-Stufe "wie viel Aufwand vor der Antwort?".</p>
-            <section class="block accent-blue"><b>Modell vs. Produkt</b><p>ChatGPT ist das Produkt (Chat, Websuche, Bilder, Dateien). GPT-5.5 ist das Modell darin. Wie Auto und Motor. Claude und Gemini sind andere Autos mit anderen Motoren — und die Modellwahl im Menü tauscht den Motor.</p></section>
+            <section class="block accent-blue"><b>Modell vs. Produkt</b><p>ChatGPT ist das Produkt (Chat, Websuche, Bilder, Dateien); GPT-5.5 oder GPT-5.6 sind Modelle darin. Wie Auto und Motor. Wichtig: Der normale ChatGPT-Chat und die Agentenoberfläche ChatGPT Work/Codex bieten nicht dieselbe Auswahl. Terra ist ein GPT-5.6-Modell in Work/Codex, nicht das Standardmodell des normalen Free-Chats.</p></section>
             <details class="fold">
               <summary>Nachschlagen: so heißt der Schalter in deinem Tool</summary>
               <div class="fold-body">
             <div class="table-scroll">
               <table class="fact-table">
-                <thead><tr><th>Tool</th><th>Modellwahl</th><th>Denkzeit-Stufen</th><th>Im Kurs</th></tr></thead>
+                <caption>Modell- und Denkzeitwahl in aktuellen KI-Produkten</caption>
+                <thead><tr><th scope="col">Tool</th><th scope="col">Modellwahl</th><th scope="col">Denkzeit-Stufen</th><th scope="col">Im Kurs</th></tr></thead>
                 <tbody>
-                  <tr><td><b>ChatGPT</b></td><td>Instant · Thinking · Pro (alle GPT-5.5; Instant eskaliert bei Bedarf automatisch zu Thinking)</td><td>Thinking-Zeit: Standard · Erweitert (ab Plus); Pro zusätzlich Light · Heavy</td><td>Unser Übungstool. Free: Instant plus automatische Eskalation, kein Stufen-Menü.</td></tr>
-                  <tr><td><b>Claude</b></td><td>Modellfamilie: Fable 5 · Opus 4.8 · Sonnet 5 · Haiku 4.5</td><td>Effort: Niedrig · Mittel · Hoch · Max, plus "Denken"-Schalter. Fable 5 regelt seine Denkzeit adaptiv selbst.</td><td>Das Demo-Tool des Kurses für Artefakte und Skills. Von hier stammt unsere Kurs-Skala.</td></tr>
-                  <tr><td><b>Gemini</b></td><td>Fast (3 Flash) · Thinking · Pro (3.1 Pro)</td><td>Thinking-Level Standard · Extended (laut Berichten); Deep Think nur im Ultra-Abo</td><td>Erwähnung: Googles Gegenstück, ändert sich gerade häufig.</td></tr>
-                  <tr><td><b>Codex</b></td><td>Agenten-Tool von OpenAI, Modell GPT-5.5</td><td>Reasoning: none · low · medium · high · xhigh</td><td>Nur Ausblick: So sieht der Regler bei Agenten-Tools aus.</td></tr>
+                  <tr><th scope="row"><b>ChatGPT · normaler Chat</b></th><td>Instant = GPT-5.5. Die Thinking-Auswahl nutzt auf berechtigten Bezahlplänen GPT-5.6 Sol; Pro nutzt Sol Pro.</td><td>Instant ohne manuelle Stufe · Medium · High · je nach Plan Extra High. Free/Go erhalten GPT-5.6 Sol derzeit nicht.</td><td>Unser Übungstool. Die Aufgaben funktionieren auch ohne volles Stufen-Menü.</td></tr>
+                  <tr><th scope="row"><b>ChatGPT Work / Codex</b></th><td>Agentenoberflächen mit GPT-5.6 Sol, Terra und Luna je nach Plan.</td><td>Light beziehungsweise Low, Medium, High, Extra High; Max gibt einem Modell mehr Zeit. Ultra ist separat und arbeitet mit mehreren Agenten.</td><td>Optionaler Weg in Teil 2, wenn dein Werkzeug Ordner und Skills unterstützt.</td></tr>
+                  <tr><th scope="row"><b>Claude</b></th><td>Modellfamilie: Fable 5 · Opus 4.8 · Sonnet 5 · Haiku 4.5</td><td>Effort und Thinking sind modell- und oberflächenabhängig; die sichtbaren Stufen können sich unterscheiden.</td><td>Optionaler kompatibler Agent für Teil 2, nicht Voraussetzung.</td></tr>
+                  <tr><th scope="row"><b>Gemini</b></th><td>Gemini 3 Flash-Lite · 3 Flash · 3 Pro</td><td>Standard Thinking · Extended Thinking; Deep Think nur im AI-Ultra-Angebot und mit Pro.</td><td>Googles Gegenstück; Namen und Verfügbarkeit ändern sich häufig.</td></tr>
                 </tbody>
               </table>
             </div>
-            <p><small>Stand 03.07.2026, laut Hilfeseiten der Anbieter. Die Namen ändern sich schnell; das Prinzip (mehr Denkzeit = besser bei knifflig, verschwendet bei einfach) bleibt.</small></p>
+            <p><small>Stand 11.07.2026, laut Hilfe- und Produktseiten der Anbieter. Prüfe die sichtbaren Namen in deinem eigenen Tool: Oberfläche, Tarif und Verfügbarkeit ändern sich schnell. Das Prinzip bleibt: mehr Rechenaufwand kann bei kniffligen Aufgaben helfen, ersetzt aber weder gute Eingaben noch Prüfung.</small></p>
               </div>
             </details>
             <section class="note"><b>Faustregel</b><p>Einfache Aufgabe: schnelles Modell ohne Stufe. Knifflig oder mehrschrittig: Thinking einschalten, Medium/High. Richtig wichtig: höchste Stufe, und trotzdem selbst prüfen, denn Denkzeit ersetzt die Prüflinse nicht.</p></section>
@@ -1854,8 +1982,8 @@ Welche Routinen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verw
       <section class="section panel" id="m7" aria-labelledby="m7-title">
         <div class="section-head">
           <p class="kicker">Modul 7 · ca. 12 Min.</p>
-          <h2 id="m7-title">Bilder erzeugen</h2>
-          <p>Jetzt wird es sichtbar: Alle erzeugen ein Bild zum Wochenendtrip. Gute Bild-Prompts folgen denselben Regeln wie gute Text-Prompts: beschreiben statt raten lassen.</p>
+          <h2 id="m7-title">Bilder erzeugen und bearbeiten</h2>
+          <p>Jetzt wird es sichtbar: Du erzeugst ein neues Bild oder veränderst ein vorhandenes gezielt. Gute Bild-Prompts folgen denselben Regeln wie gute Text-Prompts: Zweck, Motiv, Stil, Stimmung, Format und gewünschte Änderung klar benennen.</p>
         </div>
 
         <article class="lesson" id="m7-01">
@@ -1865,52 +1993,35 @@ Welche Routinen erfüllen alle Bedingungen? Zeige deinen Prüfweg für jede verw
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
-            <h3>Live-Block: dein Trip-Plakat</h3>
-            <p>Schick einen der Prompts unten in ChatGPT ab (Free kann Bilder, aber limitiert und langsamer. Rechne mit 1 bis 2 Bildern, danach heißt es warten). Such dir einen Stil aus, der dich reizt: Alle vier folgen demselben Muster aus Motiv, Stil, Stimmung und Format. Limit erreicht oder kein Konto: Schau bei deiner Nachbarin mit, die vier Regeln sind der eigentliche Lernstoff.</p>
-            <div class="lb-switch" data-lbtabs="bildstil">
-              <div class="lb-tabs" role="group" aria-label="Bildstil wählen">
-                <button class="lb-tab" type="button" data-lbtab="plakat" aria-pressed="true">1920er-Plakat</button>
-                <button class="lb-tab" type="button" data-lbtab="kunst" aria-pressed="false">Moderne Kunst</button>
-                <button class="lb-tab" type="button" data-lbtab="mittelalter" aria-pressed="false">Mittelalter</button>
-                <button class="lb-tab" type="button" data-lbtab="zukunft" aria-pressed="false">Zukunft</button>
-              </div>
-              <div class="lb-panel" data-lbpanel="plakat">
-                <section class="prompt-box">
-                  <div class="prompt-head"><small>Bild-Prompt · 1920er-Reiseplakat</small><button class="copy-button" type="button" data-copy="#prompt-bild">Kopieren</button></div>
-                  <pre id="prompt-bild">Erstelle ein Bild: ein Reiseplakat im Stil der 1920er-Jahre für einen Wochenendtrip nach [dein Ziel aus Modul 1].
-Motiv: Altstadt-Silhouette am Wasser in der Abendsonne, im Vordergrund zwei Fahrräder.
-Stimmung: warm, einladend, leicht nostalgisch. Format: Hochformat.
-Ohne Text im Bild, die Überschrift setze ich später selbst.</pre>
-                </section>
-              </div>
-              <div class="lb-panel" data-lbpanel="kunst" hidden>
-                <section class="prompt-box">
-                  <div class="prompt-head"><small>Bild-Prompt · modernes Kunstplakat</small><button class="copy-button" type="button" data-copy="#prompt-bild-kunst">Kopieren</button></div>
-                  <pre id="prompt-bild-kunst">Erstelle ein Bild: ein modernes Kunstplakat für einen Wochenendtrip nach [dein Ziel aus Modul 1].
-Motiv: die Altstadt am Wasser, reduziert auf einfache geometrische Formen im Bauhaus-Stil.
-Stil: kräftige Farbflächen, klare Linien, viel Weißraum. Stimmung: mutig, frisch, aufgeräumt.
-Format: Hochformat. Ohne Text im Bild, die Überschrift setze ich später selbst.</pre>
-                </section>
-              </div>
-              <div class="lb-panel" data-lbpanel="mittelalter" hidden>
-                <section class="prompt-box">
-                  <div class="prompt-head"><small>Bild-Prompt · mittelalterliche Buchmalerei</small><button class="copy-button" type="button" data-copy="#prompt-bild-mittelalter">Kopieren</button></div>
-                  <pre id="prompt-bild-mittelalter">Erstelle ein Bild: [dein Ziel aus Modul 1] als Szene aus einer mittelalterlichen Buchmalerei.
-Motiv: Stadtmauer und Fluss mit Booten, davor eine kleine Marktszene, goldene Verzierungen am Bildrand.
-Stil: illuminierte Handschrift, kräftige Farben, flache Perspektive. Stimmung: feierlich, ein bisschen verspielt.
-Format: Hochformat. Ohne Text im Bild.</pre>
-                </section>
-              </div>
-              <div class="lb-panel" data-lbpanel="zukunft" hidden>
-                <section class="prompt-box">
-                  <div class="prompt-head"><small>Bild-Prompt · Filmplakat aus der Zukunft</small><button class="copy-button" type="button" data-copy="#prompt-bild-zukunft">Kopieren</button></div>
-                  <pre id="prompt-bild-zukunft">Erstelle ein Bild: [dein Ziel aus Modul 1] im Jahr 2126, als Filmplakat.
-Motiv: die bekannte Altstadt-Silhouette, ergänzt um schwebende Bahnen und Lichtspuren am Abendhimmel.
-Stil: fotorealistisches Science-Fiction-Plakat. Stimmung: staunend und optimistisch, nicht düster.
-Format: Hochformat. Ohne Text im Bild.</pre>
-                </section>
+            <h3>Jetzt du: wähle eine von zehn Bildaufgaben</h3>
+            <p>Schick einen Prompt in dein Bildwerkzeug (ChatGPT Free kann Bilder, ist aber stärker limitiert und kann langsamer sein). Die Auswahl zeigt bewusst verschiedene Zwecke statt zehn Varianten desselben Plakats.</p>
+            <div class="image-task-group">
+              <h4>Neu erzeugen · 6 Aufgaben</h4>
+              <div class="image-task-grid">
+                <section class="prompt-box"><div class="prompt-head"><small>1 · Reise-Postkarte</small><button class="copy-button" type="button" data-copy="#img-postkarte">Kopieren</button></div><pre id="img-postkarte">Erzeuge eine atmosphärische Postkarten-Illustration für [Reiseziel]. Motiv: Altstadt am Wasser, spätes Nachmittagslicht, zwei Reisende von hinten. Stil: klare Magazinillustration, warm und einladend. Format: Querformat 3:2. Rechts oben ruhige freie Fläche lassen; keinen Text ins Bild setzen.</pre></section>
+                <section class="prompt-box"><div class="prompt-head"><small>2 · Fotorealistisches Reisemotiv</small><button class="copy-button" type="button" data-copy="#img-fotoreal">Kopieren</button></div><pre id="img-fotoreal">Erzeuge eine glaubwürdige Reisefotografie von [Ort]. Perspektive: Augenhöhe an einer Uferpromenade, 35-mm-Foto-Look, früher Morgen nach leichtem Regen. Stimmung: ruhig, frisch, nicht werblich. Format: Querformat 16:9. Keine Schrift und keine Logos.</pre></section>
+                <section class="prompt-box"><div class="prompt-head"><small>3 · Packlisten-Flatlay</small><button class="copy-button" type="button" data-copy="#img-flatlay">Kopieren</button></div><pre id="img-flatlay">Erzeuge ein übersichtliches Flatlay aus der Vogelperspektive: Gegenstände für zwei Personen und zwei Nächte mit Bahnreise, geordnet in Kleidung, Technik, Papiere und Apotheke. Stil: realistische Studiofotografie auf hellem, ruhigem Hintergrund. Format: quadratisch. Keine Beschriftungen im Bild.</pre></section>
+                <section class="prompt-box"><div class="prompt-head"><small>4 · Kleine Icon-Serie</small><button class="copy-button" type="button" data-copy="#img-icons">Kopieren</button></div><pre id="img-icons">Erzeuge vier zusammenpassende Symbole für Anreise, Unterkunft, Essen und Aktivität. Stil: einfache flache Vektorformen, einheitliche Linienbreite, Petrol und Dunkelblau, ohne Text. Jedes Symbol klar getrennt auf ruhigem hellem Hintergrund. Format: quadratische Übersicht.</pre></section>
+                <section class="prompt-box"><div class="prompt-head"><small>5 · Storyboard</small><button class="copy-button" type="button" data-copy="#img-storyboard">Kopieren</button></div><pre id="img-storyboard">Erzeuge ein Storyboard aus vier gleich großen Bildern eines Reisetages: Ankunft am Bahnhof, Altstadtspaziergang, Essen am Wasser, ruhiger Abend. Dieselben zwei erwachsenen Personen, Kleidung und Farbwelt in allen vier Bildern konsistent. Stil: klare redaktionelle Illustration. Format: breites 2×2-Raster, ohne Text.</pre></section>
+                <section class="prompt-box"><div class="prompt-head"><small>6 · Historisch inspiriertes Plakat</small><button class="copy-button" type="button" data-copy="#img-plakat">Kopieren</button></div><pre id="img-plakat">Erzeuge ein historisch inspiriertes Reiseplakat für [Reiseziel], ohne einen bestimmten lebenden oder geschützten Künstler nachzuahmen. Motiv: Altstadt-Silhouette am Wasser, zwei Fahrräder im Vordergrund. Kräftige vereinfachte Formen, warme Abendfarben, leicht nostalgisch. Format: Hochformat. Ohne Text; Überschrift wird später ergänzt.</pre></section>
               </div>
             </div>
+            <section class="note"><b>Vor dem Hochladen</b><p>Bearbeite nur eigene oder rechtmäßig verwendbare Bilder. Bei privaten Fotos gelten die Datenregeln: keine sensiblen Aufnahmen und keine erkennbaren fremden Personen ohne passende Erlaubnis.</p></section>
+            <div class="image-task-group">
+              <h4>Vorhandenes Bild bearbeiten · 2 Aufgaben</h4>
+              <div class="image-task-grid">
+                <section class="prompt-box"><div class="prompt-head"><small>7 · Störendes Element entfernen</small><button class="copy-button" type="button" data-copy="#img-entfernen">Kopieren</button></div><pre id="img-entfernen">Ich lade ein eigenes Foto hoch. Entferne ausschließlich [störendes Objekt] aus [genaue Position]. Rekonstruiere den Hintergrund passend. Verändere Perspektive, Bildausschnitt, Personen, Gebäude, Licht, Farben und alle übrigen Details soweit möglich nicht. Zeige mir zuerst kurz, was du verändern wirst. Nenne nachher alle weiteren sichtbaren Änderungen, die dir auffallen.</pre></section>
+                <section class="prompt-box"><div class="prompt-head"><small>8 · Licht und Wetter iterieren</small><button class="copy-button" type="button" data-copy="#img-licht">Kopieren</button></div><pre id="img-licht">Arbeite am selben hochgeladenen Bild weiter. Ändere nur Licht und Wetter: aus bewölktem Mittag wird eine warme Abendstimmung kurz vor Sonnenuntergang. Erhalte Motiv, Personen, Perspektive, Bildaufbau und erkennbare Details soweit möglich. Nach dem ersten Ergebnis erhöhe auf mein Kommando nur die Wärme des Lichts, ohne die Szene absichtlich neu aufzubauen.</pre></section>
+              </div>
+            </div>
+            <div class="image-task-group">
+              <h4>Stil oder Format ändern · 2 Aufgaben</h4>
+              <div class="image-task-grid">
+                <section class="prompt-box"><div class="prompt-head"><small>9 · Foto in Illustration</small><button class="copy-button" type="button" data-copy="#img-aquarell">Kopieren</button></div><pre id="img-aquarell">Übertrage mein hochgeladenes Reisefoto in eine klare Aquarell- und Magazinillustration. Erhalte Ort, Hauptmotiv, Perspektive, Anzahl der Personen und ihre groben Merkmale. Vereinfache nur Texturen und Farben. Keine neuen Gebäude, Gegenstände oder Schrift hinzufügen. Format und Bildausschnitt bleiben gleich.</pre></section>
+                <section class="prompt-box"><div class="prompt-head"><small>10 · Format erweitern</small><button class="copy-button" type="button" data-copy="#img-format">Kopieren</button></div><pre id="img-format">Erweitere mein hochgeladenes Querformat zu einem Hochformat 4:5. Das Hauptmotiv darf weder abgeschnitten noch verzerrt oder verschoben werden. Ergänze oben und unten glaubwürdige Umgebung passend zu Licht, Perspektive und Bildstil. Verändere den vorhandenen Bildbereich nicht.</pre></section>
+              </div>
+            </div>
+            <section class="activity"><strong>2 Min. · Vorher/Nachher prüfen</strong><ol><li>Öffne Original und Bearbeitung nebeneinander.</li><li>Vergleiche Personen, Hände, Schrift, Gebäude, Kanten, Bildausschnitt und Farben.</li><li>Markiere jede unbeabsichtigte Änderung. Ist etwas Wichtiges verrutscht, formuliere genau diese Stelle für die nächste Runde oder behalte das Original.</li></ol></section>
             <div class="blocks">
               <section class="block"><b>1 · Beschreiben statt Stichworte</b><p>Motiv, Stil, Stimmung, Format: vier Angaben statt drei Schlagwörtern. "Schönes Reisebild" ist ein Wunsch, kein Auftrag.</p></section>
               <section class="block"><b>2 · Am selben Bild iterieren</b><p>Nicht neu würfeln: "Gleiche Szene, aber Morgenlicht statt Abendsonne." Das Tool behält, was schon stimmt.</p></section>
@@ -1929,12 +2040,12 @@ Format: Hochformat. Ohne Text im Bild.</pre>
           <div class="lesson-body">
             <h3>Die Tool-Landschaft in vier Zeilen</h3>
             <div class="blocks">
-              <section class="block"><b>ChatGPT · GPT Image 2</b><p>"ChatGPT Images 2.0", direkt im Chat, für heute unser Werkzeug. Free limitiert.</p></section>
-              <section class="block"><b>Google · Nano Banana 2</b><p>Googles Bildmodell (plus Pro- und Lite-Varianten), in Gemini integriert.</p></section>
+              <section class="block"><b>ChatGPT · GPT Image 2</b><p>"ChatGPT Images 2.0", direkt im Chat, in diesem Kurs unser Werkzeug. Free limitiert.</p></section>
+              <section class="block"><b>Google · Nano Banana 2</b><p>Googles Bildmodell (plus Pro-Variante), in Gemini integriert.</p></section>
               <section class="block"><b>Midjourney V8.1</b><p>Der Klassiker für künstlerische Bildwelten, eigenes Abo und eigene Plattform.</p></section>
-              <section class="block"><b>Ideogram 4.0</b><p>Spezialität: Text im Bild. Für textlastige Plakate mit viel Schrift die erste Adresse.</p></section>
+              <section class="block"><b>Ideogram 4.0</b><p>Spezialität: Text im Bild. Für textlastige Plakate eine gute Anlaufstelle; das konkrete Ergebnis trotzdem selbst prüfen.</p></section>
             </div>
-            <p>Wenn du KI-Bilder veröffentlichst, kennzeichne sie als KI-generiert. Wie die Bilder mathematisch entstehen, zeigt der <a href="https://poloclub.github.io/diffusion-explainer/" target="_blank" rel="noreferrer">Diffusion Explainer</a> in den Nachschlage-Links. Und welches Bildmodell gerade vorn liegt, siehst du im <a href="https://artificialanalysis.ai/image/leaderboard/text-to-image" target="_blank" rel="noreferrer">Text-to-Image-Leaderboard von Artificial Analysis</a> (englisch): eine laufend aktualisierte Rangliste, gut zur Orientierung, keine ewige Wahrheit.</p>
+            <p>Als Kurs- und Transparenzregel kennzeichnest du veröffentlichte KI-Bilder klar als KI-generiert. Rechtlich gelten je nach Einsatz spezifische Pflichten; die Transparenzregeln aus Artikel 50 des EU AI Act werden ab 02.08.2026 anwendbar, besonders bei Deepfakes. Wie die Bilder mathematisch entstehen, zeigt der <a href="https://poloclub.github.io/diffusion-explainer/" target="_blank" rel="noreferrer">Diffusion Explainer</a>. Eine laufend aktualisierte Orientierung bietet das <a href="https://artificialanalysis.ai/image/leaderboard/text-to-image" target="_blank" rel="noreferrer">Text-to-Image-Leaderboard von Artificial Analysis</a> (englisch), keine ewige Wahrheit.</p>
           </div>
         </article>
       </section>
@@ -1943,24 +2054,38 @@ Format: Hochformat. Ohne Text im Bild.</pre>
         <div class="section-head">
           <p class="kicker">Modul 8 · ca. 12 Min.</p>
           <h2 id="m8-title">Artefakte bauen</h2>
-          <p>Bisher hat die KI geantwortet. Jetzt lässt du sie etwas herstellen: Ein Artefakt ist ein fertiges, nutzbares Ding, eine Checkliste zum Abhaken, ein Dokument, eine kleine Web-Seite, statt einer Chat-Antwort zum Herauskopieren.</p>
+          <p>Bisher hat die KI vor allem geantwortet. Jetzt lässt du sie ein eigenständiges, weiterverwendbares Arbeitsergebnis herstellen: als Datei oder als interaktive Ansicht, die du prüfen, ändern, speichern und später wieder öffnen kannst.</p>
         </div>
 
         <article class="lesson" id="m8-01">
           <aside class="lesson-side">
             <span class="lesson-number">08.01</span>
-            <span class="track demo">Demo</span>
+            <span class="track">Mitmachen</span>
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
-            <h3>Live-Demo: die interaktive Packliste</h3>
-            <p>In der Live-Demo entsteht in Claude ein Artefakt: je nach Zeit die interaktive Packliste zum Wochenendtrip (Kategorien und Häkchen), den Konkurrenz-Bericht zum Shop-Fall (Vergleichstabelle plus nächste Schritte) oder den Aufräumplan zur digitalen Ordnung (Wochenpakete zum Abhaken). Alles davon entsteht als eigenständige Mini-Seite neben dem Chat. In Claude heißt das Artifacts, das ChatGPT-Pendant heißt Canvas.</p>
+            <h3>Das Artefakt-Prinzip: ein Ergebnis, das den Chat verlässt</h3>
+            <p>Im Kurs ist <b>Artefakt</b> der allgemeine Begriff für ein eigenständiges Ergebnis. Das kann ein PNG-Bild, ein Word-Dokument (<code>.docx</code>), eine Excel-Arbeitsmappe (<code>.xlsx</code>), ein PDF, eine HTML-Seite (<code>.html</code>), eine Textdatei (<code>.txt</code>) oder ein Markdown-Dokument (<code>.md</code>) sein. Auch Präsentationen (<code>.pptx</code>), SVG-Grafiken, Diagramme und interaktive Mini-Apps passen dazu. Nicht jede kleine Dateiendung macht automatisch ein gutes Artefakt, und nicht jedes Artefakt muss eine klassische Datei sein: Entscheidend ist, dass das Ergebnis für sich steht und weiterverwendbar ist.</p>
             <div class="blocks">
-              <section class="block"><b>1 · Erst Inhalt, dann bauen</b><p>Erst im Chat klären, was auf die Liste gehört. Dann bauen lassen. Wer beides mischt, iteriert doppelt.</p></section>
-              <section class="block"><b>2 · Ein Artefakt pro Auftrag</b><p>"Packliste UND Reiseplan UND Budgetrechner" wird Murks. Drei Aufträge, drei Artefakte.</p></section>
-              <section class="block"><b>3 · Am Artefakt iterieren</b><p>Änderungen direkt anweisen: "Füge eine Kategorie Apotheke hinzu." Nicht neu bauen lassen.</p></section>
-              <section class="block"><b>4 · Exportieren und sichern</b><p>Artefakte leben im Chat. Was du behalten willst: herunterladen, kopieren oder als Datei sichern.</p></section>
+              <section class="block accent-violet"><b>Claude: „Artifacts“ ist zusätzlich ein Produktname</b><p>Je nach Plan, Oberfläche und aktiviertem Werkzeug zeigt Claude eigenständige Inhalte in einem Arbeitsbereich oder erzeugt Dateien wie Word, Excel, PowerPoint, PDF und PNG. Nicht jedes Konto und nicht jeder Chat bietet alle Formate.</p></section>
+              <section class="block accent-blue"><b>ChatGPT und andere Produkte</b><p>Je nach Web-, Desktop- oder Agenten-Oberfläche und aktiviertem Dateiwerkzeug kann ChatGPT Dokumente, Tabellen, Präsentationen, PDFs sowie Code-, Markdown- und Webdateien erzeugen oder als Vorschau, Datei oder Arbeitsblock bereitstellen. Die Oberfläche kann sich ändern; das Artefakt-Prinzip bleibt.</p></section>
             </div>
+            <div class="blocks">
+              <section class="block"><b>1 · Inhalt gemeinsam klären</b><p>Du musst nicht alles vorher wissen. Lass dir bei unklarem Ziel, Inhalt oder Aufbau zuerst Fragen stellen. Fehlende Angaben bleiben offen; die KI darf sie nicht erfinden.</p></section>
+              <section class="block"><b>2 · Ein oder mehrere Ergebnisse klar benennen</b><p>Ein Auftrag darf mehrere zusammengehörige Artefakte erzeugen. Nenne für jedes Ergebnis Format, Zweck und Verbindung zu den anderen. Bei sehr komplexen Ergebnissen verbessert schrittweises Bauen oft die Qualität.</p></section>
+              <section class="block"><b>3 · Am Artefakt iterieren</b><p>Änderungen direkt und konkret anweisen: "Füge eine Kategorie Apotheke hinzu; alles andere bleibt unverändert." Nicht bei jeder Runde neu bauen lassen.</p></section>
+              <section class="block"><b>4 · Exportieren, sichern, wieder öffnen</b><p>Herunterladen oder speichern, einen verständlichen Versionsnamen vergeben und das Ergebnis anschließend erneut öffnen. Erst dann weißt du, ob Datei, Formeln, Links und Darstellung wirklich funktionieren.</p></section>
+            </div>
+            <div class="source-grid">
+              <section class="prompt-box"><div class="prompt-head"><small>Vor dem Bauen · Klärungsfragen</small><button class="copy-button" type="button" data-copy="#artefakt-fragen">Kopieren</button></div><pre id="artefakt-fragen">Bevor du etwas baust, stelle mir nacheinander die wichtigsten Fragen zu Ziel, Zielgruppe, vorhandenem Material, späterer Nutzung und Qualitätskriterien. Empfiehl noch kein Format, bevor diese Punkte klar sind. Erfinde fehlende Angaben nicht.</pre></section>
+              <section class="prompt-box"><div class="prompt-head"><small>Passendes Format empfehlen</small><button class="copy-button" type="button" data-copy="#artefakt-format">Kopieren</button></div><pre id="artefakt-format">Empfiehl für mein Ergebnis das passendste Format und begründe die Wahl: Excel für Berechnungen und sortierbare Daten, Word für ein klassisches Dokument, PDF für eine feste Ausgabe oder HTML für einen interaktiven Plan. Nenne auch die wichtigste Alternative mit Nachteil. Ich entscheide danach.</pre></section>
+              <section class="prompt-box"><div class="prompt-head"><small>Legitimer Mehrfachauftrag</small><button class="copy-button" type="button" data-copy="#artefakt-mehrfach">Kopieren</button></div><pre id="artefakt-mehrfach">Erstelle drei zusammengehörige Ergebnisse für unseren Wochenendtrip:
+1. Reiseplan als Word-Dokument für den gemeinsamen Ablauf.
+2. Budget als Excel-Datei mit Formeln und Kategorien.
+3. Interaktive Packliste als HTML-Seite mit Häkchen.
+Nutze in allen drei Ergebnissen dieselben Reisedaten. Prüfe anschließend, ob Beträge, Termine und Bezeichnungen übereinstimmen, und nenne die erzeugten Dateinamen.</pre></section>
+            </div>
+            <p class="viz-note">Stand 11.07.2026. Produktoberflächen ändern sich. Geprüft gegen die Herstellerdokumentation zu <a href="https://learn.chatgpt.com/docs/artifacts-viewer" target="_blank" rel="noreferrer">ChatGPT-Dateien</a>, <a href="https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them" target="_blank" rel="noreferrer">Claude Artifacts</a> und <a href="https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude" target="_blank" rel="noreferrer">Claude-Dateierzeugung</a>.</p>
           </div>
         </article>
 
@@ -1972,7 +2097,7 @@ Format: Hochformat. Ohne Text im Bild.</pre>
           </aside>
           <div class="lesson-body">
             <h3>Mini-Übung: dein erstes Artefakt</h3>
-            <p>Du baust das ChatGPT-Gegenstück als Canvas-Dokument. Eine Erwartung vorweg: Im ChatGPT-Canvas werden aus den abhakbaren Punkten Checkbox-Zeilen im Text — die klickbaren Häkchen aus der Beamer-Demo sind ein Claude-Artefakt-Feature. Wähl dein Leitbeispiel:</p>
+            <p>Du baust jetzt ein klar abgegrenztes Ergebnis. Je nach Produkt und Oberfläche entsteht eine Datei, eine Vorschau, ein Arbeitsblock oder eine interaktive Ansicht. Entscheidend ist: gezielt iterieren, prüfen, herunterladen beziehungsweise speichern und erneut öffnen. Wähl dein Leitbeispiel:</p>
             <div class="lb-switch" data-lbtabs="leitbeispiel">
               <div class="lb-tabs" role="group" aria-label="Leitbeispiel wählen">
                 <button class="lb-tab" type="button" data-lbtab="trip" aria-pressed="true">Wochenendtrip</button>
@@ -1981,19 +2106,19 @@ Format: Hochformat. Ohne Text im Bild.</pre>
               </div>
               <div class="lb-panel" data-lbpanel="trip">
                 <section class="prompt-box">
-                  <div class="prompt-head"><small>Artefakt-Auftrag · interaktive Packliste</small><button class="copy-button" type="button" data-copy="#prompt-artefakt">Kopieren</button></div>
-                  <pre id="prompt-artefakt">Erstelle aus unserem Trip-Chat eine Packliste als eigenständiges Dokument (Canvas):
-- Kategorien: Kleidung, Technik, Papiere, Apotheke
-- jeder Eintrag als abhakbarer Punkt
-- eine Spalte "wer denkt daran"
+                  <div class="prompt-head"><small>Artefakt-Auftrag · Packliste als Markdown</small><button class="copy-button" type="button" data-copy="#prompt-artefakt">Kopieren</button></div>
+                  <pre id="prompt-artefakt">Erstelle aus unserem Trip-Chat eine Packliste als Markdown-Datei (.md); falls dein Tool keine Datei erzeugt, als klar abgegrenzten Markdown-Block:
+- pro Kategorie eine Markdown-Tabelle: Kleidung, Technik, Papiere, Apotheke
+- Spalten: Erledigt | Gegenstand | Wer denkt daran
+- in der Spalte Erledigt steht bei jedem Eintrag ein abhakbares Feld [ ]
 Nimm nur, was zu unserem Trip passt (zwei Personen, zwei Nächte, Bahn). Danach ändere auf mein Kommando einzelne Punkte, statt das Dokument neu zu schreiben.</pre>
                 </section>
                 <section class="activity"><strong>8 Min. · bauen und eine Änderung anweisen</strong><p>Erzeuge das Artefakt und iteriere genau einmal daran ("Ergänze eine Kategorie: Regenwetter"). Dann exportieren oder kopieren (Regel 4).</p></section>
               </div>
               <div class="lb-panel" data-lbpanel="shop" hidden>
                 <section class="prompt-box">
-                  <div class="prompt-head"><small>Artefakt-Auftrag · Konkurrenz-Bericht</small><button class="copy-button" type="button" data-copy="#prompt-artefakt-shop">Kopieren</button></div>
-                  <pre id="prompt-artefakt-shop">Erstelle aus unserer Konkurrenz-Analyse einen kompakten Bericht als eigenständiges Dokument (Canvas):
+                  <div class="prompt-head"><small>Artefakt-Auftrag · Konkurrenz-Bericht als Word-Datei</small><button class="copy-button" type="button" data-copy="#prompt-artefakt-shop">Kopieren</button></div>
+                  <pre id="prompt-artefakt-shop">Erstelle aus unserer Konkurrenz-Analyse einen kompakten Bericht als Word-Dokument (.docx); falls dein Tool keine Datei erzeugt, als klar abgegrenzten Dokumentblock:
 - Vergleichstabelle Fahrradkiste vs. Velodrom24 (Versand, Lieferzeit, Rückgabe, Beratung, Sortiment)
 - nur belegte Angaben aus dem Faktenblatt; alles Unbelegte als "zu prüfen" markieren
 - darunter: drei nächste Schritte als abhakbare Punkte
@@ -2003,8 +2128,8 @@ Danach ändere auf mein Kommando einzelne Punkte, statt das Dokument neu zu schr
               </div>
               <div class="lb-panel" data-lbpanel="ordnung" hidden>
                 <section class="prompt-box">
-                  <div class="prompt-head"><small>Artefakt-Auftrag · Aufräumplan mit Häkchen</small><button class="copy-button" type="button" data-copy="#prompt-artefakt-ordnung">Kopieren</button></div>
-                  <pre id="prompt-artefakt-ordnung">Erstelle aus unserem Ordnungs-Chat einen Aufräumplan als eigenständiges Dokument (Canvas):
+                  <div class="prompt-head"><small>Artefakt-Auftrag · interaktiver Aufräumplan</small><button class="copy-button" type="button" data-copy="#prompt-artefakt-ordnung">Kopieren</button></div>
+                  <pre id="prompt-artefakt-ordnung">Erstelle aus unserem Ordnungs-Chat einen Aufräumplan als einzelne HTML-Datei (.html) mit anklickbaren Häkchen; falls dein Tool keine Datei erzeugt, als klar abgegrenzten Plan:
 - oben: meine Hauptordner mit ihrer Ein-Satz-Regel
 - darunter: der Wochenplan als abhakbare Punkte (pro Woche ein 30-Minuten-Paket)
 - eine Spalte "erledigt am"
@@ -2019,9 +2144,9 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
 
       <section class="section panel" id="m9" aria-labelledby="m9-title">
         <div class="section-head">
-          <p class="kicker">Modul 9 · ca. 10 Min.</p>
+          <p class="kicker">Modul 9 · ca. 15 Min.</p>
           <h2 id="m9-title">Skills &amp; Ausblick auf Teil 2</h2>
-          <p>Heute hast du mehrfach denselben Griff wiederholt: Fragenbohrer, Prüflinse, Reparatur, Handoff. Solche wiederholbaren Abläufe kann man als Skills speichern, dann muss man sie nicht mehr tippen, sondern nur noch aufrufen.</p>
+          <p>In diesem Kurs hast du mehrfach denselben Griff wiederholt: Fragenbohrer, Prüflinse, Reparatur, Handoff. Solche wiederholbaren Abläufe kann man als Skills speichern, dann muss man sie nicht mehr tippen, sondern nur noch aufrufen.</p>
         </div>
 
         <article class="lesson" id="m9-01">
@@ -2032,14 +2157,19 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
           </aside>
           <div class="lesson-body">
             <h3>Anatomie eines Skills</h3>
-            <p>Ein Skill ist ein gespeicherter Ablauf, den du nicht mehr tippen, sondern nur noch aufrufen musst. Drei Teile genügen: Genau diese Anatomie siehst du in Teil 2 in jeder Skill-Datei wieder:</p>
+            <p>Ein Skill ist ein wiederverwendbares Paket aus Anleitung und bei Bedarf Referenzen, Vorlagen, Skripten oder Werkzeughinweisen. Drei Teile genügen für den Einstieg. Dabei sind <b>Einsatzmoment</b> und <b>automatische Auslösung</b> zwei verschiedene Dinge:</p>
             <div class="skill-grid">
-              <article class="skill-card"><small>1 · Name</small><b>Wie rufe ich ihn auf?</b><p>Kurz und sprechend: handoff, grill-me, teach. Der Name ist das Kommando.</p></article>
-              <article class="skill-card"><small>2 · Auslöser</small><b>Wann ist er dran?</b><p>Beispiel: Der Chat wird zäh und vergesslich — Zeit für handoff.</p></article>
-              <article class="skill-card"><small>3 · Anleitung</small><b>Was soll die KI tun?</b><p>Der eigentliche Text: Schritte, Regeln, Format. Normale Sprache, keine Programmierung — in Modul 5 hast du einen echten gelesen.</p></article>
+              <article class="skill-card"><small>1 · Name</small><b>Wie erkenne ich ihn?</b><p>Kurz und sprechend: handoff, grill-me, teach. Je nach Werkzeug rufst du ihn mit Slash, Dollarzeichen, Menü oder ausdrücklichem Namen auf. Der Name allein ist nicht überall ein ausführbarer Befehl.</p></article>
+              <article class="skill-card"><small>2 · Einsatzmoment</small><b>Wann passt er?</b><p>Beispiel: Du möchtest etwas Neues lernen und nennst bewusst den Skill <code>teach</code>. Die Beschreibung sagt dem Menschen und dem Agenten, für welche Situation er gedacht ist.</p></article>
+              <article class="skill-card"><small>3 · Anleitung &amp; Material</small><b>Was soll die KI tun?</b><p>Schritte, Regeln und gewünschtes Ergebnis stehen meist in normaler Sprache. Manche Skills bringen zusätzlich Referenzen, Vorlagen, Skripte oder Werkzeughinweise mit.</p></article>
             </div>
-            <section class="block accent-violet"><b>Woran du einen guten Skill erkennst</b><p>Er sagt, welches Material hinein darf (und was nach den Datenregeln draußen bleibt). Er baut eine Prüfung ein: Fakten, Annahmen, Quellen. Er hat eine Stop-Regel: wann der Skill endet und ein Mensch übernimmt. Und er enthält ein Beispiel, das du direkt anpassen kannst.</p></section>
-            <p>Zwei dieser Abläufe hast du heute schon als simple Prompts benutzt: den Fragenbohrer (Modul 4; als installierbarer Skill heißt die Idee bei Matt Pocock grill-me) und handoff (Modul 5, dort stand der Original-Skilltext). Ein Skill ist nichts anderes als die gespeicherte, wiederverwendbare Form genau solcher Prompts.</p>
+            <section class="note"><b>Manuell oder automatisch?</b><p>Ein Agent kann passende Skills teils selbst auswählen. Steht im Skill jedoch <code>disable-model-invocation: true</code>, muss der Mensch ihn ausdrücklich aufrufen. Das gilt im v1.1-Snapshot sowohl für <code>teach</code> als auch für <code>handoff</code>; keiner von beiden startet sich einfach selbst.</p></section>
+            <div class="blocks">
+              <section class="block accent-violet"><b>Fast immer wichtig</b><p><b>Klarer Zweck und Einsatzmoment.</b> Ein guter Skill führt bei derselben Aufgabenart vorhersehbar durch einen sinnvollen Prozess, enthält nur hilfreiche Regeln und nennt überprüfbare Fertigkriterien, wenn er Schritte ausführt.</p></section>
+              <section class="block accent-blue"><b>Wenn Aufgabe oder Risiko es brauchen</b><p>Eingabe- und Datenregeln, Quellenprüfung, Sicherheitsgrenzen, menschliche Freigabe, Stop-Regel, Beispiele, Vorlagen, Referenzen, Skripte und Werkzeuge. Ein risikoarmer Umwandlungs-Skill braucht nicht künstlich alle Bausteine.</p></section>
+            </div>
+            <section class="block"><b>Gute Skills können sehr verschieden sein</b><p>Manche liefern Fachwissen, manche wandeln Dateien um, manche steuern Werkzeuge, manche orchestrieren mehrere Agenten. Ihr gemeinsamer Wert ist Spezialisierung und Konsistenz, nicht eine möglichst lange Universal-Checkliste. Bei Veröffentlichungen, Nachrichten, Käufen, Löschungen oder sensiblen Daten braucht es dagegen stärkere Grenzen und eine menschliche Freigabe.</p></section>
+            <p>Zwei dieser Abläufe hast du in diesem Kurs schon als Prompts benutzt: das gründliche Fragen-Interview (Modul 4; bei Matt Pocock heißt der vollständige Skill <code>grilling</code>, <code>grill-me</code> startet ihn) und <code>handoff</code> (Modul 5). Der Prompt zeigt jeweils die Kernidee; ein installierter Skill kann mehr Kontext, Material und Werkzeugregeln mitbringen.</p>
           </div>
         </article>
 
@@ -2050,29 +2180,29 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
-            <h3>Zwei Repos zum Mitnehmen</h3>
-            <p>Ein Repo ist ein öffentlicher Online-Ordner mit Dateien, hier liegen fertige Skills zum Mitnehmen drin.</p>
+            <h3>Das Skill-Repo zum Mitnehmen</h3>
+            <p>Ein Repo ist ein öffentlicher Online-Ordner mit Dateien, hier liegen fertige Skills zum Mitnehmen drin. Unser Hauptweg ist das Original:</p>
             <div class="blocks">
-              <section class="block accent-teal"><b>Das Kurs-Skills-Repo (Lutoss/skills)</b><p>Kuratiert und deutsch dokumentiert: zwei fertige Skill-Pakete für Claude und Codex mit Agenten-Skills wie handoff, teach, research und verify-before-done. Link: github.com/Lutoss/skills, auch im Kursmaterial.</p></section>
-              <section class="block accent-blue"><b>mattpocock/skills</b><p>Das englische Original-Vorbild, eines der beliebtesten Skill-Repos auf GitHub: Daher stammen handoff und grill-me, dazu u. a. teach und research.</p></section>
+              <section class="block accent-teal"><b>mattpocock/skills — das Original</b><p>Matt Pococks englische Skill-Sammlung, eines der populärsten Skill-Repos überhaupt: Daher stammen handoff und grill-me, dazu u. a. teach, research und wayfinder. Der offizielle Install-Befehl heißt npx skills@latest add mattpocock/skills — so bekommst du immer die aktuellste Fassung.</p></section>
+              <section class="block accent-violet"><b>Unser Zusatzpaket (Lutoss/skills)</b><p>Kurz erwähnt: Unter github.com/Lutoss/skills liegen die eigenen Kurs-Skills (z. B. verify-before-done und project-review) plus Codex-Fassungen, deutsch dokumentiert. Automatische Installation klappt nur in einem kompatiblen Agenten mit Netzwerk-, Terminal- und Dateizugriff sowie deiner Freigabe; sonst ZIP oder Copy-Paste nutzen.</p></section>
             </div>
-            <p>Ehrlich unterschieden: In Agenten-Tools (Claude mit Ordnerzugriff, Codex) reicht der Repo-Link — posten, bitten, fertig. Im ChatGPT-Webchat installiert ein Link nichts; dort nutzt du den Skilltext als Copy-Paste-Prompt, so wie heute im Kurs.</p>
+            <p>Ehrlich unterschieden: In einem kompatiblen Agenten-Tool mit Terminal- und Ordnerzugriff kann der Prompt unten reichen; der Agent führt den Install-Befehl nach deiner Freigabe aus. Im normalen Webchat installiert das nichts. Dort nutzt du die Kernanleitung als Copy-Paste-Prompt, so wie in diesem Kurs.</p>
             <div class="workflow">
-              <div><b>1 · Agent öffnen</b><span>Dein Agenten-Tool, z. B. Claude oder Codex.</span></div>
-              <div><b>2 · Link posten</b><span>Den GitHub-Link des Repos in die Nachricht einfügen.</span></div>
-              <div><b>3 · Bitten</b><span>"Installiere die Skills aus diesem Repo."</span></div>
+              <div><b>1 · Kompatiblen Agenten öffnen</b><span>Ein Werkzeug mit Terminal- und Ordnerzugriff, z. B. Claude Code oder Codex.</span></div>
+              <div><b>2 · Prompt posten</b><span>Den Installations-Prompt unten einfügen und abschicken.</span></div>
+              <div><b>3 · Machen lassen</b><span>Der Agent führt npx skills@latest add mattpocock/skills aus.</span></div>
               <div><b>4 · Aufzählen lassen</b><span>"Welche Skills sind jetzt verfügbar?" Fertig.</span></div>
             </div>
             <section class="prompt-box">
               <div class="prompt-head"><small>Installations-Prompt zum Kopieren</small><button class="copy-button" type="button" data-copy="#skill-install">Kopieren</button></div>
-              <pre id="skill-install">Installiere bitte die Skills aus diesem Repo und sag mir danach, welche du eingerichtet hast: https://github.com/Lutoss/skills</pre>
+              <pre id="skill-install">Installiere bitte Matt Pococks Skill-Sammlung mit dem Befehl "npx skills@latest add mattpocock/skills" und sag mir danach, welche Skills du eingerichtet hast.</pre>
             </section>
             <p class="viz-note">Die ausführliche Installations-Vorlage mit allen Handgriffen steht in Teil 2.</p>
             <div class="blocks">
-              <section class="block accent-violet"><b>Eigene Skills bauen: der Skill-Creator</b><p>Fast jedes KI-System hat inzwischen einen Skill, der dir beim Skill-Bauen hilft (bei Claude heißt er skill-creator). Du beschreibst deinen wiederholten Ablauf, er macht daraus die Skill-Datei. Dein erster Kandidat: dein bester Prompt von heute.</p></section>
-              <section class="block accent-amber"><b>Wenn es ohne Agent sein muss</b><p>ChatGPT nimmt unter "Skills (beta)" auch einen Ordner oder eine ZIP mit der SKILL.md. Und zur Not funktioniert jeder Kurs-Skill einfach als Copy-Paste-Prompt, so wie heute im Kurs.</p></section>
+              <section class="block accent-violet"><b>Eigene Skills bauen: der Skill-Creator</b><p>Viele Agenten-Tools bringen dafür einen skill-creator mit. Du beschreibst deinen wiederholten Ablauf, er macht daraus die Skill-Datei. Dein erster Kandidat: dein bester Prompt aus diesem Kurs.</p></section>
+              <section class="block accent-amber"><b>Wenn es ohne Agent sein muss</b><p>Installierbare Workspace- und Agenten-Skills sind derzeit nur in ausgewählten Organisations- und Agentenoberflächen verfügbar, nicht allgemein im normalen Free- oder Plus-Chat. Für diesen Kurs bleibt deshalb der planunabhängige Weg: die Kernanleitung als Copy-Paste-Prompt benutzen.</p></section>
             </div>
-            <section class="note"><b>Deine KI-Mappe (ein Satz dazu)</b><p>Leg dir einen Ort an, an dem gute Prompts, Skills, Handoffs und fertige Artefakte landen. Ein Ordner reicht. Der Kurs-Skill "Meine KI-Mappe" baut dir die Struktur; mehr dazu in Teil 2.</p></section>
+            <section class="note"><b>Deine KI-Mappe (ein Satz dazu)</b><p>Leg dir einen Ort an, an dem gute Prompts, Skills, Handoffs und fertige Artefakte landen. Ein Ordner reicht — in Teil 2 richtest du ihn dir gleich mit ein.</p></section>
           </div>
         </article>
 
@@ -2084,7 +2214,7 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
           </aside>
           <div class="lesson-body">
             <h3>Hausaufgabe: deine Projektidee für Teil 2</h3>
-            <p>Teil 2 ist eine Projektwerkstatt: Du baust ein eigenes Vorhaben mit KI durch, in klaren Phasen von der Idee bis zum bewussten Abschluss — erst selbst denken, dann grillen lassen, planen, bauen, prüfen, und sauber abschließen. Dafür brauchst du genau eine Sache von heute:</p>
+            <p>Teil 2 ist eine toolneutrale Projektwerkstatt: Du führst ein eigenes Vorhaben in klaren Phasen von der Idee bis zum bewussten Abschluss. Du denkst zuerst selbst, baust eine Landkarte, klärst Entscheidungen im Grilling, planst kleine Arbeitspakete, setzt sie um und prüfst Ergebnis und Zielerfüllung mit zwei getrennten Linsen. Dafür brauchst du genau eine Sache aus Teil 1:</p>
             <div class="homework">
               <h4>Bring zu Teil 2 eine Projektidee mit</h4>
               <p>Klein genug für einen Nachmittag, konkret genug zum Anfassen. Gute Kandidaten: etwas organisieren, einen Papierkram-Marathon bändigen, einen Verkauf oder Umzug vorbereiten, ein Lernthema strukturieren, deine digitale Ordnung aus Modul 8 zu Ende bauen.</p>
@@ -2093,7 +2223,7 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
                 <div class="worksheet-field"><b>Für wen?</b><span>Wer nutzt das Ergebnis: du, Familie, Verein, Kollegen?</span><div class="lines"><i></i><i></i><i></i></div></div>
                 <div class="worksheet-field"><b>Gutes Ergebnis?</b><span>Woran merkst du am Ende, dass es sich gelohnt hat?</span><div class="lines"><i></i><i></i><i></i></div></div>
               </div>
-              <p>Zweite Vorbereitung: Für Teil 2 lohnt ein eigenes Claude-Konto, leg es vorab an; die Desktop-App kann Ordner verbinden. Free reicht zum Lernen und für Teil 1. Teil 2 in voller Form (Grill-Runde, mehrere Issue-Chats, Reviews) stößt auf Free-Plänen oft ans Limit. Bezahlpläne liegen in der Größenordnung 20–23 €/Monat (Stand Juli 2026, vor dem Kurs aktuell prüfen). Limit erreicht = kein Fehler: Handoff schreiben, Pause, später weiter.</p>
+              <p>Zweite Vorbereitung: Wenn du bereits einen kompatiblen KI-Agenten mit Ordnerzugriff nutzt, kannst du ihn in Teil 2 einsetzen. Du brauchst dafür aber kein bestimmtes Produkt und kein Abo: Der vollständige Copy-Paste-Weg funktioniert mit einem normalen KI-Chat und lokalen Markdown-Dateien. Limit erreicht = kein Fehler: geprüften Handoff schreiben, Pause, später weiter.</p>
             </div>
           </div>
         </article>
@@ -2105,11 +2235,11 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
             <button class="done-button" type="button" data-live-step aria-pressed="false">Markieren</button>
           </aside>
           <div class="lesson-body">
-            <h3>Tagescheck: Was würdest du tun?</h3>
+            <h3>Abschluss-Check: Was würdest du tun?</h3>
             <div class="quiz-grid">
               <article class="quiz-card" data-quiz><b>Die KI-Antwort nennt eine Bewertungszahl, die du im Faktenblatt nicht findest.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Behauptung, keine Tatsache: mit dem Original abgleichen, Quellen-Reparatur laufen lassen, ohne Beleg raus damit. (Modul 5)</p></article>
-              <article class="quiz-card" data-quiz><b>Nach zwei Stunden im selben Chat wird die KI zäh und vergisst Regeln.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Dumb Zone erreicht: HANDOFF ziehen, frischen Chat starten, Aufgabe kleiner schneiden. (Module 3 und 5)</p></article>
-              <article class="quiz-card" data-quiz><b>Eine knifflige Aufgabe mit fünf Bedingungen gleichzeitig.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Thinking einschalten, Prüfweg zeigen lassen, und die entscheidenden Angaben trotzdem selbst prüfen. (Modul 6)</p></article>
+              <article class="quiz-card" data-quiz><b>Nach zwei Stunden im selben Chat wird die KI zäh und übersieht Regeln.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Überladener Kontext ist eine mögliche Ursache: Handoff prüfen, im frischen Chat gegenproben und die Aufgabe kleiner schneiden. Die 40-%-Marke ist nur die Kurs-Heuristik. (Module 3 und 5)</p></article>
+              <article class="quiz-card" data-quiz><b>Eine knifflige Aufgabe mit fünf Bedingungen gleichzeitig.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Thinking einschalten, eine kurze Begründung je Bedingung verlangen und die entscheidenden Angaben trotzdem selbst prüfen. (Modul 6)</p></article>
               <article class="quiz-card" data-quiz><b>Du willst eine Checkliste, die du nächste Woche wirklich benutzt.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Kein Chat-Text: ein Artefakt bauen lassen, einmal gezielt iterieren, exportieren und sichern. (Modul 8)</p></article>
               <article class="quiz-card" data-quiz><b>Zu einer Geldanlage (oder einem Blutwert) liefert die KI eine überzeugende Empfehlung.</b><button class="flip-button" type="button" aria-expanded="false">Antwort zeigen</button><p hidden>Als Vorbereitung nutzen: Begriffe klären, Fragen für den Termin sammeln. Entscheiden mit Steuerberaterin oder Arzt, und Personalien bleiben draußen. (Module 1 und 5)</p></article>
             </div>
@@ -2120,21 +2250,21 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
       <section class="section panel" id="spick" aria-labelledby="spick-title">
         <div class="section-head">
           <p class="kicker">Spickzettel</p>
-          <h2 id="spick-title">Die zwölf Begriffe des Tages</h2>
-          <p>Jeder Begriff in einem Satz, zum Wiederfinden, wenn du zuhause weiterarbeitest. Alles Weitere steht in den Modulen oben.</p>
+          <h2 id="spick-title">Die zwölf Begriffe des Kurses</h2>
+          <p>Jeder Begriff in einem Satz, zum Wiederfinden, wenn du später weiterarbeitest. Alles Weitere steht in den Modulen oben.</p>
         </div>
         <div class="source-grid">
           <article class="source-card"><small>Begriff 1</small><b>Prompt</b><span>Deine Nachricht an die KI: gut, wenn sie Ziel, Fakten, Auftrag und Format enthält (Modul 4).</span></article>
           <article class="source-card"><small>Begriff 2</small><b>Token</b><span>Die Wortstücke, in denen die KI liest und schreibt: ihre Währung für Platz, Tempo und Kosten (Modul 2).</span></article>
-          <article class="source-card"><small>Begriff 3</small><b>Kontextfenster</b><span>Was die KI gerade sehen kann: der ganze Chat samt Dateien, bei jeder Nachricht komplett neu mitgeschickt, gemessen in Token und hart begrenzt. Das Modell selbst vergisst alles — das Produkt kann sich Notizen machen (Modul 3).</span></article>
-          <article class="source-card"><small>Begriff 4</small><b>Smart Zone / Dumb Zone</b><span>Frischer Chat = klug. Faustregel: ab ~40 % des Fensters wird die Qualität wackelig — bei großen Fenstern spätestens ab ~100.000 Token (Modul 3).</span></article>
+          <article class="source-card"><small>Begriff 3</small><b>Kontextfenster</b><span>Das begrenzte Arbeitspaket, das das Modell für eine Antwort erhält: neue Nachricht, Anweisungen und je nach Produkt relevante Chat-, Datei-, Projekt- oder Memory-Inhalte (Modul 3).</span></article>
+          <article class="source-card"><small>Begriff 4</small><b>Smart Zone / Dumb Zone</b><span>Kursbild für fokussierten beziehungsweise überladenen Kontext. 40 % oder ~100.000 Token sind ein vorsichtiger Arbeitsalarm, keine gemessene Naturgrenze (Modul 3).</span></article>
           <article class="source-card"><small>Begriff 5</small><b>Halluzination</b><span>Erfundenes, das überzeugend klingt. Gegenmittel: Prüflinse und Originalquellen (Module 2 und 5).</span></article>
           <article class="source-card"><small>Begriff 6</small><b>Websuche &amp; Deep Research</b><span>Aktuelles holt die KI live aus dem Netz, mit Quellen-Links, die du selbst prüfen kannst. Deep Research ist der Ausdauer-Modus: Minuten statt Sekunden, Bericht mit Quellen (Modul 2).</span></article>
-          <article class="source-card"><small>Begriff 7</small><b>Thinking / Denkzeit</b><span>Der Regler fürs interne Nachdenken: macht knifflige Aufgaben besser und einfache nur langsamer (Modul 6).</span></article>
-          <article class="source-card"><small>Begriff 8</small><b>Artefakt</b><span>Ein fertiges, nutzbares Ding, Checkliste, Dokument, Mini-Seite, statt einer Chat-Antwort (Modul 8).</span></article>
-          <article class="source-card"><small>Begriff 9</small><b>Skill</b><span>Ein gespeicherter Ablauf mit Auslöser, Schritten, Prüfung und Stop-Regel (Modul 9).</span></article>
+          <article class="source-card"><small>Begriff 7</small><b>Thinking / Denkzeit</b><span>Mehr Rechenaufwand vor der Antwort: kann bei kniffligen Aufgaben helfen, kostet Zeit und ersetzt keine Prüfung (Modul 6).</span></article>
+          <article class="source-card"><small>Begriff 8</small><b>Artefakt</b><span>Ein eigenständiges, weiterverwendbares Arbeitsergebnis als Datei oder interaktive Ansicht, etwa Bild, Dokument, Tabelle oder Mini-Seite (Modul 8).</span></article>
+          <article class="source-card"><small>Begriff 9</small><b>Skill</b><span>Eine gespeicherte Anleitung oder Wissensquelle mit klarem Zweck und Einsatzmoment; Regeln, Prüfungen und Werkzeuge hängen von der Aufgabe ab (Modul 9).</span></article>
           <article class="source-card"><small>Begriff 10</small><b>Handoff</b><span>Die Übergabe-Zusammenfassung, mit der du aus einem zähen Chat sauber in einen frischen umziehst (Modul 5).</span></article>
-          <article class="source-card"><small>Begriff 11</small><b>Agent &amp; Sub-Agent</b><span>Ein Agent erledigt einen ganzen Arbeitsauftrag selbstständig. Sub-Agenten sind seine Helfer: eigenes frisches Fenster pro Teilauftrag, nur das Ergebnis kommt zurück (Modul 3).</span></article>
+          <article class="source-card"><small>Begriff 11</small><b>Agent &amp; Sub-Agent</b><span>Ein Agent erledigt einen Arbeitsauftrag selbstständig. Sub-Agenten bearbeiten begrenzte Teilaufträge in separat zugeschnittenem Kontext; zurück kommen je nach Werkzeug Ergebnis, Zusammenfassung oder Dateien (Modul 3).</span></article>
           <article class="source-card"><small>Begriff 12</small><b>Human in the Loop</b><span>Die Arbeitsteilung hinter allem: Die KI übernimmt Arbeit und ergänzt dein Wissen, aber Prüfung, Entscheidung und Verantwortung bleiben bei dir (Module 1 und 5).</span></article>
         </div>
       </section>
@@ -2143,7 +2273,7 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
         <div class="section-head">
           <p class="kicker">Nachschlage-Links</p>
           <h2 id="refs-title">Zum Nachschauen, Spielen und Installieren</h2>
-          <p>Alle Demos funktionieren im Browser ohne Konto. Fast alle sind auf Englisch. Die Bedienung ist trotzdem selbsterklärend, und die wichtigsten hast du heute schon am Beamer gesehen.</p>
+          <p>Alle Demos funktionieren im Browser ohne Konto. Fast alle sind auf Englisch. Die Bedienung ist trotzdem selbsterklärend, und die wichtigsten kennst du schon aus den Modulen oben.</p>
         </div>
         <div class="card-grid">
           <a class="source-card" href="https://platform.openai.com/tokenizer" target="_blank" rel="noreferrer">
@@ -2169,7 +2299,7 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
           <a class="source-card" href="https://tiktokenizer.vercel.app/" target="_blank" rel="noreferrer">
             <span class="badge">Zum Ausprobieren</span>
             <b>Tiktokenizer</b>
-            <span>Tokenizer-Vergleich über verschiedene Modelle hinweg: zeigt, dass jedes Modell anders zerlegt.</span>
+            <span>Tokenizer-Vergleich über verschiedene Modelle hinweg: zeigt, wie sich Zerlegungen je nach Tokenizer unterscheiden oder gleichen können.</span>
           </a>
           <a class="source-card" href="https://poloclub.github.io/diffusion-explainer/" target="_blank" rel="noreferrer">
             <span class="badge">Zum Ausprobieren</span>
@@ -2191,35 +2321,35 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
             <b>Bildmodell-Leaderboard</b>
             <span>Artificial Analysis: welcher Bildgenerator liegt gerade vorn? Laufend aktualisierte Rangliste aus Modul 7, zur Orientierung, nicht als ewige Wahrheit.</span>
           </a>
-          <a class="source-card" href="teil-2-projektwerkstatt.html" target="_blank" rel="noreferrer">
+          <a class="source-card" href="teil-2-projektwerkstatt.html" target="_blank" rel="noopener noreferrer">
             <span class="badge">Teil 2</span>
-            <b>KI-Projektwerkstatt — Teil 2</b>
-            <span>Die Fortsetzung: ein echtes Projekt mit echten Skills, von der Idee über Zieldokument und Issues bis zum geprüften Ergebnis. Alle Grundlagen von heute im Einsatz.</span>
-          </a>
-          <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
-            <span class="badge">Nach dem Kurs</span>
-            <b>Lutoss/skills — das Kurs-Skills-Repo</b>
-            <span>Kuratierte Skill-Pakete für Claude und Codex, deutsch dokumentiert: handoff, teach, research, code-review, verify-before-done und mehr. Installation: Link in den KI-Chat posten (Modul 9).</span>
+            <b>Per Anhalter durch die KI · Projektwerkstatt (V22)</b>
+            <span>Die Fortsetzung: ein echtes Projekt mit echten Skills, von der Idee über Landkarte, Zieldokument (Spec) und Tickets bis zum geprüften Ergebnis. Alle Grundlagen aus Teil 1 im Einsatz.</span>
           </a>
           <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer">
             <span class="badge">Nach dem Kurs</span>
             <b>mattpocock/skills</b>
-            <span>Matt Pococks Skill-Sammlung (englisch): das Original von handoff und grill-me, dazu teach, research und mehr. Installation wie in Modul 9: Link in den KI-Chat posten.</span>
+            <span>Matt Pococks Skill-Sammlung (englisch), unser Hauptweg: das Original von handoff und grill-me, dazu teach, research und wayfinder. Installation wie in Modul 9: npx skills@latest add mattpocock/skills.</span>
           </a>
-          <a class="source-card" href="zusatzlinks.html" target="_blank" rel="noreferrer">
+          <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
             <span class="badge">Nach dem Kurs</span>
-            <b>Die große Linksammlung</b>
-            <span>Alle Kurs-Ressourcen nach Modulen sortiert: Live-Demos, Ausprobieren, Vertiefung, Tools und Skills, im selben Design wie diese Seite.</span>
+            <b>Lutoss/skills — unser Zusatzpaket</b>
+            <span>Die eigenen Kurs-Skills (verify-before-done, project-review und mehr) plus Codex-Fassungen, deutsch dokumentiert. Installation nur im kompatiblen Agenten mit den nötigen Rechten; im normalen Chat nutzt du Copy-Paste (Modul 9).</span>
+          </a>
+          <a class="source-card" href="zusatzlinks.html" target="_blank" rel="noopener noreferrer">
+            <span class="badge">Nach dem Kurs</span>
+            <b>Die große Linksammlung (Zusatzlinks V34)</b>
+            <span>Die wichtigsten ergänzenden Kurs-Ressourcen nach Modulen sortiert: Ausprobieren, Vertiefung, Tools und Skills, im selben Design wie diese Seite.</span>
           </a>
         </div>
       </section>
 
-      <p class="footer">Stand: 05.07.2026. Teil 1, V31 — Hauptfassung (dunkles Standard-Design, helles Design zuschaltbar; drei Leitbeispiele). Konzepte nach Matt Pocock; Smart/Dumb Zone nach Dex Horthy (Human Layer). Kontextgrößen und Stufen laut Anbieter-Hilfeseiten, Stand 05.07.2026.</p>
+      <p class="footer">Stand: 11.07.2026. Per Anhalter durch die KI, Teil 1, V37. Selbstlern-Fassung auf Basis V36, mit dunklem Standard-Design, zuschaltbarem hellem Design und drei Leitbeispielen. Konzepte nach Matt Pocock; die Smart-/Dumb-Zone-Praxisregel nach Dex Horthy (HumanLayer) ist ausdrücklich als Heuristik gekennzeichnet. Kontextgrößen, Produktfunktionen und Stufen stammen aus Anbieter-Hilfeseiten und tragen sichtbare Stand- und Änderungshinweise.</p>
     </main>
   </div>
   <script>
     /* ---------- Fortschritt ---------- */
-    const storageKey = "ki-kurs-teil1-v31";
+    const storageKey = "ki-kurs-teil1-v37";
     const liveButtons = Array.from(document.querySelectorAll("[data-live-step]"));
     const completed = new Set(loadProgress());
     const progressNumber = document.getElementById("progressNumber");
@@ -2245,9 +2375,13 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
 
     function updateProgress() {
       liveButtons.forEach((button, index) => {
-        const id = button.closest(".lesson").id || String(index);
+        const lesson = button.closest(".lesson");
+        const id = lesson.id || String(index);
         const isDone = completed.has(id);
+        const number = lesson.querySelector(".lesson-number")?.textContent.trim() || id;
+        const title = lesson.querySelector("h3")?.textContent.trim() || "Schritt";
         button.setAttribute("aria-pressed", isDone ? "true" : "false");
+        button.setAttribute("aria-label", "Lektion " + number + " „" + title + "“ " + (isDone ? "als nicht erledigt markieren" : "als erledigt markieren"));
         button.textContent = isDone ? "Erledigt" : "Markieren";
       });
       const pct = liveButtons.length ? Math.round((completed.size / liveButtons.length) * 100) : 0;
@@ -2267,6 +2401,7 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
     });
 
     document.getElementById("resetProgress").addEventListener("click", () => {
+      if (!window.confirm("Alle Fortschrittsmarkierungen für Teil 1 auf diesem Gerät zurücksetzen?")) return;
       completed.clear();
       saveProgress();
       updateProgress();
@@ -2278,7 +2413,8 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
     function applyTheme(light, persist) {
       if (light) document.documentElement.setAttribute("data-theme", "light");
       else document.documentElement.removeAttribute("data-theme");
-      themeToggle.textContent = light ? "Dunkles Design" : "Helles Design";
+      themeToggle.textContent = "Helles Design";
+      themeToggle.setAttribute("aria-label", "Helles Design verwenden");
       themeToggle.setAttribute("aria-pressed", light ? "true" : "false");
       if (persist) {
         try { localStorage.setItem(storageKey + "-theme", light ? "light" : "dark"); } catch { /* egal */ }
@@ -2325,6 +2461,10 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
 
     /* ---------- Copy-Buttons ---------- */
     document.querySelectorAll("[data-copy]").forEach((button) => {
+      const copyTitle = button.closest(".prompt-box")?.querySelector(".prompt-head small")?.textContent.trim()
+        || button.closest(".flip-card")?.querySelector("h4")?.textContent.trim()
+        || "Inhalt";
+      button.setAttribute("aria-label", copyTitle + " kopieren");
       button.addEventListener("click", async () => {
         const target = document.querySelector(button.dataset.copy);
         if (!target) return;
@@ -2333,7 +2473,11 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
           await navigator.clipboard.writeText(text);
           const old = button.textContent;
           button.textContent = "Kopiert";
-          setTimeout(() => { button.textContent = old; }, 1200);
+          button.setAttribute("aria-label", "Kopiert: " + copyTitle);
+          setTimeout(() => {
+            button.textContent = old;
+            button.setAttribute("aria-label", copyTitle + " kopieren");
+          }, 1200);
         } catch {
           window.prompt("Prompt kopieren:", text);
         }
@@ -2407,8 +2551,8 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
     const ctxStatus = document.getElementById("ctxStatus");
     const ctxWindowLabel = document.getElementById("ctxWindowLabel");
     const ctxMarkerLabel = document.getElementById("ctxMarkerLabel");
-    const DUMB_CAP = 100000; /* Kurs-Faustregel: bei großen Fenstern wird es spätestens ab ~100.000 Token wackelig. */
-    let ctxWindow = 27000;
+    const DUMB_CAP = 100000; /* Vorsichtiger Kurs-Arbeitsalarm, keine gemessene Modellgrenze. */
+    let ctxWindow = 16000;
 
     const fmt = (n) => n.toLocaleString("de-DE");
     const fmtK = (n) => {
@@ -2425,8 +2569,8 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
       const pct = (used / ctxWindow) * 100;
       ctxMeter.style.setProperty("--dumb-pct", dumbPct.toFixed(2) + "%");
       ctxMarkerLabel.textContent = dumbStart < ctxWindow * 0.4
-        ? "Dumb Zone ab " + fmtK(dumbStart) + " (Deckel)"
-        : "Dumb Zone ab " + fmtK(dumbStart) + " (40 %)";
+        ? "Kurs-Alarm ab " + fmtK(dumbStart) + " (Deckel)"
+        : "Kurs-Alarm ab " + fmtK(dumbStart) + " (40 %)";
       ctxFill.style.width = Math.min(pct, 100) + "%";
       ctxMeter.classList.toggle("dumb", used >= dumbStart);
       ctxWindowLabel.textContent = fmt(ctxWindow) + " Token";
@@ -2435,13 +2579,13 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
         ctxStatus.textContent = "Klick oben Inhalte an. Das Fenster ist noch leer.";
       } else if (pct > 100) {
         ctxStatus.classList.add("dumb");
-        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token: passt nicht ins Fenster. Die KI sieht nur noch einen Ausschnitt.";
+        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token: passt rechnerisch nicht vollständig ins Fenster. Das Produkt muss kürzen, zusammenfassen, Auszüge holen oder den Auftrag ablehnen.";
       } else if (used >= dumbStart) {
         ctxStatus.classList.add("dumb");
-        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token (" + Math.round(pct) + " %): Dumb Zone, ab " + fmtK(dumbStart) + " wird es unzuverlässig.";
+        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token (" + Math.round(pct) + " %): Kurs-Arbeitsalarm ab " + fmtK(dumbStart) + ". Prüfe, ob der Kontext noch fokussiert ist.";
       } else {
         ctxStatus.classList.add("smart");
-        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token (" + Math.round(pct) + " %): Smart Zone.";
+        ctxStatus.textContent = fmt(used) + " von " + fmt(ctxWindow) + " Token (" + Math.round(pct) + " %): unter unserer vorsichtigen Alarmmarke.";
       }
     }
 
@@ -2520,7 +2664,7 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
         tempo: "Antwort sofort, in Sekunden.",
         kosten: "Minimal: schont jedes Kontingent.",
         eignung: "Alltag: umformulieren, zusammenfassen, Ideen sammeln, einfache Fragen.",
-        map: "So heißt das draußen: ChatGPT Instant · Claude ohne Denken-Schalter · Gemini Fast · Codex none."
+        map: "Beispiele draußen: ChatGPT Instant · Claude Auto oder niedriger Effort, falls angeboten · Gemini Flash."
       },
       {
         tempo: "Kurze Denkpause, dann die Antwort.",
@@ -2532,25 +2676,25 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
         tempo: "Deutlich spürbare Denkpause.",
         kosten: "Mittel: zieht am Kontingent.",
         eignung: "Planen mit mehreren Bedingungen, Texte mit Struktur und Logik.",
-        map: "So heißt das draußen: ChatGPT Thinking (Standard) · Claude Mittel (Medium) · Codex medium · Gemini Thinking."
+        map: "So heißt das draußen: ChatGPT Thinking (Medium) · Claude Mittel (Medium) · Codex medium · Gemini Thinking."
       },
       {
-        tempo: "Mehrere Minuten sind normal.",
+        tempo: "Eine längere Denkpause ist möglich.",
         kosten: "Hoch: bewusst einsetzen.",
-        eignung: "Knifflige, mehrschrittige Probleme, bei denen Fehler teuer sind.",
-        map: "So heißt das draußen: ChatGPT Thinking (Erweitert, ab Plus) · Claude Hoch (High) · Codex high."
+        eignung: "Knifflige, mehrschrittige Probleme; bei teuren Fehlern immer mit Originalen und Fachprüfung koppeln.",
+        map: "So heißt das draußen: ChatGPT Thinking (High) · Claude Hoch (High) · Codex high."
       },
       {
-        tempo: "Lange Denkphase, gern zweistellige Minuten.",
+        tempo: "Lange Denkphase möglich.",
         kosten: "Sehr hoch: nur wenn es zählt.",
         eignung: "Sehr knifflige Analysen und Pläne, bevor du zur höchsten Stufe greifst.",
-        map: "So heißt das draußen: Claude Sehr hoch (Extra high) · Codex xhigh · ChatGPT Pro (Light/Heavy) spielt in dieser Liga."
+        map: "So heißt das draußen: ChatGPT Thinking (Extra High) · Claude Extra high (xhigh) · Codex xhigh."
       },
       {
         tempo: "Am langsamsten: die KI arbeitet, du machst etwas anderes.",
         kosten: "Am höchsten, meist nur in Bezahlplänen.",
-        eignung: "Die wirklich wichtigen Aufgaben, plus deine eigene Prüfung am Ende.",
-        map: "So heißt das draußen: Claude Max · ChatGPT Pro (Heavy) · Gemini Deep Think (Ultra-Abo)."
+        eignung: "Sehr schwierige Aufgaben, wenn zusätzlicher Aufwand wirklich hilft; Prüfung bleibt Pflicht.",
+        map: "Beispiele draußen: Claude Max · ChatGPT Work/Codex Max · Gemini Deep Think. Mehr-Agenten-Modi wie GPT-5.6 Ultra stehen bewusst außerhalb dieses Reglers."
       }
     ];
     const thinkTempo = document.getElementById("thinkTempo");
@@ -2601,25 +2745,39 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
     });
 
     /* ---------- Tagescheck: Antworten aufdecken ---------- */
-    document.querySelectorAll("[data-quiz]").forEach((card) => {
+    document.querySelectorAll("[data-quiz]").forEach((card, index) => {
       const button = card.querySelector("button");
       const answer = card.querySelector("p[hidden], p");
+      const question = card.querySelector("b")?.textContent.trim() || "Quizfrage";
+      if (!answer.id) answer.id = "quiz-answer-" + (index + 1);
+      button.setAttribute("aria-controls", answer.id);
+      button.setAttribute("aria-label", "Antwort anzeigen: " + question);
       button.addEventListener("click", () => {
         const show = answer.hasAttribute("hidden");
         if (show) answer.removeAttribute("hidden");
         else answer.setAttribute("hidden", "");
         button.textContent = show ? "Antwort verbergen" : "Antwort zeigen";
         button.setAttribute("aria-expanded", show ? "true" : "false");
+        button.setAttribute("aria-label", (show ? "Antwort verbergen: " : "Antwort anzeigen: ") + question);
       });
     });
 
     updateProgress();
 
-    /* Eingeklappte Nachschlage-Blöcke vor dem Drucken öffnen (sonst fehlen sie im Ausdruck). */
+    /* Eingeklappte Nachschlage-Blöcke vor dem Drucken öffnen (sonst fehlen sie im Ausdruck)
+       und nach dem Druck den vorherigen Auf-/Zu-Zustand wiederherstellen. */
+    let foldState = null;
     window.addEventListener("beforeprint", () => {
-      document.querySelectorAll("details.fold").forEach((d) => { d.open = true; });
+      const folds = document.querySelectorAll("details.fold");
+      foldState = Array.from(folds, (d) => d.open);
+      folds.forEach((d) => { d.open = true; });
     });
-    /* Ende V31. */
+    window.addEventListener("afterprint", () => {
+      if (!foldState) return;
+      document.querySelectorAll("details.fold").forEach((d, i) => { d.open = foldState[i]; });
+      foldState = null;
+    });
+    /* Ende V37. */
   </script>
 </body>
 </html>
