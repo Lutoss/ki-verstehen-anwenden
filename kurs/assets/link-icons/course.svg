@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kursseite">
+  <rect width="64" height="64" rx="14" fill="#10151d"/>
+  <path d="M14 14h25a7 7 0 0 1 7 7v29H21a7 7 0 0 1-7-7V14Z" fill="#1d2735" stroke="#2dd4bf" stroke-width="3"/>
+  <path d="M21 22h17M21 30h17M21 38h11" fill="none" stroke="#eef3f8" stroke-linecap="round" stroke-width="3"/>
+  <path d="M46 22h5v28H21a7 7 0 0 1 0-14h25" fill="none" stroke="#60a5fa" stroke-linejoin="round" stroke-width="3"/>
+</svg>
