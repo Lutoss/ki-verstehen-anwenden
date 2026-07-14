@@ -9,8 +9,8 @@ eigenen kleinen KI-Projekt: verständlich, praktisch und ohne vorausgesetzte
 Fachkenntnisse. ChatGPT dient häufig als Beispiel; die Arbeitsprinzipien sind
 weitgehend auf vergleichbare KI-Assistenten übertragbar.
 
-Aktueller veröffentlichter Stand: Teil 1 V37, Teil 2 V22 und Zusatzlinks V34
-(11.07.2026).
+Aktueller veröffentlichter Stand: Teil 1 V37, Teil 2 V22 und Zusatzlinks V35
+(14.07.2026).
 
 **➡️ Live-Website:** https://lutoss.github.io/ki-verstehen-anwenden/
 
@@ -32,8 +32,8 @@ gedacht — keine Expertenausbildung, keine vollständige Marktübersicht.
 | [**Die große Linksammlung**](kurs/zusatzlinks.html) | Kuratierte Tools, Spiele, Webseiten und Lernquellen zum Nachschlagen und Weiterstöbern. |
 
 Alle Kursseiten sind eigenständige HTML-Dateien. Oberfläche, Interaktionen und
-Icons funktionieren offline; externe Lernangebote werden erst beim Öffnen eines
-Links benötigt.
+die lokalen Webseiten-Vorschaubilder funktionieren offline; externe Lernangebote
+werden erst beim Öffnen eines Links benötigt.
 
 ## Design-Varianten
 

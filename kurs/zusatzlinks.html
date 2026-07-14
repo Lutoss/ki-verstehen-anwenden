@@ -3,10 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Per Anhalter durch die KI · Die große Linksammlung (V34)</title>
+  <title>Per Anhalter durch die KI · Die große Linksammlung (V35)</title>
   <link rel="icon" href="data:,">
   <style>
-    /* Zusatzlinks-Sammlung V34 „Per Anhalter durch die KI“, Inhalts- und Faktenreview vom 11.07.2026.
+    /* Zusatzlinks-Sammlung V35 „Per Anhalter durch die KI“, Screenshot-Runde vom 14.07.2026.
+       Basis V34. Neu: vollständige lokale Webseiten-Vorschaubilder für alle 54 Karten und
+       Kvasir KI-Beratung als zusätzlicher Link im Kurs-Umfeld. Speicher-Schlüssel konsistent V35.
+       Aus V34 übernommen: Inhalts- und Faktenreview vom 11.07.2026.
        Basis V33. Neu: präzisere Karten zu Temperatur, Kontext, Skills und Lernformaten;
        Artefakt-Primärquellen ergänzt; Teil-2-Rollen und Cross-Links auf V37/V22 aktualisiert.
        Lokale Icons und Speicher-Schlüssel konsistent V34.
@@ -255,21 +258,21 @@
       overflow-wrap: anywhere;
     }
 
-    /* Lokale Link-Icons: kein Laufzeit-Hotlink und keine leeren Vorschaukarten. */
+    /* Lokale Webseiten-Screenshots: volle Kartenbreite, kein Laufzeit-Hotlink. */
     .card-preview {
-      display: grid;
-      place-items: center;
-      width: 58px;
-      height: 58px;
+      display: block;
+      width: 100%;
+      min-width: 0;
+      aspect-ratio: 16 / 9;
       border: 1px solid var(--line);
-      border-radius: 14px;
-      background: var(--surface-soft);
+      border-radius: 8px;
+      background: var(--deep);
       overflow: hidden;
     }
     .card-preview img {
-      width: 40px;
-      height: 40px;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
 
@@ -361,8 +364,8 @@
       .layout { padding: 0; }
       .card-grid { display: block; }
       .source-card { break-inside: avoid; margin-bottom: 4mm; }
-      .card-preview { width: 12mm; height: 12mm; border-radius: 3mm; }
-      .card-preview img { width: 8mm; height: 8mm; }
+      .card-preview { width: 42mm; height: 23.625mm; border-radius: 2mm; }
+      .card-preview img { width: 100%; height: 100%; }
       .section, .hero { break-inside: auto; }
       a::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #4a555e; }
       a[href^="#"]::after { content: ""; }
@@ -371,7 +374,7 @@
   <script>
     /* Theme-Bootstrap: vor dem ersten Rendern, damit nichts aufblitzt. */
     try {
-      if (localStorage.getItem("ki-kurs-zusatzlinks-v34-theme") === "light") {
+      if (localStorage.getItem("ki-kurs-zusatzlinks-v35-theme") === "light") {
         document.documentElement.setAttribute("data-theme", "light");
       }
     } catch (e) { /* Ohne localStorage bleibt es beim dunklen Standard. */ }
@@ -381,7 +384,7 @@
   <header class="topbar">
     <div class="brand">
       <strong>Per Anhalter durch die KI</strong>
-      <span>Die große Linksammlung · V34</span>
+      <span>Die große Linksammlung · V35</span>
     </div>
     <div class="top-actions">
       <a class="button" href="teil-1-orientierung.html">Zu Teil 1</a>
@@ -398,7 +401,7 @@
       <p class="hero-lede">Die wichtigsten ergänzenden Links aus dem Kurs plus ausgewählte Fundstücke drumherum, sortiert nach Kursmodulen von Teil 1 und einer eigenen Gruppe zur Projektwerkstatt: zum Nachschlagen, Ausprobieren und Vertiefen, ganz ohne Pflichtprogramm. Herstellerquellen zu schnell veränderlichen Produktdetails stehen zusätzlich direkt an den passenden Stellen in Teil 1.</p>
       <div class="note warn">
         <strong>Kleiner Vorbehalt</strong>
-        <p>Tool-Namen und Ranglisten ändern sich schnell, Stand 11.07.2026. Alle 53 Karten wurden in dieser Runde geprüft; der OpenAI Tokenizer blockierte nur den automatisierten Abruf und sollte einmal im normalen Browser geöffnet werden. Wenn ein Link später nicht mehr passt: zuerst Titel und Herausgeber suchen.</p>
+        <p>Tool-Namen, Ranglisten und Webseiten ändern sich schnell, Stand 14.07.2026. Die Sammlung umfasst 54 Karten. Ihre lokalen Vorschaubilder sind Momentaufnahmen; wenn ein Link später nicht mehr passt: zuerst Titel und Herausgeber suchen.</p>
       </div>
       <p class="badge-legend" aria-label="Bedeutung der Markierungen">
         <span class="badge shown">Im Kurs gezeigt</span>
@@ -418,6 +421,11 @@
           <small>Kursseite</small>
           <b>Teil 2: Projektwerkstatt</b>
           <span>Eigenes Projekt in Phasen: erst denken, dann Route klären, planen, lokal Ticket für Ticket umsetzen und frisch prüfen — mit sechs Kern-Skills und kopierbaren Arbeitsaufträgen, ohne Git-Zwang.</span>
+        </a>
+        <a class="source-card" href="https://www.kvasir-ki.de/" target="_blank" rel="noopener noreferrer">
+          <small>Kursanbieter · Beratung &amp; Schulung</small>
+          <b>Kvasir KI-Beratung</b>
+          <span>KI-Audits und Schulungen für Unternehmen: konkrete Einsatzfelder, klare Datenregeln und Human-in-the-Loop statt Tool-Hype.</span>
         </a>
       </div>
     </section>
@@ -795,12 +803,12 @@
       </div>
     </section>
 
-    <p class="footer">Stand: 11.07.2026 · Per Anhalter durch die KI · Linksammlung V34 zu Teil 1 (V37) und Teil 2 (V22). Alle Karten verwenden lokale Icons; externe Seiten selbst können sich ändern, einen Login verlangen oder regional anders aussehen. Die Auswahl ist freiwilliges Material und kein Pflichtprogramm.</p>
+    <p class="footer">Stand: 14.07.2026 · Per Anhalter durch die KI · Linksammlung V35 zu Teil 1 (V37) und Teil 2 (V22). Alle 54 Karten verwenden lokale Webseiten-Vorschaubilder; externe Seiten selbst können sich ändern, einen Login verlangen oder regional anders aussehen. Die Auswahl ist freiwilliges Material und kein Pflichtprogramm.</p>
   </main>
 
   <script>
     /* ---------- Theme-Umschalter (dunkel = Standard) ---------- */
-    const themeKey = "ki-kurs-zusatzlinks-v34-theme";
+    const themeKey = "ki-kurs-zusatzlinks-v35-theme";
     const themeToggle = document.getElementById("themeToggle");
 
     function applyTheme(light, persist) {
@@ -819,16 +827,68 @@
     });
     applyTheme(document.documentElement.getAttribute("data-theme") === "light", false);
 
-    /* ---------- Lokale Icons für jede Linkkarte ----------
-       Dateinamen werden aus dem Host gebildet; interne Kursseiten teilen course.svg. */
+    /* ---------- Lokale Webseiten-Vorschaubilder ----------
+       Jede Karte verweist auf eine lokale 16:9-Aufnahme; doppelte Ziele teilen ein Bild. */
+    const previewMap = {
+      "teil-1-orientierung.html": "course-part-1",
+      "teil-2-projektwerkstatt.html": "course-part-2",
+      "https://www.kvasir-ki.de/": "kvasir-ki",
+      "https://platform.openai.com/tokenizer": "openai-tokenizer",
+      "https://poloclub.github.io/transformer-explainer/": "transformer-explainer",
+      "https://andreban.github.io/temperature-topk-visualizer/": "temperature-topk-topp",
+      "https://bbycroft.net/llm": "llm-visualization",
+      "https://www.3blue1brown.com/lessons/mini-llm/": "mini-llm",
+      "https://llm-timeline.com/": "llm-timeline",
+      "https://tiktokenizer.vercel.app/": "tiktokenizer",
+      "https://www.trychroma.com/research/context-rot": "context-rot",
+      "https://workspace.google.com/intl/de/resources/ai/writing-effective-prompts/": "google-prompting-guide",
+      "https://developers.openai.com/api/docs/guides/prompt-engineering": "openai-prompting-guide",
+      "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices": "claude-prompting-best-practices",
+      "https://ki-campus.org/lernangebote/kurse/erstellen-von-texten-mit-einer-text-ki-durch-zielfuehrendes-prompt-writing": "ki-campus-prompt-writing",
+      "https://github.com/anthropics/prompt-eng-interactive-tutorial": "anthropic-prompt-tutorial",
+      "https://developers.openai.com/cookbook": "openai-cookbook",
+      "https://platform.claude.com/cookbook": "claude-cookbook",
+      "https://www.bpb.de/system/files/dokument_pdf/bpb_TB_138_Quelle_KI_BF.pdf": "bpb-quelle-ki",
+      "https://correctiv.org/faktencheck/": "correctiv-faktencheck",
+      "https://arena.ai/": "arena",
+      "https://artificialanalysis.ai/leaderboards/models": "artificial-analysis",
+      "https://poloclub.github.io/diffusion-explainer/": "diffusion-explainer",
+      "https://artificialanalysis.ai/image/leaderboard/text-to-image": "artificial-analysis",
+      "https://github.com/mattpocock/skills": "github-mattpocock-skills",
+      "https://github.com/Lutoss/skills": "github-lutoss-skills",
+      "https://www.anthropic.com/ai-fluency": "ai-fluency-vocabulary",
+      "https://claude.com/download": "claude-download",
+      "https://www.youtube.com/watch?v=-QFHIoCo-Ko": "youtube-ai-coding-workflow",
+      "https://www.youtube.com/watch?v=A8mokin_YOs": "youtube-new-skills-v1-1",
+      "https://agentskills.io": "agentskills",
+      "https://www.aihero.dev/": "aihero",
+      "https://www.youtube.com/@mattpocockuk/videos": "youtube-mattpocock-channel",
+      "https://gandalf.lakera.ai/": "gandalf-lakera",
+      "https://pair.withgoogle.com/explorables/": "pair-explorables",
+      "https://quickdraw.withgoogle.com/?locale=de": "quickdraw",
+      "https://teachablemachine.withgoogle.com/": "teachable-machine",
+      "https://www.getbadnews.com/de": "bad-news",
+      "https://artsandculture.google.com/experiment/say-what-you-see/jwG3m7wQShZngw": "say-what-you-see",
+      "https://research.google.com/semantris/": "semantris",
+      "https://wisprflow.ai/": "wispr-flow",
+      "https://notebooklm.google/": "notebooklm",
+      "https://adoption.microsoft.com/en-us/copilot/prompt-gallery/": "copilot-prompt-gallery",
+      "https://claude.com/resources/use-cases/": "claude-use-cases",
+      "https://the-decoder.de/": "the-decoder",
+      "https://kiupdate.podigee.io/": "ki-update",
+      "https://www.verbraucherzentrale.de/wissen/digitale-welt/apps-und-software/kichatbots-im-ueberblick-was-sie-ueber-chatgpt-gemini-copilot-wissen-sollten-89125": "verbraucherzentrale-chatbots",
+      "https://www.klicksafe.de/quiz": "klicksafe-deepfake-detectives",
+      "https://www.whichfaceisreal.com/": "which-face-is-real",
+      "https://spotthetroll.org/": "spot-the-troll",
+      "https://incidentdatabase.ai/": "ai-incident-database",
+      "https://airisk.mit.edu/": "mit-risk-repository"
+    };
+
     document.querySelectorAll("a.source-card").forEach((card) => {
       if (card.querySelector(".card-preview")) return;
       const href = card.getAttribute("href");
-      let icon = "assets/link-icons/course.svg";
-      try {
-        const hostname = new URL(href, window.location.href).hostname;
-        if (hostname) icon = "assets/link-icons/" + hostname.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".svg";
-      } catch { /* Interner Link nutzt das Kurs-Icon. */ }
+      const preview = previewMap[href];
+      if (!preview) return;
 
       const wrap = document.createElement("span");
       wrap.className = "card-preview";
@@ -836,9 +896,9 @@
 
       const img = document.createElement("img");
       img.alt = "";
-      img.loading = "eager";
+      img.loading = "lazy";
       img.decoding = "async";
-      img.src = icon;
+      img.src = "assets/link-previews/v35/" + preview + ".jpg";
 
       wrap.appendChild(img);
       card.prepend(wrap);
