@@ -7,6 +7,8 @@
   <link rel="icon" href="data:,">
   <style>
     /* V37 "Per Anhalter durch die KI": Basis V36, Inhalts- und Faktenreview vom 11.07.2026.
+       Nachtrag 22.07.2026: Der einmalige Datencheck nennt die Trainingskontrollen für
+       ChatGPT, Codex und Claude konkret und trennt sie klar von Datenübertragung und Memory.
        Neu in V37: Übergang zu Teil 2 toolneutralisiert; Kontextpaket und Dumb-Zone-Heuristik
        fachlich nuanciert; Quellenprüfung, Denkzeitvergleich, Bildedit- und Handoff-Kontrolle
        geschlossen; GPT-5.6-/Gemini-Produktstände aktualisiert; Skill-Aufrufe toolneutral erklärt.
@@ -1055,10 +1057,26 @@ Schlag mir ein Ordnungssystem mit höchstens sieben Hauptordnern vor. Zu jedem O
                 <p>Die KI braucht das Muster, nicht die Personalien: "Mieterhöhung um 12 Prozent, Vertrag von 2019, was kann ich tun?" funktioniert genauso gut wie der echte Vertrag mit Namen und Anschrift.</p>
               </section>
             </div>
+            <p><b>Datenschutz-Einstellungen jetzt prüfen.</b> Nimm dir einmal zwei Minuten und schalte die freiwillige Nutzung deiner Inhalte zur allgemeinen Modellverbesserung aus:</p>
             <div class="blocks">
               <section class="block accent-blue">
-                <b>Drei Kontrollen in ChatGPT</b>
-                <p>In ChatGPT findest du unter Einstellungen die Datenkontrollen, den temporären Chat und die Memory-Einstellungen. Damit steuerst du unter anderem Trainingsnutzung, Verlauf und gespeicherte Erinnerungen; die genaue Wirkung und Aufbewahrung erklärt das Produkt an Ort und Stelle. Andere KI-Tools benennen und bündeln diese Kontrollen anders. Wirf deshalb in deinem verwendeten Tool selbst einen Blick in Datenschutz- und Memory-Einstellungen. Die fünf Grenzen gelten trotzdem: Auch mit den besten Einstellungen bleibt draußen, was draußen bleibt.</p>
+                <b>ChatGPT</b>
+                <p>Öffne Profilbild → Einstellungen → Datenkontrollen und schalte „Das Modell für alle verbessern“ aus. Neue Chats bleiben dann im Verlauf, werden aber nicht für das allgemeine Modelltraining verwendet. Temporärer Chat und Memory sind eigene Kontrollen.</p>
+              </section>
+              <section class="block accent-blue">
+                <b>Codex</b>
+                <p>Bei einem persönlichen OpenAI-Konto gilt diese Trainings-Abwahl auch für neue Codex-Aufgaben. Prüfe zusätzlich die Codex-Einstellungen: Für vollständige Arbeitsumgebungen gibt es eine eigene Trainingsfreigabe, die der ChatGPT-Schalter laut OpenAI nicht mitändert. Schalte auch sie aus, wenn du keine Umgebungsdaten zur Modellverbesserung freigeben möchtest.</p>
+              </section>
+              <section class="block accent-blue">
+                <b>Claude und Claude Code</b>
+                <p>Bei einem persönlichen Konto öffnest du Einstellungen → Privacy und schaltest „Help Improve Claude“ aus. Neue Chats und Coding-Sitzungen werden dann nicht für künftiges allgemeines Modelltraining verwendet.</p>
+              </section>
+            </div>
+            <div class="blocks">
+              <section class="block accent-rose">
+                <b>Diese Schalter verhindern nicht das Senden</b>
+                <p>Alles, was du eingibst, hochlädst oder einem Agenten als Ordner freigibst, wird weiterhin zur Bearbeitung an den Anbieter übertragen. Memory beziehungsweise Personalisierung steuerst du separat. Deshalb gelten die fünf roten Grenzen auch mit ausgeschaltetem Training.</p>
+                <p><small>Stand 22.07.2026. Offizielle Anleitungen: <a href="https://help.openai.com/de-de/articles/7730893-data-controls-faq" target="_blank" rel="noreferrer">OpenAI-Datenkontrollen</a>, <a href="https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance" target="_blank" rel="noreferrer">OpenAI zu ChatGPT und Codex</a> und <a href="https://privacy.claude.com/en/articles/12109829-how-do-i-change-my-model-improvement-privacy-settings" target="_blank" rel="noreferrer">Claude-Privacy-Einstellungen</a>. Bezeichnungen und Menüs können sich ändern.</small></p>
               </section>
               <section class="block accent-amber">
                 <b>Dienstlich? Erst fragen</b>
@@ -2344,7 +2362,7 @@ Nimm nur, was wir im Chat festgelegt haben. Danach ändere auf mein Kommando ein
         </div>
       </section>
 
-      <p class="footer">Stand: 11.07.2026. Per Anhalter durch die KI, Teil 1, V37. Selbstlern-Fassung auf Basis V36, mit dunklem Standard-Design, zuschaltbarem hellem Design und drei Leitbeispielen. Konzepte nach Matt Pocock; die Smart-/Dumb-Zone-Praxisregel nach Dex Horthy (HumanLayer) ist ausdrücklich als Heuristik gekennzeichnet. Kontextgrößen, Produktfunktionen und Stufen stammen aus Anbieter-Hilfeseiten und tragen sichtbare Stand- und Änderungshinweise.</p>
+      <p class="footer">Stand: 22.07.2026. Per Anhalter durch die KI, Teil 1, V37. Selbstlern-Fassung auf Basis V36, mit dunklem Standard-Design, zuschaltbarem hellem Design und drei Leitbeispielen. Konzepte nach Matt Pocock; die Smart-/Dumb-Zone-Praxisregel nach Dex Horthy (HumanLayer) ist ausdrücklich als Heuristik gekennzeichnet. Kontextgrößen, Produktfunktionen, Datenschutzkontrollen und Stufen stammen aus Anbieter-Hilfeseiten und tragen sichtbare Stand- und Änderungshinweise.</p>
     </main>
   </div>
   <script>
