@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KI im Alltag – Kursseite</title>
+<meta name="description" content="Begleitseite zum VHS-Kurs „KI im Alltag“, VHS Landshut, Dienstag 27. und Donnerstag 29. Oktober 2026. Kurs 2.0 · v1 · Stand 23.10.2026">
+<style>
+@font-face{font-family:"Atkinson Hyperlegible Next";font-style:normal;font-weight:400;font-display:swap;src:url("assets/kurs-2-0/fonts/atkinson-hyperlegible-next-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible Next";font-style:normal;font-weight:600;font-display:swap;src:url("assets/kurs-2-0/fonts/atkinson-hyperlegible-next-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible Next";font-style:normal;font-weight:800;font-display:swap;src:url("assets/kurs-2-0/fonts/atkinson-hyperlegible-next-latin-800-normal.woff2") format("woff2")}
+:root{
+  --papier:#FBFBF8; --flaeche:#FFFFFF; --tinte:#1C2B5A; --text:#22252E; --leise:#5A5F6E;
+  --linie:#C9D6EE; --rand:#D9443A; --marker:#FFE45C; --gruen:#23704F; --grau:#ECEDF1;
+  --schrift:1.1875rem;
+  --font:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",Verdana,Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papier:#14171F; --flaeche:#1C2029; --tinte:#AFC3FF; --text:#E8E9EE; --leise:#A9AEBD;
+    --linie:#2E3A58; --rand:#FF7A70; --marker:#7A6A10; --gruen:#1F7A55; --grau:#252A35;
+  }
+}
+:root[data-theme="dark"]{
+  --papier:#14171F; --flaeche:#1C2029; --tinte:#AFC3FF; --text:#E8E9EE; --leise:#A9AEBD;
+  --linie:#2E3A58; --rand:#FF7A70; --marker:#7A6A10; --gruen:#1F7A55; --grau:#252A35;
+}
+*{box-sizing:border-box}
+html{font-size:var(--schrift);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--papier);color:var(--text);font-family:var(--font);line-height:1.6;overflow-wrap:anywhere;hyphens:auto;-webkit-hyphens:auto}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--tinte);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,label:focus-within{outline:3px solid var(--rand);outline-offset:3px;border-radius:4px}
+.wrap{max-width:46rem;margin:0 auto;padding:0 16px}
+h1,h2,h3{color:var(--tinte);line-height:1.2;font-weight:800}
+h1{font-size:2.4rem;margin:.2em 0 .25em;letter-spacing:-.01em}
+h2{font-size:1.75rem;margin:0 0 .6em}
+h3{font-size:1.2rem;margin:1.4em 0 .4em}
+p,li{max-width:40em}
+.leise{color:var(--leise)}
+.nt{-webkit-hyphens:manual;hyphens:manual}
+b,strong,h1,h2,h3,summary,.adresse,.kopieren,.knopf{-webkit-hyphens:manual;hyphens:manual}
+.mark{background:var(--marker);padding:0 .15em;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;color:inherit}
+
+/* Kopf */
+.kopf{background:var(--flaeche);border-bottom:1px solid var(--linie)}
+.kopf img{width:100%;max-height:300px;object-fit:cover;object-position:center 40%}
+.kopf .wrap{padding-top:18px;padding-bottom:22px}
+.untertitel{font-size:1.15rem;margin:0;color:var(--leise)}
+.version{display:inline-block;margin-top:10px;font-size:.85rem;font-weight:600;color:var(--leise);border:1px solid var(--linie);border-radius:999px;padding:.1em .75em}
+.werkzeuge{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.knopf{font:inherit;font-size:1rem;font-weight:600;border:2px solid var(--tinte);background:var(--flaeche);color:var(--tinte);border-radius:10px;padding:.45em .9em;cursor:pointer;min-height:48px}
+.knopf:hover{background:var(--grau)}
+.knopf.voll{background:var(--tinte);color:var(--papier)}
+.hinweis{background:var(--grau);border-radius:12px;padding:14px 18px;margin:18px 0 0}
+.hinweis p{margin:.3em 0}
+
+/* Kapitel-Navigation */
+nav.kapitel{margin:28px 0 8px}
+nav.kapitel ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(13.5rem,100%),1fr));gap:8px}
+nav.kapitel a{display:flex;gap:.6em;align-items:center;text-decoration:none;background:var(--flaeche);border:1px solid var(--linie);border-radius:10px;padding:.55em .8em;min-height:52px;font-weight:600}
+nav.kapitel a:hover{border-color:var(--tinte)}
+nav.kapitel .nr{flex:0 0 auto;width:1.8em;height:1.8em;border-radius:50%;background:var(--tinte);color:var(--papier);display:grid;place-items:center;font-size:.85rem}
+.abend{font-size:.95rem;color:var(--leise);margin:22px 0 6px;font-weight:600}
+
+section{padding:44px 0 12px;border-top:1px solid var(--linie);margin-top:36px}
+section:first-of-type{border-top:0}
+.nach-oben{font-size:.9rem;display:inline-block;margin-top:16px}
+
+/* Wegweiser */
+.wege{display:grid;gap:14px;margin:16px 0}
+.weg{background:var(--flaeche);border:1px solid var(--linie);border-left:8px solid var(--tinte);border-radius:12px;padding:14px 18px}
+.weg h3{margin:.1em 0 .3em}
+.weg .braucht{font-weight:600;margin:.2em 0}
+.weg ol{margin:.4em 0 .2em;padding-left:1.3em}
+.adresse{font-weight:800;font-size:1.15em;letter-spacing:.01em}
+.notausgang{border-left-color:var(--rand)}
+
+/* Fenster-Skizze */
+.fenster{background:var(--flaeche);border:2px solid var(--tinte);border-radius:14px;overflow:hidden;margin:16px 0;font-size:.95rem}
+.fenster .leiste{display:flex;gap:6px;align-items:center;padding:8px 12px;background:var(--grau);border-bottom:1px solid var(--linie)}
+.fenster .leiste i{width:10px;height:10px;border-radius:50%;background:var(--linie);display:inline-block}
+.fenster .innen{display:grid;grid-template-columns:9rem 1fr;min-height:220px}
+.fenster .seite{border-right:1px solid var(--linie);padding:10px;display:flex;flex-direction:column;gap:8px}
+.fenster .haupt{padding:12px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.blase{background:var(--grau);border-radius:12px;padding:8px 12px;max-width:85%}
+.blase.ich{align-self:flex-end;background:var(--linie)}
+.eingabe{display:flex;align-items:center;gap:8px;border:2px solid var(--linie);border-radius:24px;padding:6px 10px}
+.eingabe span.feld{flex:1;color:var(--leise)}
+.pin{display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:var(--rand);color:#fff;font-weight:800;font-size:.8rem;flex:0 0 auto}
+.legende{padding-left:0;list-style:none}
+.legende li{display:flex;gap:.6em;align-items:flex-start;margin:.35em 0}
+
+/* Karteikarten (das eine auffällige Element) */
+.karten{display:grid;gap:22px;margin-top:18px}
+.karte{position:relative;background:var(--flaeche);border-radius:4px;box-shadow:0 1px 0 var(--linie),0 6px 16px -10px rgba(28,43,90,.45);padding:0 0 14px}
+.karte header{border-bottom:3px solid var(--rand);padding:14px 18px 8px;background:var(--flaeche);border-radius:4px 4px 0 0}
+.karte h3{margin:0;font-size:1.3rem}
+.karte h4{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.6rem;color:var(--tinte)}
+.karte .wozu{margin:.2em 0 0;color:var(--leise);font-size:.98rem}
+.karte .koerper{margin-top:.8rem;padding:0 18px;line-height:1.6rem;
+  background-image:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6rem - 1px),var(--linie) calc(1.6rem - 1px),var(--linie) 1.6rem)}
+.karte .koerper p{margin:0;line-height:1.6rem}
+.karte .koerper pre + p,.karte .koerper p + pre,.karte .koerper p + p{margin-top:1.6rem}
+.karte pre{white-space:pre-wrap;word-wrap:break-word;font:inherit;line-height:1.6rem;margin:0;padding:0 0 .2rem;background:transparent}
+.karte .dann{font-size:.98rem}
+.karte .dann b{color:var(--tinte)}
+.karte .aktion{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:10px 18px 0}
+.karte .zwischen{display:flex;gap:10px;flex-wrap:wrap;margin:.5rem 0 0;background:var(--flaeche)}
+.kopieren{font:inherit;font-weight:800;font-size:1.05rem;background:var(--gruen);color:#fff;border:0;border-radius:10px;padding:.55em 1.1em;min-height:52px;cursor:pointer;max-width:100%}
+.kopieren:hover{filter:brightness(1.08)}
+.kopieren.ok{background:var(--tinte);color:var(--papier)}
+.erledigt{display:flex;gap:.5em;align-items:center;font-size:.98rem;cursor:pointer;padding:.4em .2em}
+.erledigt input{width:1.4em;height:1.4em;accent-color:var(--gruen)}
+.karte.ist-erledigt header{opacity:.65}
+.tag{display:inline-block;font-size:.85rem;font-weight:600;border:1px solid var(--linie);border-radius:999px;padding:.05em .6em;margin:.3em .3em 0 0;color:var(--leise)}
+
+/* Wort-Vorhersage */
+.vorhersage{background:var(--flaeche);border:1px solid var(--linie);border-radius:12px;padding:16px 18px;margin:14px 0}
+.vorhersage .satz{font-size:1.25rem;font-weight:600;margin:.2em 0 .7em;min-height:2.2em}
+.balken{display:grid;gap:8px}
+.balken button{font:inherit;text-align:left;border:1px solid var(--linie);background:var(--papier);color:var(--text);border-radius:8px;padding:0;cursor:pointer;position:relative;overflow:hidden;min-height:46px}
+.balken button span.fuell{position:absolute;inset:0 auto 0 0;background:var(--linie)}
+.balken button span.wort{position:relative;display:flex;justify-content:space-between;gap:.6em;padding:.5em .8em;font-weight:600}
+
+.bildtext{display:grid;grid-template-columns:minmax(0,1fr) 13rem;gap:20px;align-items:center}
+.bildtext img{border-radius:12px}
+@media (max-width:640px){.bildtext{grid-template-columns:1fr}.bildtext img{max-width:min(15rem,100%)}}
+
+table{border-collapse:collapse;width:100%;font-size:.95rem;margin:12px 0}
+th,td{border-bottom:1px solid var(--linie);padding:.5em .4em;text-align:left;vertical-align:top}
+th{color:var(--tinte)}
+.tabelle{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:560px){
+  .tabelle table,.tabelle tbody,.tabelle tr,.tabelle td{display:block;width:100%}
+  .tabelle tr:first-child{display:none}
+  .tabelle tr{border:1px solid var(--linie);border-radius:10px;margin:0 0 10px;padding:8px 12px;background:var(--flaeche)}
+  .tabelle td{border:0;padding:.15em 0}
+  .tabelle td:first-child{font-weight:800;color:var(--tinte);font-size:1.05rem}
+  .tabelle td:not(:first-child)::before{content:attr(data-label) ": ";font-weight:600;color:var(--leise)}
+}
+
+details{background:var(--flaeche);border:1px solid var(--linie);border-radius:12px;margin:10px 0;padding:0 16px}
+summary{cursor:pointer;font-weight:800;color:var(--tinte);padding:14px 0;min-height:48px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";display:inline-block;width:1.3em;font-weight:800}
+details[open] summary::before{content:"−"}
+details[open] summary{border-bottom:1px solid var(--linie);margin-bottom:8px}
+details ol, details ul{padding-left:1.3em}
+.pfad{font-weight:600}
+.pfad b{background:var(--marker);padding:0 .2em;border-radius:2px;color:inherit}
+
+.regel{font-size:1.3rem;font-weight:800;color:var(--tinte);border-left:8px solid var(--marker);padding:.3em 0 .3em .8em;margin:16px 0}
+.fakt{background:var(--flaeche);border:2px solid var(--tinte);border-radius:12px;padding:12px 18px;margin:16px 0}
+.fakt p{margin:.3em 0}
+.stand{font-size:.9rem;color:var(--leise)}
+.dateien{background:var(--grau);border-radius:12px;padding:12px 18px;margin:16px 0}
+.dateien h3{margin:.2em 0 .3em}
+.dateien ol{margin:.3em 0;padding-left:1.4em}
+.dateien li{margin:.35em 0}
+
+/* Postfach-Regeln */
+.postfach{background:var(--flaeche);border:3px solid var(--tinte);border-radius:12px;padding:14px 18px;margin:16px 0}
+.postfach p{margin:.45em 0}
+.postfach .adresse{font-size:1.35em}
+
+/* Entscheidungshilfe */
+.hilfe fieldset{border:1px solid var(--linie);border-radius:12px;margin:12px 0;padding:10px 16px;background:var(--flaeche);min-width:0}
+.hilfe legend{font-weight:800;color:var(--tinte);padding:0 .3em}
+.hilfe label{display:flex;gap:.6em;align-items:center;padding:.35em 0;cursor:pointer}
+.hilfe input{width:1.3em;height:1.3em;accent-color:var(--tinte);flex:0 0 auto}
+.ergebnis{border:3px solid var(--tinte);border-radius:12px;padding:14px 18px;margin-top:14px;background:var(--flaeche)}
+.ergebnis[hidden]{display:none}
+
+.vergleich{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.vergleich div{background:var(--flaeche);border:1px solid var(--linie);border-radius:12px;padding:12px 16px}
+@media (max-width:560px){.vergleich{grid-template-columns:1fr}.fenster .innen{grid-template-columns:1fr}.fenster .seite{flex-direction:row;flex-wrap:wrap;gap:6px 14px;border-right:0;border-bottom:1px solid var(--linie)}.fenster .seite .alt{display:none}.fenster .seite span:last-child{margin-top:0!important}}
+
+.offen{border:2px dashed var(--tinte);border-radius:12px;padding:14px 18px;background:var(--flaeche)}
+.platzhalter{background:var(--marker);font-weight:600;padding:0 .25em;color:inherit}
+
+/* Kvasir-Kasten: klar gekennzeichnete Eigenwerbung, nur nach OK der VHS */
+.kvasir-block{margin-top:28px}
+.kvasir-block .kennung{display:inline-block;font-size:.85rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--leise);margin:0 0 .3em}
+/* KVASIR-SCHALTER: Zum Ausblenden die nächste Zeile aus dem Kommentar holen. */
+/* .kvasir-block{display:none!important} */
+
+dl.woerter dt{font-weight:800;color:var(--tinte);margin-top:.8em}
+dl.woerter dd{margin:0 0 0 0;max-width:40em}
+
+footer{margin-top:50px;padding:24px 0 40px;border-top:1px solid var(--linie);font-size:.95rem;color:var(--leise)}
+
+@media print{
+  :root{--papier:#fff;--flaeche:#fff;--tinte:#1C2B5A;--text:#22252E;--leise:#555;--linie:#bbb;--marker:#FFE45C;--grau:#eee}
+  .werkzeuge,.kopieren,.erledigt,nav.kapitel,.nach-oben,.kopf img,.zwischen{display:none!important}
+  body{background:#fff;font-size:11pt}
+  section{page-break-inside:auto;border-top:1px solid #999}
+  .karte{box-shadow:none;border:1px solid #999;page-break-inside:avoid}
+  details{border:0;padding:0} details>*{display:block}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="kopf">
+  <img src="assets/kurs-2-0/titel.jpg" alt="Gezeichneter Kursraum am Abend: eine Reihe Computer, an der Wand eine Leinwand voller bunter Sprechblasen" width="1280" height="720">
+  <div class="wrap">
+    <h1>KI im Alltag</h1>
+    <p class="untertitel">Ihre Kursseite · VHS Landshut · Dienstag 27. und Donnerstag 29. Oktober 2026, je 18:30–21:30 Uhr</p>
+    <span class="version">Kurs 2.0 · v1 · Stand 23.10.2026</span>
+    <div class="werkzeuge" role="group" aria-label="Darstellung">
+      <button class="knopf" id="kleiner" type="button" aria-label="Schrift kleiner">A−</button>
+      <button class="knopf voll" id="groesser" type="button" aria-label="Schrift größer">A+</button>
+      <button class="knopf" id="drucken" type="button">Seite drucken</button>
+    </div>
+    <div class="hinweis">
+      <p><b>So benutzen Sie diese Seite:</b> Unter jeder Aufgabe steht ein grüner Knopf <b>„Text kopieren“</b>. Drücken Sie ihn, klicken Sie dann ins Eingabefeld der KI und drücken Sie <b>Strg + V</b> (oder rechte Maustaste → Einfügen).</p>
+      <p>Alles, was <span class="mark">so markiert</span> ist, ersetzen Sie durch Ihre eigenen Angaben.</p>
+      <p>Diese Seite bleibt auch nach dem Kurs erreichbar: <span class="platzhalter">KURS-ADRESSE</span></p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<nav class="kapitel" aria-label="Kapitel">
+  <p class="abend">Abend 1 · KI antwortet</p>
+  <ol>
+    <li><a href="#zugang"><span class="nr">1</span>Zugang: so kommen Sie rein</a></li>
+    <li><a href="#sicher"><span class="nr">2</span>Sicher und privat</a></li>
+    <li><a href="#fenster"><span class="nr">3</span>Das Fenster und die 4 W</a></li>
+    <li><a href="#karten"><span class="nr">4</span>Aufgabenkarten</a></li>
+    <li><a href="#grenze"><span class="nr">5</span>Wir suchen die Grenze</a></li>
+    <li><a href="#verstehen"><span class="nr">6</span>Wie KI funktioniert</a></li>
+  </ol>
+  <p class="abend">Abend 2 · KI erledigt</p>
+  <ol start="7">
+    <li><a href="#postfach"><span class="nr">7</span>Das Kurs-Postfach</a></li>
+    <li><a href="#agenten"><span class="nr">8</span>Agenten: KI erledigt etwas</a></li>
+    <li><a href="#helfer"><span class="nr">9</span>Mein eigener Helfer</a></li>
+    <li><a href="#abo"><span class="nr">10</span>Gratis oder Abo?</a></li>
+    <li><a href="#weiter"><span class="nr">11</span>Wo geht's weiter?</a></li>
+    <li><a href="#woerter"><span class="nr">12</span>Kleines Wörterbuch</a></li>
+  </ol>
+</nav>
+
+<!-- 1 ZUGANG -->
+<section id="zugang">
+  <h2>1 · Zugang: so kommen Sie rein</h2>
+  <p>Wir arbeiten mit <b>ChatGPT</b>. Das geht am schnellsten und braucht <b>keine Handynummer</b>. ChatGPT, Claude und Gemini spielen in derselben Liga; zu Hause können Sie jedes davon nutzen.</p>
+
+  <div class="hinweis">
+    <p><b>An einem fremden PC zuerst ein privates Fenster öffnen:</b> <b>Strg + Umschalt + N</b> drücken. Es öffnet sich ein dunkles Fenster („InPrivate“ oder „Inkognito“). Wenn Sie es schließen, sind Sie automatisch abgemeldet.</p>
+    <p>Legen Sie Ihr Handy bereit: Google oder Ihr E-Mail-Postfach schicken manchmal einen Bestätigungscode.</p>
+  </div>
+
+  <div class="wege">
+    <div class="weg">
+      <h3>Der Standardweg: ChatGPT</h3>
+      <p class="braucht">Sie brauchen: ein Google-Konto (Gmail, Android-Handy) <i>oder</i> eine E-Mail-Adresse samt Passwort, damit Sie Ihre E-Mails abrufen können.</p>
+      <ol>
+        <li>Adresse eintippen: <span class="adresse">chatgpt.com</span></li>
+        <li>Auf <b>Anmelden</b> klicken.</li>
+        <li><b>Mit Google-Konto (am schnellsten):</b> „<b>Mit Google fortfahren</b>“ wählen, Konto auswählen, gegebenenfalls am Handy bestätigen.<br><b>Mit E-Mail:</b> E-Mail-Adresse eingeben und den Schritten auf dem Bildschirm folgen (zum Beispiel einen Code eintippen, der per E-Mail kommt).</li>
+      </ol>
+      <p class="leise">Ziel: Sie sehen ein leeres Eingabefeld. Dann machen Sie gleich den Erfolgstest (unten).</p>
+    </div>
+    <div class="weg">
+      <h3>Sie haben schon Claude oder Gemini?</h3>
+      <p>Dann nehmen Sie das. Alle Aufgaben auf dieser Seite funktionieren auch dort.</p>
+      <ul>
+        <li><span class="adresse">gemini.google.com</span>: braucht ein <b>Google-Konto</b>.</li>
+        <li><span class="adresse">claude.ai</span>: Anmeldung mit Google oder E-Mail. <b>Ein neues Konto geht nur mit einer Handynummer, die SMS empfangen kann, und ab 18 Jahren.</b></li>
+      </ul>
+    </div>
+    <div class="weg notausgang">
+      <h3>Es klappt nicht?</h3>
+      <p>Kein Problem. Arbeiten Sie heute zu zweit mit Ihrem Nachbarn oder Ihrer Nachbarin an einem Bildschirm. Das ist sowieso oft lustiger. Das eigene Konto können Sie zu Hause in Ruhe anlegen: mit dieser Anleitung.</p>
+    </div>
+  </div>
+  <div class="karten">
+    <article class="karte" data-id="k-test">
+      <header><h3>Der Erfolgstest</h3><p class="wozu">Gleich nach der Anmeldung: Antwortet die KI? Dann sind Sie drin.</p></header>
+      <div class="koerper">
+<pre>Erklär mir in drei Sätzen, was du kannst.</pre>
+        <p class="dann"><b>Danach:</b> zuerst den Trainings-Schalter umlegen (<a href="#sicher">Kapitel 2</a>), dann geht es mit der ersten Aufgabe los.</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+  </div>
+  <p class="leise">Und Microsoft Copilot? Den haben viele schon über Windows oder Office. Er spielt in derselben Liga; die Aufgaben auf dieser Seite funktionieren auch dort.</p>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 2 SICHER -->
+<section id="sicher">
+  <h2>2 · Sicher und privat: erst sichern, dann loslegen</h2>
+  <p class="regel">Die Postkarten-Regel: Schreiben Sie der KI nur, was Sie auch auf eine Postkarte schreiben würden.</p>
+  <p>Also nicht: Passwörter, Kontonummern, Gesundheitsdaten mit Namen, Adressen oder Fotos anderer Menschen. Namen können Sie ersetzen („meine Nachbarin“, „Frau M.“).</p>
+
+  <h3>Den Trainings-Schalter umlegen</h3>
+  <p>Ihre Gespräche können verwendet werden, um künftige KI-Versionen zu trainieren. Das können Sie abschalten. Machen Sie es gleich jetzt, direkt nach der Anmeldung und vor der ersten eigenen Aufgabe:</p>
+
+  <details>
+    <summary>ChatGPT</summary>
+    <p class="pfad">Profilbild oder Name → <b>Einstellungen</b> → <b>Datenkontrollen</b> → „<b>Das Modell für alle verbessern</b>“ ausschalten.</p>
+    <p>Ihre Gespräche bleiben im Verlauf, werden aber nicht mehr zum Training verwendet.</p>
+  </details>
+  <details>
+    <summary>Claude</summary>
+    <p class="pfad"><b>Einstellungen</b> → <b>Datenschutz</b> → „<b>Help improve our AI models</b>“ ausschalten.</p>
+    <p class="leise">Die Beschriftung kann auf Deutsch abweichen. Gemeint ist der Schalter, mit dem Sie erlauben, dass Ihre Chats zur Verbesserung der KI-Modelle verwendet werden.</p>
+  </details>
+  <details>
+    <summary>Gemini</summary>
+    <p class="pfad">Der Schalter heißt „<b>Aktivitäten speichern</b>“: <b>Aktivitäten</b> → oben auf „<b>Aktiviert</b>“ klicken → „<b>Deaktivieren</b>“.</p>
+    <p>Bei Erwachsenen ist er anfangs eingeschaltet. <b>Gut zu wissen:</b> Auch ausgeschaltet bleiben Ihre Gespräche noch bis zu 72 Stunden gespeichert. Es ist also kein Sofort-Löschknopf.</p>
+  </details>
+  <p class="fakt"><b>Wichtig:</b> Ausschalten wirkt nur für die Zukunft. Was Sie vorher geschrieben haben, ist davon nicht betroffen.</p>
+  <p class="leise">Die Bezeichnungen können sich leicht ändern. Suchen Sie im Zweifel in den Einstellungen nach „Daten“, „Datenschutz“ oder „Training“.</p>
+
+  <h3>Werbung, Verlauf, temporärer Chat</h3>
+  <ul>
+    <li><b>Werbung erkennen:</b> In ChatGPT gratis (und bei ChatGPT Go) kann Werbung erscheinen, gekennzeichnet mit „<b>Gesponsert</b>“. Klicken Sie im Zweifel nicht auf Anzeigen.</li>
+    <li><b>Verlauf:</b> Einzelne Gespräche können Sie im Verlauf wieder löschen.</li>
+    <li><b>Temporärer Chat:</b> für Einzelnes, das gar nicht erst im Verlauf landen soll.</li>
+  </ul>
+
+  <h3>Abmelden am fremden PC</h3>
+  <ol>
+    <li>Auf Ihr Profilbild oder Ihren Namen → <b>Abmelden</b>.</li>
+    <li>Das private Fenster schließen (rechts oben auf das X).</li>
+    <li>Wenn Sie sich mit Google angemeldet haben: auch das Google-Konto im Browser abmelden.</li>
+  </ol>
+
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 3 FENSTER -->
+<section id="fenster">
+  <h2>3 · Das Fenster und die 4 W</h2>
+  <p>Alle KI-Programme sehen ungefähr gleich aus. Die Zahlen zeigen, wo was ist.</p>
+
+  <div class="fenster" aria-hidden="true">
+    <div class="leiste"><i></i><i></i><i></i></div>
+    <div class="innen">
+      <div class="seite">
+        <span><span class="pin">1</span> Neuer Chat</span>
+        <span class="leise"><span class="pin">2</span> Verlauf</span>
+        <span class="leise alt">Brief Vermieter</span>
+        <span class="leise alt">Rezept Datschi</span>
+        <span class="leise" style="margin-top:auto"><span class="pin">7</span> Ihr Name</span>
+      </div>
+      <div class="haupt">
+        <div class="blase ich">Schreib mir eine kurze Absage für die Vereinsfeier.</div>
+        <div class="blase">Liebe Vorstandschaft, leider kann ich am Samstag nicht … <br><span class="pin">6</span> <span class="leise">Kopieren · nochmal</span></div>
+        <div class="eingabe"><span class="pin">3</span><span class="feld">Hier schreiben …</span><span class="pin">4</span><span class="pin">5</span></div>
+      </div>
+    </div>
+  </div>
+  <ul class="legende">
+    <li><span class="pin">1</span><span><b>Neuer Chat:</b> für jedes neue Thema. Sonst bringt die KI die Themen durcheinander.</span></li>
+    <li><span class="pin">2</span><span><b>Verlauf:</b> Ihre früheren Gespräche. Sie können dort weitermachen.</span></li>
+    <li><span class="pin">3</span><span><b>Plus oder Büroklammer:</b> ein Foto oder eine Datei mitschicken.</span></li>
+    <li><span class="pin">4</span><span><b>Mikrofon:</b> sprechen statt tippen.</span></li>
+    <li><span class="pin">5</span><span><b>Pfeil:</b> abschicken. Oder Taste Enter. Für eine neue Zeile: Umschalt + Enter.</span></li>
+    <li><span class="pin">6</span><span><b>Unter der Antwort:</b> Kopieren, neu erzeugen, Daumen.</span></li>
+    <li><span class="pin">7</span><span><b>Ihr Name oder Profilbild:</b> Einstellungen und Abmelden.</span></li>
+  </ul>
+
+  <h3>Die gute Anweisung: die 4 W</h3>
+  <div class="vergleich">
+    <div><p><b>So eher nicht:</b></p><p>„Schreib was zum Geburtstag.“</p></div>
+    <div><p><b>So besser:</b></p><p>„<b>Ich</b> bin Taufpatin von Lena. <b>Ich brauche</b> einen Text für die Glückwunschkarte zum 18. Geburtstag, <b>für</b> eine junge Frau, die gerade Abitur macht und gern reist. <b>Bitte</b> herzlich, ein bisschen lustig, höchstens 5 Sätze.“</p></div>
+  </div>
+  <div class="tabelle">
+  <table>
+    <tr><th>W</th><th>Frage</th><th>Beispiel</th></tr>
+    <tr><td data-label="W"><b>Wer</b></td><td data-label="Frage">Wer bin ich?</td><td data-label="Beispiel">„Ich bin Kassier im Gartenbauverein …“</td></tr>
+    <tr><td data-label="W"><b>Was</b></td><td data-label="Frage">Was brauche ich?</td><td data-label="Beispiel">„… eine Erinnerung an den Mitgliedsbeitrag …“</td></tr>
+    <tr><td data-label="W"><b>Wofür</b></td><td data-label="Frage">Wofür, für wen?</td><td data-label="Beispiel">„… an ältere Mitglieder, die es vergessen haben …“</td></tr>
+    <tr><td data-label="W"><b>Wie</b></td><td data-label="Frage">Wie soll es aussehen?</td><td data-label="Beispiel">„… freundlich, kurz, ohne Vorwurf.“</td></tr>
+  </table>
+  </div>
+  <p><b>Nachbessern statt neu anfangen:</b> Schreiben Sie einfach „kürzer“, „förmlicher“, „ohne das Wort ‚leider‘“, „nochmal, aber lustiger“. Die KI kennt das Gespräch.</p>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 4 KARTEN -->
+<section id="karten">
+  <h2>4 · Aufgabenkarten</h2>
+  <p>Suchen Sie sich aus, was Sie interessiert. Die Reihenfolge ist egal. Häkchen setzen, wenn Sie fertig sind: Ihr Browser merkt es sich (nur auf diesem Gerät).</p>
+
+  <div class="karten">
+
+    <article class="karte" data-id="k0">
+      <header><h3>Die Einladung zum Vereinsnachmittag</h3><p class="wozu">Der schnellste Start: 90 Sekunden, und Sie haben einen fertigen Text.</p></header>
+      <div class="koerper">
+<pre>Schreib eine kurze, herzliche Einladung zu unserem Vereinsnachmittag am [Samstag, 14. November]. Es kommen [etwa 18 Gäste], es gibt [Essen, auch vegetarisch, Getränke und Musik]. Höchstens 80 Wörter.</pre>
+        <p class="dann"><b>Erst prüfen:</b> Uhrzeit, Ort und Rückmeldefrist stehen absichtlich nicht im Auftrag. Hat die KI etwas dazuerfunden?</p>
+        <p class="dann"><b>Und dann:</b> „Jetzt lustiger.“ – „Jetzt für die WhatsApp-Gruppe, mit zwei Emojis.“ – „Jetzt auf Bairisch.“</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k1">
+      <header><h3>Die heikle E-Mail</h3><p class="wozu">Eine Absage, eine Beschwerde, eine Bitte: freundlich und klar. Die 4 W zum Üben.</p></header>
+      <div class="koerper">
+<pre>Ich bin [Mitglied im Gesangverein]. Bitte schreib mir eine kurze, freundliche E-Mail an [die Vorsitzende]. Ich muss [für das Herbstfest am Samstag als Helfer absagen], weil [ich Besuch von meiner Schwester bekomme]. Ich möchte gern [beim nächsten Fest wieder helfen]. Bitte in der Sie-Form, höchstens 6 Sätze.</pre>
+        <p class="dann"><b>Und dann:</b> „Kürzer und freundlicher.“ – „Jetzt bitte per Du.“ – „Gib mir drei Betreffzeilen zur Auswahl.“</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k1b">
+      <header><h3>Die Reklamation</h3><p class="wozu">Geld zurück, Ersatz, Nachbesserung: sachlich und bestimmt.</p></header>
+      <div class="koerper">
+<pre>Ich habe am [12. Oktober] bei [einem Online-Shop] [einen Wasserkocher für 39 Euro] gekauft. Nach [zwei Wochen] [schaltet er sich nicht mehr ab]. Schreib mir eine sachliche, bestimmte E-Mail, in der ich [einen Ersatz oder das Geld zurück] verlange. Nenne eine Frist von 14 Tagen. Erfinde keine Paragrafen.</pre>
+        <p class="dann"><b>Und dann:</b> „Welche Rechte habe ich da eigentlich? Erkläre es kurz und sag mir, wo ich das nachprüfen kann.“</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k2">
+      <header><h3>Erklär's mir einfach</h3><p class="wozu">Behördenbrief, Fachwort, Beipackzettel: in Alltagssprache.</p></header>
+      <div class="koerper">
+<pre>Erkläre mir in einfachen Worten, was [„Vorauszahlung“ und „Abrechnungszeitraum“ in einer Nebenkostenabrechnung] bedeuten. Erkläre es so, als würdest du es einer Nachbarin am Gartenzaun erklären, mit einem Beispiel aus dem Alltag. Höchstens 8 Sätze.</pre>
+        <p class="dann"><b>Und dann:</b> „Was sollte ich bei so einer Abrechnung prüfen? Gib mir eine Liste mit 5 Punkten.“</p>
+        <p class="dann"><b>Achtung:</b> Bei Gesundheit, Geld und Recht ist die KI eine erste Orientierung, kein Ersatz für Ärztin, Bank oder Beratungsstelle.</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k9">
+      <header><h3>Der Essensplan für die Woche</h3><p class="wozu">Fünf Abendessen, Vorkochen und Einkaufsliste in einem Rutsch.</p></header>
+      <div class="koerper">
+<pre>Plane 5 Abendessen für [3 Personen], [eins glutenfrei], [bayerische Hausmannskost]. [Vorkochen am Samstag]. Dazu eine Einkaufsliste, sortiert nach den Abteilungen im Supermarkt.</pre>
+        <p class="dann"><b>Und dann:</b> „Tausche Tag 3 gegen etwas mit Kartoffeln.“ – „Was davon kann ich einfrieren?“</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k10">
+      <header><h3>Kaufberatung mit Rückfragen</h3><p class="wozu">Die KI fragt erst nach, dann empfiehlt sie.</p></header>
+      <div class="koerper">
+<pre>Ich suche [einen Dokumentenscanner]. Stell mir erst Fragen, eine nach der anderen. Danach empfiehl mir zwei oder drei passende Geräte und sag mir, worauf ich beim Kauf achten soll.</pre>
+        <p class="dann"><b>Und dann:</b> Fragen Sie in einem zweiten Programm (zum Beispiel Gemini oder Claude) dasselbe. Eine zweite Meinung findet manchmal ein neueres oder günstigeres Modell. Preise immer im Shop nachprüfen.</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k3">
+      <header><h3>Ein Ausflug ab Landshut</h3><p class="wozu">Planen lassen, dann mitreden.</p></header>
+      <div class="koerper">
+<pre>Plane mir einen Tagesausflug ab Landshut für [zwei Personen über 60] am [Samstag]. Wir fahren mit [dem Zug] und möchten [nicht mehr als 5 Kilometer laufen]. Wir interessieren uns für [Geschichte und gutes Essen]. Gib mir einen Zeitplan von 9 bis 18 Uhr und zwei Ideen für schlechtes Wetter. Frag mich zuerst, wenn dir etwas fehlt.</pre>
+        <p class="dann"><b>Und dann:</b> „Prüfe die Öffnungszeiten und nenne die Quellen.“ – Vergleichen Sie: Stimmen die Zeiten? KI kann sich irren.</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k4">
+      <header><h3>Rezept umbauen</h3><p class="wozu">Weniger Personen, andere Zutaten, fertige Einkaufsliste.</p></header>
+      <div class="koerper">
+<pre>Hier ist ein Rezept für [6] Personen: [Rezept hier hineinkopieren oder Namen des Gerichts nennen, z. B. „Zwetschgendatschi mit Hefeteig“]. Bitte rechne es um auf [2] Personen, mach es [mit weniger Zucker], und schreib mir dann eine Einkaufsliste, sortiert nach den Abteilungen im Supermarkt.</pre>
+        <p class="dann"><b>Und dann:</b> „Ich habe keine Hefe im Haus. Was kann ich nehmen?“</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k7">
+      <header><h3>Eine Geschichte zum Vorlesen</h3><p class="wozu">Für Kinder, Enkel oder Patenkind, mit Namen und Lieblingstier.</p></header>
+      <div class="koerper">
+<pre>Schreib eine Gute-Nacht-Geschichte zum Vorlesen für [Paul, 6 Jahre], der [Traktoren und Igel] mag. Die Geschichte spielt [auf einem Bauernhof bei Landshut], ist lustig und ein bisschen spannend, aber nicht gruselig. Länge: etwa 3 Minuten Vorlesezeit.</pre>
+        <p class="dann"><b>Und dann:</b> „Mach daraus ein Reimgedicht.“ – „Erzähl sie nochmal auf Bairisch.“</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+  </div>
+  <p class="leise">Fotos und Dokumente hochladen üben Sie im nächsten Kapitel. Bei ChatGPT gratis sind Uploads knapp, darum steht das extra.</p>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 5 GRENZE -->
+<section id="grenze">
+  <h2>5 · Wir suchen die Grenze</h2>
+  <p>Diese Übung ist ungewöhnlich: Sie suchen <b>absichtlich</b> die Grenze der Gratisversion. Dann wissen Sie, wie sie aussieht, und können später selbst entscheiden, ob Ihnen gratis reicht.</p>
+
+  <div class="fakt">
+    <p><b>ChatGPT gratis erlaubt 3 Datei-Uploads pro Tag.</b> Beim vierten Upload kommt typischerweise eine Meldung. Bei viel Betrieb kann sie früher kommen, und auch fehlgeschlagene Versuche können mitzählen.</p>
+    <p class="stand">Stand 23.10.2026. Tipp: Machen Sie die Übung an einem Tag, an dem Sie keine wichtige Datei mehr hochladen müssen.</p>
+  </div>
+
+  <div class="dateien" id="uebungsdateien">
+    <h3>Übungsdateien</h3>
+    <p>Alles erfunden, nur zum Üben. Laden Sie die vier Dateien herunter (sie landen im Ordner „Downloads“):</p>
+    <ol>
+      <li><a href="assets/kurs-2-0/material/anleitung-waschmaschine.pdf" download>Bedienungsanleitung Waschmaschine</a> <span class="leise">(PDF, 12 Seiten)</span></li>
+      <li><a href="assets/kurs-2-0/titel.jpg" download="uebungsfoto-kursraum.jpg">Übungsfoto Kursraum</a> <span class="leise">(Bild; ein eigenes Foto geht auch)</span></li>
+      <li><a href="assets/kurs-2-0/material/angebot-a.txt" download>Catering-Angebot A</a> <span class="leise">(Text)</span></li>
+      <li><a href="assets/kurs-2-0/material/angebot-b.txt" download>Catering-Angebot B</a> <span class="leise">(Text)</span></li>
+    </ol>
+  </div>
+
+  <div class="karten">
+    <article class="karte" data-id="k8">
+      <header><h3>Die Upload-Grenze: vier Dateien, vier Fragen</h3><p class="wozu">Nacheinander hochladen, jeweils mit <b>Plus</b> oder <b>Büroklammer</b>. Jede Frage hat ihren eigenen Kopier-Knopf.</p></header>
+      <div class="koerper">
+        <h4>Upload 1: die Bedienungsanleitung</h4>
+<pre id="grenze-1">Ich habe dir die Anleitung meiner Waschmaschine geschickt. In der Anzeige steht [E07]. Was bedeutet das und was soll ich jetzt tun? Bitte nenne die Seite oder das Kapitel, wo das steht.</pre>
+        <div class="zwischen"><button class="kopieren" type="button" data-ziel="grenze-1">Text kopieren (Upload 1)</button></div>
+        <p class="dann"><b>Selbst prüfen:</b> Steht es im PDF wirklich so?</p>
+
+        <h4>Upload 2: das Übungsfoto</h4>
+<pre id="grenze-2">Beschreibe mir dieses Bild in drei Sätzen. [Was für ein Raum ist das, und wie viele Bildschirme siehst du?]</pre>
+        <div class="zwischen"><button class="kopieren" type="button" data-ziel="grenze-2">Text kopieren (Upload 2)</button></div>
+        <p class="dann"><b>Selbst prüfen:</b> Zählen Sie nach. Bitte keine Fotos von anderen Menschen, Ausweisen oder Bankkarten.</p>
+
+        <h4>Upload 3: Catering-Angebot A</h4>
+<pre id="grenze-3">Das ist ein Angebot für unseren Vereinsnachmittag. Was kostet das Essen für [18 Gäste, davon 6 vegetarisch], samt Lieferung? Rechne Schritt für Schritt vor.</pre>
+        <div class="zwischen"><button class="kopieren" type="button" data-ziel="grenze-3">Text kopieren (Upload 3)</button></div>
+        <p class="dann"><b>Selbst prüfen:</b> 12 × 7,50 + 6 × 8,00 + 18,00 = 156,00 €.</p>
+
+        <h4>Upload 4: Catering-Angebot B</h4>
+<pre id="grenze-4">Hier ist ein zweites Angebot. Vergleiche es mit Angebot A: Welches ist günstiger, und passt es für [6 vegetarische Gäste]?</pre>
+        <div class="zwischen"><button class="kopieren" type="button" data-ziel="grenze-4">Text kopieren (Upload 4)</button></div>
+        <p class="dann"><b>Jetzt aufpassen:</b> Kommt eine Meldung? Lesen Sie sie genau: Wann geht es wieder, und was wird Ihnen angeboten? Und falls B doch noch durchgeht: Merkt die KI, dass bei B die vegetarische Angabe fehlt?</p>
+      </div>
+      <div class="aktion"><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+
+    <article class="karte" data-id="k8b">
+      <header><h3>Die Bildgrenze: eine Einladungskarte</h3><p class="wozu">Getrennt von den Uploads: Auch Bilder erzeugen ist in der Gratisversion begrenzt.</p></header>
+      <div class="koerper">
+<pre>Erstelle ein Bild für eine Einladungskarte zu unserem [Vereinsnachmittag am 14. November]. Stil: [fröhlich, Herbstfarben, gezeichnet]. Motiv: [ein gedeckter Kaffeetisch mit Kuchen und Blumen in einem Pfarrsaal]. Bitte ohne Text im Bild.</pre>
+        <p class="dann"><b>Und dann, nacheinander:</b> „Mach eine Variante im Winter.“ – „Jetzt als Aquarell.“ Eine feste Zahl, wie viele Bilder gratis gehen, nennt ChatGPT nicht.</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+  </div>
+
+  <h3>Was haben Sie herausgefunden?</h3>
+  <ul>
+    <li><b>Es kam eine Meldung</b> (zum Beispiel „Limit erreicht“ oder „später erneut versuchen“)? Dann haben Sie die Grenze gefunden.</li>
+    <li><b>Es kam keine Meldung?</b> Auch eine gute Nachricht: Für Ihre Alltagsfragen reicht Gratis im Moment.</li>
+  </ul>
+  <p class="regel">Gratis ist nicht schlecht, sondern begrenzt: Uploads, Bilder, das kleinere Modell und Werbung.</p>
+  <p class="leise">Bei den anderen Programmen sind die Grenzen anders. Claude gratis hat ein Kontingent, das alle 5 Stunden zurückgesetzt wird; eine feste Nachrichtenzahl gibt es nicht. Ob sich ein Abo für Sie lohnt, steht in Kapitel 10.</p>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 6 VERSTEHEN -->
+<section id="verstehen">
+  <h2>6 · Wie KI funktioniert, in drei Bildern</h2>
+
+  <h3>Bild 1: Wortvorhersage auf Riesenniveau</h3>
+  <p>Eine Sprach-KI hat unvorstellbar viele Texte gelesen. Daraus hat sie gelernt, welches Wort wahrscheinlich als Nächstes kommt. Sie schreibt Wort für Wort, wie die Vorschläge auf der Handy-Tastatur, nur sehr viel besser. Probieren Sie es aus: Klicken Sie ein Wort an.</p>
+  <div class="vorhersage" id="vorhersage">
+    <p class="satz" aria-live="polite"></p>
+    <div class="balken"></div>
+    <button class="knopf" type="button" id="neustart" style="margin-top:10px">Von vorn</button>
+  </div>
+  <p class="leise">Die Prozentzahlen sind zur Veranschaulichung ausgedacht. Wichtig ist: Die KI wählt nicht immer das wahrscheinlichste Wort. Darum ist jede Antwort ein bisschen anders, auch bei Ihrer Nachbarin mit derselben Frage.</p>
+
+  <h3>Bild 2: Der belesene Praktikant</h3>
+  <div class="bildtext">
+    <div>
+      <p>Stellen Sie sich einen Praktikanten vor, der jedes Buch der Welt gelesen hat. Er ist schnell, höflich und weiß viel. Aber er ist neu bei Ihnen: Er kennt Ihre Situation nicht, wenn Sie sie ihm nicht erklären (die 4 W!).</p>
+      <p>Und er hat eine Schwäche: <b>Er sagt ungern „Das weiß ich nicht“.</b> Manchmal erfindet er dann etwas, das sehr überzeugend klingt. Fachleute nennen das „Halluzinieren“.</p>
+      <p><b>Darum:</b> Wichtige Fakten (Termine, Paragrafen, Medikamente, Preise) immer nachprüfen. Fragen Sie nach Quellen.</p>
+    </div>
+    <img src="assets/kurs-2-0/eule.jpg" alt="Gezeichnete Eule mit Brille, die vor einem riesigen Bücherstapel an einem kleinen Tisch schreibt; daneben fällt ein Buch mit Fragezeichen herunter" width="700" height="700">
+  </div>
+
+  <h3>Bild 3: Welches Programm ist das richtige?</h3>
+  <p>Die großen drei spielen in derselben Liga. Nehmen Sie das, bei dem Sie schon ein Konto haben. Wenn Ihnen eine Antwort nicht gefällt, fragen Sie ruhig dasselbe in einem anderen Programm.</p>
+  <div class="tabelle">
+  <table>
+    <tr><th>Programm</th><th>Firma</th><th>Konto</th><th>Gratisversion</th></tr>
+    <tr><td data-label="Programm"><b>ChatGPT</b></td><td data-label="Firma">OpenAI (USA)</td><td data-label="Konto">Google oder E-Mail; keine Handynummer nötig</td><td data-label="Gratisversion">Alltägliche Text-Chats ohne Mengengrenze; 3 Datei-Uploads pro Tag; Werbung</td></tr>
+    <tr><td data-label="Programm"><b>Gemini</b></td><td data-label="Firma">Google (USA)</td><td data-label="Konto">Google-Konto nötig</td><td data-label="Gratisversion">Kleineres Modell (Flash-Lite), dazu unter anderem Bilder, Deep Research und Gems</td></tr>
+    <tr><td data-label="Programm"><b>Claude</b></td><td data-label="Firma">Anthropic (USA)</td><td data-label="Konto">Google oder E-Mail; neues Konto nur mit SMS-fähiger Handynummer, ab 18</td><td data-label="Gratisversion">Werbefrei; Kontingent wird alle 5 Stunden zurückgesetzt</td></tr>
+    <tr><td data-label="Programm"><b>Copilot</b></td><td data-label="Firma">Microsoft (USA)</td><td data-label="Konto">Microsoft-Konto</td><td data-label="Gratisversion">Haben viele schon über Windows oder Office</td></tr>
+  </table>
+  </div>
+  <p class="stand">Stand 23.10.2026. Die Anbieter ändern ihre Angebote oft.</p>
+  <div class="hinweis">
+    <p><b>Für Abend 2 (freiwillig):</b> Bringen Sie eine Aufgabe mit, die Sie öfter haben, und ein geladenes Handy mit Ihrem Mail-Programm.</p>
+  </div>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 7 POSTFACH -->
+<section id="abstimmung">
+  <h2>Abend 2 · Was wollen Sie sehen?</h2>
+  <p>Am Donnerstag bestimmen Sie die Reihenfolge der Show. Stimmen Sie am Handy ab, ganz ohne Anmeldung:</p>
+  <p><a class="adresse" href="https://ki-kurs-wunschprogramm.blithechick1024.chatgpt.site/" target="_blank" rel="noopener">Zur Abstimmung</a></p>
+  <div style="width:42mm;max-width:45%;margin:8px 0"><svg role="img" aria-label="QR-Code" width="100%" height="100%" version="1.1" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTpmMTVkZmNlYi02NGUyLTQ3YTgtYTQxNy04YmZmYmExNDM1Y2YAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaDlz1qZrwJYiD2fb8+Bg710AAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpiNDBhNzAyNS00YjA3LTQwNjYtOTIwNS03NTQ0OWFkMzYzNTdscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoegeDr17K+K++TzzCkta9ywAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggGy/kk5lFLXyl5za8B/ojAhkKZbeXouKKnYvTfmqi5BykZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaLvA/5EFcKuNUnX+zL2mJ5YAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCD6s6bhF4N7odZhllKHBMdZ8hYMc9KY1BRutLwN6LG4zmRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBjEZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmYxNWRmY2ViLTY0ZTItNDdhOC1hNDE3LThiZmZiYTE0MzVjZi9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmMwZTFmNzg2LTk0N2YtNDE4Ny1hNDBjLWU5MGI1OGExZGVmZXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAbL+STmUUtfKXnNrwH+iMCGQplt5ei4oqdi9N+aqLkHKJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggf6G6IZyk2k1Alss402LnuNzXhJBLuX9zuuyURmVJ0sWiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggl83/bOhCfgFyHwda9rnxqoQZVDyuXYe7I7SjAJsbbE90Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQMOTzqaqpyBSZWTbclllODXb1Y6Sxfqj8zb3Bk9l2Gu9qYR3f58vjHcRBuQDKqEghYmjbRk1hSFHOw88fFw6enA=</c2pa:manifest></metadata><path d="M1,1H2V2H1zM2,1H3V2H2zM3,1H4V2H3zM4,1H5V2H4zM5,1H6V2H5zM6,1H7V2H6zM7,1H8V2H7zM9,1H10V2H9zM12,1H13V2H12zM15,1H16V2H15zM18,1H19V2H18zM19,1H20V2H19zM22,1H23V2H22zM27,1H28V2H27zM28,1H29V2H28zM29,1H30V2H29zM30,1H31V2H30zM31,1H32V2H31zM32,1H33V2H32zM33,1H34V2H33zM1,2H2V3H1zM7,2H8V3H7zM10,2H11V3H10zM12,2H13V3H12zM13,2H14V3H13zM14,2H15V3H14zM15,2H16V3H15zM17,2H18V3H17zM21,2H22V3H21zM22,2H23V3H22zM25,2H26V3H25zM27,2H28V3H27zM33,2H34V3H33zM1,3H2V4H1zM3,3H4V4H3zM4,3H5V4H4zM5,3H6V4H5zM7,3H8V4H7zM9,3H10V4H9zM11,3H12V4H11zM15,3H16V4H15zM16,3H17V4H16zM18,3H19V4H18zM19,3H20V4H19zM21,3H22V4H21zM22,3H23V4H22zM23,3H24V4H23zM24,3H25V4H24zM27,3H28V4H27zM29,3H30V4H29zM30,3H31V4H30zM31,3H32V4H31zM33,3H34V4H33zM1,4H2V5H1zM3,4H4V5H3zM4,4H5V5H4zM5,4H6V5H5zM7,4H8V5H7zM10,4H11V5H10zM11,4H12V5H11zM15,4H16V5H15zM16,4H17V5H16zM18,4H19V5H18zM19,4H20V5H19zM21,4H22V5H21zM22,4H23V5H22zM25,4H26V5H25zM27,4H28V5H27zM29,4H30V5H29zM30,4H31V5H30zM31,4H32V5H31zM33,4H34V5H33zM1,5H2V6H1zM3,5H4V6H3zM4,5H5V6H4zM5,5H6V6H5zM7,5H8V6H7zM10,5H11V6H10zM11,5H12V6H11zM13,5H14V6H13zM15,5H16V6H15zM16,5H17V6H16zM17,5H18V6H17zM22,5H23V6H22zM25,5H26V6H25zM27,5H28V6H27zM29,5H30V6H29zM30,5H31V6H30zM31,5H32V6H31zM33,5H34V6H33zM1,6H2V7H1zM7,6H8V7H7zM9,6H10V7H9zM10,6H11V7H10zM11,6H12V7H11zM12,6H13V7H12zM13,6H14V7H13zM15,6H16V7H15zM17,6H18V7H17zM21,6H22V7H21zM22,6H23V7H22zM27,6H28V7H27zM33,6H34V7H33zM1,7H2V8H1zM2,7H3V8H2zM3,7H4V8H3zM4,7H5V8H4zM5,7H6V8H5zM6,7H7V8H6zM7,7H8V8H7zM9,7H10V8H9zM11,7H12V8H11zM13,7H14V8H13zM15,7H16V8H15zM17,7H18V8H17zM19,7H20V8H19zM21,7H22V8H21zM23,7H24V8H23zM25,7H26V8H25zM27,7H28V8H27zM28,7H29V8H28zM29,7H30V8H29zM30,7H31V8H30zM31,7H32V8H31zM32,7H33V8H32zM33,7H34V8H33zM10,8H11V9H10zM13,8H14V9H13zM15,8H16V9H15zM16,8H17V9H16zM17,8H18V9H17zM20,8H21V9H20zM21,8H22V9H21zM1,9H2V10H1zM3,9H4V10H3zM7,9H8V10H7zM8,9H9V10H8zM12,9H13V10H12zM15,9H16V10H15zM17,9H18V10H17zM20,9H21V10H20zM21,9H22V10H21zM24,9H25V10H24zM28,9H29V10H28zM31,9H32V10H31zM33,9H34V10H33zM1,10H2V11H1zM2,10H3V11H2zM3,10H4V11H3zM4,10H5V11H4zM5,10H6V11H5zM8,10H9V11H8zM9,10H10V11H9zM10,10H11V11H10zM12,10H13V11H12zM13,10H14V11H13zM16,10H17V11H16zM17,10H18V11H17zM19,10H20V11H19zM20,10H21V11H20zM21,10H22V11H21zM23,10H24V11H23zM24,10H25V11H24zM25,10H26V11H25zM27,10H28V11H27zM30,10H31V11H30zM33,10H34V11H33zM2,11H3V12H2zM3,11H4V12H3zM5,11H6V12H5zM7,11H8V12H7zM10,11H11V12H10zM11,11H12V12H11zM12,11H13V12H12zM14,11H15V12H14zM15,11H16V12H15zM16,11H17V12H16zM18,11H19V12H18zM20,11H21V12H20zM22,11H23V12H22zM24,11H25V12H24zM26,11H27V12H26zM30,11H31V12H30zM31,11H32V12H31zM33,11H34V12H33zM1,12H2V13H1zM2,12H3V13H2zM4,12H5V13H4zM9,12H10V13H9zM10,12H11V13H10zM11,12H12V13H11zM13,12H14V13H13zM15,12H16V13H15zM20,12H21V13H20zM24,12H25V13H24zM28,12H29V13H28zM29,12H30V13H29zM30,12H31V13H30zM1,13H2V14H1zM2,13H3V14H2zM3,13H4V14H3zM7,13H8V14H7zM10,13H11V14H10zM11,13H12V14H11zM13,13H14V14H13zM14,13H15V14H14zM15,13H16V14H15zM16,13H17V14H16zM17,13H18V14H17zM19,13H20V14H19zM20,13H21V14H20zM21,13H22V14H21zM23,13H24V14H23zM27,13H28V14H27zM28,13H29V14H28zM2,14H3V15H2zM3,14H4V15H3zM4,14H5V15H4zM5,14H6V15H5zM6,14H7V15H6zM11,14H12V15H11zM15,14H16V15H15zM16,14H17V15H16zM20,14H21V15H20zM21,14H22V15H21zM24,14H25V15H24zM27,14H28V15H27zM28,14H29V15H28zM31,14H32V15H31zM32,14H33V15H32zM33,14H34V15H33zM4,15H5V16H4zM6,15H7V16H6zM7,15H8V16H7zM11,15H12V16H11zM12,15H13V16H12zM15,15H16V16H15zM16,15H17V16H16zM18,15H19V16H18zM19,15H20V16H19zM20,15H21V16H20zM21,15H22V16H21zM23,15H24V16H23zM24,15H25V16H24zM31,15H32V16H31zM33,15H34V16H33zM3,16H4V17H3zM5,16H6V17H5zM6,16H7V17H6zM10,16H11V17H10zM11,16H12V17H11zM12,16H13V17H12zM17,16H18V17H17zM21,16H22V17H21zM23,16H24V17H23zM26,16H27V17H26zM27,16H28V17H27zM30,16H31V17H30zM1,17H2V18H1zM4,17H5V18H4zM6,17H7V18H6zM7,17H8V18H7zM10,17H11V18H10zM13,17H14V18H13zM15,17H16V18H15zM16,17H17V18H16zM17,17H18V18H17zM20,17H21V18H20zM23,17H24V18H23zM24,17H25V18H24zM25,17H26V18H25zM27,17H28V18H27zM28,17H29V18H28zM32,17H33V18H32zM1,18H2V19H1zM2,18H3V19H2zM3,18H4V19H3zM5,18H6V19H5zM8,18H9V19H8zM11,18H12V19H11zM13,18H14V19H13zM14,18H15V19H14zM15,18H16V19H15zM16,18H17V19H16zM17,18H18V19H17zM18,18H19V19H18zM19,18H20V19H19zM20,18H21V19H20zM21,18H22V19H21zM22,18H23V19H22zM24,18H25V19H24zM25,18H26V19H25zM27,18H28V19H27zM30,18H31V19H30zM33,18H34V19H33zM1,19H2V20H1zM2,19H3V20H2zM3,19H4V20H3zM4,19H5V20H4zM6,19H7V20H6zM7,19H8V20H7zM9,19H10V20H9zM16,19H17V20H16zM17,19H18V20H17zM20,19H21V20H20zM21,19H22V20H21zM24,19H25V20H24zM26,19H27V20H26zM28,19H29V20H28zM30,19H31V20H30zM31,19H32V20H31zM33,19H34V20H33zM1,20H2V21H1zM2,20H3V21H2zM5,20H6V21H5zM8,20H9V21H8zM9,20H10V21H9zM10,20H11V21H10zM11,20H12V21H11zM12,20H13V21H12zM16,20H17V21H16zM20,20H21V21H20zM21,20H22V21H21zM25,20H26V21H25zM26,20H27V21H26zM29,20H30V21H29zM30,20H31V21H30zM33,20H34V21H33zM1,21H2V22H1zM2,21H3V22H2zM3,21H4V22H3zM6,21H7V22H6zM7,21H8V22H7zM9,21H10V22H9zM10,21H11V22H10zM11,21H12V22H11zM12,21H13V22H12zM13,21H14V22H13zM14,21H15V22H14zM16,21H17V22H16zM17,21H18V22H17zM27,21H28V22H27zM28,21H29V22H28zM32,21H33V22H32zM33,21H34V22H33zM2,22H3V23H2zM3,22H4V23H3zM6,22H7V23H6zM8,22H9V23H8zM11,22H12V23H11zM12,22H13V23H12zM13,22H14V23H13zM15,22H16V23H15zM16,22H17V23H16zM17,22H18V23H17zM19,22H20V23H19zM20,22H21V23H20zM21,22H22V23H21zM22,22H23V23H22zM24,22H25V23H24zM27,22H28V23H27zM28,22H29V23H28zM30,22H31V23H30zM33,22H34V23H33zM1,23H2V24H1zM2,23H3V24H2zM5,23H6V24H5zM7,23H8V24H7zM8,23H9V24H8zM14,23H15V24H14zM16,23H17V24H16zM17,23H18V24H17zM19,23H20V24H19zM20,23H21V24H20zM22,23H23V24H22zM24,23H25V24H24zM26,23H27V24H26zM29,23H30V24H29zM30,23H31V24H30zM31,23H32V24H31zM33,23H34V24H33zM3,24H4V25H3zM4,24H5V25H4zM5,24H6V25H5zM10,24H11V25H10zM11,24H12V25H11zM12,24H13V25H12zM13,24H14V25H13zM17,24H18V25H17zM23,24H24V25H23zM24,24H25V25H24zM26,24H27V25H26zM27,24H28V25H27zM28,24H29V25H28zM30,24H31V25H30zM1,25H2V26H1zM2,25H3V26H2zM4,25H5V26H4zM6,25H7V26H6zM7,25H8V26H7zM8,25H9V26H8zM9,25H10V26H9zM11,25H12V26H11zM12,25H13V26H12zM15,25H16V26H15zM16,25H17V26H16zM20,25H21V26H20zM21,25H22V26H21zM25,25H26V26H25zM26,25H27V26H26zM27,25H28V26H27zM28,25H29V26H28zM29,25H30V26H29zM30,25H31V26H30zM9,26H10V27H9zM12,26H13V27H12zM13,26H14V27H13zM14,26H15V27H14zM16,26H17V27H16zM17,26H18V27H17zM20,26H21V27H20zM21,26H22V27H21zM23,26H24V27H23zM25,26H26V27H25zM29,26H30V27H29zM33,26H34V27H33zM1,27H2V28H1zM2,27H3V28H2zM3,27H4V28H3zM4,27H5V28H4zM5,27H6V28H5zM6,27H7V28H6zM7,27H8V28H7zM9,27H10V28H9zM10,27H11V28H10zM11,27H12V28H11zM15,27H16V28H15zM16,27H17V28H16zM19,27H20V28H19zM20,27H21V28H20zM23,27H24V28H23zM25,27H26V28H25zM27,27H28V28H27zM29,27H30V28H29zM30,27H31V28H30zM31,27H32V28H31zM33,27H34V28H33zM1,28H2V29H1zM7,28H8V29H7zM10,28H11V29H10zM12,28H13V29H12zM13,28H14V29H13zM14,28H15V29H14zM15,28H16V29H15zM16,28H17V29H16zM17,28H18V29H17zM19,28H20V29H19zM21,28H22V29H21zM23,28H24V29H23zM25,28H26V29H25zM29,28H30V29H29zM30,28H31V29H30zM33,28H34V29H33zM1,29H2V30H1zM3,29H4V30H3zM4,29H5V30H4zM5,29H6V30H5zM7,29H8V30H7zM10,29H11V30H10zM11,29H12V30H11zM12,29H13V30H12zM14,29H15V30H14zM15,29H16V30H15zM16,29H17V30H16zM20,29H21V30H20zM21,29H22V30H21zM24,29H25V30H24zM25,29H26V30H25zM26,29H27V30H26zM27,29H28V30H27zM28,29H29V30H28zM29,29H30V30H29zM1,30H2V31H1zM3,30H4V31H3zM4,30H5V31H4zM5,30H6V31H5zM7,30H8V31H7zM11,30H12V31H11zM12,30H13V31H12zM14,30H15V31H14zM15,30H16V31H15zM16,30H17V31H16zM17,30H18V31H17zM18,30H19V31H18zM20,30H21V31H20zM21,30H22V31H21zM24,30H25V31H24zM26,30H27V31H26zM28,30H29V31H28zM29,30H30V31H29zM31,30H32V31H31zM32,30H33V31H32zM33,30H34V31H33zM1,31H2V32H1zM3,31H4V32H3zM4,31H5V32H4zM5,31H6V32H5zM7,31H8V32H7zM9,31H10V32H9zM10,31H11V32H10zM11,31H12V32H11zM12,31H13V32H12zM13,31H14V32H13zM14,31H15V32H14zM16,31H17V32H16zM20,31H21V32H20zM21,31H22V32H21zM24,31H25V32H24zM26,31H27V32H26zM28,31H29V32H28zM29,31H30V32H29zM30,31H31V32H30zM31,31H32V32H31zM32,31H33V32H32zM33,31H34V32H33zM1,32H2V33H1zM7,32H8V33H7zM12,32H13V33H12zM19,32H20V33H19zM23,32H24V33H23zM25,32H26V33H25zM28,32H29V33H28zM29,32H30V33H29zM30,32H31V33H30zM1,33H2V34H1zM2,33H3V34H2zM3,33H4V34H3zM4,33H5V34H4zM5,33H6V34H5zM6,33H7V34H6zM7,33H8V34H7zM9,33H10V34H9zM10,33H11V34H10zM14,33H15V34H14zM17,33H18V34H17zM25,33H26V34H25zM28,33H29V34H28zM29,33H30V34H29zM30,33H31V34H30zM33,33H34V34H33z" id="qr-path" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg></div>
+</section>
+
+<section id="postfach">
+  <h2>7 · Das Kurs-Postfach</h2>
+  <div class="bildtext">
+    <div>
+      <p>Ab Dienstagabend bis zum zweiten Kursabend (Donnerstag, 29. Oktober 2026) können Sie einer KI per E-Mail eine Aufgabe oder Frage schicken. Ein KI-Agent bearbeitet sie und <b>antwortet Ihnen direkt</b>. Der Kursleiter schaut dabei zu. Ihre Wünsche bestimmen, was wir am Donnerstag zeigen.</p>
+      <p><b>Ab Dienstagabend geöffnet.</b> Ihre Wünsche für Donnerstag bitte bis <b>Mittwoch, 28. Oktober, 18 Uhr</b>. Einsendeschluss: Donnerstag, 29. Oktober 2026, 20:15 Uhr.</p>
+    </div>
+    <img src="assets/kurs-2-0/postfach.jpg" alt="Gezeichneter Briefkasten, aus dem Briefe zu einem kleinen Roboter am Schreibtisch fliegen; der Roboter liest einen Brief" width="700" height="700">
+  </div>
+
+  <div class="postfach">
+    <p>Schreiben Sie der KI eine Aufgabe, eine Frage oder Ihren Wunsch für Donnerstag: <a class="adresse" href="mailto:kurs@kvasir-ki.de">kurs@kvasir-ki.de</a> (freiwillig). Die KI antwortet Ihnen direkt.</p>
+    <p>Zum Beispiel: Rezept für das, was im Kühlschrank ist (Foto anhängen) · Packliste · Brief freundlicher formulieren · Ausflugsidee · Gedicht zum Geburtstag.</p>
+    <p><b>Alle Aufgaben und Antworten schauen wir uns gemeinsam im Kurs an.</b> Bitte deshalb nichts Persönliches oder Vertrauliches hineinschreiben und die Signatur vorher löschen.</p>
+    <p><b>Was mit Ihrer Mail passiert:</b> Verantwortlich ist <span class="nt">Lukas Schwingenschlögl</span> (Kursleitung). Die Mail liegt im Kurs-Postfach bei INWX (Berlin). Ein KI-Agent (Anthropic bzw. OpenAI, USA) liest Ihre Mail und antwortet Ihnen direkt. Am <b>Fr 30.10.2026</b> werden die Mails im Postfach gelöscht; bei den Anbietern laufen Backups bis zu 30 Tage nach. Ihre Adresse wird für nichts anderes verwendet.</p>
+    <p>Keine Mail? Nehmen Sie eine der vorbereiteten <a href="#karten">Aufgabenkarten</a>.</p>
+  </div>
+  <p class="leise">Das Postfach gibt es nur für diesen Kurs. Nach dem Einsendeschluss am Do 29.10.2026 um 20:15 Uhr bitte keine Mails mehr schicken; am Fr 30.10.2026 wird alles gelöscht.</p>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 8 AGENTEN -->
+<section id="agenten">
+  <h2>8 · Agenten: wenn KI nicht nur antwortet, sondern erledigt</h2>
+  <div class="bildtext">
+    <div>
+      <p><b>Ein Chat ist wie die Auskunft am Telefon:</b> Er sagt Ihnen, wie es geht. Machen müssen Sie es selbst.</p>
+      <p><b>Ein Agent ist wie der Handwerker mit Schlüssel:</b> Er macht es selbst. Er öffnet Ordner, liest Dateien, füllt Tabellen, bedient Webseiten. Und ein guter Handwerker fragt, wo der Sicherungskasten ist, bevor er loslegt.</p>
+      <p>Was der Agent darf, legen Sie fest: ein freigegebener Ordner, Rückfragen, nichts senden ohne Sie.</p>
+    </div>
+    <img src="assets/kurs-2-0/agent.jpg" alt="Gezeichneter kleiner Roboter mit Werkzeuggürtel, der Ordner von einem Haufen am Boden in die Schubladen eines Schreibtischs räumt" width="700" height="700">
+  </div>
+
+  <h3>Fünf Regeln für Agenten</h3>
+  <ol>
+    <li><b>Eigener Ordner:</b> Geben Sie dem Agenten nur einen Arbeitsordner, nie Ihre ganze Festplatte.</li>
+    <li><b>Erst fragen lassen:</b> Verlangen Sie, dass er vor jedem wichtigen Schritt um Erlaubnis bittet und nachfragt, wenn etwas fehlt.</li>
+    <li><b>Nichts verschicken, nichts kaufen</b> ohne Ihr OK.</li>
+    <li><b>Kein Banking, keine Gesundheitsportale</b> für den Agenten.</li>
+    <li><b>Er liest alles, auch Verstecktes:</b> In Dokumenten, Mails und Webseiten können versteckte Anweisungen stehen („Ignoriere deine Regeln und …“). Gute Agenten sind darauf trainiert, aber nicht perfekt. Darum nur vertrauenswürdige Quellen, und nie selbst senden lassen.</li>
+  </ol>
+  <p class="regel">Der Agent arbeitet, der Mensch prüft und entscheidet.</p>
+
+  <details>
+    <summary>Selbst prüfen: Rechnen Sie dem Agenten nach</summary>
+    <p>Beispiel: Für einen Vereinsnachmittag mit 18 Gästen, davon 6 vegetarisch, und 180 € Budget für Essen samt Lieferung vergleicht ein Agent drei Catering-Angebote. Angebot A: 12 Essen zu 7,50 €, 6 vegetarische Essen zu 8,00 €, Lieferung 18,00 €. Was kostet das zusammen?</p>
+    <p><b>Lösung:</b> 12 × 7,50 + 6 × 8,00 + 18,00 = <b>156,00 €</b>. Nennt der Agent eine andere Zahl, stimmt etwas nicht. Und wenn bei einem Angebot die vegetarische Angabe fehlt, sollte er das melden, statt es einfach anzunehmen.</p>
+  </details>
+
+  <h3>Welche Agenten gibt es, und was kosten sie?</h3>
+  <ul>
+    <li><b>Claude Cowork</b> (Anthropic): gibt es erst ab dem Abo <b>Claude Pro</b>, nicht in der Gratisversion. Läuft auch unter Windows.</li>
+    <li><b>ChatGPT-Desktop-App</b> (OpenAI): enthält drei Bereiche: <b>Chat</b>, <b>Work</b> für Büroaufgaben und <b>Codex</b> für Technik. <b>Work gibt es eingeschränkt auch kostenlos</b>, am PC in der Desktop-App. Im Abo (Plus) geht Work auch im Browser und am Handy.</li>
+    <li><b>Gemini:</b> Der Gemini-Agent ist in der EU nicht verfügbar, auch nicht im Abo.</li>
+  </ul>
+  <p class="leise">Lesen Sie irgendwo vom „Agent-Modus“ in ChatGPT: Den gibt es nicht mehr, sein Nachfolger heißt Work.</p>
+
+  <div class="karten">
+    <article class="karte" data-id="a1">
+      <header><h3>Freiwillig für zu Hause: ChatGPT Work ausprobieren</h3><p class="wozu">Kostenlos, am eigenen PC. Stand Oktober 2026, kann sich ändern.</p></header>
+      <div class="koerper">
+        <p><b>1.</b> Am eigenen Windows-PC oder Mac die <b>ChatGPT-App für den Computer</b> installieren. Laden Sie sie nur über die offizielle Seite <b>chatgpt.com</b> herunter, nicht über Werbeanzeigen.</p>
+        <p><b>2.</b> Mit demselben Konto anmelden wie im Kurs.</p>
+        <p><b>3.</b> In der App auf <b>Work</b> wechseln. (Codex lassen Sie für den Anfang weg: Das ist für Technik, und dort kann eine Telefon-Bestätigung verlangt werden.)</p>
+        <p><b>4.</b> Diese Aufgabe hineinkopieren und abschicken:</p>
+<pre>Ich plane einen [Vereinsnachmittag am 14. November] für [18 Gäste, davon 6 vegetarisch]. Budget für Essen samt Lieferung: [180 Euro]. Erstelle mir eine Tabelle mit Essen, Getränken und einer Einkaufsliste, und rechne die Kosten zusammen. Frag mich zuerst, wenn dir etwas fehlt, eine Frage nach der anderen. Verschicke nichts und kaufe nichts.</pre>
+        <p class="dann"><b>5. Prüfen Sie:</b> Hat der Agent nachgefragt? Stimmt die Summe? Bleibt er im Budget?</p>
+        <p class="dann"><b>Wenn eine Grenze kommt:</b> Work ist in der Gratisversion eingeschränkt, und Work und Codex teilen sich das Kontingent. Die fünf Regeln oben gelten auch hier.</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+  </div>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 9 HELFER -->
+<section id="helfer">
+  <h2>9 · Mein eigener Helfer</h2>
+  <p>Wenn Sie eine Aufgabe öfter haben, müssen Sie der KI nicht jedes Mal alles neu erklären. Sie geben ihr eine feste Anleitung, einen <b>Steckbrief</b>. Danach genügt ein Satz.</p>
+  <p><b>Das geht auch kostenlos:</b> ChatGPT gratis hat Projekte mit Anweisungen, Gemini gratis hat Gems, Claude gratis erlaubt bis zu 5 Projekte mit Projektanweisungen.</p>
+  <details>
+    <summary>So geht's bei ChatGPT („Projekt“)</summary>
+    <ol><li>Links auf <b>Projekte</b> → <b>Neues Projekt</b>.</li><li>Einen Namen geben, z. B. „Brief-Helfer“.</li><li>Im Projekt die <b>Anweisungen</b> öffnen und einen Steckbrief von unten hineinkopieren.</li><li>Jeder neue Chat in diesem Projekt kennt jetzt die Anleitung.</li></ol>
+  </details>
+  <details>
+    <summary>So geht's bei Gemini („Gem“)</summary>
+    <ol><li>Links auf <b>Gems</b> → <b>Neues Gem</b>.</li><li>Einen Namen geben, z. B. „Brief-Helfer“.</li><li>Den Steckbrief ins Feld <b>Anweisungen</b> kopieren → <b>Speichern</b>.</li><li>Das Gem links anklicken und loslegen.</li></ol>
+  </details>
+  <details>
+    <summary>So geht's bei Claude („Projekt“)</summary>
+    <p>In der Gratisversion bis zu 5 Projekte. Ein Projekt anlegen, in die <b>Projektanweisungen</b> den Steckbrief kopieren, dann im Projekt chatten.</p>
+  </details>
+  <details>
+    <summary>Der Steckbrief-Trick (geht immer, überall)</summary>
+    <p>Speichern Sie den Steckbrief als Textdatei oder Notiz. Bei Bedarf: neuen Chat öffnen, den Steckbrief oben hineinkopieren, darunter Ihre Aufgabe schreiben. Fertig. Das funktioniert in jedem Programm, gratis und ohne neue Funktion.</p>
+  </details>
+  <p class="leise">Die Menü-Bezeichnungen können sich leicht ändern.</p>
+
+  <div class="karten">
+    <article class="karte" data-id="h0">
+      <header><h3>Die Steckbrief-Vorlage</h3><p class="wozu">Für Ihre eigene Aufgabe: die markierten Stellen ausfüllen.</p></header>
+      <div class="koerper">
+<pre>Du bist mein [Brief-Helfer]. Ich bin [kurz zu mir]. Wenn ich dir [einen Brief / eine Notiz / ein Foto] gebe, dann [was du tun sollst]. Achte auf [Ton, Länge, Sie oder du]. Wenn dir etwas fehlt, frag mich zuerst, eine Frage nach der anderen. Erfinde keine Fakten.</pre>
+        <p class="dann"><b>Testen:</b> Geben Sie dem Helfer Ihre mitgebrachte Aufgabe. Noch besser: Lassen Sie jemand anderen Ihren Helfer ausprobieren.</p>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+    <article class="karte" data-id="h1">
+      <header><h3>Brief-Helfer</h3><p class="wozu">Für Briefe an Ämter, Vermieter, Versicherungen.</p></header>
+      <div class="koerper">
+<pre>Du hilfst mir, Briefe und E-Mails zu schreiben. Ich bin [Name weglassen, z. B. „Rentnerin aus Landshut“]. Schreibe immer in der Sie-Form, höflich, klar und ohne Floskeln. Höchstens eine halbe Seite. Wenn dir eine wichtige Angabe fehlt (Datum, Aktenzeichen, Frist), frag mich zuerst danach. Setze am Ende immer [MEIN NAME] als Platzhalter ein, nie einen erfundenen Namen.</pre>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+    <article class="karte" data-id="h2">
+      <header><h3>Vereins-Schriftführer</h3><p class="wozu">Aus Stichpunkten werden Protokolle, Einladungen, Rundbriefe.</p></header>
+      <div class="koerper">
+<pre>Du bist Schriftführer im Verein [„Obst- und Gartenbauverein Musterhausen“]. Ich gebe dir Stichpunkte. Daraus machst du je nach Wunsch: ein Protokoll (mit Datum, Anwesenden, Tagesordnungspunkten, Beschlüssen), eine Einladung oder einen Rundbrief. Ton: freundlich und gemeinschaftlich. Erfinde keine Fakten; wenn etwas fehlt, markiere es mit [???].</pre>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+    <article class="karte" data-id="h3">
+      <header><h3>Behördenpost-Übersetzer</h3><p class="wozu">Amtsdeutsch in Alltagsdeutsch, mit Frist-Warnung.</p></header>
+      <div class="koerper">
+<pre>Ich kopiere dir Texte aus Briefen von Ämtern, Versicherungen oder Banken. Erkläre mir jeweils: 1. Worum geht es, in zwei Sätzen? 2. Muss ich etwas tun, und bis wann? 3. Welche Wörter sind schwierig, und was bedeuten sie? Schreib einfach und freundlich. Sag mir ehrlich, wenn ich besser eine Beratungsstelle fragen sollte.</pre>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+    <article class="karte" data-id="h4">
+      <header><h3>Küchen-Helfer</h3><p class="wozu">Was koche ich heute mit dem, was da ist?</p></header>
+      <div class="koerper">
+<pre>Du bist mein Küchen-Helfer. Wir sind [2 Personen], mögen [bayerische Hausmannskost, aber auch mal etwas Neues], und [mein Mann isst keinen Fisch]. Wenn ich dir sage, was im Kühlschrank ist, schlag mir zwei Gerichte vor, die in höchstens 45 Minuten fertig sind, mit Mengenangaben und einfachen Schritten.</pre>
+      </div>
+      <div class="aktion"><button class="kopieren" type="button">Text kopieren</button><label class="erledigt"><input type="checkbox"> erledigt</label></div>
+    </article>
+  </div>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 10 ABO -->
+<section id="abo">
+  <h2>10 · Gratis oder Abo?</h2>
+  <p><b>Die ehrliche Antwort: Kostenlos anfangen.</b> Für gelegentliche Fragen reicht die Gratisversion, bei ChatGPT sogar ohne Mengengrenze bei alltäglichen Text-Chats. Wer KI aber regelmäßig für echte Arbeit nutzt, also Fotos und Dokumente, Bilder, längere Aufgaben oder Agenten, stößt an Grenzen, bekommt das kleinere Modell und bei ChatGPT Werbung.</p>
+  <p class="regel">Ein Abo lohnt sich, wenn Ihnen eine Funktion fehlt, die Sie brauchen, oder wenn Sie regelmäßig an eine Grenze stoßen. Dann <b>ein</b> Abo für rund 22 € im Monat, nicht drei.</p>
+
+  <div class="tabelle">
+  <table>
+    <tr><th>Abo</th><th>Preis pro Monat</th><th>Gut zu wissen</th></tr>
+    <tr><td data-label="Abo">ChatGPT Go</td><td data-label="Preis pro Monat">7,99 €</td><td data-label="Gut zu wissen">günstige Stufe, mit Werbung</td></tr>
+    <tr><td data-label="Abo">ChatGPT Plus</td><td data-label="Preis pro Monat">22,99 €</td><td data-label="Gut zu wissen">werbefrei; Work auch im Browser und am Handy</td></tr>
+    <tr><td data-label="Abo">Claude Pro</td><td data-label="Preis pro Monat">22,00 € (App Store); im Web 20 $ zzgl. Steuer</td><td data-label="Gut zu wissen">mit dem Agenten Cowork</td></tr>
+    <tr><td data-label="Abo">Google AI Plus</td><td data-label="Preis pro Monat">4,99 €</td><td data-label="Gut zu wissen">günstige Stufe</td></tr>
+    <tr><td data-label="Abo">Google AI Pro</td><td data-label="Preis pro Monat">21,99 €</td><td data-label="Gut zu wissen">Gemini-Agent in der EU trotzdem nicht verfügbar</td></tr>
+  </table>
+  </div>
+  <p class="stand">Stand 23.10.2026. Preise von ChatGPT und Claude laut deutschem App Store, Google laut gemini.google/de. Preise ändern sich oft.</p>
+
+  <h3>Mein Rat, wenn Sie ein Abo ausprobieren</h3>
+  <ul>
+    <li>Probieren Sie <b>einen Monat</b>.</li>
+    <li>Vergleichen Sie den <b>Endpreis im Browser und in der App</b>.</li>
+    <li>Achten Sie auf <b>automatische Verlängerung</b> und <b>Kündigungsfrist</b>.</li>
+    <li>Tragen Sie die <b>Kündigung gleich in den Kalender</b> ein.</li>
+    <li>Nach vier Wochen fragen Sie sich: <b>Hat mir eine Funktion oder Grenze wirklich gefehlt, die das Abo löst?</b></li>
+  </ul>
+
+  <h3>Entscheidungshilfe in 4 Fragen</h3>
+  <form class="hilfe" id="hilfe">
+    <fieldset><legend>Fehlt Ihnen in der Gratisversion eine Funktion, die Sie brauchen?</legend>
+      <label><input type="radio" name="funktion" value="nein"> Nein</label>
+      <label><input type="radio" name="funktion" value="mehr"> Ja: mehr Fotos, Dokumente oder Bilder</label>
+      <label><input type="radio" name="funktion" value="agent"> Ja: ein Agent, der am PC Aufgaben erledigt</label>
+      <label><input type="radio" name="funktion" value="weiss"> Weiß ich nicht</label>
+    </fieldset>
+    <fieldset><legend>Stoßen Sie an eine Grenze (eine Meldung wie „Limit erreicht“)?</legend>
+      <label><input type="radio" name="grenze" value="oft"> Ja, regelmäßig</label>
+      <label><input type="radio" name="grenze" value="manchmal"> Ab und zu</label>
+      <label><input type="radio" name="grenze" value="nie"> Nein, noch nie</label>
+      <label><input type="radio" name="grenze" value="weiss"> Weiß ich nicht</label>
+    </fieldset>
+    <fieldset><legend>Wofür nutzen Sie KI vor allem?</legend>
+      <label><input type="radio" name="wofuer" value="privat"> Privat</label>
+      <label><input type="radio" name="wofuer" value="beruf"> Für Beruf, Verein oder Firma</label>
+    </fieldset>
+    <fieldset><legend>Stört Sie Werbung im Chat?</legend>
+      <label><input type="radio" name="werbung" value="egal"> Nicht besonders</label>
+      <label><input type="radio" name="werbung" value="stoert"> Ja</label>
+    </fieldset>
+    <div class="ergebnis" id="ergebnis" hidden aria-live="polite"></div>
+  </form>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 11 WEITER -->
+<section id="weiter">
+  <h2>11 · Wo geht's weiter?</h2>
+  <h3>Allein und kostenlos weiterüben</h3>
+  <ul>
+    <li><b>Diese Seite:</b> Alle Aufgabenkarten funktionieren auch zu Hause. Probieren Sie eine pro Woche.</li>
+    <li><b>Ein eigener Helfer:</b> Legen Sie für Ihre häufigste Aufgabe einen Steckbrief an (<a href="#helfer">Kapitel 9</a>).</li>
+    <li><b>ChatGPT Work zu Hause:</b> kostenlos und eingeschränkt in der Desktop-App ausprobieren (<a href="#agenten">Kapitel 8</a>).</li>
+    <li><b>Trainings-Schalter</b> zu Hause noch einmal prüfen, auch in der Handy-App (<a href="#sicher">Kapitel 2</a>).</li>
+    <li><b>Ihre VHS:</b> Weitere Kurse zu Smartphone, Internet und KI im Programmheft.</li>
+    <li><b>KI-Campus:</b> kostenlose Online-Kurse zu KI, auf Deutsch: <a href="https://ki-campus.org">ki-campus.org</a></li>
+    <li><b>Digitaler Engel:</b> Ratgeber und Veranstaltungen für ältere Menschen: <a href="https://www.digitaler-engel.org">digitaler-engel.org</a></li>
+  </ul>
+
+  <!-- KVASIR-BLOCK: nur nach OK der VHS -->
+  <aside class="offen kvasir-block" aria-label="In eigener Sache: Kvasir">
+    <p class="kennung">In eigener Sache</p>
+    <h3 style="margin-top:0">Kvasir</h3>
+    <p>Neben dem Kurs hat Ihr Kursleiter <span class="nt">Lukas Schwingenschlögl</span> eine kleine KI-Firma, <b>Kvasir</b>. Wenn Sie nach dem Kurs mehr wollen:</p>
+    <ul>
+      <li><b>Kostenloser Selbstlernkurs</b> „Per Anhalter durch die KI“ auf kvasir-ki.de</li>
+      <li><b>Einzelcoaching</b></li>
+      <li><b>Workshops</b> für Betriebe und Vereine</li>
+      <li><b>KI-Helfer und Automationen nach Maß</b></li>
+    </ul>
+    <p><a href="https://kvasir-ki.de">kvasir-ki.de</a></p>
+    <p class="leise">Freiwillig. Für den VHS-Kurs brauchen Sie nichts davon.</p>
+  </aside>
+  <!-- /KVASIR-BLOCK -->
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+<!-- 12 WÖRTER -->
+<section id="woerter">
+  <h2>12 · Kleines Wörterbuch</h2>
+  <dl class="woerter">
+    <dt>KI (Künstliche Intelligenz)</dt><dd>Computerprogramme, die Aufgaben lösen, für die man früher einen Menschen brauchte: Texte schreiben, Bilder erkennen, Sprache verstehen.</dd>
+    <dt>Chatbot</dt><dd>Ein Programm, mit dem man sich schriftlich (oder per Sprache) unterhält. ChatGPT, Gemini, Claude und Copilot sind Chatbots.</dd>
+    <dt>Anweisung (englisch „Prompt“)</dt><dd>Das, was Sie der KI schreiben. Je klarer, desto besser (die 4 W).</dd>
+    <dt>Modell</dt><dd>Das „Gehirn“ hinter dem Chatbot. Es gibt kleinere, schnellere und größere, gründlichere Modelle. In der Gratisversion bekommen Sie meist das kleinere.</dd>
+    <dt>Halluzinieren</dt><dd>Wenn die KI etwas erfindet, das überzeugend klingt, aber falsch ist.</dd>
+    <dt>Limit / Kontingent</dt><dd>Wie viel Sie in einem Zeitraum nutzen dürfen. Ist es aufgebraucht, müssen Sie warten oder ein Abo abschließen (Kapitel 5).</dd>
+    <dt>Training</dt><dd>Wenn Firmen Texte (auch Gespräche) nutzen, um neue KI-Versionen zu verbessern. Können Sie abschalten, wirkt aber nur für die Zukunft (Kapitel 2).</dd>
+    <dt>Temporärer Chat</dt><dd>Ein Gespräch, das nicht im Verlauf gespeichert wird.</dd>
+    <dt>Agent</dt><dd>Eine KI, die nicht nur antwortet, sondern selbst Schritte am Computer erledigt: Dateien, Webseiten, E-Mails (Kapitel 8).</dd>
+    <dt>Work, Codex, Cowork</dt><dd>Namen von Agenten: Work (Büroaufgaben) und Codex (Technik) stecken in der ChatGPT-Desktop-App, Cowork gehört zu Claude und braucht ein Abo.</dd>
+    <dt>Steckbrief, Gem, Projekt</dt><dd>Eine gespeicherte Anleitung, damit die KI eine Aufgabe immer gleich erledigt (Kapitel 9).</dd>
+  </dl>
+  <a class="nach-oben" href="#top">Nach oben</a>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Kurs 2.0 · v1 · Stand 23.10.2026</b></p>
+    <p>Begleitseite zum VHS-Kurs „KI im Alltag“, VHS Landshut, 27. und 29. Oktober 2026. Kursleitung: <span class="nt">Lukas Schwingenschlögl</span>.</p>
+    <p>KI-Programme, Preise und Menüs ändern sich häufig. Alle Beispiele, Namen und Dokumente auf dieser Seite sind erfunden. Bilder: KI-generiert. Schrift: Atkinson Hyperlegible Next (SIL Open Font License), lokal eingebunden.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var speicher = {
+    lies: function(k){ try { return window.localStorage.getItem(k); } catch(e){ return null; } },
+    schreib: function(k,v){ try { window.localStorage.setItem(k,v); } catch(e){} }
+  };
+  document.body.id = "top";
+
+  /* Schriftgröße */
+  var stufen = [1.0, 1.1875, 1.375, 1.6];
+  var stufe = parseInt(speicher.lies("ki-kurs-schrift") || "1", 10);
+  if (isNaN(stufe) || stufe < 0 || stufe >= stufen.length) stufe = 1;
+  function setzeSchrift(){ document.documentElement.style.setProperty("--schrift", stufen[stufe] + "rem"); speicher.schreib("ki-kurs-schrift", String(stufe)); }
+  setzeSchrift();
+  document.getElementById("groesser").addEventListener("click", function(){ if (stufe < stufen.length-1){ stufe++; setzeSchrift(); } });
+  document.getElementById("kleiner").addEventListener("click", function(){ if (stufe > 0){ stufe--; setzeSchrift(); } });
+  document.getElementById("drucken").addEventListener("click", function(){ document.querySelectorAll("details").forEach(function(d){ d.open = true; }); window.print(); });
+
+  /* Platzhalter in eckigen Klammern markieren */
+  document.querySelectorAll(".karte pre").forEach(function(pre){
+    var roh = pre.textContent;
+    pre.setAttribute("data-roh", roh);
+    var sicher = roh.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    pre.innerHTML = sicher.replace(/\[([^\]]+)\]/g, '<span class="mark">[$1]</span>');
+  });
+
+  /* Kopieren */
+  function kopiere(text, knopf){
+    var alt = knopf.textContent;
+    function fertig(){ knopf.textContent = "Kopiert ✓ – jetzt Strg + V"; knopf.classList.add("ok"); setTimeout(function(){ knopf.textContent = alt; knopf.classList.remove("ok"); }, 3500); }
+    function notweg(){
+      var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0";
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch(e){ ok = false; }
+      document.body.removeChild(ta);
+      if (ok) { fertig(); } else { knopf.textContent = "Bitte Text markieren und Strg + C"; }
+    }
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(fertig, notweg); } else { notweg(); }
+  }
+  document.querySelectorAll(".karte").forEach(function(karte){
+    karte.querySelectorAll(".kopieren").forEach(function(knopf){
+      var ziel = knopf.getAttribute("data-ziel");
+      var pre = ziel ? document.getElementById(ziel) : karte.querySelector("pre");
+      if (pre) knopf.addEventListener("click", function(){ kopiere(pre.getAttribute("data-roh"), knopf); });
+    });
+    var box = karte.querySelector(".erledigt input"), id = "ki-kurs-" + karte.getAttribute("data-id");
+    if (box){
+      box.checked = speicher.lies(id) === "1"; karte.classList.toggle("ist-erledigt", box.checked);
+      box.addEventListener("change", function(){ speicher.schreib(id, box.checked ? "1" : "0"); karte.classList.toggle("ist-erledigt", box.checked); });
+    }
+  });
+
+  /* Wortvorhersage-Spiel */
+  var baum = {
+    start: { satz: "Ich trinke meinen Kaffee am liebsten mit", wahl: [["Milch",58,"milch"],["Zucker",22,"zucker"],["meiner Frau",9,"frau"],["Blick auf die Isar",3,"isar"]] },
+    milch: { satz: " und", wahl: [["Zucker",61,"ende"],["einem Stück Kuchen",24,"ende"],["Zimt",6,"ende"]] },
+    zucker: { satz: ", aber", wahl: [["ohne Milch",55,"ende"],["nur einem Löffel",33,"ende"],["nie am Abend",8,"ende"]] },
+    frau: { satz: " auf", wahl: [["der Terrasse",64,"ende"],["dem Balkon",27,"ende"],["dem Mond",1,"ende"]] },
+    isar: { satz: ", am", wahl: [["Morgen",48,"ende"],["Sonntag",37,"ende"],["liebsten allein",9,"ende"]] }
+  };
+  var satzEl = document.querySelector("#vorhersage .satz"), balkenEl = document.querySelector("#vorhersage .balken"), text = "";
+  function zeige(knoten){
+    var k = baum[knoten];
+    balkenEl.innerHTML = "";
+    if (!k){ satzEl.textContent = text + "."; var p = document.createElement("p"); p.textContent = "So entsteht ein ganzer Text: Wort für Wort, immer das nächste wahrscheinliche Stück."; p.style.margin = "0"; balkenEl.appendChild(p); return; }
+    text = (knoten === "start" ? "" : text) + k.satz;
+    satzEl.textContent = text + " …";
+    k.wahl.forEach(function(w){
+      var b = document.createElement("button"); b.type = "button";
+      b.innerHTML = '<span class="fuell" style="width:' + w[1] + '%"></span><span class="wort"><span></span><span>' + w[1] + ' %</span></span>';
+      b.querySelector(".wort span").textContent = w[0];
+      b.addEventListener("click", function(){ text += " " + w[0]; if (w[2] === "ende"){ zeige(null); } else { zeige(w[2]); } });
+      balkenEl.appendChild(b);
+    });
+  }
+  document.getElementById("neustart").addEventListener("click", function(){ text = ""; zeige("start"); });
+  zeige("start");
+
+  /* Entscheidungshilfe: entscheidet nach fehlender Funktion und erreichter Grenze, nicht nach Häufigkeit */
+  var form = document.getElementById("hilfe"), erg = document.getElementById("ergebnis");
+  form.addEventListener("change", function(){
+    var f = new FormData(form), funktion = f.get("funktion"), grenze = f.get("grenze"), wofuer = f.get("wofuer"), werbung = f.get("werbung");
+    if (!funktion || !grenze || !wofuer || !werbung){ return; }
+    var t = "", abo = (funktion === "mehr" || funktion === "agent" || grenze === "oft");
+    if (abo){
+      t = "<p><b>Ein Abo kann sich lohnen.</b> Ihnen fehlt etwas, das Sie brauchen, oder Sie stoßen regelmäßig an eine Grenze. Testen Sie <b>ein</b> Abo (rund 22 € im Monat) einen Monat lang, am besten bei dem Programm, mit dem Sie am liebsten arbeiten.</p>";
+      if (funktion === "agent") t += "<p>Für einen Agenten am PC: Claude Cowork gibt es erst ab Claude Pro. ChatGPT Work können Sie vorher eingeschränkt kostenlos in der Desktop-App ausprobieren (Kapitel 8). Der Gemini-Agent ist in der EU nicht verfügbar, auch nicht im Abo.</p>";
+      if (funktion === "mehr" || grenze === "oft") t += "<p>Es gibt auch günstigere Stufen (ChatGPT Go 7,99 €, Google AI Plus 4,99 €). Prüfen Sie vorher, ob sie genau das enthalten, was Ihnen fehlt.</p>";
+      t += "<p>Endpreis im Browser und in der App vergleichen, auf automatische Verlängerung und Kündigungsfrist achten, Kündigung gleich in den Kalender. Nach 4 Wochen: Hat das Abo gelöst, was gefehlt hat?</p>";
+    } else if (grenze === "manchmal"){
+      t = "<p><b>Gratis reicht vermutlich, mit Ausweichplan.</b> Wenn Sie an eine Grenze stoßen, warten Sie (bei ChatGPT gibt es am nächsten Tag wieder Uploads, bei Claude wird das Kontingent alle 5 Stunden zurückgesetzt) oder wechseln Sie zu einem anderen Programm. Die Grenzen gelten pro Programm.</p>";
+    } else {
+      t = "<p><b>Bleiben Sie bei der Gratisversion.</b> Solange Ihnen nichts fehlt und Sie nicht an Grenzen stoßen, brauchen Sie kein Abo.</p>";
+      if (grenze === "weiss" || funktion === "weiss") t += "<p>Woran Sie eine Grenze erkennen: Es erscheint eine Meldung wie „Limit erreicht“ oder „später erneut versuchen“. Probieren Sie dazu Kapitel 5.</p>";
+    }
+    if (!abo && werbung === "stoert") t += "<p>Werbung stört Sie? Claude ist auch gratis werbefrei. Bei ChatGPT sind die Abos ab Plus werbefrei; eine werbefreie Gratis-Variante hat strengere Grenzen.</p>";
+    if (abo && werbung === "stoert") t += "<p>Ohne Werbung: ChatGPT Plus ist werbefrei, ChatGPT Go nicht. Claude ist werbefrei.</p>";
+    if (wofuer === "beruf") t += "<p>Für Firmendaten: Ein privates Abo ist kein Firmenvertrag und ändert am Datenschutz nichts Grundsätzliches. Für die Firma fragen Sie nach Geschäftstarifen (Team oder Business).</p>";
+    erg.innerHTML = t; erg.hidden = false;
+  });
+})();
+</script>
+</body>
+</html>
