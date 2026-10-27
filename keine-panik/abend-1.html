@@ -36,12 +36,12 @@ body{margin:0;background:var(--papier);color:var(--text);font-family:var(--font)
 img{max-width:100%;height:auto;display:block}
 a{color:var(--tinte);text-underline-offset:3px}
 a:focus-visible{outline:3px solid var(--rand);outline-offset:3px;border-radius:4px}
-.wrap{max-width:46rem;margin:0 auto;padding:0 16px}
+.wrap{max-width:68rem;margin:0 auto;padding:0 16px}
 h1,h2,h3{color:var(--tinte);line-height:1.2;font-weight:800}
 h1{font-size:2.2rem;margin:.2em 0 .25em}
 h2{font-size:1.6rem;margin:0 0 .6em}
 h3{font-size:1.2rem;margin:1.3em 0 .4em}
-p,li{max-width:40em}
+p,li{max-width:56em}
 .leise{color:var(--leise)}
 .kopf{background:var(--flaeche);border-bottom:1px solid var(--linie)}
 .kopf .wrap{padding-top:22px;padding-bottom:22px}
@@ -52,7 +52,7 @@ section:first-of-type{border-top:0}
 .ablauf{list-style:none;padding:0;margin:0}
 .ablauf li{display:grid;grid-template-columns:4.2em 1fr;gap:8px;padding:7px 0;border-bottom:1px dashed var(--linie)}
 .ablauf .zeit{font-weight:800;color:var(--tinte);font-variant-numeric:tabular-nums}
-.kacheln{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}
+.kacheln{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(14rem,100%),1fr))}
 .kachel{display:flex;flex-direction:column;text-decoration:none;color:var(--text);background:var(--flaeche);border:2px solid var(--linie);border-radius:14px;padding:16px 18px}
 .kachel:hover{border-color:var(--tinte)}
 .kachel .art{font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gruen)}

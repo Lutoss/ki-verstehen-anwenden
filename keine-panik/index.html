@@ -32,12 +32,12 @@ body{margin:0;background:var(--papier);color:var(--text);font-family:var(--font)
 img{max-width:100%;height:auto;display:block}
 a{color:var(--tinte);text-underline-offset:3px}
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,label:focus-within{outline:3px solid var(--rand);outline-offset:3px;border-radius:4px}
-.wrap{max-width:46rem;margin:0 auto;padding:0 16px}
+.wrap{max-width:68rem;margin:0 auto;padding:0 16px}
 h1,h2,h3{color:var(--tinte);line-height:1.2;font-weight:800}
 h1{font-size:2.4rem;margin:.2em 0 .25em;letter-spacing:-.01em}
 h2{font-size:1.75rem;margin:0 0 .6em}
 h3{font-size:1.2rem;margin:1.4em 0 .4em}
-p,li{max-width:40em}
+p,li{max-width:56em}
 .leise{color:var(--leise)}
 .nt{-webkit-hyphens:manual;hyphens:manual}
 b,strong,h1,h2,h3,summary,.adresse,.kopieren,.knopf{-webkit-hyphens:manual;hyphens:manual}
@@ -93,7 +93,7 @@ section:first-of-type{border-top:0}
 .legende li{display:flex;gap:.6em;align-items:flex-start;margin:.35em 0}
 
 /* Karteikarten (das eine auffällige Element) */
-.karten{display:grid;gap:22px;margin-top:18px}
+.karten{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(26rem,100%),1fr));gap:22px;margin-top:18px}
 .karte{position:relative;background:var(--flaeche);border-radius:4px;box-shadow:0 1px 0 var(--linie),0 6px 16px -10px rgba(28,43,90,.45);padding:0 0 14px}
 .karte header{border-bottom:3px solid var(--rand);padding:14px 18px 8px;background:var(--flaeche);border-radius:4px 4px 0 0}
 .karte h3{margin:0;font-size:1.3rem}
@@ -187,7 +187,7 @@ details ol, details ul{padding-left:1.3em}
 /* .kvasir-block{display:none!important} */
 
 dl.woerter dt{font-weight:800;color:var(--tinte);margin-top:.8em}
-dl.woerter dd{margin:0 0 0 0;max-width:40em}
+dl.woerter dd{margin:0 0 0 0;max-width:56em}
 
 footer{margin-top:50px;padding:24px 0 40px;border-top:1px solid var(--linie);font-size:.95rem;color:var(--leise)}
 
