@@ -252,7 +252,7 @@ footer{margin-top:50px;padding:24px 0 40px;border-top:1px solid var(--linie);fon
   <p>Wir arbeiten mit <b>ChatGPT</b>. Das geht am schnellsten und braucht <b>keine Handynummer</b>. ChatGPT, Claude und Gemini spielen in derselben Liga; zu Hause können Sie jedes davon nutzen.</p>
 
   <div class="hinweis">
-    <p><b>An einem fremden PC zuerst ein privates Fenster öffnen:</b> <b>Strg + Umschalt + N</b> drücken. Es öffnet sich ein dunkles Fenster („InPrivate“ oder „Inkognito“). Wenn Sie es schließen, sind Sie automatisch abgemeldet.</p>
+    <p><b>An einem fremden PC zuerst ein privates Fenster öffnen:</b> <b>Strg + Umschalt + N</b> drücken (in Firefox: <b>Strg + Umschalt + P</b>). Es öffnet sich ein dunkles Fenster („InPrivate“ oder „Inkognito“). Wenn Sie es schließen, sind Sie automatisch abgemeldet.</p>
     <p>Legen Sie Ihr Handy bereit: Google oder Ihr E-Mail-Postfach schicken manchmal einen Bestätigungscode.</p>
   </div>
 
@@ -269,7 +269,7 @@ footer{margin-top:50px;padding:24px 0 40px;border-top:1px solid var(--linie);fon
     </div>
     <div class="weg">
       <h3>Sie haben schon Claude oder Gemini?</h3>
-      <p>Dann nehmen Sie das. Alle Aufgaben auf dieser Seite funktionieren auch dort.</p>
+      <p>Dann nehmen Sie das. Alle Textaufgaben auf dieser Seite funktionieren auch dort. Nur Bilder malen kann Claude nicht; dafür nehmen Sie ChatGPT oder Gemini.</p>
       <ul>
         <li><span class="adresse">gemini.google.com</span>: braucht ein <b>Google-Konto</b>.</li>
         <li><span class="adresse">claude.ai</span>: Anmeldung mit Google oder E-Mail. <b>Ein neues Konto geht nur mit einer Handynummer, die SMS empfangen kann, und ab 18 Jahren.</b></li>
@@ -527,12 +527,43 @@ footer{margin-top:50px;padding:24px 0 40px;border-top:1px solid var(--linie);fon
 <pre id="grenze-4">Hier ist ein zweites Angebot. Vergleiche es mit Angebot A: Welches ist günstiger, und passt es für [6 vegetarische Gäste]?</pre>
         <div class="zwischen"><button class="kopieren" type="button" data-ziel="grenze-4">Text kopieren (Upload 4)</button></div>
         <p class="dann"><b>Jetzt aufpassen:</b> Merkt die KI, dass bei B die vegetarische Angabe fehlt? Und falls doch eine Meldung zur Gratis-Menge kommt: Lesen Sie sie genau. Wann geht es wieder, und was wird Ihnen angeboten?</p>
+
+        <p class="dann"><b>Selbst prüfen:</b> 18 × 8,20 + 12,00 = 159,60 €. Angebot A ist also 3,60 € günstiger. Und ob es bei B ein vegetarisches Gericht gibt, steht gar nicht drin.</p>
+
+        <details>
+          <summary>Upload geht nicht mehr? Die Angebote als Text einfügen</summary>
+          <p>Kopieren Sie Angebot und Frage in einem Stück und fügen Sie beides ins Eingabefeld ein. Das ist eine normale Nachricht und zählt nicht als Datei-Upload.</p>
+<pre id="grenze-3-text">Hier ist ein Angebot für unseren Vereinsnachmittag:
+
+FIKTIVES ANGEBOT A – Küche Apfelbaum
+Standardgericht: 7,50 Euro pro Portion.
+Vegetarisches Gericht: 8,00 Euro pro Portion.
+Lieferung pauschal: 18,00 Euro.
+Lieferung am 14.11.2026 möglich; genaue Uhrzeit noch abzustimmen.
+Alle Preise sind Endpreise. Keine Mindestmenge, keine weiteren Gebühren.
+Keine Allergeninformationen enthalten.
+
+Was kostet das Essen für 18 Gäste, davon 6 vegetarisch, samt Lieferung? Rechne Schritt für Schritt vor.</pre>
+          <div class="zwischen"><button class="kopieren" type="button" data-ziel="grenze-3-text">Text kopieren (Angebot A)</button></div>
+<pre id="grenze-4-text">Hier ist ein zweites Angebot:
+
+FIKTIVES ANGEBOT B – Küche Birkenblatt
+Menü: 8,20 Euro pro Portion.
+Lieferung pauschal: 12,00 Euro.
+Lieferung am 14.11.2026 möglich; genaue Uhrzeit noch abzustimmen.
+Alle Preise sind Endpreise. Keine Mindestmenge, keine weiteren Gebühren.
+Ob eine vegetarische Variante zum selben Preis erhältlich ist, ist NICHT angegeben.
+Keine Allergeninformationen enthalten.
+
+Vergleiche es mit Angebot A: Welches ist günstiger, und passt es für 6 vegetarische Gäste?</pre>
+          <div class="zwischen"><button class="kopieren" type="button" data-ziel="grenze-4-text">Text kopieren (Angebot B)</button></div>
+        </details>
       </div>
       <div class="aktion"><label class="erledigt"><input type="checkbox"> erledigt</label></div>
     </article>
 
     <article class="karte" data-id="k8b">
-      <header><h3>Bilder: eine Einladungskarte</h3><p class="wozu">Auch Bilder erzeugen ist in der Gratisversion begrenzt; eine feste Zahl nennt ChatGPT nicht.</p></header>
+      <header><h3>Bilder: eine Einladungskarte</h3><p class="wozu">Auch Bilder erzeugen ist in der Gratisversion begrenzt; eine feste Zahl nennt ChatGPT nicht. Claude malt keine Bilder: Nehmen Sie dafür ChatGPT oder Gemini.</p></header>
       <div class="koerper">
 <pre>Erstelle ein Bild für eine Einladungskarte zu unserem [Vereinsnachmittag am 14. November]. Stil: [fröhlich, Herbstfarben, gezeichnet]. Motiv: [ein gedeckter Kaffeetisch mit Kuchen und Blumen in einem Pfarrsaal]. Bitte ohne Text im Bild.</pre>
         <p class="dann"><b>Und dann, nacheinander:</b> „Mach eine Variante im Winter.“ – „Jetzt als Aquarell.“ Eine feste Zahl, wie viele Bilder gratis gehen, nennt ChatGPT nicht.</p>
@@ -642,6 +673,7 @@ footer{margin-top:50px;padding:24px 0 40px;border-top:1px solid var(--linie);fon
     <li><b>Kein Banking, keine Gesundheitsportale</b> für den Agenten.</li>
     <li><b>Er liest alles, auch Verstecktes:</b> In Dokumenten, Mails und Webseiten können versteckte Anweisungen stehen („Ignoriere deine Regeln und …“). Gute Agenten sind darauf trainiert, aber nicht perfekt. Darum nur vertrauenswürdige Quellen, und nie selbst senden lassen.</li>
   </ol>
+  <div class="hinweis"><p><b>Moment, das Kurs-Postfach antwortet doch selbst?</b> Ja, das ist hier eine bewusste Ausnahme: Der Kursleiter startet den Agenten selbst und schaut ihm dabei zu, und der Agent darf nur dem jeweiligen Absender antworten. Für Ihren eigenen Agenten zu Hause gilt Regel 3: nichts verschicken ohne Ihr OK.</p></div>
   <p class="regel">Der Agent arbeitet, der Mensch prüft und entscheidet.</p>
 
   <details>
