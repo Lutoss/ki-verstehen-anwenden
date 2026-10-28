@@ -4,9 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
-  <title>Per Anhalter durch die KI · Teil 2: Projektwerkstatt (V22)</title>
+  <title>Per Anhalter durch die KI · Teil 2: Projektwerkstatt (V23)</title>
   <style>
-    /* Teil 2 V22 "Per Anhalter durch die KI": Basis V21, Inhalts- und Ablaufreview vom 11.07.2026.
+    /* Teil 2 V23 "Per Anhalter durch die KI": Basis V22, Pflegepaket B vom 23.09.2026.
+       Neu in V23: Weg B repariert (je Kurs-Adapter, Einzelticket- und Abschlussbericht-Auftrag eine
+       eigene Weg-B-Fassung mit Einfüge-Stellen und eigenem Kopierziel *-wegb; Speichern übernimmt
+       der Mensch; grilling-Hinweis "oder in dem, was ich eingefügt habe"; Weg-B-Verweise in T2, P2.01
+       und T4 zeigen auf diese Fassungen). Fakten Stand September 2026: Cowork als Teil von Claude
+       (bezahlte Pläne), mattpocock/skills ohne Sternzahl und mit Hinweis auf v1.2.x (grilling fragt
+       in nummerierten Runden, Volltexte bleiben v1.1), Claude-Code-Plugin als zweiter Installationsweg
+       (nur einen Weg nehmen), npx setzt Node.js voraus, Sommerfest-Datum als erfundenes Beispiel.
+       Rahmung als Anschlusskurs: Voraussetzungszeile im Hero mit Verweis auf den Einstiegskurs
+       "Keine Panik: KI im Alltag". Skill-Volltexte, Erinnerungs-Badges, Schrittlisten und
+       EN/DE-Umschalter unverändert. Cross-Links auf Teil 1 V38 und Zusatzlinks V36; Speicher-Schlüssel V23.
+       Aus V22 übernommen: Basis V21, Inhalts- und Ablaufreview vom 11.07.2026.
        Neu in V22: alltagstaugliche Adapter für to-spec/to-tickets, vollständige Wayfinder-
        Übergabe, eindeutiger lokaler Ticket-Lebenszyklus, toolneutrale Aufrufsyntax, manueller
        Weg-B-Wayfinder, beleggebundene Review-/Schlussrunden und gespeicherter Abschlussbericht.
@@ -292,7 +303,7 @@
     .toc a.tc-5 { --tc: var(--copper); }
     .toc a.tc-6 { --tc: var(--rose); }
 
-    .content { display: grid; gap: clamp(1.1rem, 2vw, 1.6rem); min-width: 0; }
+    .content { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.1rem, 2vw, 1.6rem); min-width: 0; } /* V23: Spalte darf schrumpfen, sonst 6 px Überlauf bei 320 px */
     .hero {
       padding: clamp(1.6rem, 3.4vw, 3rem);
       display: grid;
@@ -321,6 +332,8 @@
     li { margin: 0.15rem 0; }
 
     .hero-lede { max-width: 920px; font-size: clamp(1.1rem, 1.5vw, 1.35rem); color: var(--muted); }
+    .hero-prereq { max-width: 920px; color: var(--muted); border-left: 3px solid var(--teal); padding-left: 0.8rem; }
+    .hero-prereq strong { color: var(--ink); }
     .hero-grid { display: grid; gap: 0.9rem; grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .metric {
       background: var(--surface);
@@ -897,11 +910,37 @@
       .skill-head small, .skill-origin { color: #4a555e; }
       a::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #4a555e; }
     }
+
+    /* V38/V23: 200-%-Robustheit */
+    /* Geprüft mit html{font-size:200%}: Grid-/Flex-Kinder dürfen schrumpfen, lange Wörter und Skill-Namen brechen notfalls um. */
+    .layout > *, .content > *, .lesson-body > * { min-width: 0; max-width: 100%; }
+    .content, .topbar { overflow-wrap: break-word; }
+    :where(.content :not(table, thead, tbody, tr, th, td, caption, svg, svg *, button)) { min-width: 0; }
+    .content button, .brand, .top-actions, .top-actions > *, .quiz-card > * { max-width: 100%; }
+    .eyebrow, .kicker, .badge, h1, h2, h3, h4, code, .term-card small, .chip small, .proof-card small { overflow-wrap: anywhere; }
+    .flow-step { grid-template-columns: 3rem minmax(8rem, 1fr) minmax(0, max-content); }
+    .flow-step .fs-skill { white-space: normal; overflow-wrap: anywhere; }
+    @media screen and (max-width: 720px) {
+      /* Innenabstände wachsen bei großer Grundschrift nicht über den 320-px-Normalwert hinaus (min(rem, vw) ist bei 16 px Grundschrift identisch). */
+      .topbar { padding-left: min(1rem, 5vw); padding-right: min(1rem, 5vw); }
+      .layout { padding: min(0.8rem, 4vw); }
+      .section { padding: min(1rem, 5vw); }
+    }
+    @media (max-width: 720px) {
+      .flow-step { grid-template-columns: 2.4rem minmax(0, 1fr); }
+    }
+    .slice-cell { overflow-wrap: anywhere; }
+    @media screen and (max-width: 560px) {
+      .who-badge { display: inline-block; max-width: 100%; white-space: normal; line-height: 1.3; }
+      /* Scheiben-Diagramm: Zeilenlabel über die drei Zellen statt 7,5-rem-Spalte daneben (war schon bei 320 px normal zu eng). */
+      .slice-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .slice-row > small:first-child { grid-column: 1 / -1; }
+    }
   </style>
   <script>
     /* Theme-Bootstrap: vor dem ersten Rendern, damit nichts aufblitzt. */
     try {
-      if (localStorage.getItem("ki-kurs-teil2-v22-theme") === "light") {
+      if (localStorage.getItem("ki-kurs-teil2-v23-theme") === "light") {
         document.documentElement.setAttribute("data-theme", "light");
       }
     } catch (e) { /* Ohne localStorage bleibt es beim dunklen Standard. */ }
@@ -910,7 +949,7 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <strong>Per Anhalter durch die KI · Teil 2 (V22)</strong>
+      <strong>Per Anhalter durch die KI · Teil 2 (V23)</strong>
       <span>Projektwerkstatt · lokal, selbstlerntauglich und ohne Git-Vorkenntnisse</span>
     </div>
     <div class="top-actions">
@@ -963,9 +1002,10 @@
 
     <main class="content" id="start">
       <section class="hero panel" aria-labelledby="hero-title">
-        <p class="eyebrow">Per Anhalter durch die KI · Teil 2 von 2 · Projektwerkstatt</p>
+        <p class="eyebrow">Per Anhalter durch die KI · Anschlusskurs · Teil 2 von 2 · Projektwerkstatt</p>
         <h1 id="hero-title">Heute führst du ein Projekt mit Skills: von der Idee zum geprüften ersten Ergebnis und einem klaren Weiterweg.</h1>
         <p class="hero-lede">In Teil 1 hast du die Grundlagen gelernt: briefen, prüfen, Kontext im Griff behalten. Hier setzt du daraus einen vollständigen Arbeitsablauf zusammen. Die Planungs-Skills stammen aus Matt Pococks offener Bibliothek; Ausführen und Prüfen übersetzen wir bewusst in einen lokalen Alltagsprojekt-Weg. Du brauchst weder Git noch GitHub: Projektordner, Markdown-Tickets und normale Dateien genügen. Du denkst dein Projekt erst ohne KI durch, lässt eine Landkarte entstehen, klärst Entscheidungen und führst mindestens ein Ticket bis zu einem gespeicherten, geprüften Ergebnis. Größere Projekte setzt du danach mit demselben Fahrplan fort.</p>
+        <p class="hero-prereq"><strong>Voraussetzung:</strong> ein ChatGPT-Konto und erste eigene Prompts, zum Beispiel aus dem Einstiegskurs <a href="../keine-panik/index.html" target="_blank" rel="noopener noreferrer">„Keine Panik: KI im Alltag“</a>, dazu Teil 1 dieses Anschlusskurses. Ein Agenten-Werkzeug mit Ordnerzugriff ist bequem, aber keine Pflicht: Weg B läuft im normalen Chat.</p>
         <div class="hero-grid" aria-label="Kursversprechen">
           <div class="metric"><b>6</b><span>echte Kern-Skills plus kopierbare Aufträge fürs lokale Ausführen und Prüfen</span></div>
           <div class="metric"><b>1</b><span>eigenes Projekt mit geprüftem erstem Ergebnis oder ehrlich dokumentiertem nächsten Schritt</span></div>
@@ -981,10 +1021,10 @@
           <p>Vier Dinge, mehr nicht. Kein bestimmtes Produkt und kein Bezahlplan sind Pflicht.</p>
         </div>
         <div class="blocks">
-          <section class="block accent-teal"><b>Ein kompatibles KI-Arbeitswerkzeug</b><p>Am bequemsten ist ein Agent, der deinen lokalen Projektordner lesen und schreiben kann. Beispiele sind Claude Desktop/Cowork, Claude Code oder Codex. Die genauen Schalter unterscheiden sich.</p></section>
+          <section class="block accent-teal"><b>Ein kompatibles KI-Arbeitswerkzeug</b><p>Am bequemsten ist ein Agent, der deinen lokalen Projektordner lesen und schreiben kann. Beispiele sind Claude Desktop (Cowork ist seit September 2026 Teil von Claude, bezahlte Pläne), Claude Code oder Codex. Die genauen Schalter unterscheiden sich.</p></section>
           <section class="block accent-blue"><b>Ein normaler Projektordner</b><p>Lege einen Ordner für dein Vorhaben an. Darin liegen später Markdown-Tickets, Zieldokument, Entscheidungen und Ergebnisse. Eine Versionsverwaltung ist nicht nötig.</p></section>
           <section class="block accent-amber"><b>Skills oder Copy-Paste</b><p>Kann dein Werkzeug Skills installieren, nutzt du die sechs Kern-Skills direkt. Sonst funktionieren die sichtbaren deutschen Aufträge im normalen Chat; du pflegst die lokalen Dateien dann selbst.</p></section>
-          <section class="block accent-violet"><b>Kosten sind produktabhängig</b><p>Der Kurs verlangt kein Abo. Ordnerzugriff und lange Agentenläufe können je nach Produkt einen Bezahlplan brauchen. Ohne diese Funktionen bleibt der vollständige Copy-Paste-Weg nutzbar. Stand 11.07.2026: vor einem Abo aktuell prüfen.</p></section>
+          <section class="block accent-violet"><b>Kosten sind produktabhängig</b><p>Der Kurs verlangt kein Abo. Ordnerzugriff und lange Agentenläufe können je nach Produkt einen Bezahlplan brauchen. Ohne diese Funktionen bleibt der vollständige Copy-Paste-Weg nutzbar. Stand September 2026: vor einem Abo aktuell prüfen.</p></section>
         </div>
         <section class="note"><b>Und die Sprache?</b><p>Du schreibst ganz normal Deutsch, die KI antwortet Deutsch, auch wenn ihre Anleitung Englisch ist.</p></section>
         <h3>Der Fachwort-Übersetzer für Teil 2</h3>
@@ -1012,7 +1052,7 @@
         <div class="section-head">
           <p class="kicker">T0 · Rückblick · 6 Min.</p>
           <h2 id="t0-title">Acht Dinge aus Teil 1, die in Teil 2 die Werkzeuge sind</h2>
-          <p>Kein neuer Stoff, nur ein kurzer Check. Alles, was in Teil 2 passiert, steht auf diesen acht Fundamenten. Wenn dir eines nichts mehr sagt: Schlag es kurz in Teil 1 nach. Die Nummern zeigen dir, wo es dort steht; die Teil-1-Seite bleibt dein Nachschlagewerk.</p>
+          <p>Kein neuer Stoff, nur ein kurzer Check. Alles, was in Teil 2 passiert, steht auf diesen acht Fundamenten. Wenn dir eines nichts mehr sagt: Schlag es kurz in Teil 1 nach. Die Nummern zeigen dir, wo es dort steht; die Teil-1-Seite bleibt dein Nachschlagewerk. Zur Einordnung: Der Anhalter setzt auf dem Einstiegskurs „Keine Panik: KI im Alltag“ auf (ChatGPT-Konto, erste eigene Prompts); Teil 1 hat daraus diese acht Fundamente gemacht, Teil 2 baut damit ein Projekt.</p>
         </div>
         <div class="chip-grid" aria-label="Fundamente aus Teil 1">
           <article class="chip cc-1"><small>Fundament 1</small><b>Token</b><p>KI liest und schreibt in Wortstücken. Jedes Stück kostet Platz im Fenster.</p><span class="rem-badge">Teil 1 · 02.02</span></article>
@@ -1094,18 +1134,18 @@
                 <li><b>Frisch starten:</b> einen neuen Chat im selben Ordner öffnen. Jeder frische Chat beginnt in der Smart Zone; die Projektdateien tragen den Arbeitsstand.</li>
               </ol>
             </div>
-            <section class="note"><b>Beispielvarianten, Stand 11.07.2026</b><p>Claude Desktop kann den Ordner über Cowork bereitstellen; Claude Code und Codex werden direkt im gewünschten Ordner geöffnet. Andere kompatible Agenten haben eigene Bezeichnungen. Fehlt echter Ordnerzugriff, verspricht der Kurs ihn nicht: Dann gilt Weg B.</p></section>
+            <section class="note"><b>Beispielvarianten, Stand September 2026</b><p>Claude Desktop kann den Ordner bereitstellen (Cowork ist seit September 2026 Teil von Claude, bezahlte Pläne); Claude Code und Codex werden direkt im gewünschten Ordner geöffnet. Andere kompatible Agenten haben eigene Bezeichnungen. Fehlt echter Ordnerzugriff, verspricht der Kurs ihn nicht: Dann gilt Weg B.</p></section>
           </div>
         </article>
         <div class="side-by-side">
           <section class="remember"><span class="rem-badge">Teil 1 · 09.01–09.02</span><b>Erinnerung: Was ein Skill ist</b><p>Eine kleine Textdatei (SKILL.md) mit Name, Einsatzmoment und Anleitung. Du kannst einen Skill ausdrücklich starten; ohne <code>disable-model-invocation: true</code> darf ein kompatibler Agent ihn auch passend zur Aufgabe selbst wählen. Matts Repo aus Teil 1 ist genau das, das du jetzt installierst; das Kurs-Zusatzpaket kommt gleich dazu.</p></section>
-          <section class="matt-box"><small>Im Original bei Matt</small><p>Matt startet praktisch jede Arbeit mit einem Skill-Aufruf: <code>/</code> tippen, Skill wählen, Auftrag anhängen. Seine Bibliothek (mattpocock/skills) ist offen, MIT-lizenziert und draußen sehr populär (über 160.000 Sterne auf GitHub). Genau diese Bibliothek installierst du jetzt im Original, auf dem Stand v1.1 vom Juli 2026 — so bekommst du auch künftige Updates direkt von der Quelle.</p></section>
+          <section class="matt-box"><small>Im Original bei Matt</small><p>Matt startet praktisch jede Arbeit mit einem Skill-Aufruf: <code>/</code> tippen, Skill wählen, Auftrag anhängen. Seine Bibliothek (mattpocock/skills) ist offen, MIT-lizenziert und draußen sehr populär. Genau diese Bibliothek installierst du jetzt im Original, so bekommst du auch künftige Updates direkt von der Quelle. Die hier abgedruckten Volltexte zeigen den Stand v1.1 (Juli 2026); das Repo steht inzwischen bei v1.2.x (Stand September 2026), der Kernablauf ist unverändert, grilling fragt jetzt in nummerierten Runden statt einzeln.</p></section>
         </div>
         <div class="blocks">
-          <section class="block accent-teal"><b>Weg A · Variante 1: dem Agenten den Installations-Auftrag geben (unser Kursweg)</b><p>Den Auftrag unten in einen kompatiblen Agenten mit Netzwerk-, Terminal- und Dateizugriff einfügen. Er kann den offiziellen Befehl <code>npx skills@latest add mattpocock/skills</code> ausführen, sobald du nötige Freigaben bestätigst. Fehlen diese Rechte, wechselst du zu Variante 2 oder zum Copy-Paste-Weg. Updates später: bei demselben Rechtecheck um <code>npx skills update</code> bitten.</p></section>
+          <section class="block accent-teal"><b>Weg A · Variante 1: dem Agenten den Installations-Auftrag geben (unser Kursweg)</b><p>Den Auftrag unten in einen kompatiblen Agenten mit Netzwerk-, Terminal- und Dateizugriff einfügen. Er kann den offiziellen Befehl <code>npx skills@latest add mattpocock/skills</code> ausführen, sobald du nötige Freigaben bestätigst. <code>npx</code> gehört zu Node.js: Ist Node.js auf dem Rechner nicht installiert, scheitert der Befehl; dann erst Node.js installieren lassen (nodejs.org, LTS-Fassung) oder Variante 2 nehmen. Fehlen die Rechte, wechselst du zu Variante 2 oder zum Copy-Paste-Weg. Updates später: bei demselben Rechtecheck um <code>npx skills update</code> bitten. In Claude Code gibt es seit v1.2 alternativ das Plugin: <code>claude plugins install mattpocock-skills</code>. Nimm nur einen der beiden Wege, sonst liegt jeder Skill doppelt da (Stand September 2026).</p></section>
           <section class="block accent-blue"><b>Weg A · Variante 2: Repo herunterladen und als Quelle zeigen</b><p>Auf github.com/mattpocock/skills "Code → Download ZIP" wählen und entpacken. Dein eigenes Projekt bleibt der geöffnete Arbeitsordner. Den entpackten Skills-Ordner gibst du nur zusätzlich als Quelle frei; sonst hält der Agent versehentlich die Bibliothek für dein Projekt.</p></section>
         </div>
-        <section class="note"><b>Weg B · Ohne Agenten-Tool: der Copy-Paste-Pfad</b><p>Ohne Ordnerzugriff funktionieren <code>grilling</code> und <code>handoff</code> als Copy-Paste-Prompts. Setup, Wayfinder, Research, To-Spec und To-Tickets automatisieren normalerweise die Dateiablage; deren Ergebnis führst du selbst in Markdown-Dateien.</p><ol class="note-steps"><li>Führe die Aufgabentafel als normales Dokument. Bei einem großen oder nebligen Vorhaben legst du zusätzlich eine manuelle Landkarte an: Ziel, geklärte Entscheidungen, offene Klärungsfragen, Abhängigkeiten und nächstes freies Ticket.</li><li>Pro Arbeitsschritt einen neuen Chat öffnen und das eine Ticket plus Zieldokument einfügen.</li><li>Ergebnis als klar benannte Datei sichern, Belege notieren und <code>Status</code> sowie <code>State</code> im Ticket aktualisieren.</li></ol><p>Derselbe Ablauf, dieselben Phasen: Du trägst nur selbst, was sonst der Agent trägt. Bei einem kleinen, schon klaren Vorhaben darf die Landkarte kompakt bleiben. Die Komplett-Fassung steht in T4.</p></section>
+        <section class="note"><b>Weg B · Ohne Agenten-Tool: der Copy-Paste-Pfad</b><p>Ohne Ordnerzugriff funktionieren <code>grilling</code> und <code>handoff</code> als Copy-Paste-Prompts. Setup, Wayfinder, Research, To-Spec und To-Tickets automatisieren normalerweise die Dateiablage; deren Ergebnis führst du selbst in Markdown-Dateien.</p><ol class="note-steps"><li>Führe die Aufgabentafel als normales Dokument. Bei einem großen oder nebligen Vorhaben legst du zusätzlich eine manuelle Landkarte an: Ziel, geklärte Entscheidungen, offene Klärungsfragen, Abhängigkeiten und nächstes freies Ticket.</li><li>Pro Arbeitsschritt einen neuen Chat öffnen und das eine Ticket plus Zieldokument einfügen. Für Zieldokument, Tickets, Einzelticket und Abschlussbericht gibt es in Phase 2, 3 und 6 eigene Weg-B-Fassungen mit markierten Einfüge-Stellen.</li><li>Ergebnis als klar benannte Datei sichern, Belege notieren und <code>Status</code> sowie <code>State</code> im Ticket aktualisieren.</li></ol><p>Derselbe Ablauf, dieselben Phasen: Du trägst nur selbst, was sonst der Agent trägt. Bei einem kleinen, schon klaren Vorhaben darf die Landkarte kompakt bleiben. Die Komplett-Fassung steht in T4.</p></section>
         <section class="note"><b>Aufrufnamen im Kurs sind Kurzschreibweisen</b><p>Wenn hier <code>/wayfinder</code> oder <code>/to-spec</code> steht, ist der Skill gemeint, nicht eine überall gültige Tastenkombination. Nutze je nach Werkzeug Slash, Dollarzeichen, Menü/Skill-Auswahl oder nenne den Skill ausdrücklich im Auftrag.</p></section>
         <section class="note"><b>Konvention für lokale Umsetzungstickets</b><p><code>Status</code> ist die Triage-Rolle (<code>ready-for-agent</code>, <code>needs-info</code> usw.); <code>State</code> ist der Lebenszyklus (<code>open</code> oder <code>closed</code>). Ein Blocker gilt erst als gelöst, wenn das abhängige Ticket <code>State: closed</code> trägt. Fehlen Angaben, bleibt es <code>State: open</code>, bekommt <code>Status: needs-info</code> und nennt den Grund. Erzeugt der unveränderte Original-Skill lokale Tickets noch ohne <code>State</code>-Zeile, ergänzt du einmalig <code>State: open</code>, bevor Phase 3 beginnt. Wayfinder-Klärungstickets verwenden zusätzlich ihren eigenen Ablauf mit <code>claimed</code>/<code>resolved</code>; diese Wörter nicht mit dem Umsetzungsticket-Lebenszyklus vermischen.</p></section>
         <section class="skill-box">
@@ -1113,10 +1153,11 @@
           <pre>Installiere bitte Matt Pococks Skills in meine Skills-Ablage, sofern du in diesem Werkzeug Netzwerk-, Terminal- und Dateizugriff hast. Frage vor nötigen Freigaben nach.
 Der offizielle Weg laut https://github.com/mattpocock/skills ist:
 npx skills@latest add mattpocock/skills
-Führe das aus. Falls Rechte oder Befehl fehlen, stoppe und nenne mir
+Führe das aus. Der Befehl setzt Node.js voraus. Falls Node.js, Rechte oder Befehl fehlen, stoppe und nenne mir
 den manuellen ZIP- beziehungsweise Copy-Paste-Weg, statt Erfolg zu behaupten.
+Ist das Claude-Code-Plugin mattpocock-skills schon installiert, installiere nichts doppelt.
 Sag mir danach, welche Skills du tatsächlich eingerichtet hast und wie ich sie aufrufe.</pre>
-          <p class="skill-origin">Offizieller Installationsweg laut README von github.com/mattpocock/skills (npx skills@latest add). Den Update-Weg (npx skills update) empfiehlt Matt im v1.1-Video.</p>
+          <p class="skill-origin">Offizieller Installationsweg laut README von github.com/mattpocock/skills (npx skills@latest add; seit v1.2 alternativ als Claude-Code-Plugin, nur einen Weg nehmen). Den Update-Weg (npx skills update) nennt das README; Matt empfiehlt ihn auch im v1.1-Video.</p>
         </section>
         <section class="note"><b>Unser Zusatzpaket: Lutoss/skills</b><p>Neben Matts Original gibt es das Kurs-Zusatzpaket <a href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">github.com/Lutoss/skills</a>: eigene Skills für Nicht-Code-Projekte (unter anderem <code>verify-before-done</code> und <code>project-review</code>, beide tauchen in Phase 4 als Vertiefung auf) plus Codex-Fassungen. Die Installation braucht dieselben Netzwerk-, Terminal-, Datei- und Freigaberechte wie oben. Ehrlicher Hinweis: Der dort eingebettete Matt-Bestand ist ein älterer Snapshot vom 02.07.2026; für Matts v1.1 und spätere Updates verwendest du das Original-Repo.</p></section>
         <article class="lesson" id="t2-01">
@@ -1440,7 +1481,7 @@ Sag dem Nutzer, dass die Einrichtung abgeschlossen ist und welche Skills diese D
               <div class="sb-field">
                 <label for="sb-ziel">Ziel</label>
                 <small id="sb-ziel-help">Was willst du am Ende in der Hand haben? Ein Satz.</small>
-                <textarea id="sb-ziel" data-store="ziel" aria-describedby="sb-ziel-help" placeholder="Beispiel: Ein fertiger Ablaufplan mit Helferliste für unser Sommerfest am 25. Juli."></textarea>
+                <textarea id="sb-ziel" data-store="ziel" aria-describedby="sb-ziel-help" placeholder="Beispiel: Ein fertiger Ablaufplan mit Helferliste für unser Sommerfest am [Datum]."></textarea>
               </div>
               <div class="sb-field">
                 <label for="sb-zielgruppe">Zielgruppe</label>
@@ -1460,7 +1501,7 @@ Sag dem Nutzer, dass die Einrichtung abgeschlossen ist und welche Skills diese D
               <div class="sb-field sb-wide">
                 <label for="sb-auftrag">Dein Auftrag für Landkarte und Frage-Runde (Phase 1)</label>
                 <small id="sb-auftrag-help">3 bis 5 Sätze in deinen Worten: Arbeitstitel, Ziel, gewünschtes Endprodukt, was es schon gibt, wo deine Grenzen sind. Kein Prompt-Kunstwerk, ein ehrlicher Absatz.</small>
-                <textarea id="sb-auftrag" data-store="auftrag" aria-describedby="sb-auftrag-help" placeholder="Beispiel: Projekt Sommerfest 2026. Ich organisiere das Sommerfest unseres Sportvereins am 25. Juli für etwa 120 Gäste. Am Ende will ich einen Ablaufplan, eine Helferliste und eine Einladung haben. Es gibt eine Helferliste vom letzten Jahr und den Belegungsplan der Halle. Budget und Zusagen an Personen entscheide ich selbst."></textarea>
+                <textarea id="sb-auftrag" data-store="auftrag" aria-describedby="sb-auftrag-help" placeholder="Beispiel: Projekt Sommerfest (erfundenes Beispiel). Ich organisiere das Sommerfest unseres Sportvereins am [Datum] für etwa 120 Gäste. Am Ende will ich einen Ablaufplan, eine Helferliste und eine Einladung haben. Es gibt eine Helferliste vom letzten Jahr und den Belegungsplan der Halle. Budget und Zusagen an Personen entscheide ich selbst."></textarea>
               </div>
             </div>
             <p class="sb-status" id="sbStatus" role="status" aria-live="polite">Der Steckbrief speichert automatisch in diesem Browser.</p>
@@ -1781,7 +1822,7 @@ Führe eine `/grilling`-Runde durch und nutze dabei den Skill `/domain-modeling`
         </section>
         <section class="skill-box">
           <div class="skill-head"><small>Das Herzstück dahinter · /grilling</small><span class="who-badge who-agent">Agent nutzt</span><div class="skill-buttons"><button class="lang-button" type="button" data-lang aria-pressed="false">Deutsche Übersetzung</button><button class="copy-button" type="button" data-copy>Kopieren</button></div></div>
-          <div class="skill-intro"><b>Was macht er?</b> Das ist die eigentliche Interview-Anleitung: im Video zeigt Matt sie her und sagt: "wonderfully small". Der deutsche Text funktioniert übrigens 1:1 als Copy-Paste-Prompt, falls du ohne installierte Skills arbeitest. Neu in v1.1 sind drei Verschärfungen, alle aus der Praxis: Fragen kommen strikt einzeln ("mehrere auf einmal sind verwirrend" steht jetzt wörtlich drin), <b>Fakten</b> schlägt die KI selbst nach, während <b>Entscheidungen</b> ausdrücklich dir gehören (das Gegenmittel gegen KIs, die sich selbst grillen) — und gebaut wird erst, wenn du das gemeinsame Verständnis ausdrücklich bestätigt hast.</div>
+          <div class="skill-intro"><b>Was macht er?</b> Das ist die eigentliche Interview-Anleitung: im Video zeigt Matt sie her und sagt: "wonderfully small". Der deutsche Text funktioniert übrigens als Copy-Paste-Prompt, falls du ohne installierte Skills arbeitest: Den Projektordner ersetzt dann das, was du einfügst (die Klammer im Text sagt das ausdrücklich). Neu in v1.1 waren drei Verschärfungen, alle aus der Praxis: Fragen kamen strikt einzeln ("mehrere auf einmal sind verwirrend" steht im abgedruckten Text wörtlich drin; seit v1.2 fragt das Original stattdessen in nummerierten Runden, jeweils mit Empfehlung), <b>Fakten</b> schlägt die KI selbst nach, während <b>Entscheidungen</b> ausdrücklich dir gehören (das Gegenmittel gegen KIs, die sich selbst grillen) — und gebaut wird erst, wenn du das gemeinsame Verständnis ausdrücklich bestätigt hast.</div>
           <pre class="skill-en">---
 name: grilling
 description: Grill the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.
@@ -1803,7 +1844,7 @@ Interviewe mich unerbittlich zu jedem Aspekt dieses Plans, bis wir ein gemeinsam
 
 Stelle die Fragen einzeln und warte bei jeder Frage auf meine Rückmeldung, bevor du weitermachst. Mehrere Fragen auf einmal sind verwirrend.
 
-Wenn sich ein *Fakt* durch einen Blick in die Codebasis (bei uns: den Projektordner) finden lässt, schlag ihn dort nach, statt mich zu fragen. Die *Entscheidungen* aber gehören mir — leg mir jede einzeln vor und warte auf meine Antwort.
+Wenn sich ein *Fakt* durch einen Blick in die Codebasis (bei uns: den Projektordner oder das, was ich eingefügt habe) finden lässt, schlag ihn dort nach, statt mich zu fragen. Die *Entscheidungen* aber gehören mir — leg mir jede einzeln vor und warte auf meine Antwort.
 
 Setze den Plan nicht um, bevor ich bestätigt habe, dass wir ein gemeinsames Verständnis erreicht haben.</pre>
           <p class="skill-origin">Original: grilling aus mattpocock/skills, Stand v1.1 (Juli 2026), MIT-Lizenz, © Matt Pocock. Deutsche Übersetzung: Kursfassung.</p>
@@ -2266,8 +2307,31 @@ Gliedere das Dokument in:
 
 Verwende keine Softwareüberschriften wie API, Schema, Refactoring oder Tests, wenn sie für dieses Projekt nicht wirklich passen. Zeige mir zuerst den Entwurf. Speichere ihn erst nach meiner Freigabe als Markdown-Datei und nenne anschließend den genauen Pfad.</pre>
         </section>
-        <section class="note"><b>So klein darf ein Zieldokument sein (Beispiel Sommerfest, 8 Zeilen)</b>
-          <pre>Problem: Unser Sommerfest (25. Juli, ~120 Gäste) hat weder Plan noch Helfer-Übersicht noch Einladung.
+        <section class="prompt-box" aria-labelledby="alltag-spec-wegb-title">
+          <div class="prompt-head"><small id="alltag-spec-wegb-title">Weg B · ohne Ordnerzugriff · Zieldokument im normalen Chat</small><button class="copy-button" type="button" data-copy="#alltag-spec-wegb">Kopieren</button></div>
+          <pre id="alltag-spec-wegb">Erstelle ein Zieldokument für den geklärten Meilenstein meines Alltagsprojekts. Du hast keinen Zugriff auf meine Dateien: Alles, was du brauchst, füge ich unten ein. Speichern übernehme ich selbst.
+
+Nutze nur die unten eingefügten, bereits getroffenen Entscheidungen. Ist eine notwendige Entscheidung offen oder widersprüchlich, stoppe und nenne sie; erfinde keine Lösung.
+
+Gliedere das Dokument in:
+1. Ziel und Nutzen
+2. Für wen das Ergebnis gedacht ist
+3. Konkrete Ergebnisse dieses Meilensteins
+4. Prüfkriterien: Woran erkennen wir ein gutes, nutzbares Ergebnis?
+5. Festgelegte Grenzen und Nicht-Ziele
+6. Bereits getroffene Entscheidungen mit Verweis auf ihre Quelle
+7. Bewusst offene oder später vertagte Punkte
+
+Verwende keine Softwareüberschriften wie API, Schema, Refactoring oder Tests, wenn sie für dieses Projekt nicht wirklich passen. Zeige mir zuerst den Entwurf. Nach meiner Freigabe gibst du das Zieldokument als einen zusammenhängenden Markdown-Block aus, den ich als Datei speichere.
+
+Meine Landkarte (Ziel, geklärte Entscheidungen, offene Fragen):
+[hier deine manuelle Landkarte einfügen]
+
+Ergebnis der Grill-Runde und weitere Entscheidungsnotizen:
+[hier die Entscheidungen einfügen]</pre>
+        </section>
+        <section class="note"><b>So klein darf ein Zieldokument sein (erfundenes Beispiel Sommerfest, 8 Zeilen)</b>
+          <pre>Problem: Unser Sommerfest (25. Juli, erfundenes Beispiel, ~120 Gäste) hat weder Plan noch Helfer-Übersicht noch Einladung.
 Lösung: Ein Orga-Paket aus einem Guss: Ablaufplan, Helferliste, Einladung.
 Nutzergeschichten:
 1. Als Orga-Team wollen wir einen Ablaufplan, damit jeder weiß, was wann passiert.
@@ -2492,6 +2556,28 @@ Blockiert von: [Nummern/Titel oder „Keine“]
 
 Es folgen „Was entsteht“, „Fertig-Kriterien“, „Material/Quellen“ und ein leerer Abschnitt „## Comments“. Ein Blocker ist erst erfüllt, wenn das genannte Ticket State: closed trägt. Nenne zum Schluss alle erzeugten Pfade. Verwende keine Softwarebegriffe, wenn sie für das Projekt nicht passen.</pre>
         </section>
+        <section class="prompt-box" aria-labelledby="alltag-tickets-wegb-title">
+          <div class="prompt-head"><small id="alltag-tickets-wegb-title">Weg B · ohne Ordnerzugriff · Tickets im normalen Chat</small><button class="copy-button" type="button" data-copy="#alltag-tickets-wegb">Kopieren</button></div>
+          <pre id="alltag-tickets-wegb">Lies das unten eingefügte, freigegebene Zieldokument vollständig und zerlege diesen Meilenstein in 3 bis 6 kleine Umsetzungstickets für mein Alltagsprojekt. Du hast keinen Zugriff auf meine Dateien; Speichern und Ablegen übernehme ich selbst.
+
+Jedes Ticket liefert ein schmales, aber von Anfang bis Ende nutzbares Ergebnis — keine horizontale Schicht wie „erst alle Unterlagen“ oder „erst alle Texte“. Zeige mir zuerst eine nummerierte Liste mit:
+- Titel
+- Was konkret entsteht
+- Fertig-Kriterien als überprüfbare Checkboxen
+- Blockiert von: nur echte Abhängigkeiten
+- Benötigtes Material und Quellen
+
+Frage mich danach, ob Körnung und Blocker stimmen. Erst nach meiner Freigabe gibst du jedes Ticket als eigenen Markdown-Block aus, jeweils mit einem Vorschlag für den Dateinamen. Jedes Ticket beginnt mit:
+
+Status: ready-for-agent
+State: open
+Blockiert von: [Nummern/Titel oder „Keine“]
+
+Es folgen „Was entsteht“, „Fertig-Kriterien“, „Material/Quellen“ und ein leerer Abschnitt „## Comments“. Ein Blocker ist erst erfüllt, wenn das genannte Ticket State: closed trägt. Verwende keine Softwarebegriffe, wenn sie für das Projekt nicht passen.
+
+Zieldokument:
+[hier das Zieldokument einfügen]</pre>
+        </section>
         <div class="side-by-side">
           <section class="note"><b>Wegweiser: /research vor Fakten-Tickets</b><p>Hängt ein Ticket an echten Fakten (Fristen, Preise, Regeln)? Dann lass vorher <code>/research</code> laufen (Skill-Karte in Phase 1): Das Ergebnis landet als Notiz mit Quellen im Projektordner, und das Ticket baut auf Geprüftem statt auf Geratenem.</p></section>
           <section class="note"><b>Kurz zur Vorsicht: Prompt Injection</b><p>Webseiten und Dateien können versteckte Anweisungen enthalten, die deine KI aufschnappt (Prompt Injection). Deshalb: Ergebnisse aus dem Netz prüfen, bevor sie in dein Projekt wandern.</p></section>
@@ -2511,7 +2597,7 @@ Es folgen „Was entsteht“, „Fertig-Kriterien“, „Material/Quellen“ und
                 <li><code>/to-tickets</code> beziehungsweise den Alltags-Adapter mit genau diesem Zieldokument ausführen. Bei den Rückfragen ehrlich antworten: Jedes Ticket muss sich anfühlen wie "schaffe ich in einem kurzen Chat".</li>
                 <li>Zu große Tickets teilen lassen. Ziel: 3 bis 6 Tickets für diesen Durchgang.</li>
                 <li>Kurz prüfen: Liegen Zieldokument und je eine Ticketdatei in deiner Aufgaben-Ablage? Beginnt jedes Ticket mit <code>Status: ready-for-agent</code> und <code>State: open</code>, und nennt es seinen genauen Blocker?</li>
-                <li><b>Weg B:</b> Die beiden sichtbaren Alltags-Adapter nacheinander in einen normalen Chat kopieren. Zieldokument und jedes Ticket anschließend als eigene <code>.md</code>-Datei speichern und die erzeugten Pfade in deiner manuellen Landkarte notieren.</li>
+                <li><b>Weg B:</b> Die Weg-B-Fassungen der beiden Alltags-Adapter nacheinander in einen normalen Chat kopieren und an den markierten Stellen Landkarte, Entscheidungen beziehungsweise Zieldokument einfügen. Zieldokument und jedes Ticket anschließend selbst als eigene <code>.md</code>-Datei speichern und die erzeugten Pfade in deiner manuellen Landkarte notieren.</li>
               </ol>
             </div>
             <div class="check">
@@ -2568,6 +2654,22 @@ Es folgen „Was entsteht“, „Fertig-Kriterien“, „Material/Quellen“ und
 Berichte zum Schluss knapp: Ergebnisdatei, erfüllte Kriterien mit Belegen, nicht geprüfte Punkte, Status und State. Verwende kein Git und keine GitHub-Funktionen.
 
 Ticket: [Datei oder Ticketname einfügen]</pre>
+        </section>
+        <section class="prompt-box" aria-labelledby="local-ticket-work-wegb-title">
+          <div class="prompt-head"><small id="local-ticket-work-wegb-title">Weg B · ohne Ordnerzugriff · ein Ticket im normalen Chat bearbeiten</small><button class="copy-button" type="button" data-copy="#local-ticket-work-wegb">Kopieren</button></div>
+          <pre id="local-ticket-work-wegb">Bearbeite genau das unten eingefügte Ticket. Du hast keinen Zugriff auf meine Dateien: Ticket und Zieldokument füge ich ein, das Ergebnis speichere ich selbst.
+
+1. Lies zuerst das Ticket vollständig, danach das Zieldokument.
+2. Nennt das Ticket einen Blocker, frage mich, ob dieser State: closed trägt. Ist er offen, arbeite nicht weiter. Fehlt eine nötige Angabe oder Entscheidung, erfinde nichts: Nenne mir die eine nächste Klärung und schlage für das Ticket Status: needs-info mit kurzem Grund vor.
+3. Erstelle das bestellte Ergebnis vollständig als Text oder Markdown-Block, den ich kopieren kann, und schlage einen verständlichen Dateinamen vor. Erfinde keine fehlenden Fakten.
+4. Prüfe jedes Fertigkriterium einzeln gegen dein Ergebnis und nenne je Kriterium den Beleg oder warum es nicht erfüllt ist.
+5. Gib mir zum Schluss einen Textblock, den ich unter ## Comments ins Ticket übernehme: vorgeschlagener Dateiname, erfüllte Kriterien mit Belegen, nicht geprüfte Punkte, empfohlener Status und State. Empfiehl State: closed nur, wenn alle notwendigen Kriterien erfüllt sind.
+
+Ticket:
+[hier das Ticket einfügen]
+
+Zieldokument:
+[hier das Zieldokument einfügen]</pre>
         </section>
         <section class="prompt-box">
           <div class="prompt-head"><small>Optional · alle freien Tickets über einen Orchestrator starten</small><button class="copy-button" type="button" data-copy="#local-ticket-orchestrator">Kopieren</button></div>
@@ -2743,7 +2845,7 @@ Hat der Nutzer etwas mitgegeben, behandle es als Beschreibung dessen, worum es i
           <section class="matt-box"><small>Im Original bei Matt</small><p>Zwei Regeln übertragen wir vollständig: Im <b>frischen Kontext</b> prüfen, weil der Bau-Chat nach getaner Arbeit voller und voreingenommener ist. Und dem Prüfer die Regeln aktiv <b>mitgeben</b>, statt darauf zu hoffen, dass er sie findet. Im Software-Original sind das Coding-Standards und ein Code-Geruchs-Vokabular; bei deinem Projekt sind es Qualitätsregeln, Zieldokument und Ticket.</p></section>
           <section class="remember"><span class="rem-badge">Teil 1 · 05.01–05.03</span><b>Erinnerung: Prüflinse und Reparatur</b><p>Plausibel ist nicht wahr: Material, Annahmen, prüfpflichtige Behauptungen und menschliche Entscheidungen trennen. In Teil 1 hast du die Ausgabe deines eigenen Modells geprüft und einen Befund gezielt repariert. Hier wird daraus ein fester Zwei-Achsen-Prozess mit frischem Blick.</p></section>
         </div>
-
+        
         <details class="skill-full">
           <summary>Fortgeschritten · nur für Softwareprojekte mit Git: vollständiger /code-review-Skill</summary>
         <section class="skill-box" id="sk-codereview">
@@ -3099,6 +3201,28 @@ Speichere den Bericht als Markdown-Datei im Projektordner unter „abschlussberi
 
 Unterscheide den Bericht von einem Handoff: Der Abschlussbericht bilanziert das Projekt. Ein Handoff übergibt dagegen den Arbeitskontext an eine neue Sitzung oder Person.</pre>
         </section>
+        <section class="prompt-box" aria-labelledby="abschlussbericht-wegb-title">
+          <div class="prompt-head"><small id="abschlussbericht-wegb-title">Weg B · ohne Ordnerzugriff · Abschlussbericht im normalen Chat</small><button class="copy-button" type="button" data-copy="#abschlussbericht-prompt-wegb">Kopieren</button></div>
+          <pre id="abschlussbericht-prompt-wegb">Erstelle aus dem unten eingefügten Material einen knappen Abschlussbericht für mein Projekt. Du hast keinen Zugriff auf meine Dateien: Ich füge alles ein und speichere den Bericht selbst.
+1. Ziel und Abschluss-Form: veröffentlichen, übergeben, archivieren oder pausieren
+2. Ergebnis: Was liegt jetzt nutzbar vor, mit Dateinamen und Version?
+3. Geprüfter Stand: Welche Prüfungen und Belege gibt es?
+4. Offen oder bewusst vertagt: Was ist nicht fertig, warum, und gehört es noch zum Ziel?
+5. Nächster realer Schritt: Wer tut was bis wann?
+
+Behaupte keine Erledigung ohne eingefügten Beleg. Wenn noch ein notwendiges Ticket State: open trägt, nenne das Projekt nicht abgeschlossen, sondern „pausiert“ oder „noch in Arbeit“.
+
+Gib den Bericht als einen Markdown-Block aus; ich speichere ihn als „abschlussbericht-YYYY-MM-DD.md“. Unterscheide ihn von einem Handoff: Der Abschlussbericht bilanziert das Projekt, ein Handoff übergibt den Arbeitskontext an eine neue Sitzung oder Person.
+
+Zieldokument:
+[hier das Zieldokument einfügen]
+
+Tickets mit Status, State und Comments (oder deine Aufgabentafel):
+[hier die Tickets oder die Aufgabentafel einfügen]
+
+Ergebnisse und Prüfnotizen (Dateinamen, kurze Auszüge, Belege):
+[hier einfügen]</pre>
+        </section>
         <div class="side-by-side">
           <section class="note"><b>Die Abschlussfragen</b><p>Ganz zum Schluss darf die KI noch einmal planen helfen. Frag sie: "Was ist alles noch zu tun, damit wir das Projekt abschließen können?" Die Antwort ist deine letzte kleine Ticket-Liste. Erst wenn sie leer oder bewusst vertagt ist, ist das Projekt zu, auf die Art, die du oben gewählt hast.</p></section>
           <section class="matt-box"><small>Im Original bei Matt · Doc Rot</small><p>Matt lässt erledigte Zieldokumente nicht offen herumliegen. Sein Grund: Einen Monat später hat sich das Projekt weiterbewegt; findet die KI dann das alte Dokument, hält sie es für die Wahrheit und arbeitet in die falsche Richtung. Deshalb gehört zu jedem Abschluss: Erledigtes schließen oder abhaken; auffindbar bleibt es trotzdem.</p></section>
@@ -3228,11 +3352,11 @@ Unterscheide den Bericht von einem Handoff: Der Abschlussbericht bilanziert das 
             <li>Aufgabentafel-Dokument anlegen statt Werkstatt einrichten.</li>
             <li>Denken ohne KI: Steckbrief auf Papier, unverändert.</li>
             <li>Grillen: den deutschen grilling-Text von der Skill-Karte als Prompt einfügen.</li>
-            <li>Zieldokument und Tickets im Chat formulieren lassen, beides in dein Dokument kopieren.</li>
-            <li>Pro Ticket ein neuer Chat: Ticket + Zieldokument + Einzelticket-Auftrag einfügen, Ergebnis als Datei sichern, Belege und Status ins Dokument zurücktragen.</li>
+            <li>Zieldokument und Tickets mit den Weg-B-Fassungen der Adapter aus Phase 2 im Chat formulieren lassen, beides in dein Dokument kopieren.</li>
+            <li>Pro Ticket ein neuer Chat: die Weg-B-Fassung des Einzelticket-Auftrags aus Phase 3 mit Ticket + Zieldokument einfügen, Ergebnis als Datei sichern, Belege und Status ins Dokument zurücktragen.</li>
             <li>Prüfen: Ergebnis selbst öffnen; im frischen Chat den Zwei-Achsen-Prüfauftrag aus Phase 4 nutzen: Qualität und Auftrag strikt getrennt.</li>
             <li>Funde als neue Tickets auf die Tafel, umsetzen wie in 5.</li>
-            <li>Abschließen: Abschlussbericht-Auftrag aus Phase 6 nutzen und die Tafel aufräumen.</li>
+            <li>Abschließen: die Weg-B-Fassung des Abschlussbericht-Auftrags aus Phase 6 nutzen und die Tafel aufräumen.</li>
           </ol>
           <p>Du wirst das Abtippen satt: Genau dafür gibt es Skills.</p>
         </section>
@@ -3279,21 +3403,21 @@ Unterscheide den Bericht von einem Handoff: Der Abschlussbericht bilanziert das 
           <p>Die beiden Skill-Repos sind dein Startpaket für die Zeit nach dem Kurs. Die übrigen Links sind englisch und für die Nachbereitung gedacht.</p>
         </div>
         <div class="card-grid">
-                    <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer"><small>GitHub, englisch</small><b>mattpocock/skills: das in diesem Kurs installierte Original</b><span>Matts Bibliothek, Stand v1.1: wayfinder, grilling, to-spec, to-tickets, implement, code-review, handoff, research, teach und mehr. Installation: npx skills@latest add mattpocock/skills — oder den Installations-Auftrag aus T2 in den Chat posten.</span></a>
+                    <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer"><small>GitHub, englisch</small><b>mattpocock/skills: das in diesem Kurs installierte Original</b><span>Matts Bibliothek (im Kurs abgedruckt: Stand v1.1; Repo inzwischen v1.2.x, Stand September 2026): wayfinder, grilling, to-spec, to-tickets, implement, code-review, handoff, research, teach und mehr. Installation: npx skills@latest add mattpocock/skills — oder den Installations-Auftrag aus T2 in den Chat posten.</span></a>
           <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer"><small>GitHub, deutsch dokumentiert</small><b>Lutoss/skills: das Kurs-Zusatzpaket</b><span>Die eigenen Kurs-Skills (verify-before-done, project-review, improve-project-structure, Loop-Familie) plus Codex-Fassungen. Der enthaltene Matt-Bestand ist ein älterer Snapshot vom 02.07.2026; Matts Original installierst du separat. Automatische Installation nur mit passenden Rechten und deiner Freigabe.</span></a>
           <a class="source-card" href="https://www.youtube.com/watch?v=-QFHIoCo-Ko" target="_blank" rel="noreferrer"><small>YouTube, englisch, ~96 Min.</small><b>Matt Pocock: Full Walkthrough — Workflow for AI Coding</b><span>Das Video, das dieser Kursteil spiegelt: Smart Zone, Grill-Runden, Zieldokument, Tickets, Nachtschicht, Prüfen im frischen Kontext. (Aufgenommen vor dem v1.1-Update: Einige Skills tragen dort noch ihre alten Namen.)</span></a>
           <a class="source-card" href="https://www.aihero.dev/" target="_blank" rel="noreferrer"><small>AI Hero, englisch</small><b>AI Hero</b><span>Matt Pococks Lernplattform rund um KI-Arbeit und Agenten.</span></a>
-          <a class="source-card" href="teil-1-orientierung.html" target="_blank" rel="noopener noreferrer"><small>Kursseite, deutsch · Teil 1 V37</small><b>Teil 1 zum Nachschlagen</b><span>Alle Grundlagen hinter den Erinnerungs-Kästen dieser Seite: Token, Kontextfenster und Dumb Zone, Briefen, Prüflinse, Denkzeit, Artefakte, Skills, inklusive aller Übungs-Prompts.</span></a>
-          <a class="source-card" href="zusatzlinks.html" target="_blank" rel="noopener noreferrer"><small>Kursseite, deutsch · Zusatzlinks V35</small><b>Die große Linksammlung</b><span>Alle Tools, Spielwiesen und Lernquellen aus beiden Kursteilen an einem Ort, sortiert, mit kurzer Einordnung, was sich wofür lohnt.</span></a>
+          <a class="source-card" href="teil-1-orientierung.html" target="_blank" rel="noopener noreferrer"><small>Kursseite, deutsch · Teil 1 V39</small><b>Teil 1 zum Nachschlagen</b><span>Alle Grundlagen hinter den Erinnerungs-Kästen dieser Seite: Token, Kontextfenster und Dumb Zone, Briefen, Prüflinse, Denkzeit, Artefakte, Skills, inklusive aller Übungs-Prompts.</span></a>
+          <a class="source-card" href="zusatzlinks.html" target="_blank" rel="noopener noreferrer"><small>Kursseite, deutsch · Zusatzlinks V36</small><b>Die große Linksammlung</b><span>Alle Tools, Spielwiesen und Lernquellen aus beiden Kursteilen an einem Ort, sortiert, mit kurzer Einordnung, was sich wofür lohnt.</span></a>
           <a class="source-card" href="https://agentskills.io/" target="_blank" rel="noreferrer"><small>Standard, englisch</small><b>agentskills.io: der SKILL.md-Standard</b><span>Das offene Format hinter allen Skills aus diesem Kurs. Kurz und lesbar, falls du wissen willst, was deine KI da eigentlich lädt.</span></a>
         </div>
       </section>
 
-      <p class="footer">Stand: 11.07.2026. Per Anhalter durch die KI · Teil 2, V22, passend zu Teil 1 V37 und Zusatzlinks V35. Selbstlern-Fassung auf Basis V21: sechs Kern-Skills führen von Setup und Wayfinder über Zieldokument und Tickets bis zur Übergabe. Alltagstaugliche Adapter und lokale Normalsprach-Aufträge tragen Planung, Ausführung, Orchestrierung, Zwei-Achsen-Prüfung und Abschluss auch ohne Git oder GitHub. Software-Skills mit Git-Voraussetzung stehen klar abgetrennt als freiwilliger Ausblick. Englische Skill-Texte bleiben im Original, deutsche Übersetzungen sind Kursfassungen.</p>
+      <p class="footer">Stand: 23.09.2026. Per Anhalter durch die KI · Teil 2, V23, passend zu Teil 1 V39 und Zusatzlinks V36. Anschlusskurs an den Einstiegskurs „Keine Panik: KI im Alltag“. Selbstlern-Fassung mit Pflegepaket vom 23.09.2026 ( Weg B mit eigenen Copy-Paste-Fassungen, Fakten Stand September 2026): sechs Kern-Skills führen von Setup und Wayfinder über Zieldokument und Tickets bis zur Übergabe. Alltagstaugliche Adapter und lokale Normalsprach-Aufträge tragen Planung, Ausführung, Orchestrierung, Zwei-Achsen-Prüfung und Abschluss auch ohne Git oder GitHub. Software-Skills mit Git-Voraussetzung stehen klar abgetrennt als freiwilliger Ausblick. Englische Skill-Texte bleiben im Original, deutsche Übersetzungen sind Kursfassungen.</p>
     </main>
   </div>
   <script>
-    const storageKey = "ki-kurs-teil2-v22";
+    const storageKey = "ki-kurs-teil2-v23";
     const progressKey = storageKey + "-completed";
     const myVoteKey = storageKey + "-myvote";
     const steckbriefKey = storageKey + "-steckbrief";
@@ -3371,7 +3495,7 @@ Unterscheide den Bericht von einem Handoff: Der Abschlussbericht bilanziert das 
       themeToggle.setAttribute("aria-label", "Helles Design verwenden");
       themeToggle.setAttribute("aria-pressed", light ? "true" : "false");
       if (persist) {
-        try { localStorage.setItem("ki-kurs-teil2-v22-theme", light ? "light" : "dark"); } catch { /* egal */ }
+        try { localStorage.setItem("ki-kurs-teil2-v23-theme", light ? "light" : "dark"); } catch { /* egal */ }
       }
     }
 
@@ -3567,6 +3691,7 @@ Unterscheide den Bericht von einem Handoff: Der Abschlussbericht bilanziert das 
         button.setAttribute("aria-label", (show ? "Antwort verbergen: " : "Antwort anzeigen: ") + question);
       });
     });
+    /* Ende V23. */
   </script>
 </body>
 </html>

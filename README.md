@@ -9,8 +9,9 @@ eigenen kleinen KI-Projekt: verständlich, praktisch und ohne vorausgesetzte
 Fachkenntnisse. ChatGPT dient häufig als Beispiel; die Arbeitsprinzipien sind
 weitgehend auf vergleichbare KI-Assistenten übertragbar.
 
-Aktueller veröffentlichter Stand: Teil 1 V37, Teil 2 V22 und Zusatzlinks V35
-(14.07.2026).
+Aktueller veröffentlichter Stand: Teil 1 V39 (28.10.2026), Teil 2 V23 und
+Zusatzlinks V36 (23.09.2026). Der Kurs ist die Fortsetzung des VHS-Einstiegskurses
+[„KI im Alltag“](keine-panik/index.html).
 
 **➡️ Live-Website:** https://lutoss.github.io/ki-verstehen-anwenden/
 

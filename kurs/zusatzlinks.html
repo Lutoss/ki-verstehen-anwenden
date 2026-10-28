@@ -3,10 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Per Anhalter durch die KI · Die große Linksammlung (V35)</title>
+  <title>Per Anhalter durch die KI · Die große Linksammlung (V36)</title>
   <link rel="icon" href="data:,">
   <style>
-    /* Zusatzlinks-Sammlung V35 „Per Anhalter durch die KI“, Screenshot-Runde vom 14.07.2026.
+    /* Zusatzlinks-Sammlung V36 „Per Anhalter durch die KI“, Pflegepaket vom 23.09.2026.
+       V36: Basis V35. Cross-Links und Labels auf Teil 1 V38 und Teil 2 V23, Theme-Key V36.
+       Faktenpflege (B1, Stand September 2026): Karte Claude Desktop/Cowork (Cowork seit 16.09.2026
+       Teil von Claude, bezahlte Pläne, Ordnerzugriff über die Desktop-App), AI-Hero-Karte (Crash
+       Course verfügbar, 299 USD), beide mattpocock/skills-Karten (v1.2.x, zusätzlich Plugin-Weg).
+       Neu im Kurs-Umfeld: Karte zum Einstiegskurs „Keine Panik: KI im Alltag“ (55 Karten).
+       Vorschaubild-Pfade unverändert (assets/link-previews/v35/).
+       Aus V35 übernommen: Screenshot-Runde vom 14.07.2026.
        Basis V34. Neu: vollständige lokale Webseiten-Vorschaubilder für alle 54 Karten und
        Kvasir KI-Beratung als zusätzlicher Link im Kurs-Umfeld. Speicher-Schlüssel konsistent V35.
        Aus V34 übernommen: Inhalts- und Faktenreview vom 11.07.2026.
@@ -370,11 +377,26 @@
       a::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #4a555e; }
       a[href^="#"]::after { content: ""; }
     }
+
+    /* V36: 200-%-Robustheit */
+    /* Geprüft mit html{font-size:200%}: Grid-Kinder dürfen schrumpfen, lange Wörter und Codes brechen notfalls um. */
+    .layout > * { min-width: 0; max-width: 100%; }
+    .layout, .topbar { overflow-wrap: break-word; }
+    :where(.layout :not(button, svg, svg *)) { min-width: 0; }
+    .brand, .top-actions, .top-actions > *, .badge { max-width: 100%; }
+    .eyebrow, .kicker, .badge, h1, h2, h3, code { overflow-wrap: anywhere; }
+    @media screen and (max-width: 720px) {
+      /* Innenabstände wachsen bei großer Grundschrift nicht über den 320-px-Normalwert hinaus (min(rem, vw) ist bei 16 px Grundschrift identisch). */
+      .topbar { padding-left: min(1rem, 5vw); padding-right: min(1rem, 5vw); }
+      .layout { padding: min(0.8rem, 4vw); }
+      .section { padding: min(1rem, 5vw); }
+      .hero { padding: min(1.6rem, 8vw); }
+    }
   </style>
   <script>
     /* Theme-Bootstrap: vor dem ersten Rendern, damit nichts aufblitzt. */
     try {
-      if (localStorage.getItem("ki-kurs-zusatzlinks-v35-theme") === "light") {
+      if (localStorage.getItem("ki-kurs-zusatzlinks-v36-theme") === "light") {
         document.documentElement.setAttribute("data-theme", "light");
       }
     } catch (e) { /* Ohne localStorage bleibt es beim dunklen Standard. */ }
@@ -384,7 +406,7 @@
   <header class="topbar">
     <div class="brand">
       <strong>Per Anhalter durch die KI</strong>
-      <span>Die große Linksammlung · V35</span>
+      <span>Die große Linksammlung · V36</span>
     </div>
     <div class="top-actions">
       <a class="button" href="teil-1-orientierung.html">Zu Teil 1</a>
@@ -401,7 +423,7 @@
       <p class="hero-lede">Die wichtigsten ergänzenden Links aus dem Kurs plus ausgewählte Fundstücke drumherum, sortiert nach Kursmodulen von Teil 1 und einer eigenen Gruppe zur Projektwerkstatt: zum Nachschlagen, Ausprobieren und Vertiefen, ganz ohne Pflichtprogramm. Herstellerquellen zu schnell veränderlichen Produktdetails stehen zusätzlich direkt an den passenden Stellen in Teil 1.</p>
       <div class="note warn">
         <strong>Kleiner Vorbehalt</strong>
-        <p>Tool-Namen, Ranglisten und Webseiten ändern sich schnell, Stand 14.07.2026. Die Sammlung umfasst 54 Karten. Ihre lokalen Vorschaubilder sind Momentaufnahmen; wenn ein Link später nicht mehr passt: zuerst Titel und Herausgeber suchen.</p>
+        <p>Tool-Namen, Ranglisten und Webseiten ändern sich schnell, Stand 14.07.2026, einzelne Karten aktualisiert am 23.09.2026. Die Sammlung umfasst 55 Karten. Ihre lokalen Vorschaubilder sind Momentaufnahmen; wenn ein Link später nicht mehr passt: zuerst Titel und Herausgeber suchen.</p>
       </div>
       <p class="badge-legend" aria-label="Bedeutung der Markierungen">
         <span class="badge shown">Im Kurs gezeigt</span>
@@ -412,6 +434,11 @@
         <span>· Englischsprachige Angebote sind im Text als (englisch) markiert.</span>
       </p>
       <div class="card-grid">
+        <a class="source-card" href="../keine-panik/index.html">
+          <small>Kursseite · Vorstufe</small>
+          <b>Einstiegskurs: Keine Panik: KI im Alltag</b>
+          <span>Die Vorstufe zum Anhalter: zwei Abende mit ChatGPT Free, für alle, die mit KI gerade erst anfangen. Wer ihn gemacht hat, bringt Konto und erste eigene Prompts für Teil 1 schon mit.</span>
+        </a>
         <a class="source-card" href="teil-1-orientierung.html">
           <small>Kursseite</small>
           <b>Teil 1: KI verstehen und anwenden</b>
@@ -605,7 +632,7 @@
         <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer">
           <span class="badge shown">Im Kurs gezeigt</span>
           <b>mattpocock/skills</b>
-          <span>Aus Modul 9, unser Hauptweg: Matt Pococks Original-Sammlung mit handoff, grill-me, teach, research, wayfinder und mehr (englisch). grill-me ist keine Kurzversion, sondern ein winziger Starter für dieselbe vollständige grilling-Runde. Installation: in einem kompatiblen Agenten mit Netzwerk-, Terminal- und Dateizugriff npx skills@latest add mattpocock/skills ausführen und nötige Freigaben bestätigen; sonst ZIP oder Copy-Paste nutzen.</span>
+          <span>Aus Modul 9, unser Hauptweg: Matt Pococks Original-Sammlung mit handoff, grill-me, teach, research, wayfinder und mehr (englisch). grill-me ist keine Kurzversion, sondern ein winziger Starter für dieselbe vollständige grilling-Runde. Installation: in einem kompatiblen Agenten mit Netzwerk-, Terminal- und Dateizugriff npx skills@latest add mattpocock/skills ausführen und nötige Freigaben bestätigen; sonst ZIP oder Copy-Paste nutzen. Stand September 2026 steht das Repo bei v1.2.x; in Claude Code geht alternativ der Plugin-Weg /plugin install mattpocock-skills. Nur einen der beiden Wege nehmen, sonst liegt jeder Skill doppelt da.</span>
         </a>
         <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
@@ -630,7 +657,7 @@
         <a class="source-card" href="https://claude.com/download" target="_blank" rel="noreferrer">
           <span class="badge deep">Produktbeispiel</span>
           <b>Claude Desktop (mit Cowork)</b>
-          <span>Eine mögliche Oberfläche für Teil 2: Cowork kann der Claude-Desktop-App Zugriff auf einen ausgewählten Projektordner geben. Es ist weder der einzige Weg noch Voraussetzung; Verfügbarkeit und Tarif vor dem Buchen aktuell prüfen.</span>
+          <span>Eine mögliche Oberfläche für Teil 2: Über die Claude-Desktop-App bekommt Claude Zugriff auf einen ausgewählten Projektordner. Cowork ist seit 16.09.2026 Teil von Claude (Chat und Cowork zusammengelegt) und nur in bezahlten Plänen enthalten; der lokale Ordnerzugriff läuft weiter über die Desktop-App. Stand September 2026. Es ist weder der einzige Weg noch Voraussetzung; Tarif vor dem Buchen aktuell prüfen.</span>
         </a>
         <a class="source-card" href="https://www.youtube.com/watch?v=-QFHIoCo-Ko" target="_blank" rel="noreferrer">
           <span class="badge shown">Im Kurs gezeigt</span>
@@ -645,7 +672,7 @@
         <a class="source-card" href="https://github.com/mattpocock/skills" target="_blank" rel="noreferrer">
           <span class="badge shown">Im Kurs gezeigt</span>
           <b>mattpocock/skills</b>
-          <span>Das in Teil 2 installierte Paket, Stand v1.1. Der Hauptweg nutzt setup, wayfinder, grilling, to-spec, to-tickets und handoff; research und weitere Skills bleiben im Werkzeugkoffer. <code>implement</code> und <code>code-review</code> sind nur der freiwillige Software-Ausblick mit Tests beziehungsweise Git-Diff. Installation: npx skills@latest add mattpocock/skills.</span>
+          <span>Das in Teil 2 installierte Paket; Teil 2 beschreibt Stand v1.1, das Repo steht inzwischen bei v1.2.x (Stand September 2026). Der Hauptweg nutzt setup, wayfinder, grilling, to-spec, to-tickets und handoff; research und weitere Skills bleiben im Werkzeugkoffer. <code>implement</code> und <code>code-review</code> sind nur der freiwillige Software-Ausblick mit Tests beziehungsweise Git-Diff. Installation: <code>npx skills@latest add mattpocock/skills</code>, in Claude Code alternativ als Plugin mit <code>/plugin install mattpocock-skills</code>; nur einen Weg nehmen.</span>
         </a>
         <a class="source-card" href="https://github.com/Lutoss/skills" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
@@ -659,8 +686,8 @@
         </a>
         <a class="source-card" href="https://www.aihero.dev/" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
-          <b>AI Hero — und Matts neuer Kurs</b>
-          <span>Matt Pococks Lernplattform rund um KI-Arbeit und Agenten (englisch). Ein "AI coding crash course" zum Selbstlernen im eigenen Tempo, ausdrücklich auch für Nicht-Entwickler, ist im Gespräch — Termin (kolportiert: August 2026) und Preis sind aber unbestätigt, Stand 11.07.2026. Reinschauen lohnt sich: Matt kündigt dort laufend neue Kurse an.</span>
+          <b>AI Hero: Matts Lernplattform und Crash Course</b>
+          <span>Matt Pococks Lernplattform rund um KI-Arbeit und Agenten (englisch). Der „AI Coding Crash Course“ ist verfügbar: im eigenen Tempo, knapp 60 Lektionen, 299 USD, ausdrücklich auch für Nicht-Programmierer. Stand September 2026, Preis vor dem Kauf auf der Seite prüfen. Matt kündigt dort laufend neue Kurse an.</span>
         </a>
         <a class="source-card" href="https://www.youtube.com/@mattpocockuk/videos" target="_blank" rel="noreferrer">
           <span class="badge deep">Vertiefung</span>
@@ -803,12 +830,12 @@
       </div>
     </section>
 
-    <p class="footer">Stand: 14.07.2026 · Per Anhalter durch die KI · Linksammlung V35 zu Teil 1 (V37) und Teil 2 (V22). Alle 54 Karten verwenden lokale Webseiten-Vorschaubilder; externe Seiten selbst können sich ändern, einen Login verlangen oder regional anders aussehen. Die Auswahl ist freiwilliges Material und kein Pflichtprogramm.</p>
+    <p class="footer">Stand: 14.07.2026, einzelne Karten aktualisiert am 23.09.2026 · Per Anhalter durch die KI · Linksammlung V36 zu Teil 1 (V39) und Teil 2 (V23). Alle 55 Karten verwenden lokale Webseiten-Vorschaubilder; externe Seiten selbst können sich ändern, einen Login verlangen oder regional anders aussehen. Die Auswahl ist freiwilliges Material und kein Pflichtprogramm.</p>
   </main>
 
   <script>
     /* ---------- Theme-Umschalter (dunkel = Standard) ---------- */
-    const themeKey = "ki-kurs-zusatzlinks-v35-theme";
+    const themeKey = "ki-kurs-zusatzlinks-v36-theme";
     const themeToggle = document.getElementById("themeToggle");
 
     function applyTheme(light, persist) {
@@ -830,6 +857,7 @@
     /* ---------- Lokale Webseiten-Vorschaubilder ----------
        Jede Karte verweist auf eine lokale 16:9-Aufnahme; doppelte Ziele teilen ein Bild. */
     const previewMap = {
+      "../keine-panik/index.html": "course-part-1",
       "teil-1-orientierung.html": "course-part-1",
       "teil-2-projektwerkstatt.html": "course-part-2",
       "https://www.kvasir-ki.de/": "kvasir-ki",
