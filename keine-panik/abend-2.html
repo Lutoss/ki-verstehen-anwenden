@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KI im Alltag – Abend 2</title>
+<meta name="description" content="Abend 2 des VHS-Kurses „KI im Alltag“: Ablauf, Abstimmung, Kurs-Postfach, Agenten und die Werkstatt „Mein eigener Helfer“.">
+<!--
+  Kurs 2.0 · Seite „Abend 2“ · v1 · Stand 29.10.2026 (Aufbau wie abend-1.html)
+  Ablauf und Fakten: docs/kurs-2-0-regiebuch.md (§ 3, § 4, § 5, § 9).
+  Liegt nur im Pages-Repo (vhs-ki-kurs/keine-panik/), verlinkt von index.html (Kursseite) und ../index.html (Übersicht).
+-->
+<style>
+@font-face{font-family:"Atkinson Hyperlegible Next";font-style:normal;font-weight:400;font-display:swap;src:url("assets/kurs-2-0/fonts/atkinson-hyperlegible-next-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible Next";font-style:normal;font-weight:600;font-display:swap;src:url("assets/kurs-2-0/fonts/atkinson-hyperlegible-next-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible Next";font-style:normal;font-weight:800;font-display:swap;src:url("assets/kurs-2-0/fonts/atkinson-hyperlegible-next-latin-800-normal.woff2") format("woff2")}
+:root{
+  --papier:#FBFBF8; --flaeche:#FFFFFF; --tinte:#1C2B5A; --text:#22252E; --leise:#5A5F6E;
+  --linie:#C9D6EE; --rand:#D9443A; --marker:#FFE45C; --gruen:#23704F; --grau:#ECEDF1;
+  --font:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",Verdana,Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papier:#14171F; --flaeche:#1C2029; --tinte:#AFC3FF; --text:#E8E9EE; --leise:#A9AEBD;
+    --linie:#2E3A58; --rand:#FF7A70; --marker:#7A6A10; --gruen:#1F7A55; --grau:#252A35;
+  }
+}
+:root[data-theme="dark"]{
+  --papier:#14171F; --flaeche:#1C2029; --tinte:#AFC3FF; --text:#E8E9EE; --leise:#A9AEBD;
+  --linie:#2E3A58; --rand:#FF7A70; --marker:#7A6A10; --gruen:#1F7A55; --grau:#252A35;
+}
+*{box-sizing:border-box}
+html{font-size:1.1875rem;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--papier);color:var(--text);font-family:var(--font);line-height:1.6;overflow-wrap:anywhere}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--tinte);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--rand);outline-offset:3px;border-radius:4px}
+.wrap{max-width:68rem;margin:0 auto;padding:0 16px}
+h1,h2,h3{color:var(--tinte);line-height:1.2;font-weight:800}
+h1{font-size:2.2rem;margin:.2em 0 .25em}
+h2{font-size:1.6rem;margin:0 0 .6em}
+h3{font-size:1.2rem;margin:1.3em 0 .4em}
+p,li{max-width:56em}
+.leise{color:var(--leise)}
+.kopf{background:var(--flaeche);border-bottom:1px solid var(--linie)}
+.kopf .wrap{padding-top:22px;padding-bottom:22px}
+.untertitel{margin:0;color:var(--leise)}
+.zurueck{display:inline-block;margin-bottom:6px;font-weight:600}
+section{padding:30px 0;border-top:1px solid var(--linie)}
+section:first-of-type{border-top:0}
+.ablauf{list-style:none;padding:0;margin:0}
+.ablauf li{display:grid;grid-template-columns:4.2em 1fr;gap:8px;padding:7px 0;border-bottom:1px dashed var(--linie)}
+.ablauf .zeit{font-weight:800;color:var(--tinte);font-variant-numeric:tabular-nums}
+.kacheln{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(14rem,100%),1fr))}
+.kachel{display:flex;flex-direction:column;text-decoration:none;color:var(--text);background:var(--flaeche);border:2px solid var(--linie);border-radius:14px;padding:16px 18px}
+.kachel:hover{border-color:var(--tinte)}
+.kachel .art{font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gruen)}
+.kachel b{font-size:1.15rem;color:var(--tinte);margin:4px 0}
+.kachel span.text{color:var(--leise);font-size:.95rem;flex:1}
+.kachel .los{margin-top:10px;font-weight:700;color:var(--tinte)}
+.kachel .los::after{content:" →"}
+.hinweis{background:var(--grau);border-radius:12px;padding:14px 18px;margin:16px 0}
+.hinweis p{margin:.3em 0}
+.knopf{display:inline-block;font-weight:700;text-decoration:none;border:2px solid var(--tinte);background:var(--tinte);color:var(--papier);border-radius:10px;padding:.5em 1em;min-height:48px}
+.abstimmung{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.abstimmung img{width:150px;background:#fff;padding:6px;border-radius:8px}
+.adresse{font-weight:800;font-size:1.3em;-webkit-hyphens:manual;hyphens:manual}
+.bild{display:grid;gap:16px;grid-template-columns:1fr 160px;align-items:start}
+@media (max-width:560px){.bild{grid-template-columns:1fr}.bild img{max-width:160px}}
+.raten{background:var(--flaeche);border:2px solid var(--linie);border-radius:12px;padding:12px 16px}
+.raten p{margin:.2em 0}
+.stand{font-size:.85rem;color:var(--leise)}
+footer{padding:26px 0 50px;border-top:1px solid var(--linie);color:var(--leise);font-size:.9rem}
+@media print{
+  :root{--papier:#fff;--flaeche:#fff;--tinte:#1C2B5A;--text:#22252E;--leise:#555;--linie:#bbb;--grau:#eee}
+  .knopf{border:1px solid #999;background:#fff;color:#000}
+  section{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="kopf">
+  <div class="wrap">
+    <a class="zurueck" href="index.html">← Zur Kursseite „KI im Alltag“</a>
+    <h1>Abend 2 · KI erledigt</h1>
+    <p class="untertitel">VHS Landshut · Donnerstag, 29. Oktober 2026, 18:30–21:30 Uhr</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="ablauf">
+  <h2>Heute auf einen Blick</h2>
+  <ul class="ablauf">
+    <li><span class="zeit">18:30</span><span>Ankommen, anmelden, Rückblick: Was haben Sie seit Dienstag ausprobiert?</span></li>
+    <li><span class="zeit">18:40</span><span>Abstimmen: Was wollen Sie heute sehen?</span></li>
+    <li><span class="zeit">18:50</span><span>Kurs-Postfach: Schicken Sie der KI eine Aufgabe</span></li>
+    <li><span class="zeit">18:57</span><span>Chat oder Agent? Und die Agenten-Wette</span></li>
+    <li><span class="zeit">19:05</span><span>Show Teil 1: der Vereinsnachmittag und Ihre Favoriten aus der Abstimmung</span></li>
+    <li><span class="zeit">19:38</span><span>Pause</span></li>
+    <li><span class="zeit">19:53</span><span>Werkstatt: Mein eigener Helfer</span></li>
+    <li><span class="zeit">20:28</span><span>Show Teil 2: die Aufgaben aus dem Postfach, die Falle und Wünsche aus dem Kurs</span></li>
+    <li><span class="zeit">20:58</span><span>Wo geht es weiter? Gratis oder Abo?</span></li>
+    <li><span class="zeit">21:13</span><span>Letzte Fragen und gemeinsam abmelden</span></li>
+  </ul>
+  <p class="stand">Welche Vorführungen drankommen, bestimmt die Abstimmung. Die Zeiten sind ungefähre Richtwerte.</p>
+</section>
+
+<section id="material">
+  <h2>Alle Materialien</h2>
+  <p>Alles ist kostenlos und bleibt nach dem Kurs online. Sie können zu Hause in Ruhe weiterlernen.</p>
+  <div class="kacheln">
+    <a class="kachel" href="index.html">
+      <span class="art">Für diesen Kurs</span>
+      <b>Kursseite „KI im Alltag“</b>
+      <span class="text">Alle Aufgaben zum Kopieren, die Steckbrief-Vorlagen für Ihren Helfer und die Übungsdateien.</span>
+      <span class="los">Öffnen</span>
+    </a>
+    <a class="kachel" href="abend-1.html">
+      <span class="art">Zum Nachlesen</span>
+      <b>Abend 1 · KI antwortet</b>
+      <span class="text">Der erste Abend: Konto, Trainings-Schalter, „Wie tickt die KI?“ und die Postkarten-Regel.</span>
+      <span class="los">Öffnen</span>
+    </a>
+    <a class="kachel" href="kurskarte.pdf">
+      <span class="art">Zum Ausdrucken</span>
+      <b>Kurskarte (PDF)</b>
+      <span class="text">Das Wichtigste auf zwei Seiten, zum Ausdrucken oder Speichern.</span>
+      <span class="los">Öffnen</span>
+    </a>
+    <a class="kachel" href="../index.html">
+      <span class="art">Gratis-Selbstlernkurs</span>
+      <b>Per Anhalter durch die KI</b>
+      <span class="text">Der ausführliche Kurs zum Weiterlernen: KI verstehen, gute Aufträge schreiben, ein eigenes Projekt.</span>
+      <span class="los">Öffnen</span>
+    </a>
+  </div>
+</section>
+
+<section id="abstimmung">
+  <h2>Abstimmen: Was wollen Sie heute sehen?</h2>
+  <div class="abstimmung">
+    <img src="assets/kurs-2-0/qr-abstimmung.png" alt="QR-Code zur Abstimmungsseite" width="300" height="300">
+    <div>
+      <p>Heute zeigt der Kursleiter KI-Agenten, die selbst etwas erledigen. Sie bestimmen, was drankommt: am Handy, ganz ohne Anmeldung. Bitte höchstens drei Kreuze pro Person.</p>
+      <p><a class="knopf" href="https://ki-kurs-wunschprogramm.blithechick1024.chatgpt.site/" target="_blank" rel="noopener">Zur Abstimmung</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="postfach">
+  <h2>Schreiben Sie der KI eine Aufgabe</h2>
+  <p class="adresse">kurs@kvasir-ki.de</p>
+  <p>Freiwillig, vom Handy aus. Zum Beispiel: ein Rezept für das, was im Kühlschrank ist (Foto anhängen), eine Packliste, einen Brief freundlicher formulieren, eine Ausflugsidee oder ein Gedicht zum Geburtstag. Ein KI-Agent liest Ihre Mail und antwortet Ihnen selbst.</p>
+  <div class="hinweis">
+    <p><b>Einsendeschluss heute um 20:15 Uhr.</b> Ausgewählte Aufgaben und Antworten schauen wir uns gemeinsam an. Bitte deshalb nichts Persönliches hineinschreiben und die Signatur löschen. Am Freitag, 30.10.2026, werden die Mails im Postfach gelöscht.</p>
+    <p>Was mit Ihrer Mail passiert und welche Rechte Sie haben, steht auf der Kursseite im Kapitel <a href="index.html#postfach">„Das Kurs-Postfach“</a>. Keine Mail schicken? Nehmen Sie eine der <a href="index.html#karten">Aufgabenkarten</a>.</p>
+  </div>
+</section>
+
+<section id="agent">
+  <h2>Wissenshappen: Chat oder Agent?</h2>
+  <div class="bild">
+    <div>
+      <p><b>Ein Chat ist die Auskunft am Telefon:</b> Er sagt Ihnen, wie es geht. <b>Ein Agent ist der Handwerker mit Schlüssel:</b> Er macht es selbst und fragt, wo der Sicherungskasten ist.</p>
+      <p>Was ein Agent darf, legen Sie fest: nur ein freigegebener Ordner, Rückfragen erwünscht, nichts verschicken oder kaufen ohne Ihr OK.</p>
+      <p><b>Die Agenten-Wette:</b> Vor jeder Vorführung stimmen alle mit dem Daumen ab: Schafft der Agent es, oder nicht? Am Ende zählen wir aus, wer öfter recht hatte.</p>
+    </div>
+    <img src="assets/kurs-2-0/agent.jpg" alt="Gezeichneter kleiner Roboter mit Werkzeuggürtel, der Ordner von einem Haufen am Boden in die Schubladen eines Schreibtischs räumt" width="700" height="700">
+  </div>
+  <div class="hinweis">
+    <p><b>Merksatz:</b> Der Agent arbeitet, der Mensch prüft und entscheidet.</p>
+  </div>
+  <p>Mehr dazu und zum Ausprobieren zu Hause: Kursseite, Kapitel <a href="index.html#agenten">„Agenten“</a>.</p>
+</section>
+
+<section id="helfer">
+  <h2>Werkstatt: Mein eigener Helfer</h2>
+  <p>Wenn Sie eine Aufgabe öfter haben, geben Sie der KI eine feste Anleitung, einen <b>Steckbrief</b>. Danach genügt ein Satz. Das geht auch in der kostenlosen Version: bei ChatGPT als Projekt, bei Gemini als Gem, und überall mit dem Steckbrief-Trick (Anleitung oben in einen neuen Chat kopieren).</p>
+  <p>Vorlagen zum Kopieren: Brief-Helfer, Vereins-Schriftführer, Behördenpost-Übersetzer, Küchen-Helfer und neu der <b>Sprach-Partner</b> zum Üben einer Fremdsprache im Gespräch, zum Beispiel Spanisch.</p>
+  <p><a class="knopf" href="index.html#helfer">Zu den Steckbrief-Vorlagen</a></p>
+</section>
+
+<section id="weiter">
+  <h2>Brauche ich ein Abo?</h2>
+  <p><b>Kostenlos anfangen.</b> Ein Abo lohnt sich, wenn Ihnen eine Funktion fehlt, die Sie brauchen, oder wenn Sie regelmäßig an eine Grenze stoßen. Dann <b>ein</b> Abo für rund 22 € im Monat, nicht drei. Die Agenten von heute Abend gibt es in vollem Umfang nur mit Abo.</p>
+  <p>Entscheidungshilfe, Preise und Ihr nächster Schritt stehen auf der Kursseite in den Kapiteln <a href="index.html#abo">„Gratis oder Abo?“</a> und <a href="index.html#weiter">„Wo geht's weiter?“</a>.</p>
+</section>
+
+<section id="abmelden">
+  <h2>Zum Schluss: abmelden</h2>
+  <ol>
+    <li>Auf Ihr Profilbild oder Ihren Namen → <b>Abmelden</b>.</li>
+    <li>Das private Fenster schließen.</li>
+    <li>Wenn Sie sich mit Google angemeldet haben: auch das Google-Konto im Browser abmelden.</li>
+  </ol>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Kurs 2.0 · Abend 2 · v1 · Stand 29.10.2026. KI-Programme, Preise und Menüs ändern sich häufig. <a href="index.html">Zur Kursseite</a> · <a href="abend-1.html">Abend 1</a> · <a href="../index.html">Per Anhalter durch die KI</a></p>
+  </div>
+</footer>
+</body>
+</html>
