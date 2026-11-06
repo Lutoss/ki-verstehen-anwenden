@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KI im Alltag – Abend 2</title>
-<meta name="description" content="Abend 2 des VHS-Kurses „KI im Alltag“: Ablauf, Abstimmung, Kurs-Postfach, Agenten und die Werkstatt „Mein eigener Helfer“.">
+<meta name="description" content="Abend 2 von „KI im Alltag“: Ablauf, Agenten, die Agenten-Wette und die Werkstatt „Mein eigener Helfer“.">
 <!--
-  Kurs 2.0 · Seite „Abend 2“ · v1 · Stand 29.10.2026 (Aufbau wie abend-1.html)
+  Kurs 2.0 · Seite „Abend 2“ · v2 · Stand 02.11.2026 (November-Fassung) (Aufbau wie abend-1.html)
   Ablauf und Fakten: docs/kurs-2-0-regiebuch.md (§ 3, § 4, § 5, § 9).
   Liegt nur im Pages-Repo (vhs-ki-kurs/keine-panik/), verlinkt von index.html (Kursseite) und ../index.html (Übersicht).
 -->
@@ -63,9 +63,6 @@ section:first-of-type{border-top:0}
 .hinweis{background:var(--grau);border-radius:12px;padding:14px 18px;margin:16px 0}
 .hinweis p{margin:.3em 0}
 .knopf{display:inline-block;font-weight:700;text-decoration:none;border:2px solid var(--tinte);background:var(--tinte);color:var(--papier);border-radius:10px;padding:.5em 1em;min-height:48px}
-.abstimmung{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
-.abstimmung img{width:150px;background:#fff;padding:6px;border-radius:8px}
-.adresse{font-weight:800;font-size:1.3em;-webkit-hyphens:manual;hyphens:manual}
 .bild{display:grid;gap:16px;grid-template-columns:1fr 160px;align-items:start}
 @media (max-width:560px){.bild{grid-template-columns:1fr}.bild img{max-width:160px}}
 .raten{background:var(--flaeche);border:2px solid var(--linie);border-radius:12px;padding:12px 16px}
@@ -85,7 +82,7 @@ footer{padding:26px 0 50px;border-top:1px solid var(--linie);color:var(--leise);
   <div class="wrap">
     <a class="zurueck" href="index.html">← Zur Kursseite „KI im Alltag“</a>
     <h1>Abend 2 · KI erledigt</h1>
-    <p class="untertitel">VHS Landshut · Donnerstag, 29. Oktober 2026, 18:30–21:30 Uhr</p>
+    <p class="untertitel">VHS Landshut · Dienstag, 17. November 2026, 18:30–21:30 Uhr</p>
   </div>
 </header>
 
@@ -94,18 +91,17 @@ footer{padding:26px 0 50px;border-top:1px solid var(--linie);color:var(--leise);
 <section id="ablauf">
   <h2>Heute auf einen Blick</h2>
   <ul class="ablauf">
-    <li><span class="zeit">18:30</span><span>Ankommen, anmelden, Rückblick: Was haben Sie seit Dienstag ausprobiert?</span></li>
-    <li><span class="zeit">18:40</span><span>Abstimmen: Was wollen Sie heute sehen?</span></li>
-    <li><span class="zeit">18:50</span><span>Kurs-Postfach: Schicken Sie der KI eine Aufgabe</span></li>
+    <li><span class="zeit">18:30</span><span>Ankommen, anmelden, Rückblick: Was haben Sie in der Woche ausprobiert?</span></li>
+    <li><span class="zeit">18:45</span><span>Ihre Zettel und Wünsche: Was wollen Sie heute sehen? Abstimmen per Handzeichen</span></li>
     <li><span class="zeit">18:57</span><span>Chat oder Agent? Und die Agenten-Wette</span></li>
     <li><span class="zeit">19:05</span><span>Show Teil 1: der Vereinsnachmittag und Ihre Favoriten aus der Abstimmung</span></li>
     <li><span class="zeit">19:38</span><span>Pause</span></li>
     <li><span class="zeit">19:53</span><span>Werkstatt: Mein eigener Helfer</span></li>
-    <li><span class="zeit">20:28</span><span>Show Teil 2: die Aufgaben aus dem Postfach, die Falle und Wünsche aus dem Kurs</span></li>
+    <li><span class="zeit">20:28</span><span>Show Teil 2: Ihre Wünsche und die Falle</span></li>
     <li><span class="zeit">20:58</span><span>Wo geht es weiter? Gratis oder Abo?</span></li>
     <li><span class="zeit">21:13</span><span>Letzte Fragen und gemeinsam abmelden</span></li>
   </ul>
-  <p class="stand">Welche Vorführungen drankommen, bestimmt die Abstimmung. Die Zeiten sind ungefähre Richtwerte.</p>
+  <p class="stand">Welche Vorführungen drankommen, bestimmen Sie per Handzeichen. Die Zeiten sind ungefähre Richtwerte.</p>
 </section>
 
 <section id="material">
@@ -136,27 +132,6 @@ footer{padding:26px 0 50px;border-top:1px solid var(--linie);color:var(--leise);
       <span class="text">Der ausführliche Kurs zum Weiterlernen: KI verstehen, gute Aufträge schreiben, ein eigenes Projekt.</span>
       <span class="los">Öffnen</span>
     </a>
-  </div>
-</section>
-
-<section id="abstimmung">
-  <h2>Abstimmen: Was wollen Sie heute sehen?</h2>
-  <div class="abstimmung">
-    <img src="assets/kurs-2-0/qr-abstimmung.png" alt="QR-Code zur Abstimmungsseite" width="300" height="300">
-    <div>
-      <p>Heute zeigt der Kursleiter KI-Agenten, die selbst etwas erledigen. Sie bestimmen, was drankommt: am Handy, ganz ohne Anmeldung. Bitte höchstens drei Kreuze pro Person.</p>
-      <p><a class="knopf" href="https://ki-kurs-wunschprogramm.blithechick1024.chatgpt.site/" target="_blank" rel="noopener">Zur Abstimmung</a></p>
-    </div>
-  </div>
-</section>
-
-<section id="postfach">
-  <h2>Schreiben Sie der KI eine Aufgabe</h2>
-  <p><a class="adresse" href="mailto:kurs@kvasir-ki.de">kurs@kvasir-ki.de</a></p>
-  <p>Freiwillig, vom Handy aus. Zum Beispiel: ein Rezept für das, was im Kühlschrank ist (Foto anhängen), eine Packliste, einen Brief freundlicher formulieren, eine Ausflugsidee oder ein Gedicht zum Geburtstag. Ein KI-Agent (Anthropic bzw. OpenAI, USA) liest Ihre Mail und antwortet Ihnen selbst.</p>
-  <div class="hinweis">
-    <p><b>Einsendeschluss heute um 20:15 Uhr.</b> Ausgewählte Aufgaben und Antworten schauen wir uns gemeinsam an. Bitte deshalb nichts Persönliches hineinschreiben und die Signatur löschen. Am Freitag, 30.10.2026, werden die Mails im Postfach gelöscht. Die Teilnahme ist freiwillig. Mit dem Absenden sind Sie einverstanden und können jederzeit widerrufen.</p>
-    <p>Was mit Ihrer Mail passiert und welche Rechte Sie haben, steht auf der Kursseite im Kapitel <a href="index.html#postfach">„Das Kurs-Postfach“</a>. Keine Mail schicken? Nehmen Sie eine der <a href="index.html#karten">Aufgabenkarten</a>.</p>
   </div>
 </section>
 
@@ -202,7 +177,7 @@ footer{padding:26px 0 50px;border-top:1px solid var(--linie);color:var(--leise);
 
 <footer>
   <div class="wrap">
-    <p>Kurs 2.0 · Abend 2 · v1 · Stand 29.10.2026. KI-Programme, Preise und Menüs ändern sich häufig. <a href="index.html">Zur Kursseite</a> · <a href="abend-1.html">Abend 1</a> · <a href="../index.html">Per Anhalter durch die KI</a> · <a href="../rechtliches.html">Impressum und Datenschutz</a></p>
+    <p>Kurs 2.0 · Abend 2 · v2 · Stand 02.11.2026. KI-Programme, Preise und Menüs ändern sich häufig. <a href="index.html">Zur Kursseite</a> · <a href="abend-1.html">Abend 1</a> · <a href="../index.html">Per Anhalter durch die KI</a> · <a href="../rechtliches.html">Impressum und Datenschutz</a></p>
   </div>
 </footer>
 </body>
