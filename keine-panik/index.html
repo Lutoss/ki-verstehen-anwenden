@@ -646,7 +646,7 @@ Vergleiche es mit Angebot A: Welches ist günstiger, und passt es für 6 vegetar
     <p>Schreiben Sie der KI eine Aufgabe, eine Frage oder Ihren Wunsch für Donnerstag: <a class="adresse" href="mailto:kurs@kvasir-ki.de">kurs@kvasir-ki.de</a> (freiwillig). Die KI antwortet Ihnen selbst, meist innerhalb eines Tages.</p>
     <p>Zum Beispiel: Rezept für das, was im Kühlschrank ist (Foto anhängen) · Packliste · Brief freundlicher formulieren · Ausflugsidee · Gedicht zum Geburtstag.</p>
     <p><b>Ausgewählte Aufgaben und Antworten schauen wir uns gemeinsam im Kurs an.</b> Bitte deshalb nichts Persönliches oder Vertrauliches hineinschreiben und die Signatur vorher löschen.</p>
-    <p><b>Was mit Ihrer Mail passiert:</b> Verantwortlich ist <span class="nt">Lukas Schwingenschlögl</span> (Kursleitung). Die Mail liegt im Kurs-Postfach bei INWX (Berlin). Ein KI-Agent (Anthropic bzw. OpenAI, USA) liest Ihre Mail und antwortet Ihnen direkt. Am <b>Fr 30.10.2026</b> werden die Mails im Postfach gelöscht; bei den KI-Anbietern bleiben Daten in der Regel bis zu 30 Tage in Sicherungen, in Ausnahmefällen länger. Ihre Adresse wird für nichts anderes verwendet.</p>
+    <p><b>Was mit Ihrer Mail passiert:</b> Verantwortlich ist <span class="nt">Lukas Schwingenschlögl</span> (Kursleitung). Die Mail liegt im Kurs-Postfach bei INWX (Berlin). Ein KI-Agent (Anthropic bzw. OpenAI, USA) liest Ihre Mail und antwortet Ihnen direkt. Am <b>Fr 30.10.2026</b> werden die Mails im Postfach und auf dem Rechner der Kursleitung gelöscht. Wie lange der KI-Anbieter Daten speichert und alle weiteren Angaben stehen im <a href="../rechtliches.html#postfach">Datenschutzhinweis</a>. Ihre Adresse wird für nichts anderes verwendet.</p>
     <p><b>Rechtsgrundlage und Ihre Rechte:</b> Rechtsgrundlage ist Ihre Einwilligung: Mit dem Absenden sind Sie einverstanden. Sie können jederzeit widerrufen, eine kurze Mail an <span class="nt">kurs@kvasir-ki.de</span> genügt, dann wird Ihre Mail sofort gelöscht. Sie haben das Recht auf Auskunft und Löschung und können sich bei der Datenschutzaufsicht beschweren.</p>
     <p>Keine Mail? Nehmen Sie eine der vorbereiteten <a href="#karten">Aufgabenkarten</a>.</p>
   </div>
@@ -893,6 +893,7 @@ Vergleiche es mit Angebot A: Welches ist günstiger, und passt es für 6 vegetar
     <p><b>Kurs 2.0 · v1 · Stand 23.10.2026</b></p>
     <p>Begleitseite zum VHS-Kurs „KI im Alltag“, VHS Landshut, 27. und 29. Oktober 2026. Kursleitung: <span class="nt">Lukas Schwingenschlögl</span>.</p>
     <p>KI-Programme, Preise und Menüs ändern sich häufig. Alle Beispiele, Namen und Dokumente auf dieser Seite sind erfunden. Bilder: KI-generiert. Schrift: Atkinson Hyperlegible Next (SIL Open Font License), lokal eingebunden.</p>
+    <p><a href="../rechtliches.html">Impressum und Datenschutz</a></p>
   </div>
 </footer>
 
@@ -909,10 +910,10 @@ Vergleiche es mit Angebot A: Welches ist günstiger, und passt es für 6 vegetar
   var stufen = [1.0, 1.1875, 1.375, 1.6];
   var stufe = parseInt(speicher.lies("ki-kurs-schrift") || "1", 10);
   if (isNaN(stufe) || stufe < 0 || stufe >= stufen.length) stufe = 1;
-  function setzeSchrift(){ document.documentElement.style.setProperty("--schrift", stufen[stufe] + "rem"); speicher.schreib("ki-kurs-schrift", String(stufe)); }
-  setzeSchrift();
-  document.getElementById("groesser").addEventListener("click", function(){ if (stufe < stufen.length-1){ stufe++; setzeSchrift(); } });
-  document.getElementById("kleiner").addEventListener("click", function(){ if (stufe > 0){ stufe--; setzeSchrift(); } });
+  function setzeSchrift(merken){ document.documentElement.style.setProperty("--schrift", stufen[stufe] + "rem"); if (merken) speicher.schreib("ki-kurs-schrift", String(stufe)); }
+  setzeSchrift(false);
+  document.getElementById("groesser").addEventListener("click", function(){ if (stufe < stufen.length-1){ stufe++; setzeSchrift(true); } });
+  document.getElementById("kleiner").addEventListener("click", function(){ if (stufe > 0){ stufe--; setzeSchrift(true); } });
   document.getElementById("drucken").addEventListener("click", function(){ document.querySelectorAll("details").forEach(function(d){ d.open = true; }); window.print(); });
 
   /* Platzhalter in eckigen Klammern markieren */
